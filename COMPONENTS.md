@@ -545,3 +545,24 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 | Data display | [Folder](https://blog.mingu.xyz/lab/ui/folder), [CodeBlock](https://blog.mingu.xyz/lab/ui/code-block), [GithubActivity](https://blog.mingu.xyz/lab/ui/github-activity), [StepPlayer](https://blog.mingu.xyz/lab/ui/step-player), [AnimatedCounter](https://blog.mingu.xyz/lab/ui/animated-counter), [VoiceNote](https://blog.mingu.xyz/lab/ui/voice-note), [Faq](https://blog.mingu.xyz/lab/ui/faq), [WebSearch](https://blog.mingu.xyz/lab/ui/web-search), [TaskList](https://blog.mingu.xyz/lab/ui/task-list) |
 | Feedback | [EmojiReaction](https://blog.mingu.xyz/lab/ui/emoji-reaction), [NotificationBell](https://blog.mingu.xyz/lab/ui/notification-bell), [AiStatus](https://blog.mingu.xyz/lab/ui/ai-status) |
 | Visual effects | [GravityLetters](https://blog.mingu.xyz/lab/ui/gravity-letters), [FluidOrb](https://blog.mingu.xyz/lab/ui/fluid-orb), [MatrixOrb](https://blog.mingu.xyz/lab/ui/matrix-orb), [GridReveal](https://blog.mingu.xyz/lab/ui/grid-reveal) |
+
+## Micro interactions
+
+| 컴포넌트 | 반응 | 미리보기 |
+| --- | --- | --- |
+| Button | 눌림/복귀, magnetic, ripple, shine, loading/success/error | [Button](https://blog.mingu.xyz/lab/ui/button) |
+| CopyButton | 실제 복사 → 라벨 전환·체크 드로잉, 실패 안내 | [CopyButton](https://blog.mingu.xyz/lab/ui/copy-button) |
+| FloatingField | 라벨 이동·포커스 강조선, 오류 상태 | [FloatingField](https://blog.mingu.xyz/lab/ui/floating-field) |
+| SegmentedControl | 네이티브 라디오 + 공유 스프링 표시 | [SegmentedControl](https://blog.mingu.xyz/lab/ui/segmented-control) |
+| Tabs | `animated` 선택 배경/패널 전환 | [Tabs](https://blog.mingu.xyz/lab/ui/tabs) |
+| InteractiveCard | 포인터 조명/테두리와 선택적 기울기 | [InteractiveCard](https://blog.mingu.xyz/lab/ui/interactive-card) |
+
+```tsx
+<Button interaction="magnetic">Explore ↗</Button>
+<Button interaction="ripple" variant="secondary">Press anywhere</Button>
+<CopyButton text="hello@mingu.xyz" label="Copy email" />
+<FloatingField label="Email" type="email" required />
+<SegmentedControl label="Billing" defaultValue="monthly" name="billing"
+  options={[{ value: 'monthly', label: 'Monthly' }, { value: 'yearly', label: 'Yearly' }]} />
+<InteractiveCard effect="tilt"><Heading level={3}>Project</Heading></InteractiveCard>
+```

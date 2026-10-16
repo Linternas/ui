@@ -5,12 +5,15 @@ import {
   useId,
   useImperativeHandle,
   useRef,
+  useState,
   type ReactNode,
   type RefObject,
   type CSSProperties,
   type ComponentProps,
   type HTMLAttributes,
 } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { selectionSpring, pointerMotion } from "./motion-tokens";
 import { InteractionProvider } from "../shared";
 
 const cx = (...values: (string | false | undefined)[]) =>
@@ -45,23 +48,103 @@ export interface ButtonProps extends ComponentProps<"button"> {
   variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
+  interaction?: "press" | "magnetic" | "ripple" | "shine" | "none";
+  status?: "idle" | "success" | "error";
+  icon?: ReactNode;
 }
 export function Button({
   variant = "primary",
   size = "md",
   loading = false,
+  interaction = "press",
+  status = "idle",
+  icon,
+  onPointerMove,
+  onPointerLeave,
+  onPointerDown,
+  onKeyDown,
   disabled,
   type = "button",
   className,
   children,
   ...props
 }: ButtonProps) {
+  const [ripples, setRipples] = useState<
+    { id: number; x: number; y: number; size: number }[]
+  >([]);
+  const sequence = useRef(0);
+  const addRipple = (
+    element: HTMLButtonElement,
+    clientX?: number,
+    clientY?: number,
+  ) => {
+    if (
+      interaction !== "ripple" ||
+      disabled ||
+      loading ||
+      matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    const rect = element.getBoundingClientRect();
+    const size = Math.hypot(rect.width, rect.height) * 2;
+    setRipples((items) => [
+      ...items.slice(-3),
+      {
+        id: ++sequence.current,
+        x: clientX === undefined ? rect.width / 2 : clientX - rect.left,
+        y: clientY === undefined ? rect.height / 2 : clientY - rect.top,
+        size,
+      },
+    ]);
+  };
   return (
     <button
       {...props}
       type={type}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
+      data-interaction={interaction}
+      data-status={loading ? "loading" : status}
+      onPointerMove={(event) => {
+        onPointerMove?.(event);
+        if (
+          event.defaultPrevented ||
+          interaction !== "magnetic" ||
+          disabled ||
+          loading ||
+          event.pointerType === "touch" ||
+          matchMedia("(prefers-reduced-motion: reduce)").matches
+        )
+          return;
+        const rect = event.currentTarget.getBoundingClientRect();
+        event.currentTarget.style.setProperty(
+          "--mingu-magnet-x",
+          `${Math.max(-pointerMotion.magnetX, Math.min(pointerMotion.magnetX, (event.clientX - rect.left - rect.width / 2) * pointerMotion.pull))}px`,
+        );
+        event.currentTarget.style.setProperty(
+          "--mingu-magnet-y",
+          `${Math.max(-pointerMotion.magnetY, Math.min(pointerMotion.magnetY, (event.clientY - rect.top - rect.height / 2) * pointerMotion.pull))}px`,
+        );
+      }}
+      onPointerLeave={(event) => {
+        onPointerLeave?.(event);
+        event.currentTarget.style.setProperty("--mingu-magnet-x", "0px");
+        event.currentTarget.style.setProperty("--mingu-magnet-y", "0px");
+      }}
+      onPointerDown={(event) => {
+        onPointerDown?.(event);
+        if (!event.defaultPrevented && event.button === 0)
+          addRipple(event.currentTarget, event.clientX, event.clientY);
+      }}
+      onKeyDown={(event) => {
+        onKeyDown?.(event);
+        if (
+          !event.defaultPrevented &&
+          !event.repeat &&
+          (event.key === "Enter" || event.key === " ")
+        )
+          addRipple(event.currentTarget);
+      }}
       className={cx(
         "mingu-button",
         `mingu-button-${variant}`,
@@ -69,8 +152,42 @@ export function Button({
         className,
       )}
     >
-      {loading && <span className="mingu-spinner" aria-hidden="true" />}
-      {children}
+      {ripples.map((ripple) => (
+        <span
+          key={ripple.id}
+          className="mingu-button-ripple"
+          aria-hidden="true"
+          style={{
+            width: ripple.size,
+            height: ripple.size,
+            left: ripple.x,
+            top: ripple.y,
+          }}
+          onAnimationEnd={() =>
+            setRipples((items) => items.filter((item) => item.id !== ripple.id))
+          }
+        />
+      ))}
+      {(loading || status !== "idle" || icon != null) && (
+        <span className="mingu-button-state" aria-hidden="true">
+          {loading ? (
+            <span className="mingu-spinner" />
+          ) : status === "idle" ? (
+            icon
+          ) : (
+            <svg key={status} viewBox="0 0 20 20" fill="none">
+              <path
+                className="mingu-state-path"
+                pathLength="1"
+                d={
+                  status === "success" ? "M4 10l4 4 8-8" : "M6 6l8 8M14 6l-8 8"
+                }
+              />
+            </svg>
+          )}
+        </span>
+      )}
+      <span className="mingu-button-content">{children}</span>
     </button>
   );
 }
@@ -322,21 +439,27 @@ export function Tabs({
   onValueChange,
   label,
   className,
+  animated = false,
 }: {
   items: readonly TabItem[];
   value: string;
   onValueChange: (value: string) => void;
   label: string;
   className?: string;
+  animated?: boolean;
 }) {
   const id = useId();
+  const reduced = useReducedMotion();
   const tabList = useRef<HTMLDivElement>(null);
   const enabled = items.filter((item) => !item.disabled);
   const selected = enabled.some((item) => item.value === value)
     ? value
     : enabled[0]?.value;
   return (
-    <div className={cx("mingu-tabs", className)}>
+    <div
+      className={cx("mingu-tabs", className)}
+      data-animated={animated || undefined}
+    >
       <div
         ref={tabList}
         role="tablist"
@@ -381,7 +504,14 @@ export function Tabs({
                 ?.focus();
             }}
           >
-            {item.label}
+            {animated && item.value === selected && (
+              <motion.span
+                className="mingu-tab-indicator"
+                layoutId={`tab-${id}`}
+                transition={reduced ? { duration: 0 } : selectionSpring}
+              />
+            )}
+            <span className="mingu-tab-label">{item.label}</span>
           </button>
         ))}
       </div>

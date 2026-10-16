@@ -12,3 +12,5 @@ export {
   type UiCatalogEntry,
   type UiGroup,
 } from "./ui-catalog";
+
+export * from "./micro-interactions";

@@ -25,6 +25,14 @@
   --mingu-text-2xl: clamp(2rem, 5vw, 3rem);
   --mingu-duration-fast: 120ms;
   --mingu-duration-normal: 200ms;
+  --mingu-duration-release: 360ms;
+  --mingu-duration-ripple: 600ms;
+  --mingu-duration-sheen: 650ms;
+  --mingu-duration-draw: 320ms;
+  --mingu-duration-panel: 220ms;
+  --mingu-duration-press: 80ms;
+  --mingu-ease-spring: cubic-bezier(0.2, 1.4, 0.4, 1);
+  --mingu-press-scale: 0.97;
   --mingu-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --mingu-content: 72rem;
   --mingu-reading: 42.5rem;

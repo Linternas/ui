@@ -1,11 +1,42 @@
 export const systemCatalog = [
   {
+    id: "copy-button",
+    name: "CopyButton",
+    group: "Actions",
+    description:
+      "복사 성공에 맞춰 체크가 그려지고 라벨이 전환됩니다. 실패는 다시 시도로 표시합니다.",
+    code: `<CopyButton text="hello@mingu.xyz" label="Copy email" copiedLabel="Copied" interaction="ripple" />`,
+  },
+  {
+    id: "floating-field",
+    name: "FloatingField",
+    group: "Forms",
+    description: "포커스와 값에 따라 라벨이 이동하고 강조선이 펼쳐지는 입력.",
+    code: `<FloatingField label="Email" type="email" hint="Work address" />`,
+  },
+  {
+    id: "segmented-control",
+    name: "SegmentedControl",
+    group: "Forms",
+    description:
+      "선택 표시가 스프링으로 이어지는 네이티브 라디오 그룹. 방향키·폼 값·disabled 지원.",
+    code: `<SegmentedControl label="Billing" defaultValue="monthly" options={[{value:'monthly',label:'Monthly'},{value:'yearly',label:'Yearly'}]} />`,
+  },
+  {
+    id: "interactive-card",
+    name: "InteractiveCard",
+    group: "Layout",
+    description: "포인터를 따라오는 조명과 테두리, 선택 가능한 입체 반응.",
+    code: `<InteractiveCard effect="spotlight"><Heading level={3}>Project</Heading><Button interaction="magnetic">Explore</Button></InteractiveCard>`,
+  },
+
+  {
     id: "button",
     name: "Button",
     group: "Actions",
     description:
       "Primary, secondary, outline, ghost, danger. 크기·로딩·비활성 상태.",
-    code: `<Button variant="primary" size="md">Save changes</Button>\n<Button variant="outline" loading>Saving</Button>`,
+    code: `<Button interaction="magnetic">Explore ↗</Button>\n<Button variant="secondary" interaction="ripple">Press anywhere</Button>\n<Button variant="outline" interaction="shine">Catch the light</Button>\n<Button status="success">Saved</Button>`,
   },
   {
     id: "icon-button",
@@ -141,7 +172,7 @@ export const systemCatalog = [
     name: "Tabs",
     group: "Navigation",
     description: "방향키·Home·End, 비활성 항목 건너뛰기, 패널 연결.",
-    code: `<Tabs label="Project" value={tab} onValueChange={setTab} items={[{value:'overview',label:'Overview',content:<p>Overview</p>}]} />`,
+    code: `<Tabs animated label="Project" value={tab} onValueChange={setTab} items={[{value:'overview',label:'Overview',content:<p>Overview</p>}]} />`,
   },
   {
     id: "breadcrumbs",
