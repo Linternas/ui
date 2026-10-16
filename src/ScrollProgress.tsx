@@ -11,7 +11,8 @@ export function ScrollProgress({
   containerRef,
   offset,
   className = "",
-}: ReadingPositionOptions & { className?: string }) {
+  variant = "floating",
+}: ReadingPositionOptions & { className?: string; variant?: "floating" | "inline" }) {
   const { activeId, progress, navigate } = useReadingPosition({
     sections,
     containerRef,
@@ -21,6 +22,8 @@ export function ScrollProgress({
   const rootRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
+  const inline = variant === "inline";
+  const Header = inline ? "div" : "button";
   const percent = Math.round(progress * 100);
   const active =
     sections.find((section) => section.id === activeId) ?? sections[0];
@@ -46,13 +49,13 @@ export function ScrollProgress({
   return (
     <div
       ref={rootRef}
-      className={`mru-progress ${className}`}
+      className={`mru-progress ${inline ? "mru-progress-inline" : ""} ${className}`}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null))
           setOpen(false);
       }}
     >
-      {open && (
+      {(open || inline) && (
         <nav
           id={panelId}
           className="mru-progress-panel"
@@ -82,14 +85,10 @@ export function ScrollProgress({
           ))}
         </nav>
       )}
-      <button
-        ref={buttonRef}
-        type="button"
+      <Header
+        ref={(node: HTMLElement | null) => { buttonRef.current = node instanceof HTMLButtonElement ? node : null; }}
+        {...(!inline ? { type: "button" as const, "aria-expanded": open, "aria-controls": open ? panelId : undefined, onClick: () => setOpen((value: boolean) => !value), disabled: !sections.length } : {})}
         className="mru-progress-toggle"
-        aria-expanded={open}
-        aria-controls={open ? panelId : undefined}
-        onClick={() => setOpen((value) => !value)}
-        disabled={!sections.length}
       >
         <svg
           className="mru-progress-ring"
@@ -109,12 +108,12 @@ export function ScrollProgress({
           {active?.label ?? "Reading progress"}
         </span>
         <span className="mru-progress-percent">{percent}%</span>
-        <span aria-hidden="true">{open ? "−" : "+"}</span>
+        {!inline && <span aria-hidden="true">{open ? "−" : "+"}</span>}
         <span className="mru-sr-only">
           {" "}
-          — {percent}% read, toggle section navigation
+          — {percent}% read{!inline && ", toggle section navigation"}
         </span>
-      </button>
+      </Header>
     </div>
   );
 }

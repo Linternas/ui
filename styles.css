@@ -327,3 +327,26 @@
     animation: none;
   }
 }
+
+.mru-progress-panel {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mru-border, #dedfe2) transparent;
+  overscroll-behavior: contain;
+}
+.mru-progress-panel::-webkit-scrollbar { width: 5px; }
+.mru-progress-panel::-webkit-scrollbar-track { background: transparent; }
+.mru-progress-panel::-webkit-scrollbar-thumb {
+  background: var(--mru-border, #dedfe2);
+  border-radius: 999px;
+}
+.mru-progress-panel::-webkit-scrollbar-thumb:hover { background: var(--mru-muted, #626972); }
+.mru-progress-inline { display: flex; flex-direction: column; gap: 12px; }
+.mru-progress-inline .mru-progress-toggle { order: -1; box-shadow: none; border-radius: 12px; }
+.mru-progress-inline .mru-progress-panel {
+  position: static;
+  max-height: calc(100dvh - 13rem);
+  padding: 12px 8px;
+  box-shadow: none;
+  animation: none;
+}
+.mru-progress-inline .mru-toc-title { padding-inline: 8px; }
