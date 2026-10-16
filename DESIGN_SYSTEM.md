@@ -98,6 +98,9 @@ Interaction 컴포넌트의 기존 `--mru-*` 색상은 Provider 안에서 공통
 
 ## Core API
 
+전체 기본 UI 카탈로그와 상태 기준은 [COMPONENTS.md](./COMPONENTS.md)를 따른다. 각 항목의 라이브 미리보기·사용 코드가 연결되어 있다.
+
+
 컴포넌트는 네이티브 props와 React 19의 `ref` prop을 전달한다. 조합 컴포넌트는 아래 별도 API를 사용한다.
 
 | 컴포넌트 | 주요 props / 사용 규칙 |
@@ -116,7 +119,7 @@ Interaction 컴포넌트의 기존 `--mru-*` 색상은 Provider 안에서 공통
 
 Tabs는 방향키·Home·End를 지원하고 비활성 항목을 건너뛴다. 패널 전환은 자동 활성화 방식이다. 무거운 패널은 소비 앱에서 미리 로드하거나 별도 패턴으로 구성한다.
 
-Dialog는 네이티브 `<dialog>`의 모달 포커스 범위를 사용한다. Escape와 닫기 버튼이 `onOpenChange(false)`를 호출하며 호출자는 open을 갱신한다. 닫힌 뒤 열기 버튼으로 포커스가 돌아간다. dialog 제목은 항상 제공한다. backdrop 클릭으로 파괴적 동작이 자동 승인되지 않는다.
+Dialog는 네이티브 `<dialog>`의 모달 포커스 범위를 사용한다. Escape와 닫기 버튼이 `onOpenChange(false)`를 호출하며 호출자는 open을 갱신한다. 닫힌 뒤 열기 버튼으로 포커스가 돌아간다. 특정 요소로 초기 포커스를 보내려면 `initialFocus` ref를 전달한다. dialog 제목은 항상 제공한다. backdrop 클릭으로 파괴적 동작이 자동 승인되지 않는다.
 
 ## 새 웹 도입 체크
 
@@ -140,4 +143,4 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-브라우저 테스트는 폼 의미·키보드 탭 탐색·대화상자 포커스·테마 격리·반응형·모션 감소와 기존 인터랙션 동작을 검사한다. 지원 대상은 React 19와 CSS 변수·ResizeObserver·네이티브 dialog를 제공하는 현대 브라우저다. 자동 검사는 전체 접근성 인증을 뜻하지 않으며, 제품 화면의 접근성 이름과 데이터 상태는 소비 앱에서도 확인한다.
+브라우저 테스트는 폼 의미·키보드 탭 탐색·대화상자 포커스·테마 격리·반응형·모션 감소와 기존 인터랙션 동작을 검사한다. 지원 대상은 React 19와 CSS 변수·ResizeObserver·네이티브 dialog·Popover API를 제공하는 현대 브라우저다. 자동 검사는 전체 접근성 인증을 뜻하지 않으며, 제품 화면의 접근성 이름과 데이터 상태는 소비 앱에서도 확인한다.

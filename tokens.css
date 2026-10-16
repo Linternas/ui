@@ -30,6 +30,7 @@
   --mingu-reading: 42.5rem;
   --mingu-z-sticky: 20;
   --mingu-z-popover: 40;
+  --mingu-z-toast: 60;
 }
 :root,
 [data-mingu-theme="light"] {
@@ -40,6 +41,7 @@
   --mingu-text: #111111;
   --mingu-muted: #626972;
   --mingu-border: #dedfe2;
+  --mingu-control-border: #858c96;
   --mingu-accent: #2563a6;
   --mingu-on-accent: #fff;
   --mingu-accent-soft: #eaf2fb;
@@ -60,6 +62,7 @@
   --mingu-text: #ededed;
   --mingu-muted: #a0a0a5;
   --mingu-border: #343438;
+  --mingu-control-border: #73737d;
   --mingu-accent: #8bc3ff;
   --mingu-on-accent: #102338;
   --mingu-accent-soft: #1b2b3d;
@@ -80,6 +83,7 @@
     --mingu-text: #ededed;
     --mingu-muted: #a0a0a5;
     --mingu-border: #343438;
+    --mingu-control-border: #73737d;
     --mingu-accent: #8bc3ff;
     --mingu-on-accent: #102338;
     --mingu-accent-soft: #1b2b3d;
@@ -102,6 +106,7 @@
     --mingu-text: #111111;
     --mingu-muted: #626972;
     --mingu-border: #dedfe2;
+    --mingu-control-border: #858c96;
     --mingu-accent: #2563a6;
     --mingu-on-accent: #fff;
     --mingu-accent-soft: #eaf2fb;

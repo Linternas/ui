@@ -377,3 +377,564 @@ html:has(dialog.mingu-dialog[open]) {
   overflow: hidden;
   scrollbar-gutter: stable;
 }
+/* Form and action variants */
+.mingu-button-outline {
+  color: var(--mingu-text);
+  border-color: var(--mingu-control-border);
+  background: transparent;
+}
+.mingu-button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mingu-icon-button {
+  aspect-ratio: 1;
+  padding-inline: 10px;
+}
+.mingu-button-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-1);
+}
+.mingu-input {
+  border-color: var(--mingu-control-border, var(--mingu-border));
+}
+.mingu-input-sm {
+  min-height: 36px;
+  padding: 6px 10px;
+}
+.mingu-input-lg {
+  min-height: 48px;
+  padding: 12px 16px;
+}
+.mingu-label,
+.mingu-radio-group legend {
+  font-size: var(--mingu-text-sm);
+  font-weight: 550;
+}
+.mingu-password {
+  position: relative;
+}
+.mingu-password input {
+  padding-right: 5rem;
+}
+.mingu-password > button {
+  position: absolute;
+  right: 6px;
+  top: 33px;
+}
+.mingu-field-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--mingu-space-3);
+  font-size: var(--mingu-text-sm);
+}
+.mingu-field-heading output {
+  color: var(--mingu-muted);
+  font-variant-numeric: tabular-nums;
+}
+.mingu-radio-group {
+  display: grid;
+  gap: var(--mingu-space-2);
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.mingu-radio-group legend {
+  margin-bottom: var(--mingu-space-2);
+}
+.mingu-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-3);
+  min-height: 44px;
+  font-size: var(--mingu-text-sm);
+  cursor: pointer;
+}
+.mingu-radio input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--mingu-accent);
+}
+.mingu-radio small {
+  display: block;
+  color: var(--mingu-muted);
+}
+.mingu-radio:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mingu-slider {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  accent-color: var(--mingu-accent);
+}
+.mingu-slider:disabled {
+  opacity: 0.5;
+}
+.mingu-file {
+  width: 100%;
+  color: var(--mingu-muted);
+  border: 1px dashed var(--mingu-control-border);
+  border-radius: var(--mingu-radius-md);
+  padding: var(--mingu-space-3);
+  font: inherit;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-file::file-selector-button {
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-sm);
+  background: var(--mingu-surface);
+  color: var(--mingu-text);
+  font: inherit;
+  padding: 0.5rem 0.75rem;
+  margin-right: 0.75rem;
+  cursor: pointer;
+}
+.mingu-combobox {
+  position: relative;
+}
+.mingu-combobox-list {
+  position: absolute;
+  z-index: var(--mingu-z-popover);
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 4px;
+  margin: 0;
+  background: var(--mingu-raised);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  box-shadow: var(--mingu-shadow);
+  font-size: var(--mingu-text-sm);
+}
+.mingu-combobox-list li {
+  padding: 10px 12px;
+  border-radius: var(--mingu-radius-sm);
+  cursor: pointer;
+}
+.mingu-combobox-list li[data-active] {
+  background: var(--mingu-accent-soft);
+  color: var(--mingu-accent);
+}
+.mingu-combobox-list li[aria-selected="true"] {
+  font-weight: 650;
+}
+.mingu-combobox-list li[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* Typography and data */
+.mingu-heading {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+.mingu-text {
+  margin: 0;
+  line-height: 1.6;
+}
+.mingu-text-xs {
+  font-size: var(--mingu-text-xs);
+}
+.mingu-text-sm {
+  font-size: var(--mingu-text-sm);
+}
+.mingu-text-md {
+  font-size: var(--mingu-text-md);
+}
+.mingu-text-lg {
+  font-size: var(--mingu-text-lg);
+}
+.mingu-text-xl {
+  font-size: var(--mingu-text-xl);
+}
+.mingu-text-2xl {
+  font-size: var(--mingu-text-2xl);
+}
+.mingu-loading {
+  display: inline-flex;
+  align-items: center;
+  color: var(--mingu-accent);
+}
+.mingu-loading .mingu-spinner {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.mingu-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.mingu-progress-bar {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 6px;
+  border: 0;
+  border-radius: var(--mingu-radius-full);
+  overflow: hidden;
+  background: var(--mingu-surface);
+  accent-color: var(--mingu-accent);
+}
+.mingu-progress-bar::-webkit-progress-bar {
+  background: var(--mingu-surface);
+}
+.mingu-progress-bar::-webkit-progress-value {
+  background: var(--mingu-accent);
+  border-radius: inherit;
+}
+.mingu-progress-bar::-moz-progress-bar {
+  background: var(--mingu-accent);
+  border-radius: inherit;
+}
+.mingu-progress-bar:indeterminate {
+  animation: mingu-pulse 1.6s infinite;
+}
+.mingu-avatar {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  color: var(--mingu-accent);
+  background: var(--mingu-accent-soft);
+  font-size: var(--mingu-text-sm);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.mingu-avatar-sm {
+  width: 28px;
+  height: 28px;
+  font-size: var(--mingu-text-xs);
+}
+.mingu-avatar-md {
+  width: 40px;
+  height: 40px;
+}
+.mingu-avatar-lg {
+  width: 56px;
+  height: 56px;
+  font-size: var(--mingu-text-lg);
+}
+.mingu-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mingu-empty {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: var(--mingu-space-3);
+  padding: var(--mingu-space-8);
+}
+.mingu-table-scroll {
+  max-width: 100%;
+  overflow: auto;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+}
+.mingu-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--mingu-text-sm);
+  text-align: left;
+}
+.mingu-table caption {
+  text-align: left;
+  padding: var(--mingu-space-4);
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+}
+.mingu-table th,
+.mingu-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--mingu-border);
+  white-space: nowrap;
+}
+.mingu-table th {
+  font-size: var(--mingu-text-xs);
+  font-weight: 550;
+  color: var(--mingu-muted);
+  background: var(--mingu-surface);
+}
+.mingu-table th button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.mingu-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.mingu-table tbody tr:hover {
+  background: var(--mingu-surface);
+}
+.mingu-accordion details {
+  border-bottom: 1px solid var(--mingu-border);
+}
+.mingu-accordion summary {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--mingu-space-3);
+  padding: 16px 0;
+  cursor: pointer;
+  font-size: var(--mingu-text-sm);
+  list-style: none;
+}
+.mingu-accordion summary::-webkit-details-marker {
+  display: none;
+}
+.mingu-accordion summary[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mingu-accordion details[open] summary > span {
+  transform: rotate(45deg);
+}
+.mingu-accordion details > div {
+  padding-bottom: 16px;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+}
+.mingu-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--mingu-tone-text);
+  font-size: var(--mingu-text-sm);
+}
+.mingu-status > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+/* Navigation */
+.mingu-breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.mingu-breadcrumbs a {
+  text-decoration: none;
+  color: var(--mingu-muted);
+}
+.mingu-breadcrumbs a:hover {
+  color: var(--mingu-accent);
+}
+.mingu-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+.mingu-pagination-gap {
+  padding-inline: 4px;
+  color: var(--mingu-muted);
+}
+.mingu-navigation ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.mingu-navigation-vertical ul {
+  flex-direction: column;
+}
+.mingu-navigation a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 10px 12px;
+  min-height: 44px;
+  font-size: var(--mingu-text-sm);
+  color: var(--mingu-muted);
+  text-decoration: none;
+  border-radius: var(--mingu-radius-md);
+}
+.mingu-navigation a[aria-current] {
+  color: var(--mingu-accent);
+  background: var(--mingu-accent-soft);
+  font-weight: 550;
+}
+.mingu-navigation a:hover {
+  background: var(--mingu-surface);
+}
+.mingu-navigation a[aria-disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.mingu-sidebar {
+  width: 240px;
+  max-width: 100%;
+  padding: var(--mingu-space-4);
+  background: var(--mingu-raised);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+}
+/* Top-layer overlays preserve inherited theme tokens. */
+.mingu-popover {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  max-height: min(360px, calc(100dvh - 16px));
+  width: min(320px, calc(100vw - 16px));
+  padding: var(--mingu-space-4);
+  overflow-y: auto;
+  background: var(--mingu-raised);
+  color: var(--mingu-text);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  box-shadow: var(--mingu-shadow);
+  font: inherit;
+}
+.mingu-menu {
+  width: min(240px, calc(100vw - 16px));
+  padding: 4px;
+}
+.mingu-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  text-align: left;
+  border: 0;
+  border-radius: var(--mingu-radius-sm);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--mingu-text-sm);
+  cursor: pointer;
+}
+.mingu-menu button:focus-visible {
+  outline: none;
+  background: var(--mingu-accent-soft);
+  color: var(--mingu-accent);
+}
+.mingu-menu button[data-danger] {
+  color: var(--mingu-danger);
+}
+.mingu-menu button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mingu-tooltip-host {
+  display: inline-flex;
+}
+.mingu-tooltip {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  max-width: min(260px, calc(100vw - 16px));
+  padding: 6px 10px;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-sm);
+  background: var(--mingu-text);
+  color: var(--mingu-bg);
+  font: inherit;
+  font-size: var(--mingu-text-xs);
+  pointer-events: none;
+}
+.mingu-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100dvh;
+  max-height: 100dvh;
+  width: min(400px, 100%);
+  margin: 0;
+  border-radius: 0;
+}
+.mingu-drawer-right {
+  left: auto;
+  right: 0;
+}
+.mingu-drawer-left {
+  left: 0;
+  right: auto;
+}
+.mingu-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--mingu-space-3);
+}
+.mingu-toast-region {
+  position: fixed;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  right: 16px;
+  width: min(360px, calc(100vw - 32px));
+  z-index: var(--mingu-z-toast);
+  display: grid;
+  gap: var(--mingu-space-3);
+  pointer-events: none;
+}
+.mingu-toast {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--mingu-space-3);
+  padding: var(--mingu-space-4);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+  box-shadow: var(--mingu-shadow);
+  pointer-events: auto;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-toast strong {
+  color: var(--mingu-tone-text);
+}
+.mingu-toast p {
+  color: var(--mingu-muted);
+  margin: 0.25rem 0 0;
+}
+:where(.mingu-system)
+  :is(
+    summary,
+    a,
+    input[type="radio"],
+    input[type="range"],
+    input[type="file"],
+    .mingu-table-scroll,
+    .mingu-table th button
+  ):focus-visible {
+  outline: 2px solid var(--mingu-accent);
+  outline-offset: 3px;
+}
+:where(.mingu-combobox-list, .mingu-table-scroll, .mingu-popover) {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+  overscroll-behavior: contain;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-progress-bar:indeterminate {
+    animation: none;
+  }
+}

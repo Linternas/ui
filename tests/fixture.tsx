@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { CodeBlock, RailToc, ScrollProgress } from "../src";
+import ExpandedSystemFixture from "./system-expanded";
 import SystemFixture from "./system";
 import InteractionFixture from "./interactions";
 
@@ -56,7 +57,11 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  location.search.includes("system") ? <SystemFixture/> : location.search.includes("interactions") ? (
+  location.search.includes("expanded") ? (
+    <ExpandedSystemFixture />
+  ) : location.search.includes("system") ? (
+    <SystemFixture />
+  ) : location.search.includes("interactions") ? (
     <InteractionFixture />
   ) : (
     <Fixture />

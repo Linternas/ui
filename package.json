@@ -1,6 +1,6 @@
 {
   "name": "@mingu/interaction-ui",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "files": [
     "src",
@@ -10,7 +10,8 @@
     "tokens.css",
     "system.css",
     "DESIGN_SYSTEM.md",
-    "examples"
+    "examples",
+    "COMPONENTS.md"
   ],
   "exports": {
     ".": "./src/index.ts",

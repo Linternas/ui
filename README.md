@@ -9,6 +9,8 @@ import { DesignSystemProvider, Button, Card } from '@mingu/interaction-ui/system
 import '@mingu/interaction-ui/system.css';
 ```
 
+기본 UI 전체 목록과 상태별 예제: [Components](./COMPONENTS.md).
+
 ## Interaction components
 
 ```tsx
