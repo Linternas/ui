@@ -1,6 +1,6 @@
 {
   "name": "@mingu/interaction-ui",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "files": [
     "src",
@@ -18,7 +18,8 @@
     "./styles.css": "./styles.css",
     "./system": "./src/system/index.tsx",
     "./system.css": "./system.css",
-    "./tokens.css": "./tokens.css"
+    "./tokens.css": "./tokens.css",
+    "./catalog": "./src/system/ui-catalog.ts"
   },
   "sideEffects": [
     "./styles.css",

@@ -2,6 +2,8 @@
 
 웹의 공통 토큰, 테마, 기본 컴포넌트와 인터랙션.
 
+[통합 카탈로그](https://blog.mingu.xyz/lab/ui): 기능별 탐색·테마·미리보기·사용 코드.
+
 설치·설계 원칙·Core API·테마·새 웹 도입 방법: [Design system](./DESIGN_SYSTEM.md).
 
 ```tsx

@@ -144,3 +144,11 @@ npm run test:browser
 ```
 
 브라우저 테스트는 폼 의미·키보드 탭 탐색·대화상자 포커스·테마 격리·반응형·모션 감소와 기존 인터랙션 동작을 검사한다. 지원 대상은 React 19와 CSS 변수·ResizeObserver·네이티브 dialog·Popover API를 제공하는 현대 브라우저다. 자동 검사는 전체 접근성 인증을 뜻하지 않으며, 제품 화면의 접근성 이름과 데이터 상태는 소비 앱에서도 확인한다.
+
+## Unified catalog
+
+[웹 카탈로그](https://blog.mingu.xyz/lab/ui)는 토큰·기본 UI·인터랙션·패턴을 하나의 검색, 탐색, 테마, 코드 미리보기로 제공한다. 기본 UI 48개와 인터랙션 25개는 기능별로 같은 그룹에 배치한다. Sidebar와 BounceSidebar처럼 관련된 항목은 같은 화면의 variant 탐색으로 연결한다.
+
+카탈로그 데이터는 `@mingu/interaction-ui/catalog`의 `uiCatalog`, `uiGroups`, `uiFamilies`가 단일 기준이다. 서버와 클라이언트에서 모두 불러올 수 있는 정적 데이터다. 기존 `systemCatalog`는 기본 컴포넌트 목록으로 유지한다.
+
+문서의 통합 import 예제는 패키지 루트에서 가져온다. 코드 내부의 `/system` 진입점도 호환성을 유지한다. 시각 효과와 폼이 같은 테마를 공유하도록 Provider 범위에 `system.css`와 `styles.css`를 함께 불러온다.

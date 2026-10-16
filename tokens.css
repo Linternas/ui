@@ -35,6 +35,9 @@
 :root,
 [data-mingu-theme="light"] {
   color-scheme: light;
+  --mingu-code-keyword: #7e35a0;
+  --mingu-code-string: #21734a;
+  --mingu-code-number: #965114;
   --mingu-bg: #fdfdfd;
   --mingu-surface: #f4f4f4;
   --mingu-raised: #fff;
@@ -56,6 +59,9 @@
 .dark,
 [data-mingu-theme="dark"] {
   color-scheme: dark;
+  --mingu-code-keyword: #c9a5e7;
+  --mingu-code-string: #9ccba4;
+  --mingu-code-number: #e8bc8b;
   --mingu-bg: #111111;
   --mingu-surface: #1a1a1a;
   --mingu-raised: #202020;
@@ -77,6 +83,9 @@
 @media (prefers-color-scheme: dark) {
   [data-mingu-theme="system"] {
     color-scheme: dark;
+    --mingu-code-keyword: #c9a5e7;
+    --mingu-code-string: #9ccba4;
+    --mingu-code-number: #e8bc8b;
     --mingu-bg: #111111;
     --mingu-surface: #1a1a1a;
     --mingu-raised: #202020;
@@ -100,6 +109,9 @@
 @media (prefers-color-scheme: light) {
   [data-mingu-theme="system"] {
     color-scheme: light;
+    --mingu-code-keyword: #7e35a0;
+    --mingu-code-string: #21734a;
+    --mingu-code-number: #965114;
     --mingu-bg: #fdfdfd;
     --mingu-surface: #f4f4f4;
     --mingu-raised: #fff;
@@ -127,6 +139,10 @@
   --mru-border: var(--mingu-border);
   --mru-accent: var(--mingu-accent);
   --mru-mono: var(--mingu-font-mono);
+  --mru-highlight: color-mix(in srgb, var(--mingu-accent) 10%, transparent);
+  --mru-keyword: var(--mingu-code-keyword);
+  --mru-string: var(--mingu-code-string);
+  --mru-number: var(--mingu-code-number);
 }
 @media (prefers-reduced-motion: reduce) {
   :root {
