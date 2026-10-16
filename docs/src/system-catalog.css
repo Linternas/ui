@@ -24,6 +24,14 @@
   gap: 1rem;
   align-items: center;
 }
+.ui-github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mingu-space-1);
+  min-height: 44px;
+  font-size: var(--mingu-text-sm);
+  white-space: nowrap;
+}
 .system-catalog-header select {
   width: auto;
   min-height: 36px;

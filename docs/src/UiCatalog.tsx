@@ -92,6 +92,9 @@ export default function UiCatalog({
           Mingu UI <span>/ Design system</span>
         </Link>
         <div>
+          <a className="ui-github-link" href="https://github.com/Linternas/ui" target="_blank" rel="noopener noreferrer">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
           <Badge>
             {
               uiCatalog.filter(
