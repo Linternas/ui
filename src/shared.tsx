@@ -57,7 +57,7 @@ export function useCanvasFrame(
       if (visible && !document.hidden) frame = requestAnimationFrame(tick);
     };
     const visibility = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
+      visible = entry?.isIntersecting ?? false;
       refresh();
     });
     const size = new ResizeObserver(refresh);

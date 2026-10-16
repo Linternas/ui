@@ -493,9 +493,11 @@ export function Tabs({
                         : -1;
               if (next < 0 || !enabled[next]) return;
               event.preventDefault();
-              onValueChange(enabled[next].value);
+              const nextTab = enabled[next];
+              if (!nextTab) return;
+              onValueChange(nextTab.value);
               const targetIndex = items.findIndex(
-                (tab) => tab.value === enabled[next].value,
+                (tab) => tab.value === nextTab.value,
               );
               tabList.current
                 ?.querySelector<HTMLButtonElement>(
@@ -602,7 +604,7 @@ export function Dialog({
             document.activeElement === dialog)
         ) {
           event.preventDefault();
-          last.focus();
+          last?.focus();
         } else if (
           !event.shiftKey &&
           (document.activeElement === last || document.activeElement === dialog)

@@ -67,6 +67,7 @@ export function GravityLetters({
       const list = bodies.current;
       for (let i = 0; i < list.length; i++) {
         const body = list[i];
+        if (!body) continue;
         if (reduced) {
           body.x =
             body.radius + ((i * size * 1.15) % Math.max(size, width - size));
@@ -98,9 +99,9 @@ export function GravityLetters({
       if (!reduced)
         for (let i = 0; i < list.length; i++)
           for (let j = i + 1; j < list.length; j++) {
-            const a = list[i],
-              b = list[j],
-              dx = b.x - a.x,
+            const a = list[i], b = list[j];
+            if (!a || !b) continue;
+            const dx = b.x - a.x,
               dy = b.y - a.y,
               distance = Math.hypot(dx, dy),
               overlap = a.radius + b.radius - distance;
@@ -136,7 +137,7 @@ export function GravityLetters({
       if (visible && !document.hidden) frame = requestAnimationFrame(update);
     };
     const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
+      visible = entry?.isIntersecting ?? false;
       refresh();
     });
     observer.observe(container);

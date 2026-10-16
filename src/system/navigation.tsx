@@ -70,7 +70,7 @@ export function Pagination({
       </Button>
       {pages.map((n, index) => (
         <span key={n}>
-          {index > 0 && n - pages[index - 1] > 1 && (
+          {index > 0 && n - (pages[index - 1] ?? n) > 1 && (
             <span aria-hidden="true" className="mingu-pagination-gap">
               …
             </span>

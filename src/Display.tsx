@@ -63,7 +63,7 @@ export function AnimatedCounter({
   className = "",
 }: AnimatedCounterProps) {
   const finite = Number.isFinite(value) ? value : 0;
-  const [whole, fraction] = Math.abs(finite)
+  const [whole = "0", fraction] = Math.abs(finite)
     .toFixed(Math.min(15, Math.max(0, decimals)))
     .split(".");
   const padded = whole.padStart(Math.min(24, Math.max(1, padStart)), "0");

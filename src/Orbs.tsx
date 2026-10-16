@@ -103,9 +103,9 @@ export function FluidOrb({
     gl.uniform1f(gl.getUniformLocation(program, "time"), time);
     gl.uniform3f(
       gl.getUniformLocation(program, "tint"),
-      rgb[0],
-      rgb[1],
-      rgb[2],
+      rgb[0] ?? 0,
+      rgb[1] ?? 0,
+      rgb[2] ?? 0,
     );
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   });

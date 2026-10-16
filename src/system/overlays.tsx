@@ -222,12 +222,17 @@ export function Tooltip({
     const key = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
     };
+    const scroll = () => {
+      // Focusing an offscreen trigger scrolls it into view before the delayed tooltip opens.
+      if (host.current?.contains(document.activeElement)) show();
+      else close();
+    };
     document.addEventListener("keydown", key);
-    window.addEventListener("scroll", close, true);
+    window.addEventListener("scroll", scroll, true);
     return () => {
       clearTimeout(timer.current);
       document.removeEventListener("keydown", key);
-      window.removeEventListener("scroll", close, true);
+      window.removeEventListener("scroll", scroll, true);
     };
   }, []);
   return (

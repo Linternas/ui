@@ -10,8 +10,8 @@ export interface ReadingSection {
 
 export interface ReadingPositionOptions {
   sections: readonly ReadingSection[];
-  containerRef?: RefObject<HTMLElement | null>;
-  offset?: number;
+  containerRef?: RefObject<HTMLElement | null> | undefined;
+  offset?: number | undefined;
 }
 
 export function useReadingPosition({

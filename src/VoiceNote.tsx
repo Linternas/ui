@@ -1,9 +1,13 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { Icon } from "./shared";
 
 export interface VoiceNoteProps {
   src?: string;
+  /** Optional localized control labels; English defaults preserve existing consumers. */
+  labels?: { play?: string; pause?: string; seek?: string; speed?: (speed: number) => string; error?: string };
+  audioRef?: RefObject<HTMLAudioElement | null>;
+  onLoadedMetadata?: () => void;
   duration?: number;
   waveform?: readonly number[];
   onEnded?: () => void;
@@ -15,12 +19,16 @@ const defaultWaveform = Array.from(
 );
 export function VoiceNote({
   src,
+  labels = {},
+  audioRef,
+  onLoadedMetadata,
   duration = 30,
   waveform = defaultWaveform,
   onEnded,
   onError,
 }: VoiceNoteProps) {
-  const audio = useRef<HTMLAudioElement>(null);
+  const internalAudio = useRef<HTMLAudioElement>(null);
+  const audio = audioRef ?? internalAudio;
   const [playing, setPlaying] = useState(false),
     [position, setPosition] = useState(0),
     [length, setLength] = useState(duration),
@@ -28,6 +36,16 @@ export function VoiceNote({
     [error, setError] = useState(false);
   const callback = useRef(onEnded);
   callback.current = onEnded;
+  const readyCallback = useRef(onLoadedMetadata);
+  readyCallback.current = onLoadedMetadata;
+  useEffect(() => {
+    // Metadata can arrive before hydration attaches React's media handlers.
+    const element = audio.current;
+    if (element && element.readyState >= 1) {
+      if (Number.isFinite(element.duration)) setLength(element.duration);
+      readyCallback.current?.();
+    }
+  }, [src, audio]);
   useEffect(() => {
     setPosition(0);
     setPlaying(false);
@@ -59,6 +77,7 @@ export function VoiceNote({
     else
       try {
         await audio.current.play();
+        setError(false);
       } catch {
         setError(true);
         onError?.();
@@ -76,6 +95,7 @@ export function VoiceNote({
           onLoadedMetadata={(event) => {
             if (Number.isFinite(event.currentTarget.duration))
               setLength(event.currentTarget.duration);
+            onLoadedMetadata?.();
           }}
           onTimeUpdate={(event) => setPosition(event.currentTarget.currentTime)}
           onPlay={() => setPlaying(true)}
@@ -95,8 +115,7 @@ export function VoiceNote({
       <button
         type="button"
         className="mi-round"
-        aria-label={playing ? "Pause voice note" : "Play voice note"}
-        disabled={error}
+        aria-label={playing ? (labels.pause ?? "Pause voice note") : (labels.play ?? "Play voice note")}
         onClick={toggle}
       >
         <Icon name={playing ? "pause" : "play"} />
@@ -116,7 +135,8 @@ export function VoiceNote({
         </span>
         <input
           type="range"
-          aria-label="Seek voice note"
+          aria-label={labels.seek ?? "Seek voice note"}
+          aria-valuetext={`${time(position)} / ${time(length)}`}
           min={0}
           max={length}
           step={0.1}
@@ -131,18 +151,18 @@ export function VoiceNote({
       <button
         type="button"
         className="mi-voice-time"
-        aria-label={`Voice playback speed ${speed} times. Change speed`}
+        aria-label={labels.speed?.(speed) ?? `Voice playback speed ${speed} times. Change speed`}
         onClick={() => {
           const next = speed === 2 ? 1 : speed + 0.5;
           setSpeed(next);
           if (audio.current) audio.current.playbackRate = next;
         }}
       >
-        <span>{time(playing ? position : length)}</span>
+        <span>{time(position)} / {time(length)}</span>
         <small>{speed}×</small>
       </button>
-      <span className="mru-sr-only" role="status">
-        {error ? "Audio could not be played" : ""}
+      <span className={error ? "mi-voice-error" : "mru-sr-only"} role="status">
+        {error ? (labels.error ?? "Audio could not be played. Press play to retry.") : ""}
       </span>
     </div>
   );

@@ -566,3 +566,9 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
   options={[{ value: 'monthly', label: 'Monthly' }, { value: 'yearly', label: 'Yearly' }]} />
 <InteractiveCard effect="tilt"><Heading level={3}>Project</Heading></InteractiveCard>
 ```
+
+## Consumer media and localization hooks
+
+`VoiceNote` accepts an optional `audioRef` for timestamp navigation and `onLoadedMetadata` for deep links. The ready callback also runs when metadata arrived before hydration. `labels` can override `play`, `pause`, `seek`, `speed(speed)` and `error`; existing English defaults are preserved.
+
+`CodeBlock` accepts optional `labels.copy`, `labels.copied`, `labels.success` and `labels.error` for visible controls and live announcements. Defaults remain English.

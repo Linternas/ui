@@ -21,6 +21,7 @@ for (const [name, language] of Object.entries({
 
 export interface CodeBlockProps {
   code: string;
+  labels?: { copy?: string; copied?: string; success?: string; error?: string };
   language?: string;
   filename?: string;
   lineNumbers?: boolean;
@@ -30,6 +31,7 @@ export interface CodeBlockProps {
 
 export function CodeBlock({
   code,
+  labels = {},
   language = "text",
   filename,
   lineNumbers = true,
@@ -68,14 +70,14 @@ export function CodeBlock({
       <figcaption className="mru-code-header">
         <span className="mru-code-file">{filename ?? language}</span>
         <span className="mru-code-language">{filename ? language : ""}</span>
-        <button type="button" onClick={copy} aria-label="Copy code">
-          {copyState === "copied" ? "Copied ✓" : "Copy"}
+        <button type="button" onClick={copy} aria-label={labels.copy ?? "Copy code"}>
+          {copyState === "copied" ? (labels.copied ?? "Copied ✓") : (labels.copy ?? "Copy")}
         </button>
         <span className="mru-sr-only" role="status">
           {copyState === "copied"
-            ? "Code copied to clipboard"
+            ? (labels.success ?? "Code copied to clipboard")
             : copyState === "error"
-              ? "Could not copy. Select and copy the code manually."
+              ? (labels.error ?? "Could not copy. Select and copy the code manually.")
               : ""}
         </span>
       </figcaption>
