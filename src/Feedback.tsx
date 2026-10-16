@@ -1,4 +1,5 @@
 "use client";
+import * as React from "react";
 import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Icon } from "./shared";

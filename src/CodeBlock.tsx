@@ -1,4 +1,5 @@
 "use client";
+import * as React from "react";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import hljs from "highlight.js/lib/core";

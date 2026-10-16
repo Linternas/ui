@@ -59,5 +59,6 @@
   "packageManager": "npm@10.9.0",
   "engines": {
     "node": "22.x"
-  }
+  },
+  "type": "module"
 }

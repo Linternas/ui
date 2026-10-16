@@ -1,4 +1,5 @@
 "use client";
+import * as React from "react";
 import type { ReactNode, ComponentProps } from "react";
 import { Button } from "./base";
 export interface BreadcrumbItem {
