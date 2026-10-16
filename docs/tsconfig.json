@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "..",
+    "paths": {
+      "@mingu/interaction-ui": ["src/index.ts"],
+      "@mingu/interaction-ui/system": ["src/system/index.tsx"],
+      "@mingu/interaction-ui/catalog": ["src/system/ui-catalog.ts"]
+    }
+  },
+  "include": ["src"]
+}

@@ -1,0 +1,157 @@
+.studio-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  min-height: 320px;
+  padding: 32px;
+}
+.studio-wide {
+  width: 100%;
+  max-width: 590px;
+}
+.studio-demo-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 10px;
+}
+.studio-demo-controls > span {
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+  text-align: center;
+}
+.studio-tool {
+  min-height: 36px;
+  font-size: var(--mingu-text-xs);
+  padding: 6px 10px;
+  border: 1px solid var(--mingu-border);
+  border-radius: 6px;
+  background: var(--mingu-bg);
+  color: var(--mingu-muted);
+  cursor: pointer;
+}
+.studio-tool:hover,
+.studio-tool[aria-pressed="true"] {
+  color: var(--mingu-text);
+  border-color: var(--mingu-accent);
+}
+.studio-swatches {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.studio-swatches button {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid var(--mingu-bg);
+  outline: 1px solid transparent;
+}
+.studio-swatches button[aria-pressed="true"] {
+  outline-color: var(--mingu-muted);
+}
+.studio-counter {
+  font-size: clamp(42px, 7vw, 70px);
+}
+.studio-citations {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.studio-reading {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  background: var(--mingu-bg);
+  border: 1px solid var(--mingu-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.studio-reader {
+  height: 330px;
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+}
+.studio-reader section {
+  min-height: 290px;
+  padding: 25px;
+}
+.studio-reader section small {
+  font:
+    var(--mingu-text-xs) var(--mingu-font-mono),
+    monospace;
+  color: var(--mingu-muted);
+}
+.studio-reader h3 {
+  font:
+    25px/1.3 var(--mingu-font-sans),
+    serif;
+  margin: 17px 0;
+  letter-spacing: -0.025em;
+}
+.studio-reader p {
+  font-size: var(--mingu-text-sm);
+  line-height: 1.95;
+  margin: 0 0 14px;
+}
+.studio-reader p:last-child {
+  color: var(--mingu-muted);
+}
+.studio-reading > aside {
+  width: 175px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--mingu-border);
+  padding: 25px 13px;
+}
+.studio-reading .mru-toc {
+  font-size: var(--mingu-text-xs);
+}
+.studio-reading-progress .studio-reader {
+  padding-bottom: 85px;
+}
+.studio-reading-dock {
+  position: absolute;
+  bottom: 13px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px;
+  pointer-events: none;
+}
+.studio-reading-dock > * {
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .studio-demo {
+    padding: 16px 0;
+  }
+  .studio-reading {
+    flex-direction: column;
+  }
+  .studio-reader {
+    flex: auto;
+  }
+  .studio-reading > aside {
+    width: 100%;
+    border-left: 0;
+    border-top: 1px solid var(--mingu-border);
+    padding: 16px;
+  }
+  .studio-reader section {
+    padding: 20px 14px;
+  }
+}

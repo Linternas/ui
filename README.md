@@ -89,3 +89,26 @@ permits them; it does not request sensor permissions. FluidOrb falls back to a
 CSS gradient if WebGL is unavailable. Canvas loops pause outside the viewport
 and in background tabs. Use InteractionProvider to apply the system's reduced
 motion preference to all Motion transitions.
+
+## Standalone docs / Railway
+
+이 저장소의 루트에서 카탈로그를 독립적으로 배포할 수 있다.
+
+```sh
+npm ci
+npm run build
+npm start
+```
+
+- Railway Root Directory: `/`
+- Build Command: `npm run build`
+- Start Command: `npm start`
+- Healthcheck Path: `/healthz`
+- `PORT`는 Railway가 제공하며 서버는 `0.0.0.0`에 바인딩한다.
+
+`railpack.json`에 Node provider와 빌드·시작 명령을 명시했다. npm 버전은 packageManager, Node 범위는 engines로 고정한다. 데모 소스·스타일·미디어는 `docs/`에 있으며 블로그나 Next.js가 없어도 동작한다. 패키지의 기존 exports는 유지한다. 컴포넌트 URL은 `/button`, `/floating-field`처럼 루트 아래에 있으며 직접 접속·새로고침을 지원한다. 기존 `/lab/ui/...` 링크도 대응 주소로 연결한다.
+
+```sh
+npm run typecheck:docs
+npm run test:docs
+```

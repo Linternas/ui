@@ -1,6 +1,6 @@
 {
   "name": "@mingu/interaction-ui",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
   "files": [
     "src",
@@ -29,7 +29,11 @@
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "build": "node docs/build.mjs",
+    "start": "node docs/server.mjs",
+    "typecheck:docs": "tsc --noEmit -p docs/tsconfig.json",
+    "test:docs": "npm run build && node --test docs/server.test.mjs"
   },
   "peerDependencies": {
     "react": ">=19",
@@ -51,5 +55,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Linternas/ui.git"
+  },
+  "packageManager": "npm@10.9.0",
+  "engines": {
+    "node": "22.x"
   }
 }

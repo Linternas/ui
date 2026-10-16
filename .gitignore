@@ -5,3 +5,6 @@ playwright-report/
 .env.*
 .DS_Store
 *.tsbuildinfo
+
+dist/
+docs/routes.mjs

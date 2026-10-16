@@ -166,3 +166,9 @@ npm run test:browser
 - `InteractiveCard effect="spotlight" | "tilt"`는 테마 색으로 표면·테두리에 반응한다. tilt는 각 축 최대 3.5도다. 카드 자체를 불필요한 버튼으로 만들지 않으며 실제 액션은 내부 링크/버튼에 둔다.
 
 모션 토큰은 `tokens.css`, 선택 스프링은 `src/system/motion-tokens.ts`에서 관리한다. 이동과 반복 효과는 `prefers-reduced-motion`에서 중지하고, 터치에서는 자석 이동·카드 기울기를 사용하지 않는다. pressed/selected/disabled 상태는 애니메이션 없이도 구별된다.
+
+## Docs deployment
+
+독립 카탈로그 앱은 같은 저장소의 `docs/`에 있다. 패키지 루트의 `npm run build`는 정적 JS/CSS·미디어와 서버용 경로 목록을 생성하고, `npm start`는 Node 내장 HTTP 서버로 배포한다. 라이브러리 설치 경로와 exports는 변경하지 않는다. 기존 블로그 카탈로그는 연결 주소가 확정되기 전까지 유지한다.
+
+배포 절차와 Railway 설정은 README의 Standalone docs / Railway를 따른다. 새 컴포넌트는 패키지의 통합 카탈로그에 등록하고 독립 docs 미리보기에도 추가한다.

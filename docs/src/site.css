@@ -1,0 +1,51 @@
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--mingu-bg);
+  color: var(--mingu-text);
+  font-family: var(--mingu-font-sans);
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+a {
+  color: inherit;
+}
+.system-catalog {
+  margin: 0;
+  width: 100%;
+}
+.system-catalog-layout {
+  min-height: calc(100dvh - 77px);
+}
+.system-catalog-sidebar {
+  top: 0;
+  max-height: 100dvh;
+}
+.system-catalog-main {
+  align-self: start;
+}
+:where(h1, h2, h3, h4, h5, h6, p) {
+  margin: 0;
+}
+:where(.mingu-input, .mingu-button, .mingu-card) {
+  box-sizing: border-box;
+}
+.docs-not-found {
+  max-width: 42rem;
+  margin: 4rem auto;
+  padding: 2rem;
+}
+.docs-not-found h1 {
+  margin-bottom: 1rem;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #111111;
+  }
+}
