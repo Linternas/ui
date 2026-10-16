@@ -1,0 +1,131 @@
+/* Mingu foundation: primitive values, semantic roles, and interaction aliases. */
+:root {
+  --mingu-font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --mingu-font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --mingu-space-1: 0.25rem;
+  --mingu-space-2: 0.5rem;
+  --mingu-space-3: 0.75rem;
+  --mingu-space-4: 1rem;
+  --mingu-space-5: 1.25rem;
+  --mingu-space-6: 1.5rem;
+  --mingu-space-8: 2rem;
+  --mingu-space-12: 3rem;
+  --mingu-space-16: 4rem;
+  --mingu-radius-sm: 6px;
+  --mingu-radius-md: 10px;
+  --mingu-radius-lg: 16px;
+  --mingu-radius-full: 999px;
+  --mingu-text-xs: 0.75rem;
+  --mingu-text-sm: 0.875rem;
+  --mingu-text-md: 1rem;
+  --mingu-text-lg: 1.25rem;
+  --mingu-text-xl: 1.75rem;
+  --mingu-text-2xl: clamp(2rem, 5vw, 3rem);
+  --mingu-duration-fast: 120ms;
+  --mingu-duration-normal: 200ms;
+  --mingu-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --mingu-content: 72rem;
+  --mingu-reading: 42.5rem;
+  --mingu-z-sticky: 20;
+  --mingu-z-popover: 40;
+}
+:root,
+[data-mingu-theme="light"] {
+  color-scheme: light;
+  --mingu-bg: #fdfdfd;
+  --mingu-surface: #f4f4f4;
+  --mingu-raised: #fff;
+  --mingu-text: #111111;
+  --mingu-muted: #626972;
+  --mingu-border: #dedfe2;
+  --mingu-accent: #2563a6;
+  --mingu-on-accent: #fff;
+  --mingu-accent-soft: #eaf2fb;
+  --mingu-danger: #b42332;
+  --mingu-danger-soft: #fff0f1;
+  --mingu-success: #187044;
+  --mingu-success-soft: #eaf7ef;
+  --mingu-warning: #805600;
+  --mingu-warning-soft: #fff7df;
+  --mingu-shadow: 0 8px 32px #1111110d;
+}
+.dark,
+[data-mingu-theme="dark"] {
+  color-scheme: dark;
+  --mingu-bg: #111111;
+  --mingu-surface: #1a1a1a;
+  --mingu-raised: #202020;
+  --mingu-text: #ededed;
+  --mingu-muted: #a0a0a5;
+  --mingu-border: #343438;
+  --mingu-accent: #8bc3ff;
+  --mingu-on-accent: #102338;
+  --mingu-accent-soft: #1b2b3d;
+  --mingu-danger: #ff9da6;
+  --mingu-danger-soft: #371c23;
+  --mingu-success: #8bdbaf;
+  --mingu-success-soft: #142e21;
+  --mingu-warning: #edcf86;
+  --mingu-warning-soft: #302917;
+  --mingu-shadow: 0 8px 32px #00000033;
+}
+@media (prefers-color-scheme: dark) {
+  [data-mingu-theme="system"] {
+    color-scheme: dark;
+    --mingu-bg: #111111;
+    --mingu-surface: #1a1a1a;
+    --mingu-raised: #202020;
+    --mingu-text: #ededed;
+    --mingu-muted: #a0a0a5;
+    --mingu-border: #343438;
+    --mingu-accent: #8bc3ff;
+    --mingu-on-accent: #102338;
+    --mingu-accent-soft: #1b2b3d;
+    --mingu-danger: #ff9da6;
+    --mingu-danger-soft: #371c23;
+    --mingu-success: #8bdbaf;
+    --mingu-success-soft: #142e21;
+    --mingu-warning: #edcf86;
+    --mingu-warning-soft: #302917;
+    --mingu-shadow: 0 8px 32px #00000033;
+  }
+}
+/* System light always has its own values, including inside a dark page. */
+@media (prefers-color-scheme: light) {
+  [data-mingu-theme="system"] {
+    color-scheme: light;
+    --mingu-bg: #fdfdfd;
+    --mingu-surface: #f4f4f4;
+    --mingu-raised: #fff;
+    --mingu-text: #111111;
+    --mingu-muted: #626972;
+    --mingu-border: #dedfe2;
+    --mingu-accent: #2563a6;
+    --mingu-on-accent: #fff;
+    --mingu-accent-soft: #eaf2fb;
+    --mingu-danger: #b42332;
+    --mingu-danger-soft: #fff0f1;
+    --mingu-success: #187044;
+    --mingu-success-soft: #eaf7ef;
+    --mingu-warning: #805600;
+    --mingu-warning-soft: #fff7df;
+    --mingu-shadow: 0 8px 32px #1111110d;
+  }
+}
+.mingu-system {
+  --mru-bg: var(--mingu-bg);
+  --mru-surface: var(--mingu-surface);
+  --mru-text: var(--mingu-text);
+  --mru-muted: var(--mingu-muted);
+  --mru-border: var(--mingu-border);
+  --mru-accent: var(--mingu-accent);
+  --mru-mono: var(--mingu-font-mono);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --mingu-duration-fast: 0ms;
+    --mingu-duration-normal: 0ms;
+  }
+}

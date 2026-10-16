@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { CodeBlock, RailToc, ScrollProgress } from "../src";
+import SystemFixture from "./system";
 import InteractionFixture from "./interactions";
 
 const sections = [
@@ -55,7 +56,7 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  location.search.includes("interactions") ? (
+  location.search.includes("system") ? <SystemFixture/> : location.search.includes("interactions") ? (
     <InteractionFixture />
   ) : (
     <Fixture />

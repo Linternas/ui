@@ -1,6 +1,15 @@
-# @mingu/interaction-ui
+# Mingu UI
 
-React interaction components and reading/navigation helpers.
+웹의 공통 토큰, 테마, 기본 컴포넌트와 인터랙션.
+
+설치·설계 원칙·Core API·테마·새 웹 도입 방법: [Design system](./DESIGN_SYSTEM.md).
+
+```tsx
+import { DesignSystemProvider, Button, Card } from '@mingu/interaction-ui/system';
+import '@mingu/interaction-ui/system.css';
+```
+
+## Interaction components
 
 ```tsx
 import { CodeBlock, RailToc, ScrollProgress } from '@mingu/interaction-ui';

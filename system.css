@@ -1,0 +1,379 @@
+@import "./tokens.css";
+.mingu-system {
+  color: var(--mingu-text);
+  background: var(--mingu-bg);
+  font-family: var(--mingu-font-sans);
+  font-size: var(--mingu-text-md);
+  line-height: 1.6;
+  accent-color: var(--mingu-accent);
+}
+:where(.mingu-system, .mingu-dialog) *,
+:where(.mingu-system, .mingu-dialog) *::before,
+:where(.mingu-system, .mingu-dialog) *::after {
+  box-sizing: border-box;
+}
+:where(
+  .mingu-button,
+  .mingu-input,
+  .mingu-tablist button,
+  .mingu-checkbox input,
+  .mingu-switch input,
+  .mingu-tabpanel
+):focus-visible {
+  outline: 2px solid var(--mingu-accent);
+  outline-offset: 3px;
+}
+.mingu-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--mingu-space-2);
+  border: 1px solid transparent;
+  border-radius: var(--mingu-radius-md);
+  font: inherit;
+  font-size: var(--mingu-text-sm);
+  font-weight: 550;
+  line-height: 1.4;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background var(--mingu-duration-fast),
+    border-color var(--mingu-duration-fast);
+}
+.mingu-control-sm {
+  min-height: 36px;
+  padding: 7px 12px;
+}
+.mingu-control-md {
+  min-height: 44px;
+  padding: 10px 16px;
+}
+.mingu-control-lg {
+  min-height: 48px;
+  padding: 12px 20px;
+}
+.mingu-button-primary {
+  color: var(--mingu-on-accent);
+  background: var(--mingu-accent);
+}
+.mingu-button-secondary {
+  color: var(--mingu-text);
+  background: var(--mingu-surface);
+  border-color: var(--mingu-border);
+}
+.mingu-button-ghost {
+  color: var(--mingu-text);
+  background: transparent;
+}
+.mingu-button-danger {
+  color: var(--mingu-danger);
+  background: var(--mingu-danger-soft);
+  border-color: var(--mingu-danger);
+}
+.mingu-button:hover:not(:disabled) {
+  filter: brightness(0.94);
+}
+.mingu-button-ghost:hover:not(:disabled) {
+  background: var(--mingu-surface);
+}
+.mingu-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mingu-spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: mingu-spin 800ms linear infinite;
+}
+.mingu-input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  padding: 10px 12px;
+  color: var(--mingu-text);
+  background: var(--mingu-raised);
+  font: inherit;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-input::placeholder {
+  color: var(--mingu-muted);
+  opacity: 1;
+}
+.mingu-input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.mingu-input[aria-invalid="true"] {
+  border-color: var(--mingu-danger);
+}
+.mingu-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.mingu-field {
+  display: grid;
+  gap: var(--mingu-space-2);
+}
+.mingu-field label {
+  font-size: var(--mingu-text-sm);
+  font-weight: 550;
+}
+.mingu-field p {
+  margin: 0;
+  font-size: var(--mingu-text-xs);
+}
+.mingu-field-error {
+  color: var(--mingu-danger);
+}
+.mingu-muted {
+  color: var(--mingu-muted);
+}
+.mingu-checkbox,
+.mingu-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mingu-space-3);
+  min-height: 44px;
+  font-size: var(--mingu-text-sm);
+  cursor: pointer;
+}
+.mingu-checkbox input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--mingu-accent);
+}
+.mingu-switch {
+  position: relative;
+}
+.mingu-switch input {
+  position: absolute;
+  width: 38px;
+  height: 24px;
+  margin: 0;
+  opacity: 0;
+}
+.mingu-switch-track {
+  width: 38px;
+  height: 24px;
+  flex-shrink: 0;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-full);
+  background: var(--mingu-surface);
+  transition: background var(--mingu-duration-fast);
+}
+.mingu-switch-track::after {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 3px;
+  background: var(--mingu-muted);
+  border-radius: 50%;
+  transition: transform var(--mingu-duration-fast);
+}
+.mingu-switch input:checked + .mingu-switch-track {
+  background: var(--mingu-accent);
+  border-color: var(--mingu-accent);
+}
+.mingu-switch input:checked + .mingu-switch-track::after {
+  transform: translateX(14px);
+  background: var(--mingu-on-accent);
+}
+.mingu-switch input:focus-visible + .mingu-switch-track {
+  outline: 2px solid var(--mingu-accent);
+  outline-offset: 3px;
+}
+.mingu-checkbox:has(input:disabled),
+.mingu-switch:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mingu-tone-neutral {
+  --mingu-tone-bg: var(--mingu-surface);
+  --mingu-tone-text: var(--mingu-muted);
+}
+.mingu-tone-accent {
+  --mingu-tone-bg: var(--mingu-accent-soft);
+  --mingu-tone-text: var(--mingu-accent);
+}
+.mingu-tone-success {
+  --mingu-tone-bg: var(--mingu-success-soft);
+  --mingu-tone-text: var(--mingu-success);
+}
+.mingu-tone-warning {
+  --mingu-tone-bg: var(--mingu-warning-soft);
+  --mingu-tone-text: var(--mingu-warning);
+}
+.mingu-tone-danger {
+  --mingu-tone-bg: var(--mingu-danger-soft);
+  --mingu-tone-text: var(--mingu-danger);
+}
+.mingu-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: var(--mingu-radius-full);
+  background: var(--mingu-tone-bg);
+  color: var(--mingu-tone-text);
+  font-size: var(--mingu-text-xs);
+  font-weight: 550;
+}
+.mingu-alert {
+  padding: var(--mingu-space-4);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-tone-bg);
+  color: var(--mingu-tone-text);
+  font-size: var(--mingu-text-sm);
+}
+.mingu-alert strong {
+  display: block;
+  margin-bottom: var(--mingu-space-1);
+}
+.mingu-card {
+  min-width: 0;
+  padding: var(--mingu-space-6);
+  background: var(--mingu-raised);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+}
+.mingu-container {
+  width: 100%;
+  max-width: var(--mingu-content);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+.mingu-container-reading {
+  max-width: var(--mingu-reading);
+}
+.mingu-stack {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.mingu-stack > *,
+.mingu-grid > * {
+  min-width: 0;
+}
+.mingu-grid {
+  display: grid;
+}
+.mingu-separator {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid var(--mingu-border);
+  margin-block: var(--mingu-space-6);
+}
+.mingu-skeleton {
+  min-height: 1em;
+  background: var(--mingu-surface);
+  border-radius: var(--mingu-radius-sm);
+  animation: mingu-pulse 1.6s ease-in-out infinite;
+}
+.mingu-tablist {
+  display: flex;
+  gap: var(--mingu-space-1);
+  overflow-x: auto;
+  padding: 4px;
+  background: var(--mingu-surface);
+  border-radius: var(--mingu-radius-md);
+}
+.mingu-tablist button {
+  border: 0;
+  border-radius: var(--mingu-radius-sm);
+  padding: 10px 14px;
+  min-height: 44px;
+  background: transparent;
+  color: var(--mingu-muted);
+  font: inherit;
+  font-size: var(--mingu-text-sm);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.mingu-tablist button[aria-selected="true"] {
+  background: var(--mingu-raised);
+  color: var(--mingu-text);
+  box-shadow: var(--mingu-shadow);
+}
+.mingu-tablist button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.mingu-tabpanel {
+  padding-block: var(--mingu-space-5);
+}
+.mingu-dialog {
+  width: min(32rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: auto;
+  padding: var(--mingu-space-6);
+  color: var(--mingu-text);
+  background: var(--mingu-raised);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  font: inherit;
+  box-shadow: var(--mingu-shadow);
+}
+.mingu-dialog::backdrop {
+  background: #0009;
+}
+.mingu-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--mingu-space-4);
+}
+.mingu-dialog-header h2 {
+  margin: 0;
+  font-size: var(--mingu-text-lg);
+  font-weight: 600;
+}
+.mingu-dialog-body {
+  margin-top: var(--mingu-space-6);
+}
+:where(.mingu-system, .mingu-dialog) :is(.mingu-tablist, .mingu-dialog) {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+}
+@keyframes mingu-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes mingu-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-spinner,
+  .mingu-skeleton {
+    animation: none;
+  }
+}
+@media (forced-colors: active) {
+  .mingu-switch-track {
+    border-color: ButtonText;
+  }
+  .mingu-switch-track::after {
+    background: ButtonText;
+  }
+  .mingu-switch input:checked + .mingu-switch-track {
+    background: Highlight;
+  }
+  .mingu-button {
+    border-color: ButtonText;
+  }
+}
+
+html:has(dialog.mingu-dialog[open]) {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}

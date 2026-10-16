@@ -1,20 +1,29 @@
 {
   "name": "@mingu/interaction-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "files": [
     "src",
     "styles.css",
     "interaction.css",
-    "README.md"
+    "README.md",
+    "tokens.css",
+    "system.css",
+    "DESIGN_SYSTEM.md",
+    "examples"
   ],
   "exports": {
     ".": "./src/index.ts",
-    "./styles.css": "./styles.css"
+    "./styles.css": "./styles.css",
+    "./system": "./src/system/index.tsx",
+    "./system.css": "./system.css",
+    "./tokens.css": "./tokens.css"
   },
   "sideEffects": [
     "./styles.css",
-    "./interaction.css"
+    "./interaction.css",
+    "./tokens.css",
+    "./system.css"
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",

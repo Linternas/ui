@@ -11,7 +11,8 @@ const { outputFiles } = await build({
   jsx: "automatic",
 });
 const js = outputFiles.find((file) => file.path.endsWith(".js")).text;
-const css =
+const foundationCss = (await readFile(new URL("../tokens.css", import.meta.url), "utf8")) + (await readFile(new URL("../system.css", import.meta.url), "utf8")).replace("@import './tokens.css';", "");
+const css = foundationCss +
   (await readFile(new URL("../styles.css", import.meta.url), "utf8")).replace(
     '@import "./interaction.css";',
     "",
