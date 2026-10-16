@@ -1,10 +1,78 @@
-# Mingu UI 작업 기준
+# Mingu UI — agent guide
 
-- 이 저장소는 Mingu 웹의 공통 디자인 시스템이다. `DESIGN_SYSTEM.md`를 먼저 읽는다.
-- 기본 시각 방향은 담백한 화면과 목적이 분명한 인터랙션의 조합이다.
-- 새 UI는 기존 semantic token과 Core 컴포넌트를 우선 조합한다. 제품 전용 API·인증·비즈니스 규칙을 넣지 않는다.
-- 새 색상·간격·모션 상수를 여러 파일에 흩어놓지 않고 토큰을 확장한다.
-- native props, ref, 키보드, focus-visible, 오류 상태, disabled, reduced-motion을 유지한다.
-- 인터랙션은 opt-in으로 추가한다. 기본 페이지에 반복 효과를 강제하지 않는다.
-- 기존 패키지 이름·루트 exports는 소비 앱 호환성을 위해 유지한다.
-- 변경 후 typecheck와 영향 있는 브라우저 검사를 수행한다. 새 API와 도입 방법은 문서에 함께 반영한다.
+## Start here
+
+This repository is the source of Mingu's shared React design system and the standalone catalog at https://ui.mingu.xyz. The package root is this directory; no blog checkout or sibling workspace is required.
+
+Read these files before changing UI:
+
+1. `DESIGN_SYSTEM.md` — tokens, themes, public APIs, accessibility and integration rules.
+2. `COMPONENTS.md` — component inventory and states.
+3. `package.json` — public exports and available commands.
+
+Use existing components and semantic tokens first. Keep product APIs, authentication and business rules in consuming applications.
+
+## Source map
+
+| Change | Location |
+| --- | --- |
+| Semantic colors, spacing, typography, motion | `tokens.css` |
+| Core component styles | `system.css` |
+| Core controls, forms, display, navigation, overlays | `src/system/` |
+| Button, copy, floating field, segmented and card interactions | `src/system/micro-interactions.tsx` |
+| Shared spring settings | `src/system/motion-tokens.ts` |
+| Interaction components and reading utilities | `src/*.tsx`, `src/useReadingPosition.ts` |
+| Interaction styles | `styles.css`, `interaction.css` |
+| Public exports | `src/index.ts`, `src/system/index.tsx`, `package.json` |
+| Unified catalog metadata | `src/system/ui-catalog.ts` |
+| Core / interaction inventory | `src/system/catalog.ts`, `src/system/interaction-catalog.ts` |
+| Catalog shell, search, navigation and theme | `docs/src/UiCatalog.tsx` |
+| Live examples | `docs/src/SystemComponentDemo.tsx`, `docs/src/DemoPreview.tsx`, other preview files |
+| Catalog routes | `docs/src/main.tsx`, `docs/src/routing.tsx` |
+| Catalog styles | `docs/src/system-catalog.css`, `docs/src/site.css` |
+| Static build / HTTP server | `docs/build.mjs`, `docs/server.mjs` |
+| Consumer integration examples | `examples/` |
+
+Inspect existing implementations near the change before adding a new abstraction. `dist/` and `docs/routes.mjs` are generated; change their source files instead.
+
+## Component changes
+
+- Keep `@mingu/interaction-ui` and existing public exports compatible. Consumers transpile TypeScript source and import CSS explicitly.
+- Preserve native props, refs, form behavior, keyboard navigation, focus-visible, disabled and error states. Every input needs an accessible name.
+- Use semantic tokens rather than scattering new colors, spacing or motion constants across files. Keep themes scoped to the provider.
+- Default screens should remain calm and readable. Larger interactions are opt-in; respect reduced motion and touch input.
+- Reuse the same implementation in the package and catalog. Demos must show real component behavior.
+- For a new component, update the appropriate exports, catalog metadata, live preview and API documentation together. Check the unified catalog before registering a duplicate.
+- Document breaking API changes and migration steps; do not silently rename or remove exports.
+
+## Local commands
+
+Use the Node/npm versions declared in `package.json`.
+
+```sh
+npm ci
+npm run typecheck
+npm run typecheck:docs
+npm run build
+npm start
+```
+
+`npm start` serves the built catalog on `PORT` (default 3000). Rebuild after editing; this server does not provide hot reload.
+
+Run checks relevant to the change:
+
+- Package/API change: `npm run typecheck`.
+- Catalog change: `npm run typecheck:docs` and `npm run build`; inspect affected pages on desktop and mobile.
+- Interaction/accessibility change: `npm run test:browser`. Install the browser with `npx playwright install chromium`, or use `PLAYWRIGHT_CHANNEL=chrome npm run test:browser` with installed Chrome.
+- Build, routing or server change: `npm run test:docs` (builds and tests the HTTP server).
+- Documentation-only change: check referenced paths, commands and `git diff --check`; a full browser suite is unnecessary.
+
+Report checks actually run and any unverified behavior. Do not claim deployment success from a successful push alone.
+
+## Deployment and consumers
+
+Railway deploys the catalog from this repository's root using `railpack.json`: build `npm run build`, start `npm start`, health check `/healthz`, bind `0.0.0.0:$PORT`.
+
+The catalog uses root routes such as `/button`; `/lab/ui/...` is a legacy redirect. Use https://ui.mingu.xyz for public catalog links.
+
+A consuming app can pin this repository as a Git dependency or submodule. A catalog-only change does not require updating a consumer's package pin. Component adoption and consumer deployment are separate changes; do not edit a consumer checkout as a side effect.

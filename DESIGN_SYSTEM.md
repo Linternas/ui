@@ -147,7 +147,7 @@ npm run test:browser
 
 ## Unified catalog
 
-[웹 카탈로그](https://blog.mingu.xyz/lab/ui)는 토큰·기본 UI·인터랙션·패턴을 하나의 검색, 탐색, 테마, 코드 미리보기로 제공한다. 기본 UI와 인터랙션은 기능별로 같은 그룹에 배치한다. Sidebar와 BounceSidebar처럼 관련된 항목은 같은 화면의 variant 탐색으로 연결한다.
+[웹 카탈로그](https://ui.mingu.xyz)는 토큰·기본 UI·인터랙션·패턴을 하나의 검색, 탐색, 테마, 코드 미리보기로 제공한다. 기본 UI와 인터랙션은 기능별로 같은 그룹에 배치한다. Sidebar와 BounceSidebar처럼 관련된 항목은 같은 화면의 variant 탐색으로 연결한다.
 
 카탈로그 데이터는 `@mingu/interaction-ui/catalog`의 `uiCatalog`, `uiGroups`, `uiFamilies`가 단일 기준이다. 서버와 클라이언트에서 모두 불러올 수 있는 정적 데이터다. 기존 `systemCatalog`는 기본 컴포넌트 목록으로 유지한다.
 
