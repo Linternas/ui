@@ -46,6 +46,7 @@
   --mingu-ease-spring: cubic-bezier(0.2, 1.4, 0.4, 1);
   --mingu-press-scale: 0.97;
   --mingu-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --mingu-lens-size: 160px;
   --mingu-radial-size: 232px;
   --mingu-preview-width: 240px;
   --mingu-search-width: 360px;

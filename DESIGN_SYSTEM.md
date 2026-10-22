@@ -255,3 +255,16 @@ npm run test:browser
 `Dialog`에는 선택적으로 `motionOrigin` ref와 `motion='scale'|'bottom'`을 사용할 수 있다. 기존 기본 모달 동작은 유지하며, 지정한 화면 전환은 닫기 애니메이션이 끝난 후 네이티브 dialog를 닫고 포커스를 복원한다. `onKeyDown`은 기본 Tab 처리 전에 호출된다. 모션 감소 설정에서는 화면 확대/복귀와 목록 이동을 즉시 처리한다. 드래그와 키보드 조작, 실제 값 변경은 계속 사용할 수 있다.
 
 레이아웃 높이는 소비 앱이 `style` 또는 콘텐츠로 정한다. 화면에 없는 데이터 저장·파일 업로드 성공을 시각 효과가 대신 판단하지 않는다. docs의 저장/업로드/진행 예제는 브라우저 내부 데모이며 실제 서비스 API를 호출하지 않는다.
+
+## Image and typography interactions (0.10)
+
+| 컴포넌트 | API / 조작 |
+| --- | --- |
+| `ImageLens` | `src`, `alt`, `zoom=2.5`(1.5–5), `label`, `className/style`. 실제 이미지 크기를 기준으로 확대한다. 마우스 hover 또는 Open lens로 표시하며 고정한 렌즈는 터치 드래그·방향 버튼·방향키로 옮긴다. Shift+방향키는 크게 이동하고 Escape는 닫기 버튼으로 포커스를 돌린다. `--mingu-lens-size`로 지름을 조정한다. 이미지 실패 시 렌즈 버튼을 비활성화한다. |
+| `DirectionalCard` | native anchor props/ref와 `title`, `description?`, `image:{src,alt}`. 포인터 진입 위치에서 표면이 펼쳐진다. 제목과 설명은 항상 보이며 touch/focus/모션 감소에서도 링크 내용을 유지한다. 네이티브 링크·수정키 새 탭 열기를 그대로 사용한다. |
+| `LoopingTicker` | `label`, `items:{id,content}[]`, `speed=36`(8–120 px/s), `direction='left'|'right'`, `autoPlay=true`. 실제 길이를 측정해 이어지는 스트립을 만든다. Pause/Play 버튼·hover·콘텐츠 내 focus·화면 밖·백그라운드에서 멈춘다. 복제 그룹은 inert/aria-hidden이다. 링크·버튼이 있는 스트립은 hover/focus 시 원본 위치로 돌아가 정적인 원본을 조작하게 한다. 모션 감소와 autoPlay=false에서는 복제본을 숨기고 원본을 수동 가로 스크롤한다. 복제될 content에는 DOM id가 있는 폼이나 상태ful 위젯을 넣지 말고 텍스트·로고·링크처럼 가벼운 콘텐츠를 사용한다. |
+| `RotatingText` | `words`, `label?`, `interval=2400`(800–10000 ms), `autoPlay=true`. 가장 긴 표현의 공간을 확보하고 단어를 전환한다. Pause/Play·hover·화면 밖·백그라운드에서 멈추며 모션 감소에서는 첫 표현을 표시한다. 접근성 트리는 `label` 또는 전체 표현 목록을 한 번 읽고 매 전환을 알리지 않는다. 문장 전체를 설명하는 label을 권장한다. |
+
+루트에서 가져오며 기존 system.css/styles.css와 같은 테마를 사용한다. 새 항목도 UTC 추가일부터 30일 동안 Newest에 표시한다.
+
+`AiStatus`는 모든 상태의 20px 아이콘 슬롯과 첫 텍스트 줄을 정렬한다. 회전 문자를 SVG로 바꿔 시스템 폰트에 따른 높이 차이를 제거하고, 긴 label/detail은 줄바꿈하며 타이머는 고정 폭 숫자를 사용한다. 기존 props는 유지한다.

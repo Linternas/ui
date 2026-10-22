@@ -94,12 +94,12 @@ export const uiCatalog: readonly UiCatalogEntry[] = [
 export const uiFamilies: readonly (readonly string[])[] = [
   ["sidebar", "bounce-sidebar", "hook-sidebar", "proximity-sidebar"],
   ["navigation", "gooey-nav"],
-  ["card", "interactive-card", "expandable-card"],
+  ["card", "interactive-card", "expandable-card", "directional-card"],
   ["radio-group", "segmented-control"],
   ["accordion", "faq"],
   ["code-block", "code-tabs"],
   ["file-upload", "file-dropzone"],
-  ["image-compare", "image-lightbox"],
+  ["image-compare", "image-lightbox", "image-lens"],
   ["progress", "scroll-progress", "rail-toc"],
   [
     "button",

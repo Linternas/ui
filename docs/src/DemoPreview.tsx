@@ -32,6 +32,7 @@ import {
 import ExplorationPreview from "./ExplorationPreview";
 import GesturePreview from "./GesturePreview";
 import EverydayPreview from "./EverydayPreview";
+import StudioPreview from "./StudioPreview";
 import ReadingDemos from "./ReadingDemos";
 import type { ComponentId } from "./catalog";
 
@@ -127,6 +128,11 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "image-lens":
+    case "directional-card":
+    case "looping-ticker":
+    case "rotating-text":
+      return <StudioPreview id={id} compact={compact} />;
     case "image-lightbox":
     case "expandable-card":
     case "animated-filter-bar":

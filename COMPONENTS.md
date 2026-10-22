@@ -622,3 +622,12 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 | [BottomSheet](https://ui.mingu.xyz/bottom-sheet) | 여러 snap, 드래그/키보드, 본문 스크롤, 닫기/포커스 복귀 |
 | [ActionToast](https://ui.mingu.xyz/action-toast) | 쌓임/제거, Undo, 진행률, 액션 중/실패/재시도 |
 | [FileDropzone](https://ui.mingu.xyz/file-dropzone) | 드롭/선택, 파일 검증, 썸네일, 업로드 진행/실패/재시도, 제거/취소, 폼/reset |
+
+## Image and typography interactions
+
+- [ImageLens](https://ui.mingu.xyz/image-lens): 실제 이미지 확대, hover/고정, 터치·방향키, 이미지 오류.
+- [DirectionalCard](https://ui.mingu.xyz/directional-card): 네 방향 진입, native 링크/ref, focus·touch·모션 감소.
+- [LoopingTicker](https://ui.mingu.xyz/looping-ticker): 길이 측정, Pause/Play, hover/focus/화면 밖 정지, 정적인 수동 스크롤.
+- [RotatingText](https://ui.mingu.xyz/rotating-text): 폭 유지, 단어 전환, Pause/Play, 모션 감소와 정적 접근성 설명.
+
+[AiStatus](https://ui.mingu.xyz/ai-status)의 아이콘·본문·detail·timer는 첫 줄을 기준으로 정렬하며 모든 6개 상태에 같은 SVG 슬롯을 사용한다.

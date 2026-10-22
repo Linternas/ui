@@ -302,6 +302,7 @@ export function AiStatus({
   timer?: boolean;
 }) {
   const [elapsed, setElapsed] = useState(0);
+  const reduced = useReducedMotion();
   const running = state !== "done" && state !== "error";
   useEffect(() => {
     if (!running || !timer) return;
@@ -321,32 +322,52 @@ export function AiStatus({
   };
   return (
     <div className="mi-ai-status" data-state={state} role="status">
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={state}
-          className="mi-ai-icon"
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-        >
-          {state === "done" ? (
-            <Icon name="check" size={18} />
-          ) : state === "error" ? (
-            <Icon name="close" size={18} />
-          ) : state === "researching" ? (
-            <Icon name="search" size={18} />
-          ) : state === "writing" ? (
-            <Icon name="edit" size={18} />
-          ) : (
-            <span className="mi-ai-spinner">✳</span>
-          )}
-        </motion.span>
-      </AnimatePresence>
-      <span className={running ? "mi-shimmer" : ""}>
-        {label ?? labels[state]}
+      <span className="mi-ai-icon" aria-hidden="true">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={state}
+            className="mi-ai-glyph"
+            initial={reduced ? false : { opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: reduced ? 1 : 0.5 }}
+            transition={reduced ? { duration: 0 } : { duration: 0.15 }}
+          >
+            {state === "done" ? (
+              <Icon name="check" size={18} />
+            ) : state === "error" ? (
+              <Icon name="close" size={18} />
+            ) : state === "researching" ? (
+              <Icon name="search" size={18} />
+            ) : state === "writing" ? (
+              <Icon name="edit" size={18} />
+            ) : (
+              <svg
+                className="mi-ai-spinner"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              >
+                <path d="M12 2v4m0 12v4M2 12h4m12 0h4M5 5l3 3m8 8 3 3M5 19l3-3m8-8 3-3" />
+              </svg>
+            )}
+          </motion.span>
+        </AnimatePresence>
       </span>
-      {detail && <small>{detail}</small>}
-      {timer && <small>{elapsed}s</small>}
+      <span className="mi-ai-copy">
+        <span className={`mi-ai-label${running ? " mi-shimmer" : ""}`}>
+          {label ?? labels[state]}
+        </span>
+        {detail && <small className="mi-ai-detail">{detail}</small>}
+      </span>
+      {timer && (
+        <small className="mi-ai-elapsed" aria-hidden="true">
+          {elapsed}s
+        </small>
+      )}
     </div>
   );
 }

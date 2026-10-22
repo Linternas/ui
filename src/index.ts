@@ -117,3 +117,12 @@ export type {
   RejectedFile,
   UploadState,
 } from "./FileDropzone";
+
+export { ImageLens } from "./ImageLens";
+export type { ImageLensProps } from "./ImageLens";
+export { DirectionalCard } from "./DirectionalCard";
+export type { DirectionalCardProps } from "./DirectionalCard";
+export { LoopingTicker } from "./LoopingTicker";
+export type { LoopingTickerProps, TickerItem } from "./LoopingTicker";
+export { RotatingText } from "./RotatingText";
+export type { RotatingTextProps } from "./RotatingText";

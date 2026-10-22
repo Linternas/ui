@@ -47,6 +47,11 @@ test("production docs server serves built routes, assets and health without expo
       "/button",
       "/controls",
       "/newest",
+      "/image-lens",
+      "/directional-card",
+      "/looping-ticker",
+      "/rotating-text",
+
       "/image-lightbox",
       "/expandable-card",
       "/animated-filter-bar",

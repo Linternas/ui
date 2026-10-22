@@ -741,3 +741,44 @@
   font-size: var(--mingu-text-sm);
   color: var(--mingu-muted);
 }
+.ui-studio-card {
+  width: min(100%, 420px);
+  margin-inline: auto;
+}
+.ui-ticker-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mingu-space-3);
+  padding: var(--mingu-space-4) var(--mingu-space-5);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  color: var(--mingu-text);
+  background: var(--mingu-raised);
+  font-size: var(--mingu-text-sm);
+  white-space: nowrap;
+}
+.ui-ticker-chip i {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  font: var(--mingu-text-xs) var(--mingu-font-mono);
+  font-style: normal;
+  color: var(--mingu-muted);
+}
+.ui-rotating-demo {
+  display: grid;
+  gap: var(--mingu-space-5);
+  width: 100%;
+  min-width: 0;
+  padding: var(--mingu-space-5) 0;
+}
+.ui-rotating-title {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 550;
+  letter-spacing: -0.055em;
+  line-height: 1.2;
+}
+.ui-rotating-title .mingu-rotating {
+  max-width: 100%;
+}

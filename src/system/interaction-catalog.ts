@@ -1,5 +1,42 @@
 export const interactionCatalog = [
   {
+    id: "image-lens",
+    name: "Image lens",
+    group: "Data display",
+    component: "ImageLens",
+    addedAt: "2026-10-22",
+    description:
+      "이미지 위를 움직이는 확대 렌즈. 터치 고정과 방향키로도 세부를 살펴볼 수 있습니다.",
+  },
+  {
+    id: "directional-card",
+    name: "Directional card",
+    group: "Layout",
+    component: "DirectionalCard",
+    addedAt: "2026-10-22",
+    description:
+      "포인터가 들어온 방향에서 표면이 펼쳐지는 링크 카드. 제목과 링크는 항상 유지합니다.",
+  },
+  {
+    id: "looping-ticker",
+    name: "Looping ticker",
+    group: "Data display",
+    component: "LoopingTicker",
+    addedAt: "2026-10-22",
+    description:
+      "일정한 속도로 이어지는 콘텐츠 스트립. 재생·일시정지와 포커스·모션 감소를 지원합니다.",
+  },
+  {
+    id: "rotating-text",
+    name: "Rotating text",
+    group: "Visual effects",
+    component: "RotatingText",
+    addedAt: "2026-10-22",
+    description:
+      "단어가 짧게 흐려졌다 다음 표현으로 이어지는 타이포그래피. 폭을 유지하고 재생을 제어합니다.",
+  },
+
+  {
     id: "image-lightbox",
     name: "Image lightbox",
     group: "Overlays",
@@ -386,6 +423,15 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  "image-lens":
+    '<ImageLens src="/project.jpg" alt="Project details" zoom={2.5} />',
+  "directional-card":
+    '<DirectionalCard href="/projects/field-notes" title="Field notes" description="A closer look at the project" image={{src:"/project.jpg",alt:"Project landscape"}} />',
+  "looping-ticker":
+    '<LoopingTicker label="Built with" speed={36} items={[{id:"react",content:"React"},{id:"typescript",content:"TypeScript"},{id:"motion",content:"Motion"}]} />',
+  "rotating-text":
+    '<RotatingText words={["people.","clarity.","tomorrow."]} label="Build for people, clarity and tomorrow." interval={2400} />',
+
   "image-lightbox":
     '<ImageLightbox images={[{id:"day",src:"/day.jpg",alt:"Mountains in daylight"},{id:"night",src:"/night.jpg",alt:"Mountains at night"}]} />',
   "expandable-card":
