@@ -30,6 +30,7 @@ import {
   type MatrixState,
 } from "@mingu/interaction-ui";
 import ExplorationPreview from "./ExplorationPreview";
+import GesturePreview from "./GesturePreview";
 import ReadingDemos from "./ReadingDemos";
 import type { ComponentId } from "./catalog";
 
@@ -125,6 +126,11 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "radial-menu":
+    case "preview-link":
+    case "morphing-search":
+    case "elastic-slider":
+      return <GesturePreview id={id} compact={compact} />;
     case "swipe-deck":
     case "focus-dock":
     case "image-compare":

@@ -598,3 +598,10 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 - [ScrambleText](https://ui.mingu.xyz/scramble-text): 글자 정렬 효과, 재생 키·뷰포트·모션 감소 지원.
 
 모든 항목은 패키지 루트에서 가져온다. typed props와 코드 예제는 각 상세 화면 및 DESIGN_SYSTEM.md에 있다.
+
+## Gesture interactions
+
+- [RadialMenu](https://ui.mingu.xyz/radial-menu): 원형 액션 메뉴. disabled 항목, 방향키, Escape/Tab, 외부 클릭 지원.
+- [PreviewLink](https://ui.mingu.xyz/preview-link): 네이티브 링크를 유지하는 포인터 이미지 미리보기. focus·viewport 경계·모션 감소 지원.
+- [MorphingSearch](https://ui.mingu.xyz/morphing-search): 검색 버튼에서 실제 검색 폼으로 전환. 입력·제출·지우기·포커스 복귀.
+- [ElasticSlider](https://ui.mingu.xyz/elastic-slider): 드래그 중 휘어지고 복귀하는 range. min/max/step·폼 값·키보드·disabled 지원.

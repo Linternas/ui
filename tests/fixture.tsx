@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { CodeBlock, RailToc, ScrollProgress } from "../src";
+import GestureFixture from "./gestures";
 import ExplorationFixture from "./explorations";
 import ControlFixture from "./controls";
 import MicroFixture from "./micro-interactions";
@@ -60,7 +61,9 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  location.search.includes("explorations") ? (
+  location.search.includes("gestures") ? (
+    <GestureFixture />
+  ) : location.search.includes("explorations") ? (
     <ExplorationFixture />
   ) : location.search.includes("controls") ? (
     <ControlFixture />

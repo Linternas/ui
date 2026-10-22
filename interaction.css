@@ -1422,3 +1422,265 @@ button:where([class^="mi-"]):disabled {
   height: 44px;
   border: 0;
 }
+
+/* Pointer, orbit and elastic interactions share the system's semantic theme. */
+.mingu-radial {
+  position: relative;
+  width: var(--mingu-radial-size);
+  height: var(--mingu-radial-size);
+  max-width: 100%;
+}
+.mingu-radial-orbit {
+  position: absolute;
+  inset: 15%;
+  border: 1px dashed var(--mingu-border);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity var(--mingu-duration-normal);
+}
+.mingu-radial[data-open] .mingu-radial-orbit {
+  opacity: 1;
+}
+.mingu-radial-trigger,
+.mingu-radial-item {
+  display: grid;
+  place-items: center;
+  width: var(--mingu-control-height-md);
+  height: var(--mingu-control-height-md);
+  padding: 0;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-full);
+  font: inherit;
+  color: var(--mingu-text);
+  background: var(--mingu-raised);
+  cursor: pointer;
+}
+.mingu-radial-trigger {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  background: var(--mingu-accent);
+  color: var(--mingu-on-accent);
+  border-color: transparent;
+}
+.mingu-radial-trigger > span {
+  display: grid;
+  place-items: center;
+  font-size: var(--mingu-text-xl);
+}
+.mingu-radial-slot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+.mingu-radial-item:hover {
+  background: var(--mingu-surface);
+}
+.mingu-radial-item:disabled,
+.mingu-radial-trigger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.mingu-radial-label {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + var(--mingu-space-2));
+  transform: translateX(-50%);
+  padding: var(--mingu-space-1) var(--mingu-space-2);
+  background: var(--mingu-text);
+  color: var(--mingu-bg);
+  border-radius: var(--mingu-radius-sm);
+  font: var(--mingu-text-xs) var(--mingu-font-sans);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 2;
+}
+.mingu-radial-slot:has(:hover, :focus-visible) .mingu-radial-label {
+  opacity: 1;
+}
+.mingu-radial-trigger:focus-visible,
+.mingu-radial-item:focus-visible,
+.mingu-morph-icon:focus-visible,
+.mingu-preview-link:focus-visible {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+}
+.mingu-preview-link {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.mingu-link-preview {
+  position: fixed;
+  inset: 0 auto auto 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: min(var(--mingu-preview-width), calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: hidden;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+  color: var(--mingu-text);
+  box-shadow: var(--mingu-shadow);
+  pointer-events: none;
+  font: var(--mingu-text-sm) / 1.5 var(--mingu-font-sans);
+  text-align: left;
+}
+.mingu-link-preview img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 8 / 5;
+  object-fit: cover;
+}
+.mingu-link-preview-copy {
+  display: grid;
+  gap: var(--mingu-space-1);
+  padding: var(--mingu-space-4);
+  overflow-wrap: anywhere;
+}
+.mingu-link-preview-copy strong {
+  font-weight: 550;
+}
+.mingu-link-preview-copy > span {
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+}
+.mingu-morph-search {
+  display: flex;
+  align-items: center;
+  flex: none;
+  max-width: var(--mingu-search-width);
+  min-height: var(--mingu-control-height-md);
+  box-sizing: border-box;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-full);
+  background: var(--mingu-raised);
+  overflow: hidden;
+  color: var(--mingu-text);
+}
+.mingu-morph-search:focus-within {
+  border-color: var(--mingu-accent);
+}
+.mingu-morph-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--mingu-control-height-md);
+  min-height: var(--mingu-control-height-md);
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: var(--mingu-radius-full);
+  font: var(--mingu-text-lg) var(--mingu-font-sans);
+}
+.mingu-morph-icon:focus-visible {
+  outline-offset: -4px;
+}
+.mingu-morph-icon:hover:not(:disabled) {
+  background: var(--mingu-surface);
+}
+.mingu-morph-search input[type="search"] {
+  flex: 1;
+  min-width: 0;
+  width: 0;
+  min-height: var(--mingu-control-height-md);
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: var(--mingu-text-sm) var(--mingu-font-sans);
+}
+.mingu-morph-search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+.mingu-morph-search input::placeholder {
+  color: var(--mingu-muted);
+}
+.mingu-morph-search:has(:disabled) {
+  opacity: 0.45;
+}
+.mingu-morph-icon:disabled {
+  cursor: not-allowed;
+}
+.mingu-elastic {
+  width: 100%;
+  max-width: var(--mingu-search-width);
+  color: var(--mingu-text);
+}
+.mingu-elastic-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--mingu-space-3);
+  font: var(--mingu-text-sm) var(--mingu-font-sans);
+}
+.mingu-elastic-heading output {
+  color: var(--mingu-muted);
+  font-variant-numeric: tabular-nums;
+}
+.mingu-elastic-track {
+  position: relative;
+  height: 56px;
+}
+.mingu-elastic-track svg {
+  display: block;
+  pointer-events: none;
+  overflow: visible;
+}
+.mingu-elastic-track input {
+  position: absolute;
+  inset: 0 12px;
+  width: calc(100% - 24px);
+  height: 56px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  opacity: 0;
+  cursor: ew-resize;
+  touch-action: none;
+}
+.mingu-elastic-track input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0;
+  height: 44px;
+  border: 0;
+}
+.mingu-elastic-track input::-moz-range-thumb {
+  width: 0;
+  height: 44px;
+  border: 0;
+}
+.mingu-elastic-track:has(:focus-visible) {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+  border-radius: var(--mingu-radius-sm);
+}
+.mingu-elastic[data-disabled] {
+  opacity: 0.4;
+}
+.mingu-elastic[data-disabled] input {
+  cursor: not-allowed;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-radial-orbit {
+    transition: none;
+  }
+}
+@media (forced-colors: active) {
+  .mingu-elastic-track {
+    color: CanvasText;
+  }
+  .mingu-radial-trigger {
+    border-color: ButtonText;
+  }
+}

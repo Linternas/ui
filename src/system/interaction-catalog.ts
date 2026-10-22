@@ -1,5 +1,41 @@
 export const interactionCatalog = [
   {
+    id: "radial-menu",
+    name: "Radial menu",
+    group: "Actions",
+    component: "RadialMenu",
+    addedAt: "2026-10-22",
+    description:
+      "한 번의 클릭으로 원형으로 펼쳐지는 액션 메뉴. 방향키와 Escape로도 가볍게 조작합니다.",
+  },
+  {
+    id: "preview-link",
+    name: "Preview link",
+    group: "Display",
+    component: "PreviewLink",
+    addedAt: "2026-10-22",
+    description:
+      "링크 위로 커서를 옮기면 이미지가 따라옵니다. 키보드 포커스에서도 같은 미리보기를 제공합니다.",
+  },
+  {
+    id: "morphing-search",
+    name: "Morphing search",
+    group: "Forms",
+    component: "MorphingSearch",
+    addedAt: "2026-10-22",
+    description:
+      "작은 검색 버튼이 입력창으로 펼쳐집니다. 검색·지우기·접기를 하나의 흐름으로 연결합니다.",
+  },
+  {
+    id: "elastic-slider",
+    name: "Elastic slider",
+    group: "Forms",
+    component: "ElasticSlider",
+    addedAt: "2026-10-22",
+    description:
+      "잡아당긴 방향으로 휘어지고 놓으면 돌아오는 탄성 슬라이더. 값 조절은 네이티브 range를 사용합니다.",
+  },
+  {
     id: "swipe-deck",
     name: "Swipe deck",
     group: "Display",
@@ -242,6 +278,14 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  "radial-menu":
+    '<RadialMenu label="Create" onSelect={id => console.log(id)} items={[{id:"note",label:"New note",icon:"+"},{id:"image",label:"Add image",icon:"▧"},{id:"link",label:"Add link",icon:"↗"},{id:"folder",label:"New folder",icon:"□"}]} />',
+  "preview-link":
+    '<p>Explore <PreviewLink href="/projects" preview={{src:"/project.jpg",title:"Selected work",description:"A closer look at the details."}}>selected work</PreviewLink>.</p>',
+  "morphing-search":
+    '<MorphingSearch label="Find projects" placeholder="Search projects…" onSearch={query => console.log(query)} />',
+  "elastic-slider":
+    '<ElasticSlider label="Intensity" name="intensity" defaultValue={60} min={0} max={100} step={1} formatValue={value => `${value}%`} onValueChange={value => console.log(value)} />',
   "swipe-deck":
     '<SwipeDeck label="Projects" items={[{ id: "one", label: "First project", content: <h3>First project</h3> }, { id: "two", label: "Second project", content: <h3>Second project</h3> }]} />',
   "image-compare":

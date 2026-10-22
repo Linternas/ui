@@ -221,3 +221,14 @@ npm run test:browser
 | `ScrambleText` | 잠깐 흩어진 글자가 원문으로 정렬. `text`, `duration`, `replayKey`, `playOnMount`. 진입/hover/재생 키 변경으로 재생하며 화면 밖과 백그라운드에서 중지한다. 접근성 트리에는 원문만 제공한다. |
 
 새 인터랙션은 `system.css`와 `styles.css`를 함께 가져온다. 모션 감소 설정에서는 Dock 확대, 카드 회전·전환, 텍스트 스크램블을 줄이거나 생략한다. 비교 슬라이더와 카드 버튼의 조작은 유지한다. 새 스프링과 이동 범위는 `src/system/motion-tokens.ts`, 크기는 `--mingu-dock-size`, `--mingu-deck-height`로 관리한다.
+
+## Gesture interactions (0.8)
+
+| 컴포넌트 | API / 조작 |
+| --- | --- |
+| `RadialMenu` | `items: {id,label,icon,disabled?}[]`, `onSelect`, `label`, `icon`, `disabled`. 중앙 버튼에서 액션이 원형으로 펼쳐진다. 방향키·Home·End는 비활성 항목을 건너뛰고 Escape/선택은 트리거로 포커스를 돌려준다. 외부 클릭·Tab 이탈 시 닫힌다. 빈 메뉴는 비활성화한다. 4–8개 정도의 짧은 액션에 적합하며 큰 내비게이션은 DropdownMenu/CommandPalette를 사용한다. |
+| `PreviewLink` | 네이티브 anchor props/ref와 `preview: {src,title?,description?,alt?}`. 소비 앱이 제공한 이미지를 포인터 옆에 보여주며 키보드 focus에서도 표시한다. 장식용 미리보기는 native Popover top layer를 사용해 부모 overflow 밖에서 표시한다. Escape·스크롤·resize·blur 시 닫힌다. 터치 hover나 외부 메타데이터 요청을 만들지 않는다. 핵심 정보와 액션은 링크 본문에도 제공한다. |
+| `MorphingSearch` | `value/defaultValue`, `onValueChange`, `onSearch`, `label`, `placeholder`, `clearLabel`, `closeLabel`, `name`, `disabled`, `defaultOpen`. 독립적인 search form이며 다른 form 안에 중첩하지 않는다. Enter/검색 버튼이 `onSearch(query)`를 호출한다. Escape로 접고 검색 버튼으로 포커스를 돌린다. 값은 접어도 유지하고 지우기는 명시적으로 실행한다. |
+| `ElasticSlider` | `label`, `value/defaultValue`, `onValueChange`, `min/max/step`, `formatValue`, `name/form/ref`, `disabled`, `style`. 수평 range에 실제 폼 값을 유지하고 드래그 중 선을 휘게 한다. 방향키·Home·End는 브라우저의 range 입력이다. 값은 범위와 step에 맞춰 정규화한다. `formatValue`가 화면과 접근성 값 설명에 함께 쓰인다. |
+
+루트에서 가져오며 `system.css`와 `styles.css`를 함께 사용한다. `--mingu-radial-size`, `--mingu-preview-width`, `--mingu-search-width`로 크기를 조정한다. 포인터 스프링·탄성 범위는 `src/system/motion-tokens.ts`에 있다. 모션 감소 설정에서는 링크를 즉시 배치하고 메뉴 이동·검색창 전환·슬라이더 휨을 생략한다. 네 항목도 실제 추가일 기준의 Newest 규칙을 따른다.
