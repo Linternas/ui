@@ -605,3 +605,20 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 - [PreviewLink](https://ui.mingu.xyz/preview-link): 네이티브 링크를 유지하는 포인터 이미지 미리보기. focus·viewport 경계·모션 감소 지원.
 - [MorphingSearch](https://ui.mingu.xyz/morphing-search): 검색 버튼에서 실제 검색 폼으로 전환. 입력·제출·지우기·포커스 복귀.
 - [ElasticSlider](https://ui.mingu.xyz/elastic-slider): 드래그 중 휘어지고 복귀하는 range. min/max/step·폼 값·키보드·disabled 지원.
+
+## Everyday interactions
+
+| 미리보기 | 주요 상태 |
+| --- | --- |
+| [ImageLightbox](https://ui.mingu.xyz/image-lightbox) | 빈 목록, 이미지 로딩 실패, 확대/초기화, 다음/이전, 핀치/이동, 모달 포커스 복귀 |
+| [ExpandableCard](https://ui.mingu.xyz/expandable-card) | 닫힘/열림, disabled, 실제 상세 액션, 모션 감소 |
+| [AnimatedFilterBar](https://ui.mingu.xyz/animated-filter-bar) | 전체/필터, 결과 수, 빈 결과, disabled, 라디오 키보드 |
+| [ResizablePanels](https://ui.mingu.xyz/resizable-panels) | min/max, 드래그, 키보드, 접기/복원, disabled |
+| [SortableList](https://ui.mingu.xyz/sortable-list) | 드래그, 키보드 재배치와 알림, disabled, 빈 목록 |
+| [InlineEdit](https://ui.mingu.xyz/inline-edit) | 읽기/편집, 검증, 저장 중, 거절/재시도, 취소/포커스 복귀 |
+| [SelectionToolbar](https://ui.mingu.xyz/selection-toolbar) | 실제 본문 선택, Copy 성공/실패, 인용 콜백, Escape |
+| [SmartHeader](https://ui.mingu.xyz/smart-header) | 상단/스크롤, 방향 변화, 포커스 복귀, 중첩 스크롤 |
+| [CodeTabs](https://ui.mingu.xyz/code-tabs) | 파일/명령어 탭, disabled, 빈 목록, 실제 복사, 높이 변경 |
+| [BottomSheet](https://ui.mingu.xyz/bottom-sheet) | 여러 snap, 드래그/키보드, 본문 스크롤, 닫기/포커스 복귀 |
+| [ActionToast](https://ui.mingu.xyz/action-toast) | 쌓임/제거, Undo, 진행률, 액션 중/실패/재시도 |
+| [FileDropzone](https://ui.mingu.xyz/file-dropzone) | 드롭/선택, 파일 검증, 썸네일, 업로드 진행/실패/재시도, 제거/취소, 폼/reset |

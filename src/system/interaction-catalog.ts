@@ -1,5 +1,113 @@
 export const interactionCatalog = [
   {
+    id: "image-lightbox",
+    name: "Image lightbox",
+    group: "Overlays",
+    component: "ImageLightbox",
+    addedAt: "2026-10-22",
+    description:
+      "클릭한 이미지가 원래 자리에서 확대됩니다. 확대·이동·핀치·사진 넘기기를 지원합니다.",
+  },
+  {
+    id: "expandable-card",
+    name: "Expandable card",
+    group: "Layout",
+    component: "ExpandableCard",
+    addedAt: "2026-10-22",
+    description:
+      "작은 카드가 상세 대화상자로 이어지고 닫으면 원래 자리로 돌아옵니다.",
+  },
+  {
+    id: "animated-filter-bar",
+    name: "Animated filter bar",
+    group: "Navigation",
+    component: "AnimatedFilterBar",
+    addedAt: "2026-10-22",
+    description:
+      "필터 선택과 결과 카드 재배치를 연결합니다. 개수·빈 결과·키보드 선택을 함께 제공합니다.",
+  },
+  {
+    id: "resizable-panels",
+    name: "Resizable panels",
+    group: "Layout",
+    component: "ResizablePanels",
+    addedAt: "2026-10-22",
+    description:
+      "경계선을 잡아 두 영역의 크기를 바꿉니다. 키보드 조절·접기·복원을 지원합니다.",
+  },
+  {
+    id: "sortable-list",
+    name: "Sortable list",
+    group: "Data display",
+    component: "SortableList",
+    addedAt: "2026-10-22",
+    description:
+      "핸들을 잡아 항목 순서를 바꿉니다. 방향키·Home·End로도 같은 결과를 만듭니다.",
+  },
+  {
+    id: "inline-edit",
+    name: "Inline edit",
+    group: "Forms",
+    component: "InlineEdit",
+    addedAt: "2026-10-22",
+    description:
+      "텍스트가 같은 자리의 입력으로 전환됩니다. 저장·취소·검증·실패 재시도까지 연결합니다.",
+  },
+  {
+    id: "selection-toolbar",
+    name: "Selection toolbar",
+    group: "Actions",
+    component: "SelectionToolbar",
+    addedAt: "2026-10-22",
+    description:
+      "선택한 문장 옆에 복사·인용 액션이 나타납니다. 실제 선택 범위와 텍스트를 전달합니다.",
+  },
+  {
+    id: "smart-header",
+    name: "Smart header",
+    group: "Navigation",
+    component: "SmartHeader",
+    addedAt: "2026-10-22",
+    description:
+      "아래로 읽을 때 접히고 위로 움직이면 돌아오는 헤더. 포커스가 들어오면 항상 표시합니다.",
+  },
+  {
+    id: "code-tabs",
+    name: "Code tabs",
+    group: "Data display",
+    component: "CodeTabs",
+    addedAt: "2026-10-22",
+    description:
+      "파일·언어·명령어 탭과 코드 블록을 조합합니다. 선택 표시·높이 전환·실제 복사를 지원합니다.",
+  },
+  {
+    id: "bottom-sheet",
+    name: "Bottom sheet",
+    group: "Overlays",
+    component: "BottomSheet",
+    addedAt: "2026-10-22",
+    description:
+      "아래에서 펼쳐지는 모달 시트. 손잡이로 높이를 조절하고 지정한 위치에 멈춥니다.",
+  },
+  {
+    id: "action-toast",
+    name: "Action toast",
+    group: "Feedback",
+    component: "ActionToast",
+    addedAt: "2026-10-22",
+    description:
+      "자리를 양보하며 쌓이는 알림. 실행 취소 액션·진행률·실패 재시도를 연결합니다.",
+  },
+  {
+    id: "file-dropzone",
+    name: "File dropzone",
+    group: "Forms",
+    component: "FileDropzone",
+    addedAt: "2026-10-22",
+    description:
+      "파일 드롭·이미지 미리보기·진행률·재시도. 실제 파일 입력과 업로드 콜백을 사용합니다.",
+  },
+  {
     id: "radial-menu",
     name: "Radial menu",
     group: "Actions",
@@ -278,6 +386,30 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  "image-lightbox":
+    '<ImageLightbox images={[{id:"day",src:"/day.jpg",alt:"Mountains in daylight"},{id:"night",src:"/night.jpg",alt:"Mountains at night"}]} />',
+  "expandable-card":
+    '<ExpandableCard title="Field notes" description="A closer look at the project" image={{src:"/project.jpg",alt:"Project preview"}}><p>Project details and links go here.</p></ExpandableCard>',
+  "animated-filter-bar":
+    '<AnimatedFilterBar label="Project category" filters={[{value:"all",label:"All"},{value:"web",label:"Web"}]} items={[{id:"one",category:"web",name:"Field notes"}]} getKey={item => item.id} getFilter={item => item.category} renderItem={item => <p>{item.name}</p>} />',
+  "resizable-panels":
+    '<ResizablePanels label="Preview width" defaultValue={45} first={<p>Editor</p>} second={<p>Preview</p>} />',
+  "sortable-list":
+    '<SortableList label="Links" items={items} onReorder={setItems} />',
+  "inline-edit":
+    '<InlineEdit label="Project name" value={name} onSave={async next => { await saveName(next); setName(next); }} required maxLength={80} />',
+  "selection-toolbar":
+    '<SelectionToolbar actions={[{id:"quote",label:"Quote",onSelect:text => setQuote(text)}]}><p>Select a sentence to copy or quote it.</p></SelectionToolbar>',
+  "smart-header":
+    '<SmartHeader><strong>Field notes</strong><a href="/about">About</a></SmartHeader>',
+  "code-tabs":
+    '<CodeTabs items={[{id:"npm",label:"npm",language:"bash",code:"npm run build"},{id:"pnpm",label:"pnpm",language:"bash",code:"pnpm build"}]} />',
+  "bottom-sheet":
+    '<BottomSheet open={open} onOpenChange={setOpen} title="Filters" snapPoints={[0.4,0.7,0.92]}><Checkbox>Published only</Checkbox></BottomSheet>',
+  "action-toast":
+    '<ActionToast messages={[{id:"removed",title:"Note removed",action:{label:"Undo",onAction:restoreNote}}]} onDismiss={id => dismissToast(id)} />',
+  "file-dropzone":
+    '<FileDropzone label="Images" name="images" accept="image/*" maxFiles={4} maxSize={10485760} onUpload={(file, {signal,onProgress}) => uploadFile(file, {signal,onProgress})} />',
   "radial-menu":
     '<RadialMenu label="Create" onSelect={id => console.log(id)} items={[{id:"note",label:"New note",icon:"+"},{id:"image",label:"Add image",icon:"▧"},{id:"link",label:"Add link",icon:"↗"},{id:"folder",label:"New folder",icon:"□"}]} />',
   "preview-link":

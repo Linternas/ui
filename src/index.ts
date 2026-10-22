@@ -80,3 +80,40 @@ export { MorphingSearch } from "./MorphingSearch";
 export type { MorphingSearchProps } from "./MorphingSearch";
 export { ElasticSlider } from "./ElasticSlider";
 export type { ElasticSliderProps } from "./ElasticSlider";
+
+export { ImageLightbox, ExpandableCard } from "./MediaInteractions";
+export type {
+  GalleryImage,
+  ImageLightboxProps,
+  ExpandableCardProps,
+} from "./MediaInteractions";
+export { AnimatedFilterBar, SortableList } from "./CollectionInteractions";
+export type {
+  FilterOption,
+  AnimatedFilterBarProps,
+  SortableItem,
+  SortableListProps,
+} from "./CollectionInteractions";
+export { ResizablePanels } from "./ResizablePanels";
+export type { ResizablePanelsProps } from "./ResizablePanels";
+export { InlineEdit } from "./InlineEdit";
+export type { InlineEditProps } from "./InlineEdit";
+export { SelectionToolbar } from "./SelectionToolbar";
+export type {
+  SelectionAction,
+  SelectionToolbarProps,
+} from "./SelectionToolbar";
+export { SmartHeader } from "./SmartHeader";
+export type { SmartHeaderProps } from "./SmartHeader";
+export { CodeTabs } from "./CodeTabs";
+export type { CodeTab, CodeTabsProps } from "./CodeTabs";
+export { BottomSheet } from "./BottomSheet";
+export type { BottomSheetProps } from "./BottomSheet";
+export { ActionToast } from "./ActionToast";
+export type { ActionToastMessage, ActionToastProps } from "./ActionToast";
+export { FileDropzone } from "./FileDropzone";
+export type {
+  FileDropzoneProps,
+  RejectedFile,
+  UploadState,
+} from "./FileDropzone";

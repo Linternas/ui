@@ -31,6 +31,7 @@ import {
 } from "@mingu/interaction-ui";
 import ExplorationPreview from "./ExplorationPreview";
 import GesturePreview from "./GesturePreview";
+import EverydayPreview from "./EverydayPreview";
 import ReadingDemos from "./ReadingDemos";
 import type { ComponentId } from "./catalog";
 
@@ -126,6 +127,19 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "image-lightbox":
+    case "expandable-card":
+    case "animated-filter-bar":
+    case "resizable-panels":
+    case "sortable-list":
+    case "inline-edit":
+    case "selection-toolbar":
+    case "smart-header":
+    case "code-tabs":
+    case "bottom-sheet":
+    case "action-toast":
+    case "file-dropzone":
+      return <EverydayPreview id={id} compact={compact} />;
     case "radial-menu":
     case "preview-link":
     case "morphing-search":

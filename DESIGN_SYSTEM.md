@@ -232,3 +232,26 @@ npm run test:browser
 | `ElasticSlider` | `label`, `value/defaultValue`, `onValueChange`, `min/max/step`, `formatValue`, `name/form/ref`, `disabled`, `style`. 수평 range에 실제 폼 값을 유지하고 드래그 중 선을 휘게 한다. 방향키·Home·End는 브라우저의 range 입력이다. 값은 범위와 step에 맞춰 정규화한다. `formatValue`가 화면과 접근성 값 설명에 함께 쓰인다. |
 
 루트에서 가져오며 `system.css`와 `styles.css`를 함께 사용한다. `--mingu-radial-size`, `--mingu-preview-width`, `--mingu-search-width`로 크기를 조정한다. 포인터 스프링·탄성 범위는 `src/system/motion-tokens.ts`에 있다. 모션 감소 설정에서는 링크를 즉시 배치하고 메뉴 이동·검색창 전환·슬라이더 휨을 생략한다. 네 항목도 실제 추가일 기준의 Newest 규칙을 따른다.
+
+## Everyday interactions (0.9)
+
+12개 패턴은 패키지 루트에서 가져온다. `system.css`와 `styles.css`를 함께 불러오며, 카탈로그의 각각의 상세 주소에서 같은 구현을 실행한다. 새 항목은 `addedAt` UTC 날짜를 기준으로 Newest에 30일간 표시한다.
+
+| 컴포넌트 | 주요 API / 사용 기준 |
+| --- | --- |
+| `ImageLightbox` | `images: {id,src,alt,thumbnail?,caption?}[]`, `label`. 썸네일 버튼이 네이티브 모달을 열고 해당 버튼으로 복귀한다. 이전/다음·좌우 방향키, 확대/축소/초기화, 더블 클릭, 드래그 이동과 터치 핀치를 지원한다. 이미지 오류·빈 목록도 표시한다. |
+| `ExpandableCard` | `title`, `description?`, `image?: {src,alt}`, `children`, `open/defaultOpen/onOpenChange`, `disabled`. 트리거는 네이티브 버튼이며 상세 `children` 안에 링크·액션을 넣는다. 카드의 원래 위치와 모달 사이를 전환한다. |
+| `AnimatedFilterBar<T>` | `label`, `filters: {value,label,disabled?}[]`, `items`, `getKey`, `getFilter`, `renderItem`, `value/defaultValue/onValueChange`, `allValue='all'`, `emptyLabel`, `disabled`. 단일 카테고리 또는 태그 배열을 필터링한다. 기본 SegmentedControl의 네이티브 라디오 키보드 동작을 재사용하며 결과 수를 알린다. item key는 고유하고 안정적으로 유지한다. |
+| `ResizablePanels` | `first/second`, `value/defaultValue/onValueChange`(왼쪽 비율 %), `min=20/max=80`, `label`, `disabled`, `style`. 수평으로 나란한 두 영역이다. 포인터 드래그·좌우/Shift+좌우·Home/End·Enter/더블 클릭 접기와 복원. 접힌 첫 영역은 inert로 만들어 포커스와 접근성 트리에서 제외한다. 작은 화면의 패널 콘텐츠는 내부 스크롤한다. |
+| `SortableList` | `items: {id,label,content?,disabled?}[]`, `onReorder`, `label`, `disabled`. controlled 순서이며 콜백의 배열을 상태에 반영한다. 핸들에서만 드래그하고 위/아래·Home·End로 이동한다. disabled 항목은 직접 잡거나 키보드로 옮길 수 없으며 다른 항목 이동에 따라 위치가 달라질 수 있다. 세로 단일 목록에 사용한다. |
+| `InlineEdit` | `label`, `value`, `onSave(next): void | Promise<void>`, `validate?`, `required/maxLength`, `name`, `disabled`, `placeholder`, `labels`. controlled 값은 저장 성공 시 소비 앱이 갱신한다. Enter 또는 Save는 네이티브 유효성 검사를 거치고 Escape/Cancel은 초안을 버린다. 저장 중 중복 실행을 막고 거절된 Promise는 초안을 보존해 재시도하게 한다. `name`의 폼 값은 저장된 value다. |
+| `SelectionToolbar` | `children`, `actions: {id,label,onSelect(text,range)}[]`, `label`. children 안에서 선택한 문장에 기본 Copy와 사용자 액션을 제공한다. 실제 Range의 복사본을 전달하며 저장·공유는 소비 앱 콜백에서 처리한다. Clipboard 성공/실패를 표시하고 Escape·스크롤·리사이즈로 닫힌다. iframe과 편집기 입력 영역 대신 읽기용 본문에 사용한다. |
+| `SmartHeader` | native header props/ref, `containerRef?`, `threshold?`. 기본값은 window 스크롤이며 지정한 컨테이너의 스크롤도 추적한다. 아래로 읽을 때 접고 위로 움직일 때 복귀하며 헤더 내 포커스와 페이지 상단에서는 항상 표시한다. sticky가 작동하는 스크롤 컨테이너 안에 배치한다. |
+| `CodeTabs` | `items: (CodeBlockProps & {id,label,disabled?})[]`, `label`, `value/defaultValue/onValueChange`. 기존 Tabs와 CodeBlock을 조합한다. 방향키·Home/End, 코드 높이 전환, 파일 이름·문법 강조·실제 복사를 유지한다. |
+| `BottomSheet` | 기존 `DialogProps`와 `snapPoints`(뷰포트 비율 0.2–0.95), `defaultSnap`(정렬된 배열의 index). 손잡이를 잡아 높이를 바꾸고 놓으면 가까운 snap에 멈춘다. 최저 snap보다 충분히 아래로 끌면 닫힌다. 손잡이의 방향키·Home/End도 높이를 바꾸며 본문 스크롤과 손잡이 드래그를 분리한다. |
+| `ActionToast` | `messages: ActionToastMessage[]`, `onDismiss`, `label`, `placement='bottom-right'|'inline'`. 기존 ToastMessage에 `action?: {label,onAction}`, `progress?`(0–100), `busy?`를 더한다. 액션 Promise 중 중복 실행을 막고 실패 시 다시 누를 수 있다. 알림 수명과 실행 취소의 실제 데이터 복원은 앱이 관리한다. 자동 만료하지 않는다. |
+| `FileDropzone` | `label`, `files?/onFilesChange`, `accept`, `multiple=true`, `maxFiles=5`, `maxSize`(bytes, 기본 10 MB), `name/form/required/disabled`, `hint`, `onReject`, `onUpload(file,{signal,onProgress})`. 네이티브 FileUpload와 FileList를 유지한다. 드롭/선택한 파일을 검증하고 중복을 제외하며 이미지 Object URL은 해제한다. 업로드 버튼이 콜백을 호출하고 실패 시 Retry를 제공한다. 제거·unmount 시 AbortSignal을 취소한다. 서버의 파일 검증과 전송 구현은 소비 앱에 둔다. |
+
+`Dialog`에는 선택적으로 `motionOrigin` ref와 `motion='scale'|'bottom'`을 사용할 수 있다. 기존 기본 모달 동작은 유지하며, 지정한 화면 전환은 닫기 애니메이션이 끝난 후 네이티브 dialog를 닫고 포커스를 복원한다. `onKeyDown`은 기본 Tab 처리 전에 호출된다. 모션 감소 설정에서는 화면 확대/복귀와 목록 이동을 즉시 처리한다. 드래그와 키보드 조작, 실제 값 변경은 계속 사용할 수 있다.
+
+레이아웃 높이는 소비 앱이 `style` 또는 콘텐츠로 정한다. 화면에 없는 데이터 저장·파일 업로드 성공을 시각 효과가 대신 판단하지 않는다. docs의 저장/업로드/진행 예제는 브라우저 내부 데모이며 실제 서비스 API를 호출하지 않는다.

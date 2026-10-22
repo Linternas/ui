@@ -24,3 +24,8 @@ export const explorationMotion = {
 export const previewSpring = { stiffness: 320, damping: 30, mass: 0.6 };
 export const elasticSpring = { stiffness: 280, damping: 18, mass: 0.65 };
 export const gestureMotion = { previewGap: 16, sliderBend: 18 };
+export const workspaceMotion = {
+  maxZoom: 4,
+  swipeDistance: 50,
+  headerThreshold: 12,
+};

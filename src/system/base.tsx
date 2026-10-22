@@ -561,6 +561,9 @@ export interface DialogProps {
   className?: string;
   role?: "dialog" | "alertdialog";
   initialFocus?: RefObject<HTMLElement | null>;
+  motionOrigin?: RefObject<HTMLElement | null>;
+  motion?: "scale" | "bottom";
+  onKeyDown?: React.KeyboardEventHandler<HTMLDialogElement>;
 }
 /** Native modal provides focus containment, Escape, and focus restoration. */
 export function Dialog({
@@ -573,18 +576,61 @@ export function Dialog({
   className = "",
   role = "dialog",
   initialFocus,
+  motionOrigin,
+  motion: surfaceMotion,
+  onKeyDown,
 }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
+  const reduced = useReducedMotion();
   const id = useId();
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
+    let animation: Animation | undefined;
+    const transform = () => {
+      const origin = motionOrigin?.current?.getBoundingClientRect();
+      const destination = dialog.getBoundingClientRect();
+      if (origin && origin.width && destination.width)
+        return `translate(${origin.left + origin.width / 2 - destination.left - destination.width / 2}px, ${origin.top + origin.height / 2 - destination.top - destination.height / 2}px) scale(${origin.width / destination.width}, ${origin.height / destination.height})`;
+      return surfaceMotion === "bottom" ? "translateY(100%)" : "scale(.96)";
+    };
+    const animated = !reduced && (motionOrigin || surfaceMotion);
+    const options = {
+      duration:
+        parseFloat(
+          getComputedStyle(dialog).getPropertyValue("--mingu-duration-panel"),
+        ) || 220,
+      easing: "cubic-bezier(.2,.7,.2,1)",
+    };
     if (open && !dialog.open) {
       dialog.showModal();
       initialFocus?.current?.focus();
+      if (animated)
+        animation = dialog.animate(
+          [
+            { transform: transform(), opacity: 0 },
+            { transform: "none", opacity: 1 },
+          ],
+          options,
+        );
     }
-    if (!open && dialog.open) dialog.close();
-  }, [open, initialFocus]);
+    if (!open && dialog.open) {
+      if (animated) {
+        animation = dialog.animate(
+          [
+            { transform: "none", opacity: 1 },
+            { transform: transform(), opacity: 0 },
+          ],
+          options,
+        );
+        animation.finished.then(
+          () => dialog.close(),
+          () => {},
+        );
+      } else dialog.close();
+    }
+    return () => animation?.cancel();
+  }, [open, initialFocus, motionOrigin, surfaceMotion, reduced]);
   useEffect(() => {
     const dialog = ref.current;
     return () => {
@@ -596,7 +642,8 @@ export function Dialog({
       ref={ref}
       tabIndex={-1}
       onKeyDown={(event) => {
-        if (event.key !== "Tab") return;
+        onKeyDown?.(event);
+        if (event.defaultPrevented || event.key !== "Tab") return;
         const dialog = event.currentTarget;
         const targets = Array.from(
           dialog.querySelectorAll<HTMLElement>(

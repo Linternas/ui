@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { CodeBlock, RailToc, ScrollProgress } from "../src";
+import EverydayFixture from "./everyday";
 import GestureFixture from "./gestures";
 import ExplorationFixture from "./explorations";
 import ControlFixture from "./controls";
@@ -61,7 +62,9 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  location.search.includes("gestures") ? (
+  location.search.includes("everyday") ? (
+    <EverydayFixture />
+  ) : location.search.includes("gestures") ? (
     <GestureFixture />
   ) : location.search.includes("explorations") ? (
     <ExplorationFixture />

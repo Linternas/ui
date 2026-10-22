@@ -94,9 +94,12 @@ export const uiCatalog: readonly UiCatalogEntry[] = [
 export const uiFamilies: readonly (readonly string[])[] = [
   ["sidebar", "bounce-sidebar", "hook-sidebar", "proximity-sidebar"],
   ["navigation", "gooey-nav"],
-  ["card", "interactive-card"],
+  ["card", "interactive-card", "expandable-card"],
   ["radio-group", "segmented-control"],
   ["accordion", "faq"],
+  ["code-block", "code-tabs"],
+  ["file-upload", "file-dropzone"],
+  ["image-compare", "image-lightbox"],
   ["progress", "scroll-progress", "rail-toc"],
   [
     "button",
@@ -120,8 +123,8 @@ export const uiFamilies: readonly (readonly string[])[] = [
     "otp-input",
     "duration-picker",
   ],
-  ["alert", "toast", "notification-bell", "ai-status"],
-  ["dialog", "alert-dialog", "drawer", "popover"],
+  ["alert", "toast", "action-toast", "notification-bell", "ai-status"],
+  ["dialog", "alert-dialog", "drawer", "bottom-sheet", "popover"],
 ];
 
 export const NEWEST_WINDOW_DAYS = 30;
