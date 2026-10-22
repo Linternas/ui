@@ -2530,3 +2530,340 @@ button:where([class^="mi-"]):disabled {
   .mingu-ticker-clone {
   display: none;
 }
+
+/* Playground: purposeful gestures with native controls. */
+.mingu-hover-gallery {
+  display: flex;
+  gap: var(--mingu-space-2);
+  width: 100%;
+  min-width: 0;
+  height: var(--mingu-gallery-height);
+  contain: inline-size;
+}
+.mingu-hover-panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-surface);
+  color: var(--mingu-media-ink);
+  text-align: left;
+  cursor: pointer;
+  isolation: isolate;
+}
+.mingu-hover-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    transparent 35%,
+    color-mix(in srgb, var(--mingu-media-shade) 85%, transparent)
+  );
+  pointer-events: none;
+}
+.mingu-hover-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mingu-hover-caption {
+  position: absolute;
+  z-index: 1;
+  bottom: var(--mingu-space-5);
+  left: var(--mingu-space-5);
+  right: var(--mingu-space-5);
+  display: grid;
+  gap: var(--mingu-space-2);
+}
+.mingu-hover-caption strong {
+  font: 550 var(--mingu-text-lg) / 1.2 var(--mingu-font-sans);
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+}
+.mingu-hover-caption > span {
+  font: var(--mingu-text-xs) / 1.5 var(--mingu-font-sans);
+}
+.mingu-hover-panel:not([aria-pressed="true"]) .mingu-hover-caption {
+  left: 50%;
+  right: auto;
+  bottom: var(--mingu-space-5);
+  writing-mode: vertical-rl;
+  transform: translateX(-50%) rotate(180deg);
+}
+.mingu-hover-panel:not([aria-pressed="true"]) .mingu-hover-caption > span {
+  display: none;
+}
+.mingu-hover-panel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mingu-hover-panel:focus-visible,
+.mingu-avatar-person:focus-visible,
+.mingu-scrubber-handle:focus-visible {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+}
+.mingu-text-reveal {
+  margin: 0;
+  font: 550 var(--mingu-text-2xl) / 1.4 var(--mingu-font-sans);
+  letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.mingu-cursor-trail {
+  width: 100%;
+  min-width: 0;
+  position: relative;
+  isolation: isolate;
+  min-height: 360px;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  overflow: hidden;
+  background: var(--mingu-surface);
+  contain: inline-size;
+}
+.mingu-cursor-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: center;
+  text-align: center;
+  min-height: 240px;
+  padding: var(--mingu-space-8);
+}
+.mingu-cursor-samples {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-2);
+  padding: 0 var(--mingu-space-6) var(--mingu-space-6);
+}
+.mingu-cursor-samples img {
+  width: 64px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: var(--mingu-radius-sm);
+}
+.mingu-cursor-stamps {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+.mingu-cursor-stamps img {
+  position: absolute;
+  width: min(var(--mingu-trail-width), 40%);
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  margin-left: calc(var(--mingu-trail-width) / -2);
+  margin-top: -48px;
+  border-radius: var(--mingu-radius-md);
+  box-shadow: var(--mingu-shadow);
+}
+.mingu-cursor-toggle {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  margin: 0 auto var(--mingu-space-3);
+}
+.mingu-avatar-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mingu-space-4);
+  padding: var(--mingu-space-8) 0;
+  font: var(--mingu-text-sm) / 1.5 var(--mingu-font-sans);
+}
+.mingu-avatar-row {
+  display: flex;
+  padding: var(--mingu-space-2);
+}
+.mingu-avatar-person {
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-radius: var(--mingu-radius-full);
+  background: var(--mingu-bg);
+  box-shadow: 0 0 0 3px var(--mingu-bg);
+  margin-left: -12px;
+  cursor: pointer;
+  transition:
+    margin var(--mingu-duration-normal) var(--mingu-ease),
+    transform var(--mingu-duration-normal) var(--mingu-ease);
+}
+.mingu-avatar-person:first-child {
+  margin-left: 0;
+}
+.mingu-avatar-row:is(:hover, :focus-within)
+  .mingu-avatar-person:not(:first-child) {
+  margin-left: var(--mingu-space-2);
+}
+.mingu-avatar-person:is(:hover, :focus-visible) {
+  transform: translateY(-6px);
+  z-index: 2;
+}
+.mingu-avatar-person:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.mingu-avatar-tooltip {
+  position: absolute;
+  bottom: calc(100% + var(--mingu-space-3));
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: var(--mingu-space-1) var(--mingu-space-2);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-sm);
+  background: var(--mingu-raised);
+  color: var(--mingu-text);
+  font: var(--mingu-text-xs) / 1.5 var(--mingu-font-sans);
+  opacity: 0;
+  pointer-events: none;
+}
+.mingu-avatar-person:is(:hover, :focus-visible) .mingu-avatar-tooltip {
+  opacity: 1;
+}
+.mingu-profile-card {
+  display: grid;
+  justify-items: start;
+  gap: var(--mingu-space-5);
+}
+.mingu-profile-card p {
+  margin: 0;
+  color: var(--mingu-muted);
+  line-height: 1.7;
+}
+.mingu-profile-link {
+  color: var(--mingu-accent);
+  text-underline-offset: 4px;
+}
+.mingu-hold {
+  display: grid;
+  justify-items: start;
+  gap: var(--mingu-space-3);
+}
+.mingu-hold-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+.mingu-hold-fill {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(var(--mingu-hold-progress, 0));
+  transform-origin: left;
+  background: var(--mingu-accent-soft);
+  pointer-events: none;
+}
+.mingu-hold-label {
+  position: relative;
+}
+.mingu-hold-hint {
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+  line-height: 1.5;
+}
+.mingu-hold-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-2);
+}
+.mingu-scrubber {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-2);
+  min-width: 0;
+}
+.mingu-scrubber-handle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--mingu-control-height-md);
+  height: var(--mingu-control-height-md);
+  border: 1px solid var(--mingu-control-border);
+  border-radius: var(--mingu-control-radius);
+  background: var(--mingu-surface);
+  color: var(--mingu-muted);
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+}
+.mingu-scrubber[data-dragging] .mingu-scrubber-handle {
+  color: var(--mingu-accent);
+  border-color: var(--mingu-accent);
+}
+.mingu-scrubber-handle:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.mingu-scrubber > input {
+  min-width: 0;
+  width: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-avatar-person {
+    transition: none;
+  }
+  .mingu-avatar-person:is(:hover, :focus-visible) {
+    transform: none;
+  }
+  .mingu-cursor-stamps {
+    display: none;
+  }
+  .mingu-text-reveal span {
+    opacity: 1 !important;
+  }
+}
+@media (forced-colors: active) {
+  .mingu-hover-panel {
+    border: 1px solid ButtonText;
+  }
+  .mingu-hover-caption {
+    background: Canvas;
+    color: CanvasText;
+  }
+  .mingu-hold-fill {
+    background: Highlight;
+    opacity: 0.25;
+    forced-color-adjust: none;
+  }
+  .mingu-avatar-person {
+    border: 1px solid ButtonText;
+  }
+}
+
+.mingu-avatar-row {
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+  row-gap: var(--mingu-space-3);
+}
+
+.mingu-scrubber-sm .mingu-scrubber-handle {
+  width: var(--mingu-control-height-sm);
+  height: var(--mingu-control-height-sm);
+}
+.mingu-scrubber-lg .mingu-scrubber-handle {
+  width: var(--mingu-control-height-lg);
+  height: var(--mingu-control-height-lg);
+}
+.mingu-scrubber > input {
+  font-variant-numeric: tabular-nums;
+}
+
+.mingu-profile-dialog,
+.mingu-hold-dialog {
+  text-align: start;
+}

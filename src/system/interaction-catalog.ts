@@ -1,5 +1,59 @@
 export const interactionCatalog = [
   {
+    id: "hover-gallery",
+    name: "Hover gallery",
+    group: "Data display",
+    component: "HoverGallery",
+    addedAt: "2026-10-22",
+    description:
+      "포인터·포커스·터치 선택으로 이미지 패널이 넓어집니다. 방향키로도 살펴볼 수 있습니다.",
+  },
+  {
+    id: "text-reveal",
+    name: "Text reveal",
+    group: "Visual effects",
+    component: "TextReveal",
+    addedAt: "2026-10-22",
+    description:
+      "스크롤을 따라 단어가 또렷해지는 문장. 중첩 스크롤과 모션 감소를 지원합니다.",
+  },
+  {
+    id: "cursor-trail",
+    name: "Cursor trail",
+    group: "Visual effects",
+    component: "CursorTrail",
+    addedAt: "2026-10-22",
+    description:
+      "커서의 자취를 따라 짧게 남는 이미지. 터치·모션 감소에서는 정적인 컬렉션을 보여줍니다.",
+  },
+  {
+    id: "avatar-cluster",
+    name: "Avatar cluster",
+    group: "Data display",
+    component: "AvatarCluster",
+    addedAt: "2026-10-22",
+    description:
+      "겹쳐진 아바타가 펼쳐지고 프로필 카드로 이어집니다. 키보드와 터치에서도 접근합니다.",
+  },
+  {
+    id: "hold-to-confirm",
+    name: "Hold to confirm",
+    group: "Actions",
+    component: "HoldToConfirm",
+    addedAt: "2026-10-22",
+    description:
+      "누르는 동안 차오르는 확인 버튼. 일반 클릭·키보드 확인과 비동기 실패 재시도를 제공합니다.",
+  },
+  {
+    id: "number-scrubber",
+    name: "Number scrubber",
+    group: "Forms",
+    component: "NumberScrubber",
+    addedAt: "2026-10-22",
+    description:
+      "핸들을 드래그해 수치를 미세 조정합니다. 네이티브 숫자 입력·키보드·폼 동작을 유지합니다.",
+  },
+  {
     id: "image-lens",
     name: "Image lens",
     group: "Data display",
@@ -423,6 +477,19 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  "hover-gallery":
+    '<HoverGallery label="Perspectives" items={[{id:"day",src:"/day.jpg",alt:"Mountains in daylight",title:"Daylight"},{id:"night",src:"/night.jpg",alt:"Mountains at night",title:"After hours"}]} />',
+  "text-reveal":
+    '<TextReveal text="Less noise. More meaning. Make room for the details." />',
+  "cursor-trail":
+    '<CursorTrail label="Inspiration" images={[{src:"/day.jpg",alt:"Mountains in daylight"},{src:"/night.jpg",alt:"Mountains at night"}]}><p>Leave a little inspiration.</p></CursorTrail>',
+  "avatar-cluster":
+    '<AvatarCluster label="Team" people={[{id:"min",name:"Min",role:"Design engineer",bio:"Building thoughtful interfaces.",href:"/people/min"},{id:"ari",name:"Ari",role:"Product designer"}]} />',
+  "hold-to-confirm":
+    '<HoldToConfirm label="Hold to publish" confirmationTitle="Publish this page?" onConfirm={async () => { await publishPage(); }} />',
+  "number-scrubber":
+    '<NumberScrubber label="Type size" name="fontSize" defaultValue={32} min={16} max={72} step={1} hint="Drag the handle or type a value." />',
+
   "image-lens":
     '<ImageLens src="/project.jpg" alt="Project details" zoom={2.5} />',
   "directional-card":

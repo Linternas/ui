@@ -33,6 +33,7 @@ import ExplorationPreview from "./ExplorationPreview";
 import GesturePreview from "./GesturePreview";
 import EverydayPreview from "./EverydayPreview";
 import StudioPreview from "./StudioPreview";
+import PlaygroundPreview from "./PlaygroundPreview";
 import ReadingDemos from "./ReadingDemos";
 import type { ComponentId } from "./catalog";
 
@@ -128,6 +129,13 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "hover-gallery":
+    case "text-reveal":
+    case "cursor-trail":
+    case "avatar-cluster":
+    case "hold-to-confirm":
+    case "number-scrubber":
+      return <PlaygroundPreview id={id} compact={compact} />;
     case "image-lens":
     case "directional-card":
     case "looping-ticker":

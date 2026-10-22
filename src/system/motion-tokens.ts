@@ -29,3 +29,12 @@ export const workspaceMotion = {
   swipeDistance: 50,
   headerThreshold: 12,
 };
+
+export const playgroundMotion = {
+  trailDistance: 38,
+  trailLimit: 8,
+  trailLifetime: 850,
+  holdMinimum: 600,
+  holdMaximum: 4000,
+  scrubPixels: 8,
+};

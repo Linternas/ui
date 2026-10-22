@@ -782,3 +782,92 @@
 .ui-rotating-title .mingu-rotating {
   max-width: 100%;
 }
+
+.ui-playground-wide {
+  display: grid;
+  gap: var(--mingu-space-4);
+  width: 100%;
+  min-width: 0;
+}
+.ui-reveal-demo {
+  width: 100%;
+  display: grid;
+  gap: var(--mingu-space-5);
+}
+.ui-reveal-scroll {
+  height: 300px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 0 var(--mingu-space-4);
+  border-block: 1px solid var(--mingu-border);
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+}
+.ui-reveal-scroll .mingu-text-reveal {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+.ui-reveal-space {
+  height: 160px;
+  display: grid;
+  align-content: center;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+}
+.ui-reveal-end {
+  padding-block: var(--mingu-space-16);
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+}
+.ui-trail-title {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 550;
+  line-height: 1.05;
+  letter-spacing: -0.06em;
+  margin-block: var(--mingu-space-4);
+}
+.ui-avatar-demo,
+.ui-confirm-demo,
+.ui-scrubber-demo {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: var(--mingu-space-5);
+  text-align: center;
+  padding-block: var(--mingu-space-8);
+}
+.ui-avatar-demo .mingu-avatar-cluster {
+  padding-block: var(--mingu-space-6);
+}
+.ui-confirm-demo > strong {
+  font-size: var(--mingu-text-xl);
+  font-weight: 550;
+  letter-spacing: -0.04em;
+}
+.ui-confirm-demo .mingu-hold {
+  justify-items: center;
+}
+.ui-scrubber-demo {
+  max-width: 360px;
+  margin: auto;
+}
+.ui-scrubber-demo > .mingu-field {
+  width: 100%;
+  text-align: left;
+}
+.ui-scrubber-sample {
+  min-height: 100px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--mingu-space-2);
+  padding-top: var(--mingu-space-4);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1.2;
+}
+.ui-scrubber-sample span {
+  letter-spacing: 0;
+  font-family: var(--mingu-font-mono);
+  color: var(--mingu-muted);
+}

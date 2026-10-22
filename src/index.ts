@@ -126,3 +126,21 @@ export { LoopingTicker } from "./LoopingTicker";
 export type { LoopingTickerProps, TickerItem } from "./LoopingTicker";
 export { RotatingText } from "./RotatingText";
 export type { RotatingTextProps } from "./RotatingText";
+
+export { HoverGallery } from "./HoverGallery";
+export type { HoverGalleryProps, HoverGalleryItem } from "./HoverGallery";
+
+export { TextReveal } from "./TextReveal";
+export type { TextRevealProps } from "./TextReveal";
+
+export { CursorTrail } from "./CursorTrail";
+export type { CursorTrailProps, TrailImage } from "./CursorTrail";
+
+export { AvatarCluster } from "./AvatarCluster";
+export type { AvatarClusterProps, ClusterPerson } from "./AvatarCluster";
+
+export { HoldToConfirm } from "./HoldToConfirm";
+export type { HoldToConfirmProps } from "./HoldToConfirm";
+
+export { NumberScrubber } from "./NumberScrubber";
+export type { NumberScrubberProps } from "./NumberScrubber";

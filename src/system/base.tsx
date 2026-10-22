@@ -685,8 +685,9 @@ export function Dialog({
         event.preventDefault();
         onOpenChange(false);
       }}
-      onClose={() => {
-        if (open) onOpenChange(false);
+      onClose={(event) => {
+        // A queued close event can arrive after a rapid reopen.
+        if (open && !event.currentTarget.open) onOpenChange(false);
       }}
     >
       <header className="mingu-dialog-header">

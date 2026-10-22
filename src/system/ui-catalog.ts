@@ -97,9 +97,10 @@ export const uiFamilies: readonly (readonly string[])[] = [
   ["card", "interactive-card", "expandable-card", "directional-card"],
   ["radio-group", "segmented-control"],
   ["accordion", "faq"],
+  ["avatar", "avatar-cluster"],
   ["code-block", "code-tabs"],
   ["file-upload", "file-dropzone"],
-  ["image-compare", "image-lightbox", "image-lens"],
+  ["image-compare", "image-lightbox", "image-lens", "hover-gallery"],
   ["progress", "scroll-progress", "rail-toc"],
   [
     "button",
@@ -108,6 +109,7 @@ export const uiFamilies: readonly (readonly string[])[] = [
     "button-group",
     "link-button",
     "delete-button",
+    "hold-to-confirm",
   ],
   [
     "input",
@@ -118,6 +120,7 @@ export const uiFamilies: readonly (readonly string[])[] = [
     "password-field",
     "search-field",
     "number-field",
+    "number-scrubber",
     "date-picker",
     "combobox",
     "otp-input",

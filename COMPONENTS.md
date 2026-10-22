@@ -631,3 +631,12 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 - [RotatingText](https://ui.mingu.xyz/rotating-text): 폭 유지, 단어 전환, Pause/Play, 모션 감소와 정적 접근성 설명.
 
 [AiStatus](https://ui.mingu.xyz/ai-status)의 아이콘·본문·detail·timer는 첫 줄을 기준으로 정렬하며 모든 6개 상태에 같은 SVG 슬롯을 사용한다.
+
+## Playground interactions
+
+- [HoverGallery](https://ui.mingu.xyz/hover-gallery): 확장 이미지 패널, hover/클릭/방향키, disabled·빈 목록·모션 감소.
+- [TextReveal](https://ui.mingu.xyz/text-reveal): 스크롤 단어 강조, 중첩 컨테이너, 정적 원문과 모션 감소.
+- [CursorTrail](https://ui.mingu.xyz/cursor-trail): 이미지 자취, 수명·개수 제한, 일시정지·화면 밖 정리, 터치의 정적 갤러리.
+- [AvatarCluster](https://ui.mingu.xyz/avatar-cluster): 겹쳐진 아바타, 프로필 모달, 이미지 fallback·링크·포커스 복귀.
+- [HoldToConfirm](https://ui.mingu.xyz/hold-to-confirm): 길게 누르기·취소, 클릭/키보드 확인, 비동기 진행·실패·재시도.
+- [NumberScrubber](https://ui.mingu.xyz/number-scrubber): 핸들 드래그·키보드, 범위·step, 실제 숫자 입력과 폼/reset.

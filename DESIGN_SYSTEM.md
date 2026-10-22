@@ -268,3 +268,16 @@ npm run test:browser
 루트에서 가져오며 기존 system.css/styles.css와 같은 테마를 사용한다. 새 항목도 UTC 추가일부터 30일 동안 Newest에 표시한다.
 
 `AiStatus`는 모든 상태의 20px 아이콘 슬롯과 첫 텍스트 줄을 정렬한다. 회전 문자를 SVG로 바꿔 시스템 폰트에 따른 높이 차이를 제거하고, 긴 label/detail은 줄바꿈하며 타이머는 고정 폭 숫자를 사용한다. 기존 props는 유지한다.
+
+## Playground interactions (0.11)
+
+| 컴포넌트 | API / 조작 |
+| --- | --- |
+| `HoverGallery` | `items: {id,src,alt,title,description?,disabled?}[]`, `label`, `value/defaultValue/onValueChange`, `className`. 선택한 이미지 패널이 확장된다. 마우스 hover·클릭·focus로 선택하고 방향키/Home/End는 비활성 항목을 건너뛴다. 터치는 버튼 선택이며 페이지 스크롤을 막지 않는다. 항목 id는 고유하게 유지한다. `--mingu-gallery-height`로 높이를 조정하며 빈 목록은 빈 그룹으로 표시한다. |
+| `TextReveal` | `text`, `containerRef?`, `className`. 기본 window 또는 지정한 컨테이너의 스크롤 위치에 따라 단어의 농도를 바꾼다. 서버 HTML은 전체 문장이 보이고, 모션 감소에서는 전부 또렷하게 표시한다. 접근성 트리에는 원문을 한 번만 제공하며 단어별 변화를 알리지 않는다. 콘텐츠를 숨기는 용도가 아니며 큰 인용문·소개 문장에 사용한다. |
+| `CursorTrail` | `images: {src,alt}[]`, `label`, `children?`, `className`. fine mouse 포인터가 일정 거리 이동할 때 짧은 이미지 자취를 남긴다. 활성 이미지 최대 8개, 각 850ms 후 퇴장하며 Pause/Enable·영역 이탈·화면 밖·백그라운드에서 정리한다. 터치/모션 감소/초기 HTML에서는 원본 썸네일을 표시한다. 효과는 장식이며 자식 링크·버튼과 네이티브 커서를 유지한다. `--mingu-trail-width`로 크기를 조정한다. |
+| `AvatarCluster` | `people: {id,name,src?,role?,bio?,href?,disabled?}[]`, `label`, `className`. Core Avatar를 겹쳐 표시하고 hover/focus에서 펼친다. 클릭/Enter/Space는 Core Dialog의 프로필을 연다. Escape/닫기 후 원래 아바타로 포커스를 복원하며 href는 실제 네이티브 링크다. 이미지 실패 시 Avatar의 이니셜을 사용한다. |
+| `HoldToConfirm` | `label`, `onConfirm(): void \| Promise<void>`, `duration=1200`(600–4000ms), `disabled`. 길게 누르는 진행률과 일반 클릭/키보드용 확인 대화상자를 제공한다. 포인터 이탈·취소·blur·백그라운드에서는 진행을 취소하고 작업 중 중복 실행을 막는다. Promise 실패를 표시하며 재시도할 수 있다. `confirmationTitle/confirmationDescription/confirmLabel/cancelLabel/successLabel/errorMessage`로 문구를 바꾼다. 실제 작업은 콜백이 처리한다. |
+| `NumberScrubber` | `label`, `value/defaultValue/onValueChange`, `min/max/step`, `hint/error`, native Input props/ref와 `scrubLabel`. 별도 핸들의 수평 드래그(8px/step), 방향키·Shift+방향키(10step), Home/End와 실제 number 입력을 제공한다. Escape는 진행 중 드래그 시작값으로 돌아간다. 입력 중 초안은 유지하고 blur에서 범위/step에 맞춘다. native `name/form/required/disabled/readOnly`를 유지하며 reset은 uncontrolled 기본값으로 돌아간다. controlled 값은 소비 앱이 관리한다. |
+
+`system.css`와 `styles.css`를 함께 사용한다. 모션 감소에서도 갤러리·프로필·확인·숫자 조작은 유지한다. 카탈로그 데모는 패키지의 실제 구현을 사용하며 서비스 API를 호출하지 않는다. 위 항목도 실제 UTC 추가일부터 30일 동안 Newest에 표시한다.
