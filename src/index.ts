@@ -144,3 +144,13 @@ export type { HoldToConfirmProps } from "./HoldToConfirm";
 
 export { NumberScrubber } from "./NumberScrubber";
 export type { NumberScrubberProps } from "./NumberScrubber";
+
+export type { TouchAction } from "./mobile-shared";
+export { SwipeActions } from "./SwipeActions";
+export type { SwipeActionsProps } from "./SwipeActions";
+export { PullToRefresh } from "./PullToRefresh";
+export type { PullToRefreshProps } from "./PullToRefresh";
+export { LongPressMenu } from "./LongPressMenu";
+export type { LongPressMenuProps } from "./LongPressMenu";
+export { SelectionBar } from "./SelectionBar";
+export type { SelectionBarProps } from "./SelectionBar";

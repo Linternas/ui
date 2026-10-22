@@ -36,6 +36,11 @@ test("newest uses UTC release windows and excludes future, invalid and expired d
   expect(getNewestEntries([entries[1]], end)).toHaveLength(0);
   expect(uiCatalog.some((e) => e.id === "swipe-deck")).toBe(true);
   expect(getNewestEntries(uiCatalog, now).map((e) => e.id)).toEqual([
+    "swipe-actions",
+    "pull-to-refresh",
+    "long-press-menu",
+    "selection-bar",
+
     "hover-gallery",
     "text-reveal",
     "cursor-trail",

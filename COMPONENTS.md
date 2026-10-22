@@ -640,3 +640,10 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 - [AvatarCluster](https://ui.mingu.xyz/avatar-cluster): 겹쳐진 아바타, 프로필 모달, 이미지 fallback·링크·포커스 복귀.
 - [HoldToConfirm](https://ui.mingu.xyz/hold-to-confirm): 길게 누르기·취소, 클릭/키보드 확인, 비동기 진행·실패·재시도.
 - [NumberScrubber](https://ui.mingu.xyz/number-scrubber): 핸들 드래그·키보드, 범위·step, 실제 숫자 입력과 폼/reset.
+
+## Touch interactions
+
+- [SwipeActions](https://ui.mingu.xyz/swipe-actions): 좌우 액션 공개, 세로 스크롤·네이티브 자식 유지, 실행/실패/재시도·명시적 버튼.
+- [PullToRefresh](https://ui.mingu.xyz/pull-to-refresh): 맨 위 당김·임계점·취소, 새로고침/실패/재시도, 중복 방지와 AbortSignal.
+- [LongPressMenu](https://ui.mingu.xyz/long-press-menu): 길게 누르기·이동 취소, BottomSheet 액션·버튼 대안·포커스 복귀.
+- [SelectionBar](https://ui.mingu.xyz/selection-bar): 선택 수·일괄 액션·해제, inline/sticky/fixed·안전 영역·비동기 실패.

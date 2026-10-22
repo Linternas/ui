@@ -25,6 +25,7 @@ export interface UiCatalogEntry {
   description: string;
   code: string;
   addedAt?: string;
+  tags?: readonly string[];
   kind: "foundation" | "core" | "interaction" | "pattern";
 }
 const interactionGroup = (id: string, group: string): UiGroup => {

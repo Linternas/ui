@@ -2867,3 +2867,243 @@ button:where([class^="mi-"]):disabled {
 .mingu-hold-dialog {
   text-align: start;
 }
+
+/* Mobile interactions retain native page scrolling and explicit actions. */
+.mingu-swipe {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-surface);
+  overflow: hidden;
+}
+.mingu-swipe-viewport {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.mingu-swipe-content {
+  position: relative;
+  z-index: 1;
+  background: var(--mingu-raised);
+  touch-action: pan-y pinch-zoom;
+}
+.mingu-swipe-body {
+  padding: var(--mingu-space-5);
+  min-height: 88px;
+  box-sizing: border-box;
+}
+.mingu-swipe-options {
+  position: absolute;
+  inset-block: 0;
+  display: flex;
+  align-items: stretch;
+  gap: var(--mingu-space-1);
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: var(--mingu-space-1);
+  box-sizing: border-box;
+}
+.mingu-swipe-start {
+  left: 0;
+}
+.mingu-swipe-end {
+  right: 0;
+}
+.mingu-swipe-options > button {
+  flex: none;
+  flex-direction: column;
+  gap: var(--mingu-space-2);
+  min-width: var(--mingu-touch-action-width);
+  max-width: 160px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  padding: var(--mingu-space-3);
+}
+.mingu-swipe-options > button > span {
+  display: grid;
+  place-items: center;
+  min-height: 18px;
+}
+.mingu-swipe-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--mingu-space-1);
+  border-top: 1px solid var(--mingu-border);
+  padding: var(--mingu-space-1);
+  background: var(--mingu-raised);
+}
+.mingu-swipe-footer > button {
+  min-height: var(--mingu-control-height-md);
+}
+.mingu-swipe > .mingu-field-error {
+  padding: var(--mingu-space-3) var(--mingu-space-4);
+  margin: 0;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-pull {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+  overflow: hidden;
+}
+.mingu-pull-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mingu-space-3);
+  padding: var(--mingu-space-3) var(--mingu-space-4);
+  border-bottom: 1px solid var(--mingu-border);
+  font-size: var(--mingu-text-sm);
+  font-weight: 550;
+}
+.mingu-pull-header > button {
+  min-height: var(--mingu-control-height-md);
+}
+.mingu-pull-scroll {
+  height: var(--mingu-refresh-height);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y pinch-zoom;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+}
+.mingu-pull-scroll:focus-visible {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: calc(-1 * var(--mingu-focus-width));
+}
+.mingu-pull-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--mingu-space-2);
+  overflow: hidden;
+  background: var(--mingu-surface);
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+}
+.mingu-pull-indicator > span {
+  flex: none;
+}
+.mingu-pull-indicator[data-ready] {
+  color: var(--mingu-accent);
+}
+.mingu-pull-status {
+  min-height: 1.5em;
+  margin: 0;
+  padding: var(--mingu-space-2) var(--mingu-space-4);
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+  border-top: 1px solid var(--mingu-border);
+}
+.mingu-pull-status.mingu-field-error {
+  color: var(--mingu-danger);
+}
+.mingu-long-press {
+  width: 100%;
+  min-width: 0;
+}
+.mingu-long-surface {
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+  transition:
+    transform var(--mingu-duration-normal) var(--mingu-ease),
+    border-color var(--mingu-duration-normal) var(--mingu-ease);
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.mingu-long-surface[data-pressing] {
+  transform: scale(var(--mingu-press-scale));
+  border-color: var(--mingu-accent);
+}
+.mingu-long-press > button {
+  display: flex;
+  margin: var(--mingu-space-2) 0 0 auto;
+  min-height: var(--mingu-control-height-md);
+}
+.mingu-long-sheet {
+  text-align: start;
+  padding-bottom: max(var(--mingu-space-4), env(safe-area-inset-bottom));
+}
+.mingu-long-actions {
+  display: grid;
+  gap: var(--mingu-space-2);
+  padding-block: var(--mingu-space-2);
+}
+.mingu-long-actions > button {
+  width: 100%;
+  justify-content: flex-start;
+  gap: var(--mingu-space-3);
+  min-height: var(--mingu-control-height-lg);
+}
+.mingu-long-actions > button > span {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+}
+.mingu-selection-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-3);
+  padding: var(--mingu-space-3);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+  color: var(--mingu-text);
+  box-shadow: var(--mingu-shadow);
+  min-width: 0;
+  box-sizing: border-box;
+}
+.mingu-selection-bar[hidden] {
+  display: none;
+}
+.mingu-selection-bar[data-placement="sticky"] {
+  position: sticky;
+  bottom: max(var(--mingu-space-4), env(safe-area-inset-bottom));
+  z-index: var(--mingu-z-sticky);
+}
+.mingu-selection-bar[data-placement="fixed"] {
+  position: fixed;
+  bottom: max(var(--mingu-space-4), env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: min(calc(100% - var(--mingu-space-8)), 640px);
+  z-index: var(--mingu-z-sticky);
+}
+.mingu-selection-count {
+  flex: 1;
+  min-width: 80px;
+  font: 550 var(--mingu-text-sm) / 1.5 var(--mingu-font-sans);
+  padding-left: var(--mingu-space-1);
+}
+.mingu-selection-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-2);
+  min-width: 0;
+}
+.mingu-selection-actions > button {
+  white-space: normal;
+}
+.mingu-selection-bar > .mingu-field-error {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: var(--mingu-text-sm);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-long-surface {
+    transition: none;
+  }
+  .mingu-long-surface[data-pressing] {
+    transform: none;
+  }
+}

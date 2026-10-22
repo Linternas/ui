@@ -46,6 +46,8 @@
   --mingu-ease-spring: cubic-bezier(0.2, 1.4, 0.4, 1);
   --mingu-press-scale: 0.97;
   --mingu-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --mingu-touch-action-width: 76px;
+  --mingu-refresh-height: 320px;
   --mingu-gallery-height: 320px;
   --mingu-trail-width: 132px;
   --mingu-media-ink: #fff;

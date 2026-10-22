@@ -34,6 +34,7 @@ import GesturePreview from "./GesturePreview";
 import EverydayPreview from "./EverydayPreview";
 import StudioPreview from "./StudioPreview";
 import PlaygroundPreview from "./PlaygroundPreview";
+import MobilePreview from "./MobilePreview";
 import ReadingDemos from "./ReadingDemos";
 import type { ComponentId } from "./catalog";
 
@@ -129,6 +130,11 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "swipe-actions":
+    case "pull-to-refresh":
+    case "long-press-menu":
+    case "selection-bar":
+      return <MobilePreview id={id} />;
     case "hover-gallery":
     case "text-reveal":
     case "cursor-trail":

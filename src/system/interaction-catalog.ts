@@ -1,5 +1,45 @@
 export const interactionCatalog = [
   {
+    id: "swipe-actions",
+    tags: ["mobile", "touch", "모바일", "터치"],
+    name: "Swipe actions",
+    group: "Actions",
+    component: "SwipeActions",
+    addedAt: "2026-10-22",
+    description:
+      "목록을 좌우로 밀어 액션을 꺼냅니다. 버튼으로도 열고 비동기 실패 시 다시 시도합니다.",
+  },
+  {
+    id: "pull-to-refresh",
+    tags: ["mobile", "touch", "모바일", "터치"],
+    name: "Pull to refresh",
+    group: "Feedback",
+    component: "PullToRefresh",
+    addedAt: "2026-10-22",
+    description:
+      "목록 맨 위에서 당겨 새로고침합니다. 중복 실행·취소·실패 상태와 Refresh 버튼을 제공합니다.",
+  },
+  {
+    id: "long-press-menu",
+    tags: ["mobile", "touch", "모바일", "터치"],
+    name: "Long press menu",
+    group: "Overlays",
+    component: "LongPressMenu",
+    addedAt: "2026-10-22",
+    description:
+      "카드를 길게 누르면 하단 액션 시트가 열립니다. 이동·스크롤 시 취소하고 버튼 대안을 유지합니다.",
+  },
+  {
+    id: "selection-bar",
+    tags: ["mobile", "touch", "모바일", "터치"],
+    name: "Selection bar",
+    group: "Actions",
+    component: "SelectionBar",
+    addedAt: "2026-10-22",
+    description:
+      "선택한 항목 수와 일괄 액션을 하단에 모읍니다. safe area·실행 중·오류·선택 해제를 지원합니다.",
+  },
+  {
     id: "hover-gallery",
     name: "Hover gallery",
     group: "Data display",
@@ -477,6 +517,15 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  "swipe-actions":
+    '<SwipeActions label="Note actions" endActions={[{id:"archive",label:"Archive",onAction:archiveNote}]}><p>Field notes</p></SwipeActions>',
+  "pull-to-refresh":
+    '<PullToRefresh label="Reading list" onRefresh={async ({signal}) => { await reloadNotes(signal); }}><p>Your reading list</p></PullToRefresh>',
+  "long-press-menu":
+    '<LongPressMenu label="Note actions" actions={[{id:"pin",label:"Pin note",onAction:pinNote},{id:"archive",label:"Archive note",onAction:archiveNote}]}><p>Hold this note to open actions.</p></LongPressMenu>',
+  "selection-bar":
+    '<SelectionBar count={selectedIds.length} onClear={() => setSelectedIds([])} actions={[{id:"archive",label:"Archive",onAction:() => archiveNotes(selectedIds)}]} />',
+
   "hover-gallery":
     '<HoverGallery label="Perspectives" items={[{id:"day",src:"/day.jpg",alt:"Mountains in daylight",title:"Daylight"},{id:"night",src:"/night.jpg",alt:"Mountains at night",title:"After hours"}]} />',
   "text-reveal":

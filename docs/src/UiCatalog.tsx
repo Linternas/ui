@@ -62,7 +62,7 @@ export default function UiCatalog({
   };
   const item = uiCatalog.find((item) => item.id === selected)!;
   const filtered = uiCatalog.filter((entry) =>
-    `${entry.name} ${entry.description}`
+    `${entry.name} ${entry.description} ${entry.tags?.join(" ") ?? ""}`
       .toLowerCase()
       .includes(query.toLowerCase()),
   );

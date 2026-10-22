@@ -281,3 +281,18 @@ npm run test:browser
 | `NumberScrubber` | `label`, `value/defaultValue/onValueChange`, `min/max/step`, `hint/error`, native Input props/ref와 `scrubLabel`. 별도 핸들의 수평 드래그(8px/step), 방향키·Shift+방향키(10step), Home/End와 실제 number 입력을 제공한다. Escape는 진행 중 드래그 시작값으로 돌아간다. 입력 중 초안은 유지하고 blur에서 범위/step에 맞춘다. native `name/form/required/disabled/readOnly`를 유지하며 reset은 uncontrolled 기본값으로 돌아간다. controlled 값은 소비 앱이 관리한다. |
 
 `system.css`와 `styles.css`를 함께 사용한다. 모션 감소에서도 갤러리·프로필·확인·숫자 조작은 유지한다. 카탈로그 데모는 패키지의 실제 구현을 사용하며 서비스 API를 호출하지 않는다. 위 항목도 실제 UTC 추가일부터 30일 동안 Newest에 표시한다.
+
+## Touch interactions (0.12)
+
+카탈로그에서 `mobile`, `touch`, `모바일`, `터치`로 검색하면 아래 네 항목을 모아 볼 수 있다. `UiCatalogEntry.tags`는 선택적인 검색 키워드다.
+
+| 컴포넌트 | API / 조작 |
+| --- | --- |
+| `SwipeActions` | `label`, `children`, `startActions/endActions: TouchAction[]`, `disabled`, `actionsLabel/closeLabel/errorMessage`. 좌우로 밀어 액션을 드러내고 버튼을 눌러 실행한다. 세로 스크롤·핀치 확대를 유지하며 드래그만으로 작업을 실행하지 않는다. Actions 버튼·반대편 액션 버튼·Escape를 제공한다. 자식 링크·폼·버튼과 `[data-touch-native]` 영역에서 제스처를 시작하지 않는다. 실행 중 중복 액션을 막고 실패하면 열린 상태로 재시도한다. 한쪽 1–3개 정도의 짧은 액션을 권장한다. |
+| `PullToRefresh` | `label`, `children`, `onRefresh({signal})`, `disabled`, `scrollRef`, `style/className`, `labels: {refresh,pull,release,refreshing,updated,error}`. 컴포넌트의 스크롤 영역 맨 위에서 아래로 당겨 놓으면 콜백을 실행한다. 당김 120px가 표시 임계점 60px에 해당한다. 가로 이동·다중 터치·취소·임계점 미달·중첩 스크롤·입력/링크 위의 시작은 새로고침하지 않는다. 화면 밖 페이지의 스크롤 동작은 바꾸지 않는다. 항상 Refresh 버튼을 제공하고 중복 실행을 막는다. unmount 때 signal을 abort하며 콜백은 필요하면 이를 fetch에 전달한다. `--mingu-refresh-height`로 내부 높이(기본 320px)를 조정한다. |
+| `LongPressMenu` | `label`, `children`, `actions: TouchAction[]`, `delay=500`(350–1500ms), `disabled`, `triggerLabel`, `description`, `errorMessage`. 정적인 카드 표면을 길게 누르거나 Actions 버튼을 누르면 기존 BottomSheet가 열린다. 10px 이상 이동·pointercancel·멀티터치·blur는 누르기를 취소하며 세로 스크롤과 핀치를 유지한다. 자식 네이티브 액션은 가로채지 않는다. 대화상자에서 Tab·Escape·닫기·시트 높이 조절을 제공하고 별도 Actions 버튼으로 포커스를 돌린다. 이 표면은 텍스트 선택용 편집기가 아닌 카드에 사용한다. |
+| `SelectionBar` | `count`, `onClear`, `actions: TouchAction[]`, `label/clearLabel/formatCount`, `placement='sticky'\|'fixed'\|'inline'`, `disabled`, `focusReturn`, `errorMessage`. 선택 수가 양수일 때 일괄 액션을 표시한다. 실제 체크박스·선택 ID·선택 해제·업무 처리는 소비 앱 상태로 관리한다. 콜백은 클릭 시점의 선택 ID를 참조하게 구성한다. sticky/fixed는 safe-area-inset-bottom 여백을 유지한다. 패널에 포커스가 있는 동안 선택 수가 0이 되면 지정한 focusReturn으로 복귀한다. 실패 후 선택과 재시도 버튼을 유지하고 작업 중 중복 실행을 막는다. |
+
+`TouchAction`은 `{id,label,icon?,disabled?,danger?,onAction(): void | Promise<void>}`다. id는 같은 액션 목록에서 고유하게 지정한다. 네 컴포넌트는 루트 exports와 기존 `system.css`·`styles.css`를 사용한다. Core Button·BottomSheet를 재사용하고 키보드·Refresh/Actions 같은 명시적 버튼을 함께 제공한다. 모션 감소에서는 스프링·누름 확대를 생략하고 액션과 입력은 유지한다. 운영 데이터 요청·삭제·선택 상태는 소비 앱에 둔다.
+
+당겨 새로고침은 자체 스크롤 영역 안에서만 적용한다. 터치 판별은 [MDN touch-action](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/touch-action)의 제스처 시작·브라우저 스크롤 규칙을 따른다. 실제 iOS/Android 기기의 브라우저·웹뷰 차이는 소비 화면에서도 확인한다. 새 항목의 Newest 표시는 실제 UTC 추가일부터 30일간 유지한다.

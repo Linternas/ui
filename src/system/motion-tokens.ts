@@ -38,3 +38,12 @@ export const playgroundMotion = {
   holdMaximum: 4000,
   scrubPixels: 8,
 };
+
+export const mobileMotion = {
+  axisSlop: 8,
+  swipeRatio: 0.35,
+  pullThreshold: 60,
+  pullLimit: 100,
+  pullResistance: 0.5,
+  longPressSlop: 10,
+};
