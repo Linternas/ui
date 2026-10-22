@@ -9,6 +9,8 @@ export {
   uiCatalog,
   uiGroups,
   uiFamilies,
+  getNewestEntries,
+  NEWEST_WINDOW_DAYS,
   type UiCatalogEntry,
   type UiGroup,
 } from "./ui-catalog";

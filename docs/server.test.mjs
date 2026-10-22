@@ -46,6 +46,13 @@ test("production docs server serves built routes, assets and health without expo
     for (const route of [
       "/button",
       "/controls",
+      "/newest",
+      "/swipe-deck",
+      "/focus-dock",
+      "/image-compare",
+      "/command-palette",
+      "/scramble-text",
+      "/ui-lab/landscape-night.svg",
       "/textarea-field",
       "/select-field",
       "/floating-field",

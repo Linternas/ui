@@ -585,3 +585,16 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 `VoiceNote` accepts an optional `audioRef` for timestamp navigation and `onLoadedMetadata` for deep links. The ready callback also runs when metadata arrived before hydration. `labels` can override `play`, `pause`, `seek`, `speed(speed)` and `error`; existing English defaults are preserved.
 
 `CodeBlock` accepts optional `labels.copy`, `labels.copied`, `labels.success` and `labels.error` for visible controls and live announcements. Defaults remain English.
+
+
+## Exploration interactions
+
+[Newest](https://ui.mingu.xyz/newest)에서 최근 추가된 항목을 먼저 볼 수 있다. 추가일로부터 30일 후 New 표시는 사라지며 아래 경로는 유지된다.
+
+- [FocusDock](https://ui.mingu.xyz/focus-dock): 포인터 거리와 키보드 포커스에 반응하는 액션 Dock.
+- [SwipeDeck](https://ui.mingu.xyz/swipe-deck): 드래그/버튼으로 넘기는 카드 스택. 단일·빈 목록·반복/경계 상태 지원.
+- [ImageCompare](https://ui.mingu.xyz/image-compare): 드래그와 네이티브 range 키보드 입력으로 두 이미지 비교.
+- [CommandPalette](https://ui.mingu.xyz/command-palette): 검색/keywords, disabled, 빈 결과, 선택과 모달 포커스 복귀.
+- [ScrambleText](https://ui.mingu.xyz/scramble-text): 글자 정렬 효과, 재생 키·뷰포트·모션 감소 지원.
+
+모든 항목은 패키지 루트에서 가져온다. typed props와 코드 예제는 각 상세 화면 및 DESIGN_SYSTEM.md에 있다.

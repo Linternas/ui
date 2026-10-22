@@ -24,6 +24,7 @@ export interface UiCatalogEntry {
   group: UiGroup;
   description: string;
   code: string;
+  addedAt?: string;
   kind: "foundation" | "core" | "interaction" | "pattern";
 }
 const interactionGroup = (id: string, group: string): UiGroup => {
@@ -59,6 +60,15 @@ export const uiCatalog: readonly UiCatalogEntry[] = [
     kind: "foundation",
     code: `import { DesignSystemProvider, TextField, SelectField, TextareaField, Button } from '@mingu/interaction-ui/system';\nimport '@mingu/interaction-ui/system.css';\n\n<DesignSystemProvider theme="system" accent="neutral">\n  <TextField label="프로젝트 이름" required />\n  <SelectField label="공개 범위"><option>비공개</option></SelectField>\n  <TextareaField label="설명" rows={3} />\n  <Button type="submit">확인</Button>\n</DesignSystemProvider>`,
   },
+  {
+    id: "newest",
+    name: "Newest",
+    group: "Foundations",
+    kind: "foundation",
+    description:
+      "최근 30일 동안 추가된 인터랙션. 기간이 지나도 각 카테고리에서 계속 사용할 수 있습니다.",
+    code: `import { getNewestEntries } from '@mingu/interaction-ui/catalog';\n\nconst newest = getNewestEntries();\n// Add an addedAt: 'YYYY-MM-DD' UTC date to new catalog entries.\n// Entries automatically leave Newest after 30 days.`,
+  },
   ...systemCatalog.map((item) => ({
     ...item,
     group: item.group as UiGroup,
@@ -68,6 +78,7 @@ export const uiCatalog: readonly UiCatalogEntry[] = [
     ...item,
     group: interactionGroup(item.id, item.group),
     code: interactionExamples[item.id],
+    addedAt: "addedAt" in item ? item.addedAt : undefined,
     kind: "interaction" as const,
   })),
   {
@@ -112,3 +123,29 @@ export const uiFamilies: readonly (readonly string[])[] = [
   ["alert", "toast", "notification-bell", "ai-status"],
   ["dialog", "alert-dialog", "drawer", "popover"],
 ];
+
+export const NEWEST_WINDOW_DAYS = 30;
+const day = 86_400_000;
+/** UTC release dates; future, invalid and expired entries never appear as newest. */
+export function getNewestEntries(
+  entries: readonly UiCatalogEntry[] = uiCatalog,
+  now = Date.now(),
+  windowDays = NEWEST_WINDOW_DAYS,
+): UiCatalogEntry[] {
+  if (!Number.isFinite(now) || !Number.isFinite(windowDays) || windowDays <= 0)
+    return [];
+  return entries
+    .filter((entry) => {
+      if (entry.kind !== "core" && entry.kind !== "interaction") return false;
+      if (!entry.addedAt || !/^\d{4}-\d{2}-\d{2}$/.test(entry.addedAt))
+        return false;
+      const start = Date.parse(`${entry.addedAt}T00:00:00.000Z`);
+      return (
+        Number.isFinite(start) &&
+        new Date(start).toISOString().slice(0, 10) === entry.addedAt &&
+        now >= start &&
+        now < start + windowDays * day
+      );
+    })
+    .sort((a, b) => b.addedAt!.localeCompare(a.addedAt!));
+}

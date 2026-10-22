@@ -15,6 +15,8 @@ import { uiCatalog, uiGroups, uiFamilies } from "@mingu/interaction-ui/catalog";
 import { type SystemComponentId } from "@mingu/interaction-ui/system";
 import { type ComponentId } from "./catalog";
 import DemoPreview from "./DemoPreview";
+import NewestPreview from "./NewestPreview";
+import { useNewestEntries } from "./useNewestEntries";
 import ControlWorkbench from "./ControlWorkbench";
 import FoundationPreview, { PatternPreview } from "./FoundationPreview";
 import { CodeBlock } from "@mingu/interaction-ui";
@@ -29,6 +31,8 @@ export default function UiCatalog({
   const [query, setQuery] = useState("");
   const [theme, setTheme] = useState<Theme>("system");
   const router = useRouter();
+  const newest = useNewestEntries();
+  const newIds = new Set(newest.map((entry) => entry.id));
   const sidebar = useRef<HTMLElement>(null);
   useEffect(() => {
     const container = sidebar.current;
@@ -94,6 +98,12 @@ export default function UiCatalog({
           Mingu UI <span>/ Design system</span>
         </Link>
         <div>
+          <Link className="ui-newest-header" href="/newest">
+            Newest
+            {newest.length > 0 && (
+              <span className="ui-new-badge">{newest.length}</span>
+            )}
+          </Link>
           <a
             className="ui-github-link"
             href="https://github.com/Linternas/ui"
@@ -132,16 +142,27 @@ export default function UiCatalog({
             onChange={(e) => setQuery(e.target.value)}
           />
           <nav aria-label="Design system components">
+            <Link
+              className="ui-newest-shortcut"
+              href="/newest"
+              aria-current={selected === "newest" ? "page" : undefined}
+            >
+              Newest <span className="ui-new-badge">{newest.length}</span>
+            </Link>
             {!filtered.length && <p role="status">No matching components</p>}
             {uiGroups
               .filter((group) =>
-                filtered.some((entry) => entry.group === group),
+                filtered.some(
+                  (entry) => entry.group === group && entry.id !== "newest",
+                ),
               )
               .map((group) => (
                 <section key={group}>
                   <h2>{group}</h2>
                   {filtered
-                    .filter((entry) => entry.group === group)
+                    .filter(
+                      (entry) => entry.group === group && entry.id !== "newest",
+                    )
                     .map((entry) => (
                       <Link
                         key={entry.id}
@@ -151,6 +172,9 @@ export default function UiCatalog({
                         }
                       >
                         {entry.name}
+                        {newIds.has(entry.id) && (
+                          <span className="ui-new-badge">New</span>
+                        )}
                       </Link>
                     ))}
                 </section>
@@ -180,7 +204,10 @@ export default function UiCatalog({
             </Select>
           </div>
           <div className="system-catalog-title">
-            <span>{item.group}</span>
+            <span>
+              {item.group}
+              {newIds.has(item.id) && <span className="ui-new-badge">New</span>}
+            </span>
             <Heading level={1}>{item.name}</Heading>
             <Text muted>{item.description}</Text>
           </div>
@@ -198,11 +225,15 @@ export default function UiCatalog({
             </nav>
           )}
           <section
-            className="system-catalog-preview"
+            className={`system-catalog-preview${selected === "newest" ? " ui-newest-preview" : ""}`}
             aria-label={`${item.name} preview`}
           >
-            <div className="system-preview-label">PREVIEW / STATES</div>
-            {selected === "controls" ? (
+            {selected !== "newest" && (
+              <div className="system-preview-label">PREVIEW / STATES</div>
+            )}
+            {selected === "newest" ? (
+              <NewestPreview entries={newest} />
+            ) : selected === "controls" ? (
               <ControlWorkbench theme={theme} />
             ) : item.kind === "foundation" ? (
               <FoundationPreview />

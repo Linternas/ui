@@ -59,4 +59,15 @@ export {
 } from "./AI";
 export type { GridRevealProps, WebSource, WebSearchProps, AiState } from "./AI";
 
-export * from './system';
+export * from "./system";
+
+export { FocusDock } from "./FocusDock";
+export type { FocusDockProps, DockItem } from "./FocusDock";
+export { SwipeDeck } from "./SwipeDeck";
+export type { SwipeDeckProps, SwipeCard } from "./SwipeDeck";
+export { ImageCompare } from "./ImageCompare";
+export type { ImageCompareProps, CompareImage } from "./ImageCompare";
+export { CommandPalette } from "./CommandPalette";
+export type { CommandPaletteProps, CommandItem } from "./CommandPalette";
+export { ScrambleText } from "./ScrambleText";
+export type { ScrambleTextProps } from "./ScrambleText";

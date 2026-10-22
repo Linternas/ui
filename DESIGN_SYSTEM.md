@@ -204,3 +204,20 @@ npm run test:browser
   </Stack>
 </DesignSystemProvider>
 ```
+
+
+## Newest and exploration interactions (0.7)
+
+[Newest](https://ui.mingu.xyz/newest)는 컴포넌트의 `addedAt` UTC 날짜부터 30일 동안 라이브 미리보기를 모은다. 배포 날짜나 빌드 시각을 사용하지 않으며, 열린 카탈로그도 매분 및 탭 복귀 시 만료 상태를 갱신한다. 만료 후에도 원래 카테고리와 상세 주소는 유지된다. 메타데이터가 없는 기존 컴포넌트와 미래·잘못된 날짜는 노출하지 않는다.
+
+새 Core/Interaction 항목에는 실제 추가일 `addedAt: 'YYYY-MM-DD'`를 기록한다. 새 컴포넌트의 날짜 누락은 카탈로그 회귀 검사에서 실패한다. 레거시 ID 목록을 늘려 검사를 우회하지 않는다. `getNewestEntries(entries?, now?, windowDays?)`와 `NEWEST_WINDOW_DAYS`는 `/catalog`에서 가져올 수 있다. 서버에서도 사용할 수 있는 순수 함수이며 타이머나 브라우저 API에 의존하지 않는다.
+
+| 컴포넌트 | 동작 / 연결 |
+| --- | --- |
+| `FocusDock` | 아이콘을 포인터 거리로 확대하고 스프링으로 복귀. `items`, `value/defaultValue`, `onValueChange`. 한 Tab 진입점과 좌우/Home/End 탐색, disabled 항목 건너뛰기. 탐색은 `onValueChange`에서 소비 앱이 처리한다. |
+| `SwipeDeck` | 카드 드래그, 이전/다음 버튼, 현재 위치. `items: {id,label,content}[]`, `index/defaultIndex`, `onIndexChange`, `loop`. 카드 내 버튼·링크의 기본 동작은 유지한다. `--mingu-deck-height`로 높이를 바꾸며 긴 내용은 내부에서 스크롤한다. |
+| `ImageCompare` | 두 이미지의 같은 영역을 드래그로 비교. `before/after: {src,alt}`, `value/defaultValue`, `onValueChange`, `disabled`. 네이티브 range의 방향키·Home·End를 유지한다. 이미지의 비율과 구도를 맞추고 alt를 제공한다. |
+| `CommandPalette` | 여러 검색어·keywords 필터, 방향키·Enter 선택, Escape 닫기와 모달 포커스 복귀. `open/onOpenChange`, `items`, `onSelect`. `shortcut`은 기본 false이며 한 앱에 단일 Cmd/Ctrl+K 소유자만 둔다. item의 `shortcut` 문구는 표시용이며 개별 단축키를 등록하지 않는다. |
+| `ScrambleText` | 잠깐 흩어진 글자가 원문으로 정렬. `text`, `duration`, `replayKey`, `playOnMount`. 진입/hover/재생 키 변경으로 재생하며 화면 밖과 백그라운드에서 중지한다. 접근성 트리에는 원문만 제공한다. |
+
+새 인터랙션은 `system.css`와 `styles.css`를 함께 가져온다. 모션 감소 설정에서는 Dock 확대, 카드 회전·전환, 텍스트 스크램블을 줄이거나 생략한다. 비교 슬라이더와 카드 버튼의 조작은 유지한다. 새 스프링과 이동 범위는 `src/system/motion-tokens.ts`, 크기는 `--mingu-dock-size`, `--mingu-deck-height`로 관리한다.

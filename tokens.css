@@ -46,6 +46,8 @@
   --mingu-ease-spring: cubic-bezier(0.2, 1.4, 0.4, 1);
   --mingu-press-scale: 0.97;
   --mingu-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --mingu-dock-size: 44px;
+  --mingu-deck-height: 340px;
   --mingu-content: 72rem;
   --mingu-reading: 42.5rem;
   --mingu-z-sticky: 20;

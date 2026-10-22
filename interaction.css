@@ -1101,3 +1101,324 @@ button:where([class^="mi-"]):disabled {
     width: 34px;
   }
 }
+
+/* Exploration interactions: scoped surfaces, purposeful movement. */
+.mingu-dock {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: end;
+  gap: var(--mingu-space-2);
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--mingu-space-4);
+  margin-inline: auto;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+  box-shadow: var(--mingu-shadow);
+}
+.mingu-dock-slot {
+  position: relative;
+  width: var(--mingu-dock-size);
+  height: var(--mingu-dock-size);
+}
+.mingu-dock-item {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-surface);
+  color: var(--mingu-text);
+  cursor: pointer;
+  transform-origin: bottom center;
+  font: inherit;
+  font-size: var(--mingu-text-lg);
+}
+.mingu-dock-item > span {
+  display: grid;
+  place-items: center;
+}
+.mingu-dock-item[data-active]::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  width: 3px;
+  height: 3px;
+  background: currentColor;
+  border-radius: 50%;
+}
+.mingu-dock-item:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.mingu-dock-label {
+  position: absolute;
+  bottom: calc(100% + var(--mingu-space-6));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--mingu-space-1) var(--mingu-space-2);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-sm);
+  background: var(--mingu-raised);
+  color: var(--mingu-text);
+  font-size: var(--mingu-text-xs);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--mingu-duration-fast);
+  z-index: 2;
+}
+.mingu-dock-slot:is(:hover, :focus-within) .mingu-dock-label {
+  opacity: 1;
+}
+.mingu-dock-item:focus-visible {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+}
+.mingu-compare {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--mingu-radius-lg);
+  isolation: isolate;
+}
+.mingu-compare img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+}
+.mingu-compare-before {
+  position: absolute;
+  inset: 0;
+}
+.mingu-compare-caption {
+  position: absolute;
+  top: var(--mingu-space-4);
+  padding: var(--mingu-space-1) var(--mingu-space-2);
+  border-radius: var(--mingu-radius-sm);
+  color: white;
+  background: #000a;
+  font: 500 var(--mingu-text-xs) var(--mingu-font-sans);
+  pointer-events: none;
+}
+.mingu-compare-caption-before {
+  left: var(--mingu-space-4);
+}
+.mingu-compare-caption-after {
+  right: var(--mingu-space-4);
+}
+.mingu-compare-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--mingu-compare-position);
+  width: 2px;
+  background: white;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.mingu-compare-divider > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #fff9;
+  border-radius: 50%;
+  background: #161616;
+  color: white;
+  font: 20px var(--mingu-font-sans);
+  box-shadow: 0 2px 12px #0003;
+}
+.mingu-compare-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+.mingu-compare:has(input:focus-visible) {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+}
+.mingu-compare:has(input:disabled) {
+  opacity: 0.6;
+}
+.mingu-compare-input:disabled {
+  cursor: not-allowed;
+}
+.mingu-deck {
+  overflow: clip;
+  width: min(100%, 24rem);
+  margin-inline: auto;
+}
+.mingu-deck-stage {
+  position: relative;
+  min-height: var(--mingu-deck-height);
+  margin: var(--mingu-space-3) var(--mingu-space-3) var(--mingu-space-6);
+}
+.mingu-deck-card,
+.mingu-deck-back {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+}
+.mingu-deck-card {
+  padding: var(--mingu-space-6);
+  box-shadow: var(--mingu-shadow);
+  touch-action: pan-y;
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+}
+.mingu-deck-card:active {
+  cursor: grabbing;
+}
+.mingu-deck-back {
+  transform: translateY(8px) rotate(3deg) scale(0.97);
+  background: var(--mingu-surface);
+}
+.mingu-deck-back-second {
+  transform: translateY(16px) rotate(-4deg) scale(0.94);
+}
+.mingu-deck-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mingu-space-6);
+}
+.mingu-deck-controls [role="status"] {
+  font: var(--mingu-text-xs) var(--mingu-font-mono);
+  color: var(--mingu-muted);
+  min-width: 4rem;
+  text-align: center;
+}
+.mingu-command {
+  width: min(34rem, calc(100vw - var(--mingu-space-8)));
+}
+.mingu-command-list {
+  position: relative;
+  list-style: none;
+  margin: var(--mingu-space-3) 0;
+  padding: 0;
+  max-height: min(20rem, 45dvh);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.mingu-command-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-3);
+  padding: var(--mingu-space-3);
+  min-height: 52px;
+  border-radius: var(--mingu-radius-sm);
+  cursor: pointer;
+}
+.mingu-command-list li[aria-selected="true"] {
+  background: var(--mingu-surface);
+}
+.mingu-command-list li[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.mingu-command-list li > span:not(.mingu-command-icon) {
+  flex: 1;
+  min-width: 0;
+}
+.mingu-command-list strong,
+.mingu-command-list small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.mingu-command-list strong {
+  font-size: var(--mingu-text-sm);
+  font-weight: 550;
+}
+.mingu-command-list small {
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+  margin-top: var(--mingu-space-1);
+}
+.mingu-command-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-sm);
+}
+.mingu-command kbd {
+  font: var(--mingu-text-xs) var(--mingu-font-mono);
+  color: var(--mingu-muted);
+}
+.mingu-command-empty {
+  color: var(--mingu-muted);
+  text-align: center;
+  padding: var(--mingu-space-8) 0;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-command-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-4);
+  border-top: 1px solid var(--mingu-border);
+  padding-top: var(--mingu-space-3);
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+}
+.mingu-scramble {
+  display: inline-block;
+  font-variant-ligatures: none;
+  overflow-wrap: anywhere;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-dock-item {
+    transform: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .mingu-dock-item {
+    border-color: ButtonText;
+  }
+  .mingu-command-list li[aria-selected="true"] {
+    outline: 1px solid Highlight;
+  }
+}
+/* Zero-width native thumb keeps native touch clicks aligned with the visual divider. */
+.mingu-compare-input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.mingu-compare-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0;
+  height: 44px;
+  border: 0;
+}
+.mingu-compare-input::-moz-range-thumb {
+  width: 0;
+  height: 44px;
+  border: 0;
+}

@@ -4,6 +4,8 @@
 
 에이전트 작업 안내: [AGENTS.md](./AGENTS.md) — 소스 위치, 수정 기준, 검증·배포 명령.
 
+[Newest](https://ui.mingu.xyz/newest): 새 인터랙션을 추가일로부터 30일 동안 먼저 볼 수 있습니다.
+
 [통합 카탈로그](https://ui.mingu.xyz): 기능별 탐색·테마·미리보기·사용 코드.
 
 [Controls 워크벤치](https://ui.mingu.xyz/controls): 크기·상태·강조색을 바꾸며 실제 컨트롤과 코드를 확인합니다.

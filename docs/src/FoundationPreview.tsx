@@ -94,6 +94,12 @@ export default function FoundationPreview() {
       </Grid>
       <Stack direction="row" gap={3}>
         <Link
+          className="mingu-button mingu-button-outline mingu-control-md"
+          href="/newest"
+        >
+          Newest interactions ↗
+        </Link>
+        <Link
           className="mingu-button mingu-button-primary mingu-control-md"
           href="/lab/ui/controls"
         >

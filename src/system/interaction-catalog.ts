@@ -1,5 +1,50 @@
 export const interactionCatalog = [
   {
+    id: "swipe-deck",
+    name: "Swipe deck",
+    group: "Display",
+    component: "SwipeDeck",
+    addedAt: "2026-10-22",
+    description:
+      "카드를 잡아 넘기면 다음 장이 올라오는 스프링 스택. 터치·버튼 탐색을 함께 지원합니다.",
+  },
+  {
+    id: "image-compare",
+    name: "Image compare",
+    group: "Display",
+    component: "ImageCompare",
+    addedAt: "2026-10-22",
+    description:
+      "같은 프레임 안에서 두 이미지를 드래그로 비교합니다. 키보드로도 정밀하게 조절할 수 있습니다.",
+  },
+  {
+    id: "focus-dock",
+    name: "Focus dock",
+    group: "Navigation",
+    component: "FocusDock",
+    addedAt: "2026-10-22",
+    description:
+      "포인터와의 거리에 따라 아이콘이 부드럽게 확대되고 떠오르는 액션 Dock.",
+  },
+  {
+    id: "command-palette",
+    name: "Command palette",
+    group: "Overlays",
+    component: "CommandPalette",
+    addedAt: "2026-10-22",
+    description:
+      "검색과 방향키로 액션을 찾는 커맨드 창. 선택적으로 Cmd/Ctrl+K를 연결합니다.",
+  },
+  {
+    id: "scramble-text",
+    name: "Scramble text",
+    group: "Visual effects",
+    component: "ScrambleText",
+    addedAt: "2026-10-22",
+    description:
+      "흩어진 글자가 원문으로 차례로 정렬되는 짧은 타이포그래피 인터랙션.",
+  },
+  {
     id: "folder",
     name: "Folder",
     group: "Display",
@@ -197,6 +242,16 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  "swipe-deck":
+    '<SwipeDeck label="Projects" items={[{ id: "one", label: "First project", content: <h3>First project</h3> }, { id: "two", label: "Second project", content: <h3>Second project</h3> }]} />',
+  "image-compare":
+    '<ImageCompare before={{src:"/before.jpg",alt:"Original image"}} after={{src:"/after.jpg",alt:"Edited image"}} />',
+  "focus-dock":
+    '<FocusDock defaultValue="home" onValueChange={id => console.log(id)} items={[{id:"home",label:"Home",icon:"⌂"},{id:"work",label:"Work",icon:"▧"},{id:"settings",label:"Settings",icon:"⚙"}]} />',
+  "command-palette":
+    '<CommandPalette open={open} onOpenChange={setOpen} onSelect={id => console.log(id)} shortcut items={[{id:"new",label:"New project",keywords:["create"]},{id:"search",label:"Search files"}]} />',
+  "scramble-text":
+    '<ScrambleText text="MAKE SOMETHING GOOD." duration={700} />',
   folder: '<Folder color="#4388ed" label="Project files" />',
   "code-block":
     '<CodeBlock code={"const answer = 42;"} language="typescript" filename="answer.ts" highlightLines={[1]} />',

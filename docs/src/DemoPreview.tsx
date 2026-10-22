@@ -29,6 +29,7 @@ import {
   type AiState,
   type MatrixState,
 } from "@mingu/interaction-ui";
+import ExplorationPreview from "./ExplorationPreview";
 import ReadingDemos from "./ReadingDemos";
 import type { ComponentId } from "./catalog";
 
@@ -75,7 +76,13 @@ export function distance(a: Point, b: Point) {
 // Small details. Better interfaces.
 const origin: Point = { x: 0, y: 0 };`;
 
-export default function DemoPreview({ id }: { id: ComponentId }) {
+export default function DemoPreview({
+  id,
+  compact = false,
+}: {
+  id: ComponentId;
+  compact?: boolean;
+}) {
   const [color, setColor] = useState("#4388ed"),
     [counter, setCounter] = useState(12849),
     [count, setCount] = useState(3),
@@ -118,6 +125,12 @@ export default function DemoPreview({ id }: { id: ComponentId }) {
     </button>
   );
   switch (id) {
+    case "swipe-deck":
+    case "focus-dock":
+    case "image-compare":
+    case "command-palette":
+    case "scramble-text":
+      return <ExplorationPreview id={id} compact={compact} />;
     case "folder":
       return (
         <>
