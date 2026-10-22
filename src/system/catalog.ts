@@ -71,7 +71,8 @@ export const systemCatalog = [
     id: "text-field",
     name: "TextField",
     group: "Forms",
-    description: "label·hint·error와 입력을 자동으로 연결하는 텍스트 필드.",
+    description:
+      "label·hint·error와 입력을 연결하고 아이콘·접미사·보조 액션을 조합하는 필드.",
     code: `<TextField label="Email" type="email" required hint="Work address" error="Check your email address" />`,
   },
   {
@@ -87,6 +88,20 @@ export const systemCatalog = [
     group: "Forms",
     description: "네이티브 선택 컨트롤. 키보드·모바일 선택 UI와 폼 제출 유지.",
     code: `<Select aria-label="Environment"><option>Production</option><option>Preview</option></Select>`,
+  },
+  {
+    id: "textarea-field",
+    name: "TextareaField",
+    group: "Forms",
+    description: "여러 줄 입력과 label·hint·error를 자동으로 연결하는 필드.",
+    code: `<TextareaField label="Description" name="description" rows={4} maxLength={200} hint="Up to 200 characters" />`,
+  },
+  {
+    id: "select-field",
+    name: "SelectField",
+    group: "Forms",
+    description: "네이티브 선택과 label·hint·error를 자동으로 연결하는 필드.",
+    code: `<SelectField label="Visibility" name="visibility" hint="Who can see this project?"><option value="private">Private</option><option value="public">Public</option></SelectField>`,
   },
   {
     id: "field",

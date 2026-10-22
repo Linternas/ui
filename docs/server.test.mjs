@@ -45,6 +45,9 @@ test("production docs server serves built routes, assets and health without expo
     assert.match(js.headers.get("cache-control"), /immutable/);
     for (const route of [
       "/button",
+      "/controls",
+      "/textarea-field",
+      "/select-field",
       "/floating-field",
       "/healthz",
       "/ui-lab/landscape.svg",

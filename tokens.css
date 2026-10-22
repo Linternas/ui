@@ -13,6 +13,18 @@
   --mingu-space-8: 2rem;
   --mingu-space-12: 3rem;
   --mingu-space-16: 4rem;
+  --mingu-control-height-sm: 36px;
+  --mingu-control-height-md: 44px;
+  --mingu-control-height-lg: 48px;
+  --mingu-control-padding-sm: 10px;
+  --mingu-control-padding-md: 12px;
+  --mingu-control-padding-lg: 16px;
+  --mingu-control-padding-block-sm: 6px;
+  --mingu-control-padding-block-md: 8px;
+  --mingu-control-padding-block-lg: 10px;
+  --mingu-control-radius: 8px;
+  --mingu-focus-width: 2px;
+  --mingu-focus-offset: 2px;
   --mingu-radius-sm: 6px;
   --mingu-radius-md: 10px;
   --mingu-radius-lg: 16px;
@@ -138,6 +150,12 @@
     --mingu-warning-soft: #fff7df;
     --mingu-shadow: 0 8px 32px #1111110d;
   }
+}
+/* A neutral accent follows the current scoped theme, including system mode. */
+[data-mingu-accent="neutral"] {
+  --mingu-accent: var(--mingu-text);
+  --mingu-on-accent: var(--mingu-bg);
+  --mingu-accent-soft: var(--mingu-surface);
 }
 .mingu-system {
   --mru-bg: var(--mingu-bg);

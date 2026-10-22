@@ -20,8 +20,8 @@
   .mingu-switch input,
   .mingu-tabpanel
 ):focus-visible {
-  outline: 2px solid var(--mingu-accent);
-  outline-offset: 3px;
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
 }
 .mingu-button {
   display: inline-flex;
@@ -40,17 +40,35 @@
     background var(--mingu-duration-fast),
     border-color var(--mingu-duration-fast);
 }
-.mingu-control-sm {
-  min-height: 36px;
-  padding: 7px 12px;
+.mingu-control-sm,
+.mingu-input-sm,
+.mingu-input-shell-sm {
+  --mingu-control-height: var(--mingu-control-height-sm);
+  --mingu-control-padding: var(--mingu-control-padding-sm);
+  --mingu-control-padding-block: var(--mingu-control-padding-block-sm);
 }
-.mingu-control-md {
-  min-height: 44px;
-  padding: 10px 16px;
+.mingu-control-md,
+.mingu-input-md,
+.mingu-input-shell-md {
+  --mingu-control-height: var(--mingu-control-height-md);
+  --mingu-control-padding: var(--mingu-control-padding-md);
+  --mingu-control-padding-block: var(--mingu-control-padding-block-md);
 }
-.mingu-control-lg {
-  min-height: 48px;
-  padding: 12px 20px;
+.mingu-control-lg,
+.mingu-input-lg,
+.mingu-input-shell-lg {
+  --mingu-control-height: var(--mingu-control-height-lg);
+  --mingu-control-padding: var(--mingu-control-padding-lg);
+  --mingu-control-padding-block: var(--mingu-control-padding-block-lg);
+}
+.mingu-button {
+  min-height: var(--mingu-control-height, var(--mingu-control-height-md));
+  padding: var(
+      --mingu-control-padding-block,
+      var(--mingu-control-padding-block-md)
+    )
+    var(--mingu-control-padding, var(--mingu-control-padding-md));
+  border-radius: var(--mingu-control-radius);
 }
 .mingu-button-primary {
   color: var(--mingu-on-accent);
@@ -71,10 +89,23 @@
   border-color: var(--mingu-danger);
 }
 .mingu-button:hover:not(:disabled) {
-  filter: brightness(0.94);
+  background: color-mix(
+    in srgb,
+    var(--mingu-accent) 90%,
+    var(--mingu-on-accent)
+  );
 }
+.mingu-button-secondary:hover:not(:disabled),
+.mingu-button-outline:hover:not(:disabled),
 .mingu-button-ghost:hover:not(:disabled) {
   background: var(--mingu-surface);
+}
+.mingu-button-danger:hover:not(:disabled) {
+  background: color-mix(
+    in srgb,
+    var(--mingu-danger-soft) 90%,
+    var(--mingu-danger)
+  );
 }
 .mingu-button:disabled {
   opacity: 0.5;
@@ -91,25 +122,128 @@
 .mingu-input {
   display: block;
   width: 100%;
-  min-height: 44px;
-  border: 1px solid var(--mingu-border);
-  border-radius: var(--mingu-radius-md);
-  padding: 10px 12px;
+  min-width: 0;
+  min-height: var(--mingu-control-height, var(--mingu-control-height-md));
+  border: 1px solid var(--mingu-control-border);
+  border-radius: var(--mingu-control-radius);
+  padding: var(
+      --mingu-control-padding-block,
+      var(--mingu-control-padding-block-md)
+    )
+    var(--mingu-control-padding, var(--mingu-control-padding-md));
   color: var(--mingu-text);
   background: var(--mingu-raised);
   font: inherit;
   font-size: var(--mingu-text-sm);
+  line-height: 1.5;
+  transition:
+    border-color var(--mingu-duration-fast),
+    background var(--mingu-duration-fast);
 }
 .mingu-input::placeholder {
   color: var(--mingu-muted);
   opacity: 1;
 }
+.mingu-input:hover:where(:not(:disabled):not([readonly])) {
+  border-color: var(--mingu-text);
+}
+.mingu-input:read-only:not(select) {
+  background: var(--mingu-surface);
+}
 .mingu-input:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
+  background: var(--mingu-surface);
 }
 .mingu-input[aria-invalid="true"] {
   border-color: var(--mingu-danger);
+}
+.mingu-input:focus {
+  border-color: var(--mingu-accent);
+}
+.mingu-input[aria-invalid="true"]:focus {
+  border-color: var(--mingu-danger);
+}
+.mingu-input:focus-visible {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+}
+.mingu-input[aria-invalid="true"]:focus-visible {
+  outline-color: var(--mingu-danger);
+}
+.mingu-input-shell {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: var(--mingu-control-height);
+  border: 1px solid var(--mingu-control-border);
+  border-radius: var(--mingu-control-radius);
+  background: var(--mingu-raised);
+  transition:
+    border-color var(--mingu-duration-fast),
+    background var(--mingu-duration-fast);
+}
+.mingu-input-shell > .mingu-input {
+  flex: 1;
+  width: 0;
+  min-height: calc(var(--mingu-control-height) - 2px);
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+}
+.mingu-input-leading,
+.mingu-input-trailing {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--mingu-space-2);
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+  white-space: nowrap;
+}
+.mingu-input-leading {
+  padding-inline-start: var(--mingu-control-padding);
+}
+.mingu-input-trailing {
+  padding-inline-end: var(--mingu-control-padding);
+}
+.mingu-input-trailing:has(> button) {
+  padding-inline-end: var(--mingu-space-1);
+}
+.mingu-input-trailing > .mingu-button {
+  min-height: calc(var(--mingu-control-height) - var(--mingu-space-2));
+  padding-block: var(--mingu-space-1);
+  border-radius: var(--mingu-radius-sm);
+}
+.mingu-input-shell:hover {
+  border-color: var(--mingu-text);
+}
+.mingu-input-shell:focus-within {
+  border-color: var(--mingu-accent);
+}
+.mingu-input-shell:has(> .mingu-input:focus-visible) {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+}
+.mingu-input-shell[data-readonly] {
+  background: var(--mingu-surface);
+}
+.mingu-input-shell[data-invalid] {
+  border-color: var(--mingu-danger);
+}
+.mingu-input-shell[data-invalid]:has(> .mingu-input:focus-visible) {
+  outline-color: var(--mingu-danger);
+}
+.mingu-input-shell:has(> .mingu-input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--mingu-surface);
+  border-color: var(--mingu-control-border);
+}
+.mingu-input-shell > .mingu-input:disabled {
+  opacity: 1;
 }
 .mingu-textarea {
   min-height: 120px;
@@ -186,8 +320,8 @@
   background: var(--mingu-on-accent);
 }
 .mingu-switch input:focus-visible + .mingu-switch-track {
-  outline: 2px solid var(--mingu-accent);
-  outline-offset: 3px;
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
 }
 .mingu-checkbox:has(input:disabled),
 .mingu-switch:has(input:disabled) {
@@ -388,40 +522,20 @@ html:has(dialog.mingu-dialog[open]) {
   cursor: not-allowed;
 }
 .mingu-icon-button {
+  width: var(--mingu-control-height);
+  min-width: var(--mingu-control-height);
   aspect-ratio: 1;
-  padding-inline: 10px;
+  padding-inline: 0;
 }
 .mingu-button-group {
   display: inline-flex;
   flex-wrap: wrap;
   gap: var(--mingu-space-1);
 }
-.mingu-input {
-  border-color: var(--mingu-control-border, var(--mingu-border));
-}
-.mingu-input-sm {
-  min-height: 36px;
-  padding: 6px 10px;
-}
-.mingu-input-lg {
-  min-height: 48px;
-  padding: 12px 16px;
-}
 .mingu-label,
 .mingu-radio-group legend {
   font-size: var(--mingu-text-sm);
   font-weight: 550;
-}
-.mingu-password {
-  position: relative;
-}
-.mingu-password input {
-  padding-right: 5rem;
-}
-.mingu-password > button {
-  position: absolute;
-  right: 6px;
-  top: 33px;
 }
 .mingu-field-heading {
   display: flex;
@@ -925,8 +1039,8 @@ html:has(dialog.mingu-dialog[open]) {
     .mingu-table-scroll,
     .mingu-table th button
   ):focus-visible {
-  outline: 2px solid var(--mingu-accent);
-  outline-offset: 3px;
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
 }
 :where(.mingu-combobox-list, .mingu-table-scroll, .mingu-popover) {
   scrollbar-width: thin;
@@ -1044,25 +1158,14 @@ html:has(dialog.mingu-dialog[open]) {
   opacity: 1;
   transform: translateY(0);
 }
-.mingu-input {
-  transition:
-    border-color var(--mingu-duration-normal),
-    box-shadow var(--mingu-duration-normal),
-    background var(--mingu-duration-normal);
-}
-.mingu-input:focus {
-  border-color: var(--mingu-accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mingu-accent) 12%, transparent);
-}
-.mingu-input[aria-invalid="true"]:focus {
-  border-color: var(--mingu-danger);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mingu-danger) 12%, transparent);
-}
 .mingu-field > label {
   transition: color var(--mingu-duration-normal);
 }
 .mingu-field:focus-within > label {
   color: var(--mingu-accent);
+}
+.mingu-field[data-invalid]:focus-within > label {
+  color: var(--mingu-danger);
 }
 .mingu-floating-control {
   position: relative;
@@ -1364,7 +1467,8 @@ html:has(dialog.mingu-dialog[open]) {
   opacity: 1;
   cursor: progress;
 }
-.mingu-button[data-status="success"] {
+.mingu-button[data-status="success"],
+.mingu-button[data-status="success"]:hover {
   color: var(--mingu-success);
   background: var(--mingu-success-soft);
   border-color: color-mix(
@@ -1373,7 +1477,8 @@ html:has(dialog.mingu-dialog[open]) {
     var(--mingu-border)
   );
 }
-.mingu-button[data-status="error"] {
+.mingu-button[data-status="error"],
+.mingu-button[data-status="error"]:hover {
   color: var(--mingu-danger);
   background: var(--mingu-danger-soft);
   border-color: var(--mingu-danger);
@@ -1401,14 +1506,15 @@ html:has(dialog.mingu-dialog[open]) {
     transition: none;
   }
 }
-.mingu-input:focus-visible {
-  outline: 2px solid var(--mingu-accent);
-  outline-offset: 0;
-  box-shadow: none;
-}
-.mingu-input[aria-invalid="true"]:focus-visible {
-  outline-color: var(--mingu-danger);
-}
 .mingu-floating-control input:not(:focus) + label {
   color: var(--mingu-muted);
+}
+
+@media (forced-colors: active) {
+  .mingu-input-shell:has(> .mingu-input:disabled) {
+    border-color: GrayText;
+  }
+  .mingu-input-shell:has(> .mingu-input:focus-visible) {
+    outline-color: Highlight;
+  }
 }

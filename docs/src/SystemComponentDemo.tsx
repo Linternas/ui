@@ -270,6 +270,57 @@ export default function SystemComponentDemo({
           />
         </UI.Stack>
       );
+    case "textarea-field":
+      return (
+        <UI.Stack gap={6}>
+          <UI.TextareaField
+            label="Project description"
+            rows={3}
+            maxLength={200}
+            hint="Up to 200 characters"
+            placeholder="Describe your project"
+          />
+          <UI.TextareaField
+            label="Invalid description"
+            error="Enter a description"
+            required
+          />
+          <UI.TextareaField
+            label="Read-only description"
+            defaultValue="An independent design system."
+            readOnly
+          />
+          <UI.TextareaField label="Disabled description" disabled />
+        </UI.Stack>
+      );
+    case "select-field":
+      return (
+        <UI.Stack gap={6}>
+          <UI.SelectField
+            label="Visibility"
+            hint="Who can see this project?"
+            defaultValue="private"
+          >
+            <option value="private">Private</option>
+            <option value="public">Public</option>
+          </UI.SelectField>
+          <UI.SelectField
+            label="Environment"
+            required
+            error="Select an environment"
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Select…
+            </option>
+            <option value="preview">Preview</option>
+            <option value="production">Production</option>
+          </UI.SelectField>
+          <UI.SelectField label="Disabled environment" disabled>
+            <option>Preview</option>
+          </UI.SelectField>
+        </UI.Stack>
+      );
     case "textarea":
       return (
         <UI.Stack>

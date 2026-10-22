@@ -8,7 +8,19 @@ import {
   type ComponentProps,
   type ReactNode,
 } from "react";
-import { Button, Input, TextField, type TextFieldProps } from "./base";
+import {
+  Button,
+  Input,
+  TextField,
+  Textarea,
+  Select,
+  type TextFieldProps,
+} from "./base";
+import {
+  FieldFrame,
+  fieldDescription,
+  type FieldPresentation,
+} from "./field-frame";
 import { useControllable } from "../shared";
 
 export type ControlSize = "sm" | "md" | "lg";
@@ -29,42 +41,114 @@ export function Field({
   children: ReactNode;
 }) {
   return (
-    <div className="mingu-field">
-      <Label htmlFor={htmlFor}>{label}</Label>
+    <FieldFrame id={htmlFor} label={label} hint={hint} error={error}>
       {children}
-      {(error || hint) && (
-        <p
-          id={`${htmlFor}-description`}
-          className={error ? "mingu-field-error" : "mingu-muted"}
-        >
-          {error || hint}
-        </p>
-      )}
-    </div>
+    </FieldFrame>
   );
 }
-export function PasswordField({
-  label,
-  ...props
-}: Omit<TextFieldProps, "type">) {
+export interface PasswordFieldProps
+  extends Omit<TextFieldProps, "type" | "trailing"> {
+  labels?: {
+    show?: string;
+    hide?: string;
+    showLabel?: string;
+    hideLabel?: string;
+  };
+}
+export function PasswordField({ label, labels, ...props }: PasswordFieldProps) {
   const [visible, setVisible] = useState(false);
   return (
-    <div className="mingu-password">
-      <TextField
+    <TextField
+      {...props}
+      label={label}
+      type={visible ? "text" : "password"}
+      trailing={
+        <Button
+          variant="ghost"
+          size="sm"
+          interaction="none"
+          disabled={props.disabled}
+          aria-label={
+            visible
+              ? (labels?.hideLabel ?? "Hide password")
+              : (labels?.showLabel ?? "Show password")
+          }
+          aria-pressed={visible}
+          onMouseDown={(event) => event.preventDefault()}
+          onClick={() => setVisible(!visible)}
+        >
+          {visible ? (labels?.hide ?? "Hide") : (labels?.show ?? "Show")}
+        </Button>
+      }
+    />
+  );
+}
+export interface TextareaFieldProps
+  extends ComponentProps<"textarea">,
+    FieldPresentation {
+  controlSize?: ControlSize;
+}
+export function TextareaField({
+  label,
+  hint,
+  error,
+  id,
+  className,
+  "aria-describedby": describedBy,
+  ...props
+}: TextareaFieldProps) {
+  const generated = useId();
+  const fieldId = id ?? generated;
+  return (
+    <FieldFrame
+      id={fieldId}
+      label={label}
+      hint={hint}
+      error={error}
+      required={props.required}
+      className={className}
+    >
+      <Textarea
         {...props}
-        label={label}
-        type={visible ? "text" : "password"}
+        id={fieldId}
+        aria-invalid={error ? true : props["aria-invalid"]}
+        aria-describedby={fieldDescription(fieldId, hint, error, describedBy)}
       />
-      <Button
-        variant="ghost"
-        size="sm"
-        aria-label={visible ? "Hide password" : "Show password"}
-        aria-pressed={visible}
-        onClick={() => setVisible(!visible)}
-      >
-        {visible ? "Hide" : "Show"}
-      </Button>
-    </div>
+    </FieldFrame>
+  );
+}
+export interface SelectFieldProps
+  extends ComponentProps<"select">,
+    FieldPresentation {
+  controlSize?: ControlSize;
+}
+export function SelectField({
+  label,
+  hint,
+  error,
+  id,
+  className,
+  "aria-describedby": describedBy,
+  ...props
+}: SelectFieldProps) {
+  const generated = useId();
+  const fieldId = id ?? generated;
+  return (
+    <FieldFrame
+      id={fieldId}
+      label={label}
+      hint={hint}
+      error={error}
+      required={props.required}
+      className={className}
+    >
+      <Select
+        {...props}
+        id={fieldId}
+        aria-invalid={error ? true : props["aria-invalid"]}
+        aria-describedby={fieldDescription(fieldId, hint, error, describedBy)}
+      />
+    </FieldFrame>
   );
 }
 export function SearchField(props: Omit<TextFieldProps, "type">) {

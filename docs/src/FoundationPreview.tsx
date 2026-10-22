@@ -95,6 +95,12 @@ export default function FoundationPreview() {
       <Stack direction="row" gap={3}>
         <Link
           className="mingu-button mingu-button-primary mingu-control-md"
+          href="/lab/ui/controls"
+        >
+          Controls playground →
+        </Link>
+        <Link
+          className="mingu-button mingu-button-primary mingu-control-md"
           href="/lab/ui/button"
         >
           Button

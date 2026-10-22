@@ -50,6 +50,15 @@ export const uiCatalog: readonly UiCatalogEntry[] = [
     kind: "foundation",
     code: `import { DesignSystemProvider, Button } from '@mingu/interaction-ui';\nimport '@mingu/interaction-ui/system.css';\nimport '@mingu/interaction-ui/styles.css';\n\n<DesignSystemProvider theme="system">\n  <Button>Start building</Button>\n</DesignSystemProvider>`,
   },
+  {
+    id: "controls",
+    name: "Controls",
+    group: "Foundations",
+    description:
+      "크기·상태·강조색을 직접 조절하고 실제 폼에서 확인하는 컨트롤 워크벤치.",
+    kind: "foundation",
+    code: `import { DesignSystemProvider, TextField, SelectField, TextareaField, Button } from '@mingu/interaction-ui/system';\nimport '@mingu/interaction-ui/system.css';\n\n<DesignSystemProvider theme="system" accent="neutral">\n  <TextField label="프로젝트 이름" required />\n  <SelectField label="공개 범위"><option>비공개</option></SelectField>\n  <TextareaField label="설명" rows={3} />\n  <Button type="submit">확인</Button>\n</DesignSystemProvider>`,
+  },
   ...systemCatalog.map((item) => ({
     ...item,
     group: item.group as UiGroup,
@@ -90,6 +99,8 @@ export const uiFamilies: readonly (readonly string[])[] = [
     "input",
     "floating-field",
     "text-field",
+    "textarea-field",
+    "select-field",
     "password-field",
     "search-field",
     "number-field",

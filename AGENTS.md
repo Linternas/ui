@@ -18,6 +18,7 @@ Use existing components and semantic tokens first. Keep product APIs, authentica
 | --- | --- |
 | Semantic colors, spacing, typography, motion | `tokens.css` |
 | Core component styles | `system.css` |
+| Shared field labels, descriptions and input slots | `src/system/field-frame.tsx` |
 | Core controls, forms, display, navigation, overlays | `src/system/` |
 | Button, copy, floating field, segmented and card interactions | `src/system/micro-interactions.tsx` |
 | Shared spring settings | `src/system/motion-tokens.ts` |
@@ -27,6 +28,7 @@ Use existing components and semantic tokens first. Keep product APIs, authentica
 | Unified catalog metadata | `src/system/ui-catalog.ts` |
 | Core / interaction inventory | `src/system/catalog.ts`, `src/system/interaction-catalog.ts` |
 | Catalog shell, search, navigation and theme | `docs/src/UiCatalog.tsx` |
+| Interactive control/state workbench | `docs/src/ControlWorkbench.tsx` |
 | Live examples | `docs/src/SystemComponentDemo.tsx`, `docs/src/DemoPreview.tsx`, other preview files |
 | Catalog routes | `docs/src/main.tsx`, `docs/src/routing.tsx` |
 | Catalog styles | `docs/src/system-catalog.css`, `docs/src/site.css` |

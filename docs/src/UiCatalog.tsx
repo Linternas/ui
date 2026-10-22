@@ -15,6 +15,7 @@ import { uiCatalog, uiGroups, uiFamilies } from "@mingu/interaction-ui/catalog";
 import { type SystemComponentId } from "@mingu/interaction-ui/system";
 import { type ComponentId } from "./catalog";
 import DemoPreview from "./DemoPreview";
+import ControlWorkbench from "./ControlWorkbench";
 import FoundationPreview, { PatternPreview } from "./FoundationPreview";
 import { CodeBlock } from "@mingu/interaction-ui";
 import SystemComponentDemo from "./SystemComponentDemo";
@@ -80,6 +81,7 @@ export default function UiCatalog({
   return (
     <DesignSystemProvider
       theme={theme}
+      accent="neutral"
       className="system-catalog"
       data-catalog-count={
         uiCatalog.filter(
@@ -92,7 +94,12 @@ export default function UiCatalog({
           Mingu UI <span>/ Design system</span>
         </Link>
         <div>
-          <a className="ui-github-link" href="https://github.com/Linternas/ui" target="_blank" rel="noopener noreferrer">
+          <a
+            className="ui-github-link"
+            href="https://github.com/Linternas/ui"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             GitHub <span aria-hidden="true">↗</span>
           </a>
           <Badge>
@@ -195,7 +202,9 @@ export default function UiCatalog({
             aria-label={`${item.name} preview`}
           >
             <div className="system-preview-label">PREVIEW / STATES</div>
-            {item.kind === "foundation" ? (
+            {selected === "controls" ? (
+              <ControlWorkbench theme={theme} />
+            ) : item.kind === "foundation" ? (
               <FoundationPreview />
             ) : item.kind === "pattern" ? (
               <PatternPreview />

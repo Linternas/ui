@@ -16,6 +16,7 @@ import {
 import { motion, useReducedMotion } from "motion/react";
 import { selectionSpring, pointerMotion } from "./motion-tokens";
 import { InteractionProvider } from "../shared";
+import { FieldFrame, InputShell, fieldDescription } from "./field-frame";
 
 const cx = (...values: (string | false | undefined)[]) =>
   values.filter(Boolean).join(" ");
@@ -27,16 +28,22 @@ export type TokenOverrides = CSSProperties & {
 /** Scoped theme; does not write localStorage or change the document theme. */
 export function DesignSystemProvider({
   theme = "system",
+  accent = "brand",
   children,
   className,
   style,
   ...props
-}: HTMLAttributes<HTMLDivElement> & { theme?: Theme; style?: TokenOverrides }) {
+}: HTMLAttributes<HTMLDivElement> & {
+  theme?: Theme;
+  accent?: "brand" | "neutral";
+  style?: TokenOverrides;
+}) {
   return (
     <InteractionProvider>
       <div
         {...props}
         data-mingu-theme={theme}
+        data-mingu-accent={accent}
         className={cx("mingu-system", className)}
         style={style}
       >
@@ -238,6 +245,10 @@ export interface TextFieldProps extends ComponentProps<"input"> {
   hint?: string;
   controlSize?: "sm" | "md" | "lg";
   error?: string;
+  /** Decorative leading icon or text. Use hint for information required to understand the value. */
+  leading?: ReactNode;
+  /** Suffix text or an action with its own accessible name. */
+  trailing?: ReactNode;
 }
 export function TextField({
   label,
@@ -245,37 +256,41 @@ export function TextField({
   error,
   id,
   className,
+  leading,
+  trailing,
+  controlSize = "md",
   "aria-describedby": describedBy,
   ...props
 }: TextFieldProps) {
   const generated = useId();
   const fieldId = id ?? generated;
-  const descriptionId = `${fieldId}-description`;
+  const invalid = error ? true : props["aria-invalid"];
   return (
-    <div className={cx("mingu-field", className)}>
-      <label htmlFor={fieldId}>
-        {label}
-        {props.required && <span aria-hidden="true"> *</span>}
-      </label>
-      <Input
-        {...props}
-        id={fieldId}
-        aria-invalid={error ? true : props["aria-invalid"]}
-        aria-describedby={
-          [describedBy, (error || hint) && descriptionId]
-            .filter(Boolean)
-            .join(" ") || undefined
-        }
-      />
-      {(error || hint) && (
-        <p
-          id={descriptionId}
-          className={error ? "mingu-field-error" : "mingu-muted"}
-        >
-          {error ?? hint}
-        </p>
-      )}
-    </div>
+    <FieldFrame
+      id={fieldId}
+      label={label}
+      hint={hint}
+      error={error}
+      required={props.required}
+      className={className}
+    >
+      <InputShell
+        size={controlSize}
+        leading={leading}
+        trailing={trailing}
+        disabled={props.disabled}
+        readOnly={props.readOnly}
+        invalid={invalid === true || invalid === "true"}
+      >
+        <Input
+          {...props}
+          controlSize={controlSize}
+          id={fieldId}
+          aria-invalid={invalid}
+          aria-describedby={fieldDescription(fieldId, hint, error, describedBy)}
+        />
+      </InputShell>
+    </FieldFrame>
   );
 }
 export function Checkbox({
@@ -381,6 +396,7 @@ export function Stack({
       className={cx("mingu-stack", className)}
       style={{
         flexDirection: direction,
+        flexWrap: direction === "row" ? "wrap" : "nowrap",
         gap: `var(--mingu-space-${gap})`,
         alignItems:
           align === "start"

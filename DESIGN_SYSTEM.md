@@ -64,6 +64,8 @@ Next.js는 `transpilePackages: ['@mingu/interaction-ui']`를 설정하고 CSS를
 
 ## 테마
 
+`accent="neutral"`은 현재 테마의 본문색·배경색을 강조색으로 사용한다. 밝은 모드에서는 어두운 액션, 어두운 모드에서는 밝은 액션이 된다. 기본값 `accent="brand"`는 기존 강조색을 유지한다. 중첩된 Provider마다 따로 선택할 수 있으며 상태 색(success/warning/danger)은 유지한다. 카탈로그의 [Controls](https://ui.mingu.xyz/controls)에서 두 방향을 비교한다.
+
 `theme="light" | "dark" | "system"`은 Provider 범위에 적용된다. `system`은 OS 설정을 CSS에서 따르며 초기 HTML과 hydration의 테마 값이 다르지 않다. Provider는 localStorage나 document 테마를 변경하지 않는다. 중첩된 Provider도 각자의 테마를 유지한다.
 
 페이지 전체 테마는 앱이 관리한다. 기존 `.dark` 방식과 호환된다. Provider 없이 토큰만 사용하려면 `tokens.css`를 가져온다.
@@ -90,6 +92,8 @@ Next.js는 `transpilePackages: ['@mingu/interaction-ui']`를 설정하고 CSS를
 | 구분 | `--mingu-border`, `--mingu-shadow` |
 | 간격 | `--mingu-space-{1,2,3,4,5,6,8,12,16}` |
 | 타입 | `--mingu-text-{xs,sm,md,lg,xl,2xl}`, `--mingu-font-{sans,mono}` |
+| 컨트롤 | `--mingu-control-height-{sm,md,lg}`, `--mingu-control-padding-{sm,md,lg}`, `--mingu-control-padding-block-{sm,md,lg}`, `--mingu-control-radius` |
+| 포커스 | `--mingu-focus-width`, `--mingu-focus-offset` |
 | 형태 | `--mingu-radius-{sm,md,lg,full}` |
 | 모션 | `--mingu-duration-{fast,normal}`, `--mingu-ease` |
 | 레이아웃 | `--mingu-content`, `--mingu-reading`, `--mingu-z-{sticky,popover}` |
@@ -107,7 +111,9 @@ Interaction 컴포넌트의 기존 `--mru-*` 색상은 Provider 안에서 공통
 | --- | --- |
 | `Button` | `variant`, `size`, `loading`, `status`, `icon`, `interaction`; 기본 `type="button"`, 폼 제출은 명시적으로 `submit` |
 | `Input`, `Textarea`, `Select` | native props; 독립 사용 시 label/aria-label 필수 |
-| `TextField` | `label`, `hint`, `error`; 자동 ID·설명 연결, required/invalid 지원 |
+| `TextField` | `label`, `hint`, `error`, `leading`, `trailing`; 자동 ID·설명 연결, required/invalid 지원 |
+| `TextareaField`, `SelectField` | native props와 `label`, `hint`, `error`, `controlSize`; label·설명·오류 자동 연결 |
+| `PasswordField` | TextField 기반 보기/숨기기; `labels`로 표시 문구·접근성 이름 변경 |
 | `Checkbox`, `Switch` | children이 label; native checked/defaultChecked/onChange |
 | `Badge`, `Alert` | `tone=neutral/accent/success/warning/danger`; 동적 알림에 필요한 role은 호출자가 지정 |
 | `Card`, `Container` | native div props; `Container reading`은 읽기 폭 사용 |
@@ -172,3 +178,29 @@ npm run test:browser
 독립 카탈로그 앱은 같은 저장소의 `docs/`에 있다. 패키지 루트의 `npm run build`는 정적 JS/CSS·미디어와 서버용 경로 목록을 생성하고, `npm start`는 Node 내장 HTTP 서버로 배포한다. 라이브러리 설치 경로와 exports는 변경하지 않는다. 기존 블로그 카탈로그는 연결 주소가 확정되기 전까지 유지한다.
 
 배포 절차와 Railway 설정은 README의 Standalone docs / Railway를 따른다. 새 컴포넌트는 패키지의 통합 카탈로그에 등록하고 독립 docs 미리보기에도 추가한다.
+
+## Controls (0.6)
+
+[Controls 워크벤치](https://ui.mingu.xyz/controls)는 크기·상태·강조색에 맞춰 미리보기와 코드를 함께 갱신한다. 폼 예제는 브라우저의 입력 유효성만 확인하며 서버에 저장하지 않는다.
+
+- Button/Input/Select는 sm 36px, md 44px, lg 48px 기준을 공유한다. 높이는 최소값이며 긴 텍스트·확대·커스텀 토큰에 따라 늘어날 수 있다. 작은 컨트롤은 밀도가 필요한 화면에서만 사용하고 터치 화면은 md 이상을 우선한다.
+- TextField는 장식용 `leading`과 접미사 또는 보조 액션용 `trailing`을 제공한다. leading은 접근성 트리에서 숨긴다. 값 해석에 꼭 필요한 단위·설명은 hint에도 넣는다. trailing에 넣은 버튼에는 접근성 이름을 제공한다.
+- TextareaField/SelectField는 네이티브 textarea/select에 props·ref를 전달한다. readOnly는 입력·텍스트 영역에서 사용하며 네이티브 select에는 지원되지 않는다.
+- PasswordField의 보기 버튼은 입력 옆 같은 줄에 배치된다. disabled 및 상위 fieldset의 disabled를 따른다. `labels={{ show: '보기', hide: '숨기기', showLabel: '비밀번호 보기', hideLabel: '비밀번호 숨기기' }}`로 바꿀 수 있다.
+- 오류는 입력 테두리와 설명 문구로 표시한다. readOnly는 선택·복사·폼 제출을 유지하고 disabled 값은 네이티브 폼 제출에서 제외된다.
+- 세로 Stack은 줄바꿈 없이 내용을 쌓고, 가로 Stack만 좁은 화면에서 줄바꿈한다. 긴 코드는 CodeBlock 내부에서 가로 스크롤한다.
+
+```tsx
+<DesignSystemProvider theme="system" accent="neutral">
+  <Stack gap={6}>
+    <TextField label="워크스페이스" name="workspace" trailing=".mingu.xyz"
+      hint="주소의 .mingu.xyz 앞에 들어갈 이름입니다." required />
+    <SelectField label="공개 범위" name="visibility" defaultValue="private">
+      <option value="private">비공개</option>
+      <option value="public">공개</option>
+    </SelectField>
+    <TextareaField label="설명" name="description" rows={3} maxLength={200} />
+    <Button type="submit">입력 확인</Button>
+  </Stack>
+</DesignSystemProvider>
+```

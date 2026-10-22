@@ -6,6 +6,8 @@
 
 [통합 카탈로그](https://ui.mingu.xyz): 기능별 탐색·테마·미리보기·사용 코드.
 
+[Controls 워크벤치](https://ui.mingu.xyz/controls): 크기·상태·강조색을 바꾸며 실제 컨트롤과 코드를 확인합니다.
+
 설치·설계 원칙·Core API·테마·새 웹 도입 방법: [Design system](./DESIGN_SYSTEM.md).
 
 ```tsx
