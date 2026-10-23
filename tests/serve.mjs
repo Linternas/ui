@@ -14,7 +14,7 @@ const js = outputFiles.find((file) => file.path.endsWith(".js")).text;
 const styleResult = await build({
   stdin: {
     contents:
-      '@import "../system.css"; @import "../styles.css"; @import "../docs/src/system-catalog.css"; @import "../docs/src/interaction-previews.css"; @import "../docs/src/newest-preview.css";',
+      '@import "../system.css"; @import "../styles.css"; @import "../docs/src/system-catalog.css"; @import "../docs/src/interaction-previews.css"; @import "../docs/src/newest-preview.css"; @import "../docs/src/all-preview.css";',
     loader: "css",
     resolveDir: fileURLToPath(new URL("./", import.meta.url)),
   },

@@ -16,6 +16,7 @@ import { type SystemComponentId } from "@mingu/interaction-ui/system";
 import { type ComponentId } from "./catalog";
 import DemoPreview from "./DemoPreview";
 import NewestPreview from "./NewestPreview";
+import AllPreview from "./AllPreview";
 import { useNewestEntries } from "./useNewestEntries";
 import ControlWorkbench from "./ControlWorkbench";
 import FoundationPreview, { PatternPreview } from "./FoundationPreview";
@@ -115,15 +116,21 @@ export default function UiCatalog({
           >
             GitHub <span aria-hidden="true">↗</span>
           </a>
-          <Badge>
-            {
-              uiCatalog.filter(
-                (entry) =>
-                  entry.kind === "core" || entry.kind === "interaction",
-              ).length
-            }{" "}
-            components
-          </Badge>
+          <Link
+            className="ui-newest-header"
+            href="/all"
+            aria-current={selected === "all" ? "page" : undefined}
+          >
+            All{" "}
+            <Badge>
+              {
+                uiCatalog.filter(
+                  (entry) =>
+                    entry.kind === "core" || entry.kind === "interaction",
+                ).length
+              }
+            </Badge>
+          </Link>
           <Select
             value={theme}
             aria-label="Component theme"
@@ -147,6 +154,13 @@ export default function UiCatalog({
           <nav aria-label="Design system components">
             <Link
               className="ui-newest-shortcut"
+              href="/all"
+              aria-current={selected === "all" ? "page" : undefined}
+            >
+              All components
+            </Link>
+            <Link
+              className="ui-newest-shortcut"
               href="/newest"
               aria-current={selected === "newest" ? "page" : undefined}
             >
@@ -156,7 +170,9 @@ export default function UiCatalog({
             {uiGroups
               .filter((group) =>
                 filtered.some(
-                  (entry) => entry.group === group && entry.id !== "newest",
+                  (entry) =>
+                    entry.group === group &&
+                    !["newest", "all"].includes(entry.id),
                 ),
               )
               .map((group) => (
@@ -164,7 +180,9 @@ export default function UiCatalog({
                   <h2>{group}</h2>
                   {filtered
                     .filter(
-                      (entry) => entry.group === group && entry.id !== "newest",
+                      (entry) =>
+                        entry.group === group &&
+                        !["newest", "all"].includes(entry.id),
                     )
                     .map((entry) => (
                       <Link
@@ -228,13 +246,15 @@ export default function UiCatalog({
             </nav>
           )}
           <section
-            className={`system-catalog-preview${selected === "newest" ? " ui-newest-preview" : ""}`}
+            className={`system-catalog-preview${["newest", "all"].includes(selected) ? " ui-newest-preview" : ""}`}
             aria-label={`${item.name} preview`}
           >
-            {selected !== "newest" && (
+            {!["newest", "all"].includes(selected) && (
               <div className="system-preview-label">PREVIEW / STATES</div>
             )}
-            {selected === "newest" ? (
+            {selected === "all" ? (
+              <AllPreview />
+            ) : selected === "newest" ? (
               <NewestPreview entries={newest} />
             ) : selected === "controls" ? (
               <ControlWorkbench theme={theme} />
@@ -253,16 +273,18 @@ export default function UiCatalog({
               />
             )}
           </section>
-          <section id="usage" className="system-catalog-usage">
-            <Heading level={2} size="lg">
-              Usage
-            </Heading>
-            <CodeBlock
-              filename={`${selected}.tsx`}
-              language="tsx"
-              code={code}
-            />
-          </section>
+          {selected !== "all" && (
+            <section id="usage" className="system-catalog-usage">
+              <Heading level={2} size="lg">
+                Usage
+              </Heading>
+              <CodeBlock
+                filename={`${selected}.tsx`}
+                language="tsx"
+                code={code}
+              />
+            </section>
+          )}
           <footer>
             <Link href="/lab/ui">← Mingu UI</Link>
             <a

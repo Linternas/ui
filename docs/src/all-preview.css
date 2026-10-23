@@ -1,0 +1,91 @@
+.ui-all-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 220px);
+  gap: var(--mingu-space-4);
+}
+.ui-all-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mingu-space-4);
+  flex-wrap: wrap;
+  margin-block: var(--mingu-space-5) var(--mingu-space-8);
+}
+.ui-all-toolbar > p {
+  margin: 0;
+  color: var(--mingu-muted);
+  font: var(--mingu-text-xs) var(--mingu-font-mono);
+}
+.ui-all-groups {
+  display: grid;
+  gap: var(--mingu-space-8);
+}
+.ui-all-groups h2 {
+  display: flex;
+  align-items: baseline;
+  gap: var(--mingu-space-3);
+  margin: 0 0 var(--mingu-space-4);
+  font-size: var(--mingu-text-md);
+}
+.ui-all-groups h2 > span {
+  color: var(--mingu-muted);
+  font: var(--mingu-text-xs) var(--mingu-font-mono);
+}
+.ui-all-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--mingu-space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ui-all-list > li {
+  min-width: 0;
+}
+.ui-all-list > li > a {
+  display: grid;
+  gap: var(--mingu-space-3);
+  height: 100%;
+  padding: var(--mingu-space-4);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  text-decoration: none;
+  transition:
+    background var(--mingu-duration-fast),
+    border-color var(--mingu-duration-fast);
+}
+.ui-all-list > li > a:hover {
+  background: var(--mingu-surface);
+  border-color: var(--mingu-muted);
+}
+.ui-all-item-heading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--mingu-space-2);
+}
+.ui-all-item-heading strong {
+  font-size: var(--mingu-text-sm);
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+.ui-all-item-arrow {
+  margin-inline-start: auto;
+  color: var(--mingu-muted);
+}
+.ui-all-list p {
+  margin: 0;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.ui-all-list .mingu-badge {
+  justify-self: start;
+  align-self: end;
+}
+@media (max-width: 767px) {
+  .ui-all-filters,
+  .ui-all-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

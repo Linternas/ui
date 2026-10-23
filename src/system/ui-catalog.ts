@@ -202,6 +202,15 @@ export const uiCatalog: readonly UiCatalogEntry[] = [
     code: `import { DesignSystemProvider, TextField, SelectField, TextareaField, Button } from '@mingu/interaction-ui/system';\nimport '@mingu/interaction-ui/system.css';\n\n<DesignSystemProvider theme="system" accent="neutral">\n  <TextField label="프로젝트 이름" required />\n  <SelectField label="공개 범위"><option>비공개</option></SelectField>\n  <TextareaField label="설명" rows={3} />\n  <Button type="submit">확인</Button>\n</DesignSystemProvider>`,
   },
   {
+    id: "all",
+    name: "All",
+    group: "Foundations",
+    kind: "foundation",
+    description:
+      "모든 기본 컴포넌트와 인터랙션. 카테고리로 찾고, 목록이나 라이브 미리보기로 둘러보세요.",
+    code: `import { uiCatalog } from '@mingu/interaction-ui/catalog';\n\nconst components = uiCatalog.filter(({ kind }) => kind === 'core' || kind === 'interaction');`,
+  },
+  {
     id: "newest",
     name: "Newest",
     group: "Foundations",

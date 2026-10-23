@@ -1,3 +1,4 @@
+import AllPreview from "../docs/src/AllPreview";
 import NewestPreview from "../docs/src/NewestPreview";
 import { getNewestEntries, uiCatalog } from "../src/system/ui-catalog";
 import CollectionPreview from "../docs/src/CollectionPreview";
@@ -71,7 +72,20 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  new URLSearchParams(location.search).has("newest-gallery") ? (
+  new URLSearchParams(location.search).has("all-gallery") ? (
+    <DesignSystemProvider
+      theme={
+        new URLSearchParams(location.search).get("theme") === "dark"
+          ? "dark"
+          : "light"
+      }
+      accent="neutral"
+    >
+      <main style={{ maxWidth: 1100, margin: "24px auto", padding: 16 }}>
+        <AllPreview />
+      </main>
+    </DesignSystemProvider>
+  ) : new URLSearchParams(location.search).has("newest-gallery") ? (
     <DesignSystemProvider
       theme={
         new URLSearchParams(location.search).get("theme") === "dark"

@@ -96,8 +96,12 @@ function DeferredPreview({ entry }: { entry: UiCatalogEntry }) {
 }
 export default function NewestPreview({
   entries,
+  label = "Newest",
+  filterable = true,
 }: {
   entries: readonly UiCatalogEntry[];
+  label?: string;
+  filterable?: boolean;
 }) {
   const [expanded, setExpanded] = useState<UiCatalogEntry | null>(null);
   const [category, setCategory] = useState("all");
@@ -147,9 +151,11 @@ export default function NewestPreview({
             {entry.name}
             <span aria-hidden="true">↗</span>
           </Link>
-          <time dateTime={entry.addedAt}>
-            {entry.addedAt?.replace(/-/g, ".")}
-          </time>
+          {entry.addedAt && (
+            <time dateTime={entry.addedAt}>
+              {entry.addedAt.replace(/-/g, ".")}
+            </time>
+          )}
         </header>
         <DeferredPreview entry={entry} />
         <footer>
@@ -191,29 +197,31 @@ export default function NewestPreview({
         ref={browse}
         tabIndex={-1}
         role="region"
-        aria-label="Newest results"
+        aria-label={`${label} results`}
       >
         <p>핵심 동작을 가볍게 둘러보고, 크게 열어 전체 설정을 조절해 보세요.</p>
         <span role="status">{filtered.length} items</span>
       </div>
-      <div className="ui-newest-filter">
-        <SegmentedControl
-          label="Newest category"
-          value={category}
-          onValueChange={(value) => {
-            navigating.current = true;
-            setCategory(value);
-          }}
-          options={[
-            { value: "all", label: `전체 ${entries.length}` },
-            { value: "interactive", label: `인터랙션 ${largeCount}` },
-            {
-              value: "components",
-              label: `컴포넌트 ${entries.length - largeCount}`,
-            },
-          ]}
-        />
-      </div>
+      {filterable && (
+        <div className="ui-newest-filter">
+          <SegmentedControl
+            label="Newest category"
+            value={category}
+            onValueChange={(value) => {
+              navigating.current = true;
+              setCategory(value);
+            }}
+            options={[
+              { value: "all", label: `전체 ${entries.length}` },
+              { value: "interactive", label: `인터랙션 ${largeCount}` },
+              {
+                value: "components",
+                label: `컴포넌트 ${entries.length - largeCount}`,
+              },
+            ]}
+          />
+        </div>
+      )}
       {groups.map((group) => (
         <section
           key={group.id}
