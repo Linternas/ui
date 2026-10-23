@@ -124,6 +124,7 @@
   font: var(--mingu-text-xs) var(--mingu-font-mono);
 }
 .ui-newest-expanded.mingu-dialog {
+  overflow-wrap: anywhere;
   width: min(1120px, calc(100vw - 48px));
   max-width: none;
   max-height: calc(100dvh - 48px);

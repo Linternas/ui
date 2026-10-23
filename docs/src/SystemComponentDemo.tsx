@@ -94,7 +94,7 @@ export default function SystemComponentDemo({
       );
     case "segmented-control":
       return (
-        <UI.Stack gap={6}>
+        <UI.Stack gap={6} align="center">
           <UI.SegmentedControl
             label="Billing period"
             defaultValue="monthly"
@@ -449,7 +449,7 @@ export default function SystemComponentDemo({
       );
     case "checkbox":
       return (
-        <UI.Stack>
+        <UI.Stack align="center">
           <UI.Checkbox defaultChecked>Selected</UI.Checkbox>
           <UI.Checkbox>Unselected</UI.Checkbox>
           <UI.Checkbox indeterminate>Partially selected</UI.Checkbox>
@@ -481,7 +481,7 @@ export default function SystemComponentDemo({
       );
     case "switch":
       return (
-        <UI.Stack>
+        <UI.Stack align="center">
           <UI.Switch defaultChecked>Notifications</UI.Switch>
           <UI.Switch>Weekly summary</UI.Switch>
           <UI.Switch disabled defaultChecked>
@@ -569,7 +569,7 @@ export default function SystemComponentDemo({
       );
     case "pagination":
       return (
-        <UI.Stack>
+        <UI.Stack align="center">
           <UI.Pagination page={page} pageCount={20} onPageChange={setPage} />
           <UI.Text size="sm" muted>
             Current page: {page}
@@ -585,7 +585,7 @@ export default function SystemComponentDemo({
       );
     case "navigation":
       return (
-        <UI.Stack gap={6}>
+        <UI.Stack gap={6} align="center">
           <UI.Navigation items={nav} activeId="projects" />
           <UI.Navigation
             items={nav}

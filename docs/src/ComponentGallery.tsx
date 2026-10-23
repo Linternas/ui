@@ -15,6 +15,7 @@ import {
 import { CodeBlock } from "@mingu/interaction-ui";
 import Link, { catalogHref } from "./routing";
 import DemoPreview from "./DemoPreview";
+import PreviewLayout from "./PreviewLayout";
 import SystemComponentDemo from "./SystemComponentDemo";
 import type { ComponentId } from "./catalog";
 import type { SystemComponentId } from "@mingu/interaction-ui/system";
@@ -56,10 +57,14 @@ function Preview({
   entry: UiCatalogEntry;
   compact?: boolean;
 }) {
-  return entry.kind === "interaction" ? (
-    <DemoPreview id={entry.id as ComponentId} compact={compact} />
-  ) : (
-    <SystemComponentDemo id={entry.id as SystemComponentId} />
+  return (
+    <PreviewLayout id={entry.id}>
+      {entry.kind === "interaction" ? (
+        <DemoPreview id={entry.id as ComponentId} compact={compact} />
+      ) : (
+        <SystemComponentDemo id={entry.id as SystemComponentId} />
+      )}
+    </PreviewLayout>
   );
 }
 // Only mount nearby demos. Keep visited state; canvas components pause offscreen.

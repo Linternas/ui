@@ -199,3 +199,41 @@
   justify-content: safe center;
   gap: var(--mingu-space-4);
 }
+
+/* Center the controls inside their demo wrapper, not just the wrapper itself. */
+.ui-preview-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  gap: var(--mingu-space-4);
+  width: 100%;
+  min-width: 0;
+}
+.ui-preview-centered > * {
+  max-width: 100%;
+  min-width: 0;
+}
+.ui-preview-centered > .ui-everyday-stack {
+  align-items: center;
+  text-align: center;
+}
+.ui-preview-centered > .ui-everyday-stack > .mingu-button {
+  align-self: center;
+}
+.ui-preview-centered
+  :is(
+    .mi-gooey,
+    .mingu-pagination,
+    .mingu-breadcrumbs ol,
+    .mingu-tablist,
+    .mingu-navigation:not(.mingu-navigation-vertical) ul
+  ) {
+  justify-content: safe center;
+}
+.ui-preview-centered :is(.mingu-tabpanel, .mingu-stack > .mingu-text) {
+  text-align: center;
+}
+.ui-preview-centered .mingu-tablist {
+  flex-wrap: wrap;
+}

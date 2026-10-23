@@ -15,6 +15,7 @@ import { uiCatalog, uiGroups, uiFamilies } from "@mingu/interaction-ui/catalog";
 import { type SystemComponentId } from "@mingu/interaction-ui/system";
 import { type ComponentId } from "./catalog";
 import DemoPreview from "./DemoPreview";
+import PreviewLayout from "./PreviewLayout";
 import AllPreview from "./AllPreview";
 import { useNewestEntries } from "./useNewestEntries";
 import ControlWorkbench from "./ControlWorkbench";
@@ -252,13 +253,17 @@ export default function UiCatalog({
               <PatternPreview />
             ) : item.kind === "interaction" ? (
               <div className="studio-demo" key={selected}>
-                <DemoPreview id={selected as ComponentId} />
+                <PreviewLayout id={selected}>
+                  <DemoPreview id={selected as ComponentId} />
+                </PreviewLayout>
               </div>
             ) : (
-              <SystemComponentDemo
-                key={selected}
-                id={selected as SystemComponentId}
-              />
+              <PreviewLayout id={selected}>
+                <SystemComponentDemo
+                  key={selected}
+                  id={selected as SystemComponentId}
+                />
+              </PreviewLayout>
             )}
           </section>
           {selected !== "all" && (
