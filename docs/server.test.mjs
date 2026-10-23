@@ -1,4 +1,6 @@
 import test from "node:test";
+import { uiCatalog, playgroundExperiments } from "./routes.mjs";
+import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
@@ -37,6 +39,17 @@ test("production docs server serves built routes, assets and health without expo
     const home = await fetch(base);
     assert.equal(home.status, 200);
     const html = await home.text();
+    const pkg = JSON.parse(
+      await readFile(new URL("../package.json", import.meta.url), "utf8"),
+    );
+    assert.ok(
+      html.includes(`name="mingu-ui-version" content="${pkg.version}"`),
+    );
+    for (const route of [
+      ...uiCatalog.map((item) => `/${item.id}`),
+      ...playgroundExperiments.map((item) => item.path),
+    ])
+      assert.equal((await fetch(base + route)).status, 200, route);
     const asset = html.match(/src="([^"]+\.js)"/)?.[1];
     assert.ok(asset);
     const js = await fetch(base + asset);

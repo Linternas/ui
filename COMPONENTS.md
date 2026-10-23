@@ -660,3 +660,7 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 | [ClothPlayground](https://ui.mingu.xyz/cloth-playground) | 천의 점 드래그·절단·바람·중력·고정점 | 키보드 손잡이·절단 버튼·앵커 복구·일시정지·정적 모션 감소 |
 | [FluidSandbox](https://ui.mingu.xyz/fluid-sandbox) | 입자 붓기·젓기·소용돌이·점도 | 420개 상한·비우기/복구·키보드 소용돌이·정적 표시·모션 감소 |
 | [OrbitComposer](https://ui.mingu.xyz/orbit-composer) | 상대 궤도·반경·속도·궤적 편집 | 세 프리셋·키보드/터치 손잡이·포커스 시 정지·방향 반전·모션 감소 |
+
+## Interactive lab (0.15)
+
+StickerPeel, ElasticMesh, ImageParticleMorph, DitherReveal, FluidGlassLens, Lanyard, DomeGallery, FoldablePaper, WebcamPixelGrid, ImageRelighting. 라이브 카탈로그와 `/playground/<id>`에서 같은 구현을 사용한다. [API와 입력·성능·권한 규칙](./docs/collections/lab.md). 새 항목은 실제 추가일로부터 30일 동안 Newest에 표시한다.

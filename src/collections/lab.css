@@ -1,0 +1,153 @@
+.mingu-lab-collection {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  gap: var(--mingu-space-4);
+  color: var(--mingu-text);
+  font-family: var(--mingu-font-sans);
+}
+.mingu-lab-surface {
+  width: 100%;
+  height: clamp(280px, 44vw, 440px);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-surface);
+}
+.mingu-lab-surface > canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.mingu-lab-settings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: var(--mingu-space-4);
+  min-width: 0;
+  align-items: end;
+}
+.mingu-lab-settings > * {
+  min-width: 0;
+}
+.mingu-lab-collection .mingu-experiment-buttons {
+  flex-wrap: wrap;
+}
+.mingu-lab-collection .mingu-experiment-status {
+  font-size: var(--mingu-text-sm);
+  line-height: 1.6;
+  color: var(--mingu-muted);
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-height: 1.6em;
+}
+.mingu-sticker-stage {
+  display: grid;
+  place-items: center;
+  background-image: radial-gradient(var(--mingu-border) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.mingu-sticker {
+  width: 240px;
+  height: 240px;
+  position: relative;
+  filter: drop-shadow(0 14px 14px rgba(0, 0, 0, 0.12));
+}
+.mingu-sticker > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+.mingu-sticker-move,
+.mingu-sticker-corner {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--mingu-border);
+  background: var(--mingu-raised);
+  color: var(--mingu-text);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--mingu-radius-full);
+  font: inherit;
+  cursor: grab;
+  touch-action: none;
+  box-shadow: var(--mingu-shadow);
+}
+.mingu-sticker-move {
+  left: calc(50% - 22px);
+  top: -12px;
+}
+.mingu-sticker-corner {
+  right: 4px;
+  bottom: 4px;
+}
+.mingu-sticker-move:active,
+.mingu-sticker-corner:active {
+  cursor: grabbing;
+}
+.mingu-sticker-move:focus-visible,
+.mingu-sticker-corner:focus-visible,
+.mingu-lanyard-hit:focus-visible {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+}
+.mingu-lanyard-hit {
+  position: absolute;
+  width: 124px;
+  height: 142px;
+  left: 50%;
+  top: 195px;
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: grab;
+  color: var(--mingu-text);
+}
+.mingu-lanyard-hit:active {
+  cursor: grabbing;
+}
+.mingu-dome-items {
+  display: flex;
+  gap: var(--mingu-space-2);
+  overflow: auto;
+  max-width: 100%;
+  padding-block: var(--mingu-space-1);
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+}
+.mingu-dome-items > * {
+  flex: none;
+}
+.mingu-dome-detail {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: var(--mingu-radius-md);
+}
+.experiment-scene .mingu-lab-surface {
+  height: clamp(300px, 57vh, 650px);
+}
+@media (max-width: 520px) {
+  .mingu-lab-surface {
+    height: 300px;
+  }
+  .mingu-lab-settings {
+    grid-template-columns: 1fr;
+  }
+  .mingu-sticker {
+    width: 210px;
+    height: 210px;
+  }
+  .experiment-scene .mingu-lab-surface {
+    height: clamp(300px, 48vh, 440px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-sticker {
+    filter: none;
+  }
+}

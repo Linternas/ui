@@ -131,6 +131,16 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "sticker-peel":
+    case "elastic-mesh":
+    case "image-particle-morph":
+    case "dither-reveal":
+    case "fluid-glass-lens":
+    case "lanyard":
+    case "dome-gallery":
+    case "foldable-paper":
+    case "webcam-pixel-grid":
+    case "image-relighting":
     case "cloth-playground":
     case "fluid-sandbox":
     case "orbit-composer":

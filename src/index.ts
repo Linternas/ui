@@ -172,3 +172,5 @@ export { FluidSandbox } from "./FluidSandbox";
 export type { FluidSandboxProps } from "./FluidSandbox";
 export { OrbitComposer } from "./OrbitComposer";
 export type { OrbitComposerProps, OrbitPreset } from "./OrbitComposer";
+
+export * from "./collections/lab";

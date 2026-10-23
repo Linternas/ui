@@ -1,3 +1,5 @@
+import CollectionPreview from "../docs/src/CollectionPreview";
+import { DesignSystemProvider } from "../src/system/base";
 import { useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { CodeBlock, RailToc, ScrollProgress } from "../src";
@@ -67,7 +69,22 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  location.search.includes("experimental") ? (
+  new URLSearchParams(location.search).has("collection") ? (
+    <DesignSystemProvider
+      theme={
+        new URLSearchParams(location.search).get("theme") === "dark"
+          ? "dark"
+          : "light"
+      }
+      accent="neutral"
+    >
+      <main style={{ maxWidth: 1000, margin: "24px auto", padding: 16 }}>
+        <CollectionPreview
+          id={new URLSearchParams(location.search).get("id") || "sticker-peel"}
+        />
+      </main>
+    </DesignSystemProvider>
+  ) : location.search.includes("experimental") ? (
     <ExperimentalFixture />
   ) : location.search.includes("refinement") ? (
     <RefinementFixture />

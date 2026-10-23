@@ -1,3 +1,4 @@
+@import "./src/collections/lab.css";
 @import "./interaction.css";
 /* Standalone styles. Override --mru-* on any ancestor to integrate a theme. */
 :where(.mru-code, .mru-toc, .mru-progress) {
@@ -333,15 +334,29 @@
   scrollbar-color: var(--mru-border, #dedfe2) transparent;
   overscroll-behavior: contain;
 }
-.mru-progress-panel::-webkit-scrollbar { width: 5px; }
-.mru-progress-panel::-webkit-scrollbar-track { background: transparent; }
+.mru-progress-panel::-webkit-scrollbar {
+  width: 5px;
+}
+.mru-progress-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
 .mru-progress-panel::-webkit-scrollbar-thumb {
   background: var(--mru-border, #dedfe2);
   border-radius: 999px;
 }
-.mru-progress-panel::-webkit-scrollbar-thumb:hover { background: var(--mru-muted, #626972); }
-.mru-progress-inline { display: flex; flex-direction: column; gap: 12px; }
-.mru-progress-inline .mru-progress-toggle { order: -1; box-shadow: none; border-radius: 12px; }
+.mru-progress-panel::-webkit-scrollbar-thumb:hover {
+  background: var(--mru-muted, #626972);
+}
+.mru-progress-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mru-progress-inline .mru-progress-toggle {
+  order: -1;
+  box-shadow: none;
+  border-radius: 12px;
+}
 .mru-progress-inline .mru-progress-panel {
   position: static;
   max-height: calc(100dvh - 13rem);
@@ -349,4 +364,6 @@
   box-shadow: none;
   animation: none;
 }
-.mru-progress-inline .mru-toc-title { padding-inline: 8px; }
+.mru-progress-inline .mru-toc-title {
+  padding-inline: 8px;
+}

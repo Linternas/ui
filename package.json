@@ -1,6 +1,6 @@
 {
   "name": "@mingu/interaction-ui",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "private": true,
   "files": [
     "src",
@@ -11,7 +11,8 @@
     "system.css",
     "DESIGN_SYSTEM.md",
     "examples",
-    "COMPONENTS.md"
+    "COMPONENTS.md",
+    "docs/collections"
   ],
   "exports": {
     ".": "./src/index.ts",
@@ -25,7 +26,8 @@
     "./styles.css",
     "./interaction.css",
     "./tokens.css",
-    "./system.css"
+    "./system.css",
+    "./src/collections/*.css"
   ],
   "scripts": {
     "typecheck": "tsc --noEmit",

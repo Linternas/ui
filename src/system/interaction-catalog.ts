@@ -1,4 +1,6 @@
+import { labCatalog, labExamples } from "../collections/lab.catalog";
 export const interactionCatalog = [
+  ...labCatalog,
   {
     id: "cloth-playground",
     name: "Cloth playground",
@@ -577,6 +579,7 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  ...labExamples,
   "cloth-playground": `<ClothPlayground defaultWind={0.4} defaultGravity={0.7} />`,
   "fluid-sandbox": `<FluidSandbox defaultCount={180} />`,
   "orbit-composer": `<OrbitComposer defaultPreset="petal" />`,

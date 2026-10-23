@@ -11,31 +11,26 @@ const { outputFiles } = await build({
   jsx: "automatic",
 });
 const js = outputFiles.find((file) => file.path.endsWith(".js")).text;
-const foundationCss =
-  (await readFile(new URL("../tokens.css", import.meta.url), "utf8")) +
-  (await readFile(new URL("../system.css", import.meta.url), "utf8")).replace(
-    "@import './tokens.css';",
-    "",
-  );
-const css =
-  foundationCss +
-  (await readFile(new URL("../styles.css", import.meta.url), "utf8")).replace(
-    '@import "./interaction.css";',
-    "",
-  ) +
-  (await readFile(new URL("../interaction.css", import.meta.url), "utf8"));
-const demoCss =
-  (await readFile(
-    new URL("../docs/src/system-catalog.css", import.meta.url),
-    "utf8",
-  )) +
-  (await readFile(
-    new URL("../docs/src/interaction-previews.css", import.meta.url),
-    "utf8",
-  ));
+const styleResult = await build({
+  stdin: {
+    contents:
+      '@import "../system.css"; @import "../styles.css"; @import "../docs/src/system-catalog.css"; @import "../docs/src/interaction-previews.css";',
+    loader: "css",
+    resolveDir: fileURLToPath(new URL("./", import.meta.url)),
+  },
+  bundle: true,
+  write: false,
+});
+const css = styleResult.outputFiles[0].text;
 createServer(async (req, res) => {
   if (
-    ["/ui-lab/landscape.svg", "/ui-lab/landscape-night.svg"].includes(req.url)
+    [
+      "/ui-lab/landscape.svg",
+      "/ui-lab/landscape-night.svg",
+      "/ui-lab/form.svg",
+      "/ui-lab/echo.svg",
+      "/ui-lab/fold.svg",
+    ].includes(req.url)
   ) {
     res.setHeader("Content-Type", "image/svg+xml");
     res.end(
@@ -48,7 +43,7 @@ createServer(async (req, res) => {
     res.end(js);
   } else if (req.url === "/styles.css") {
     res.setHeader("Content-Type", "text/css");
-    res.end(css + demoCss);
+    res.end(css);
   } else {
     res.setHeader("Content-Type", "text/html");
     res.end(

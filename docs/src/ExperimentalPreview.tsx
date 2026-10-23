@@ -1,3 +1,4 @@
+import LabCollectionPreview from "./LabCollectionPreview";
 import {
   ParticleText,
   SpatialBoard,
@@ -9,6 +10,21 @@ import {
 import type { PlaygroundExperimentId } from "../../src/system/ui-catalog";
 import Link from "./routing";
 export function Experiment({ id }: { id: PlaygroundExperimentId }) {
+  if (
+    [
+      "sticker-peel",
+      "elastic-mesh",
+      "image-particle-morph",
+      "dither-reveal",
+      "fluid-glass-lens",
+      "lanyard",
+      "dome-gallery",
+      "foldable-paper",
+      "webcam-pixel-grid",
+      "image-relighting",
+    ].includes(id)
+  )
+    return <LabCollectionPreview id={id} />;
   switch (id) {
     case "cloth-playground":
       return <ClothPlayground />;

@@ -367,3 +367,7 @@ Tear mode에서는 드래그한 위치 주변의 연결을 끊는다. 키보드�
 중심과 각 궤도의 손잡이를 직접 드래그하거나 방향키(8px, Shift 24px)로 움직인다. 중심은 화면의 5–95% 안으로 제한하고 개별 반경은 짧은 변의 0.02–0.3배(Reach 적용 전)로 제한한다. 중심을 가장자리로 옮기거나 반경을 크게 늘리면 일부 궤도가 표면 밖으로 나갈 수 있다. Reset이나 Reach 축소로 전체를 다시 볼 수 있다. 손잡이에 포커스가 있으면 움직임을 멈춰 키보드 편집이 가능하며 Tab으로 떠나면 재개한다. 포인터로 드래그한 뒤에는 손잡이에서 포커스를 옮겨 자동으로 재개한다. Pause는 별도로 유지되는 수동 정지 상태다. Draw a cycle은 현재 속도와 위상으로 한 주기를 즉시 계산해 정지 상태에서도 궤적을 만든다. Hide/Show trail·Clear trail을 제공하고, 모션 감소에서는 정적 궤도와 수동 편집을 유지한다.
 
 새 세 실험은 `/playground/cloth-playground`, `/playground/fluid-sandbox`, `/playground/orbit-composer`에 있다. 개별 카탈로그와 Newest에서도 같은 구현을 사용한다. 모바일은 손잡이의 직접 터치를 지원하고, 표면 전체의 터치 제스처는 Touch interaction을 켰을 때만 사용한다. 선택하지 않은 표면에서는 세로 스크롤과 핀치 확대를 보존한다.
+
+## Interactive lab (0.15)
+
+StickerPeel, ElasticMesh, ImageParticleMorph, DitherReveal, FluidGlassLens, Lanyard, DomeGallery, FoldablePaper, WebcamPixelGrid, ImageRelighting. 라이브 카탈로그와 `/playground/<id>`에서 같은 구현을 사용한다. [API와 입력·성능·권한 규칙](./docs/collections/lab.md). 새 항목은 실제 추가일로부터 30일 동안 Newest에 표시한다.
