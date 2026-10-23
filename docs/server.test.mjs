@@ -44,6 +44,13 @@ test("production docs server serves built routes, assets and health without expo
     assert.match(js.headers.get("content-type"), /javascript/);
     assert.match(js.headers.get("cache-control"), /immutable/);
     for (const route of [
+      "/playground",
+      "/playground/particle-text",
+      "/playground/spatial-board",
+      "/playground/sound-pad",
+      "/particle-text",
+      "/spatial-board",
+      "/sound-pad",
       "/button",
       "/controls",
       "/newest",
@@ -89,6 +96,7 @@ test("production docs server serves built routes, assets and health without expo
       "/docs/server.mjs",
       "/assets/missing.js",
       "/not-a-component",
+      "/playground/missing",
     ])
       assert.equal((await fetch(base + route)).status, 404, route);
     const head = await fetch(base + "/button", { method: "HEAD" });

@@ -98,6 +98,9 @@ export default function UiCatalog({
           Mingu UI <span>/ Design system</span>
         </Link>
         <div>
+          <Link className="ui-playground-header" href="/playground">
+            Playground ↗
+          </Link>
           <Link className="ui-newest-header" href="/newest">
             Newest
             {newest.length > 0 && (

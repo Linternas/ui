@@ -55,3 +55,20 @@ export const filterMotion = {
   y: { duration: 0.14 },
   scale: { duration: 0.12 },
 };
+
+export const experimentalMotion = {
+  pixelRatio: 1.5,
+  particleLimit: 1800,
+  particleReach: 100,
+  boardWidth: 1200,
+  boardHeight: 800,
+  nodeWidth: 200,
+  nodeHeight: 190,
+  nodeLimit: 12,
+  minZoom: 0.2,
+  maxZoom: 1.8,
+  pulseLimit: 32,
+  noteLength: 0.42,
+  stepLength: 360,
+  voiceLimit: 6,
+};

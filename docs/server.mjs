@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { uiCatalog } from "./routes.mjs";
+import { uiCatalog, playgroundExperiments } from "./routes.mjs";
 const root = path.resolve(fileURLToPath(new URL("../dist/", import.meta.url)));
 const index = await readFile(path.join(root, "index.html"));
 const types = {
@@ -14,7 +14,10 @@ const types = {
   ".png": "image/png",
   ".woff2": "font/woff2",
 };
-const known = new Set(uiCatalog.map((item) => "/" + item.id));
+const known = new Set([
+  ...uiCatalog.map((item) => "/" + item.id),
+  ...playgroundExperiments.map((item) => item.path),
+]);
 const server = createServer(async (req, res) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");

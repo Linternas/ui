@@ -307,3 +307,43 @@ npm run test:browser
 - `GridReveal`은 이미지 source별 로드 상태를 분리하고 캐시된 SSR 이미지의 complete 상태도 확인한다. `onRevealComplete`와 `onError`는 같은 이미지 로드에 중복 호출하지 않는다.
 - `Progress`는 네이티브 progress 값·ref·접근성 이름을 유지하면서 표시 막대를 보간한다. `animated=false`는 네이티브 표시를 사용한다. 모션 감소에서는 보간과 미확정 반복 모션을 끄고 강제 색상에서는 네이티브 표시로 복귀한다. Progress 자체는 읽기용 상태이며 데모의 시작·일시정지·초기화·슬라이더가 값을 변경한다.
 - `BottomSheet`는 `defaultSnap`을 생략했을 때 기본적으로 짧은 내용에 맞춰 열리고 드래그·방향키·Home·End로 조절하면 지정 snap을 사용한다. `fitContent=false`로 이전 기본 70% 높이를 유지할 수 있다. 명시한 `defaultSnap`도 기존 snap 동작을 유지한다.
+
+## Experimental playground
+
+`/playground`는 카탈로그와 분리된 큰 실험 화면이다. `/playground/particle-text`, `/playground/spatial-board`, `/playground/sound-pad`에 직접 접근할 수 있다. 각 실험은 패키지 루트에서 같은 구현을 export하며, 개별 컴포넌트 페이지와 Newest에서도 사용할 수 있다. 추가일은 2026-10-23 UTC다. 기존 컴포넌트의 추가일은 갱신하지 않는다.
+
+```tsx
+import { DesignSystemProvider, ParticleText, SpatialBoard, SoundPad } from '@mingu/interaction-ui';
+import '@mingu/interaction-ui/system.css';
+import '@mingu/interaction-ui/styles.css';
+
+<DesignSystemProvider theme="system" accent="neutral">
+  <ParticleText defaultText="HELLO" />
+  <SpatialBoard />
+  <SoundPad />
+</DesignSystemProvider>
+```
+
+- 세 컴포넌트의 표면 높이는 CSS 변수 `--mingu-experiment-height`로 조절한다. 기본 400px, 480px 이하 화면에서는 320px이다. `className`, `style`, 그룹의 접근성 이름 `label`을 받는다.
+- 캔버스는 장식이다. 텍스트·노트·패드·시퀀서 조작은 DOM으로 제공한다. RAF는 화면 밖과 백그라운드에서 멈추며, 모션 감소에서는 입력 시에만 정적인 결과를 그린다. 픽셀 비율 1.5, 캔버스 2048×1200, 입자 1800개, 음표 효과 32개로 제한한다.
+- 터치 스크롤을 기본으로 보존한다. Particle text의 `Touch interaction`, Spatial board의 `Move canvas`를 켠 표면에서만 제스처를 점유한다. 노트 이동 손잡이는 직접 드래그할 수 있다. 작은 보드의 `Focus a note`는 선택한 노트를 100% 크기로 가운데에 표시한다.
+- Sound pad는 마이크나 네트워크를 사용하지 않는다. `Enable sound`라는 명시적 사용자 조작 후 하나의 AudioContext를 사용하며, 동시에 최대 여섯 음을 짧게 재생한다. Mute·화면 이탈·문서 숨김에서 음과 반복 재생을 멈추고, 언마운트에서 컨텍스트를 닫는다. 소리 사용 가능 여부와 관계없이 시각적 패드와 패턴 편집을 유지한다. [Web Audio AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext).
+
+### ParticleText API
+
+`text`, `defaultText="PLAY"`, `onTextChange(text)`로 제어하거나 내부 상태를 사용한다. 화면에 그리는 문자는 최대 18개다. 빈 문자열은 빈 캔버스로 표시한다. Word 입력·Force 슬라이더·Scatter·Pause/Resume·Reset을 제공한다. 모션 감소에서는 글자가 정지하며 Scatter와 모션 전환을 비활성화한다. 외부 폰트가 나중에 로드되는 환경에서는 폰트가 준비된 뒤 마운트한다.
+
+### SpatialBoard API
+
+- `SpatialNode`: `{ id: string; title: string; x: number; y: number }`.
+- `SpatialEdge`: `{ id: string; from: string; to: string }`.
+- `nodes`, `defaultNodes`, `onNodesChange(nodes)`와 `edges`, `defaultEdges`, `onEdgesChange(edges)`는 각각 독립적인 controlled/uncontrolled 쌍이다. ID는 고유해야 한다. 기본값은 세 노트와 두 연결이다. Reset은 제공한 default 배열로 돌아가므로 사용자 보드라면 두 default 배열을 함께 지정한다.
+- 화면에는 최대 12개 노트를 표시하고 추가 버튼도 같은 상한을 따른다. 위치는 1200×800 보드 안으로 제한한다. 연결 대상이 없는 edge는 그리지 않는다. 노트 삭제는 연결된 edge도 제거한다. 제어형 사용에서는 두 변경 콜백을 모두 반영해야 한다.
+- 손잡이 드래그 또는 방향키(5px, Shift 25px)로 이동한다. 빈 표면 드래그·방향키로 화면을 이동한다. Ctrl/Meta+wheel 및 확대·축소 버튼은 20–180% 범위다. 일반 wheel은 페이지 스크롤을 유지한다. Fit board로 전체를 보고, Focus a note로 개별 노트를 본다.
+- Connect를 두 노트에서 누르면 연결한다. 같은 노트를 다시 누르거나 Escape로 취소한다. 중복 연결은 만들지 않으며 Connections 목록에서 개별 연결을 삭제할 수 있다. 데이터는 메모리에만 있고 영구 저장은 소비 앱이 담당한다.
+
+### SoundPad API
+
+`notes?: readonly SoundPadNote[]`, `onNote?(note)`를 받는다. `SoundPadNote`는 `{id, label, frequency}`이며 첫 여덟 개만 사용한다. 기본값은 C4–E5 음역의 펜타토닉 음계다. 재생 주파수는 80–1200Hz로 제한한다. 비어 있는 notes는 연주·반복·입력을 비활성화한다.
+
+패드 포인터/터치·Enter/Space 또는 그룹 안의 숫자 1–8로 연주한다. `onNote`는 수동 입력과 시퀀서 재생에 호출한다. Capture notes는 다음 입력을 여덟 단계에 순서대로 기록한다. 각 단계 버튼은 현재 선택한 음과 빈 칸 사이에서 전환한다. Play loop는 단계당 360ms로 반복하고 Stop/Clear로 중단한다. Volume은 0–50이며 낮은 출력 gain을 사용한다. AudioContext 생성/재개가 실패하면 오류를 표시하고 시각적 조작을 유지한다.

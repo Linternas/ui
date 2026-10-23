@@ -1,5 +1,35 @@
 export const interactionCatalog = [
   {
+    id: "particle-text",
+    name: "Particle text",
+    group: "Visual effects",
+    component: "ParticleText",
+    addedAt: "2026-10-23",
+    tags: ["experimental", "playground", "canvas", "실험"],
+    description:
+      "글자가 입자가 됩니다. 포인터로 밀어내고 흩뜨리면 다시 제자리로 돌아옵니다.",
+  },
+  {
+    id: "spatial-board",
+    name: "Spatial board",
+    group: "Data display",
+    component: "SpatialBoard",
+    addedAt: "2026-10-23",
+    tags: ["experimental", "playground", "canvas", "실험"],
+    description:
+      "생각을 공간에 놓고 연결합니다. 드래그·편집·확대·이동을 지원하는 작은 무한 보드.",
+  },
+  {
+    id: "sound-pad",
+    name: "Sound pad",
+    group: "Actions",
+    component: "SoundPad",
+    addedAt: "2026-10-23",
+    tags: ["experimental", "playground", "audio", "실험"],
+    description:
+      "빛으로 연주하는 여덟 개의 패드. 직접 음을 쌓고 반복 패턴을 만듭니다.",
+  },
+  {
     id: "swipe-actions",
     tags: ["mobile", "touch", "모바일", "터치"],
     name: "Swipe actions",
@@ -517,6 +547,9 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  "particle-text": `import { ParticleText } from '@mingu/interaction-ui';\n\n<ParticleText defaultText="PLAY" onTextChange={setWord} />`,
+  "spatial-board": `import { SpatialBoard } from '@mingu/interaction-ui';\n\n<SpatialBoard onNodesChange={setNodes} onEdgesChange={setEdges} />`,
+  "sound-pad": `import { SoundPad } from '@mingu/interaction-ui';\n\n<SoundPad onNote={(note) => console.log(note.label)} />\n// Audio starts only after the user chooses Enable sound.`,
   "swipe-actions":
     '<SwipeActions label="Note actions" endActions={[{id:"archive",label:"Archive",onAction:archiveNote}]}><p>Field notes</p></SwipeActions>',
   "pull-to-refresh":

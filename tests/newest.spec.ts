@@ -35,7 +35,14 @@ test("newest uses UTC release windows and excludes future, invalid and expired d
   expect(getNewestEntries([entries[1]], end - 1)).toHaveLength(1);
   expect(getNewestEntries([entries[1]], end)).toHaveLength(0);
   expect(uiCatalog.some((e) => e.id === "swipe-deck")).toBe(true);
-  expect(getNewestEntries(uiCatalog, now).map((e) => e.id)).toEqual([
+  expect(
+    getNewestEntries(uiCatalog, Date.parse("2026-10-23T12:00:00Z")).map(
+      (e) => e.id,
+    ),
+  ).toEqual([
+    "particle-text",
+    "spatial-board",
+    "sound-pad",
     "swipe-actions",
     "pull-to-refresh",
     "long-press-menu",

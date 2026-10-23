@@ -647,3 +647,13 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 - [PullToRefresh](https://ui.mingu.xyz/pull-to-refresh): 맨 위 당김·임계점·취소, 새로고침/실패/재시도, 중복 방지와 AbortSignal.
 - [LongPressMenu](https://ui.mingu.xyz/long-press-menu): 길게 누르기·이동 취소, BottomSheet 액션·버튼 대안·포커스 복귀.
 - [SelectionBar](https://ui.mingu.xyz/selection-bar): 선택 수·일괄 액션·해제, inline/sticky/fixed·안전 영역·비동기 실패.
+
+## Experimental
+
+큰 실험 화면은 [Playground](https://ui.mingu.xyz/playground)에 모은다. 세 컴포넌트 모두 패키지 루트에서 export한다. [API와 제약](./DESIGN_SYSTEM.md#experimental-playground).
+
+| Component | Interaction | States and alternatives |
+| --- | --- | --- |
+| [ParticleText](https://ui.mingu.xyz/particle-text) | 글자 입자 반발·흩뜨리기·복귀, Word/Force 편집 | 일시 정지·초기화·빈 글자·모션 감소·터치 선택 사용 |
+| [SpatialBoard](https://ui.mingu.xyz/spatial-board) | 노트 이동·연결·편집, 화면 이동·확대·맞춤 | 키보드 손잡이·노트 포커스·연결 취소/삭제·빈 보드·12개 상한 |
+| [SoundPad](https://ui.mingu.xyz/sound-pad) | 여덟 패드, 시각 음표·8단계 캡처/반복 | 명시적 소리 활성화·음소거·볼륨·오디오 실패·키보드·이탈 시 중지 |

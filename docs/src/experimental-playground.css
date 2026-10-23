@@ -1,0 +1,218 @@
+.experimental-playground {
+  min-height: 100dvh;
+  background: var(--mingu-bg);
+  color: var(--mingu-text);
+  font-family: var(--mingu-font-sans);
+}
+.experimental-playground *,
+.experiment-preview * {
+  box-sizing: border-box;
+}
+.experiment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 4vw;
+  border-bottom: 1px solid var(--mingu-border);
+  font-size: 13px;
+}
+.experiment-header a {
+  text-decoration: none;
+  font-weight: 550;
+}
+.experiment-header a > span {
+  font-weight: 400;
+  color: var(--mingu-muted);
+  margin-left: 8px;
+}
+.experiment-header > div {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.experiment-header select {
+  min-width: 100px;
+}
+.experimental-playground main {
+  max-width: 1600px;
+  margin: auto;
+  padding: 48px 4vw 24px;
+}
+.experiment-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.experiment-eyebrow {
+  font: 10px var(--mingu-font-mono);
+  letter-spacing: 0.12em;
+  color: var(--mingu-muted);
+  margin: 0 0 14px;
+}
+.experiment-intro h1 {
+  max-width: 700px;
+  margin: 0;
+  font-size: clamp(28px, 3.4vw, 54px);
+  line-height: 1.12;
+  font-weight: 480;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+.experiment-intro > p {
+  max-width: 260px;
+  margin: 0;
+  color: var(--mingu-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.experiment-nav {
+  display: flex;
+  gap: 28px;
+  border-bottom: 1px solid var(--mingu-border);
+  margin-bottom: 24px;
+}
+.experiment-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0;
+  text-decoration: none;
+  font-size: 13px;
+  color: var(--mingu-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+}
+.experiment-nav a[aria-current="page"] {
+  color: var(--mingu-text);
+  border-color: var(--mingu-text);
+}
+.experiment-nav a > span {
+  font: 10px var(--mingu-font-mono);
+}
+.experiment-nav a > span:last-child {
+  margin-left: 8px;
+}
+.experiment-scene {
+  --mingu-experiment-height: clamp(360px, 47dvh, 640px);
+}
+.experiment-scene .mingu-experiment-controls {
+  grid-template-columns: minmax(100px, 200px) minmax(100px, 200px) 1fr;
+  gap: 24px;
+}
+.experiment-scene .mingu-experiment-controls > .mingu-experiment-buttons {
+  grid-column: auto;
+  justify-content: flex-end;
+}
+.experiment-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--mingu-border);
+  font: 11px var(--mingu-font-mono);
+  color: var(--mingu-muted);
+}
+.experiment-footer a {
+  text-decoration: none;
+}
+.experiment-preview {
+  width: 100%;
+  max-width: 960px;
+  --mingu-experiment-height: 380px;
+}
+.experiment-preview.is-compact {
+  --mingu-experiment-height: 280px;
+}
+.experiment-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+  margin-top: 16px;
+  color: var(--mingu-text);
+  font-size: 12px;
+  text-decoration: none;
+}
+.ui-playground-header {
+  text-decoration: none;
+  font-size: 12px;
+  color: var(--mingu-text);
+}
+@media (max-width: 1000px) {
+  .experiment-scene .mingu-experiment-controls {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .experiment-scene .mingu-experiment-controls > .mingu-experiment-buttons {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 767px) {
+  .ui-playground-header {
+    display: none;
+  }
+  .experiment-header {
+    padding: 12px 16px;
+    gap: 8px;
+  }
+  .experiment-header > a > span {
+    display: block;
+    margin: 2px 0 0;
+    font-size: 11px;
+  }
+  .experiment-header > div {
+    gap: 12px;
+  }
+  .experiment-header select {
+    min-width: 88px;
+  }
+  .experiment-header > div > a {
+    font-size: 11px;
+  }
+  .experimental-playground main {
+    padding: 32px 16px 20px;
+  }
+  .experiment-intro {
+    display: block;
+    margin-bottom: 24px;
+  }
+  .experiment-intro > p {
+    max-width: none;
+    margin-top: 16px;
+    font-size: 12px;
+  }
+  .experiment-nav {
+    gap: 0;
+    justify-content: space-between;
+  }
+  .experiment-nav a {
+    font-size: 11px;
+    gap: 6px;
+  }
+  .experiment-nav a > span:last-child {
+    display: none;
+  }
+  .experiment-scene {
+    --mingu-experiment-height: 340px;
+  }
+  .experiment-preview {
+    --mingu-experiment-height: 300px;
+  }
+  .experiment-footer {
+    font-size: 10px;
+  }
+}
+
+.experiment-header > div > a {
+  white-space: nowrap;
+}
+.experiment-header select {
+  width: auto;
+  flex: 0 0 auto;
+}

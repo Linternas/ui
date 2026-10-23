@@ -5,6 +5,34 @@ export {
   interactionExamples,
   type InteractionComponentId,
 } from "./interaction-catalog";
+export const playgroundExperiments = [
+  {
+    id: "particle-text",
+    name: "Particle text",
+    number: "01",
+    description: "Letters with a life of their own.",
+    hint: "Move through the word. Scatter it. Let it find its way back.",
+    path: "/playground/particle-text",
+  },
+  {
+    id: "spatial-board",
+    name: "Spatial board",
+    number: "02",
+    description: "A little room for big ideas.",
+    hint: "Drag the note grips. Join ideas. Zoom out to see the whole picture.",
+    path: "/playground/spatial-board",
+  },
+  {
+    id: "sound-pad",
+    name: "Sound pad",
+    number: "03",
+    description: "Make a little noise. Or just light.",
+    hint: "Play the pads or keys 1–8. Capture notes to make your own loop.",
+    path: "/playground/sound-pad",
+  },
+] as const;
+export type PlaygroundExperimentId =
+  (typeof playgroundExperiments)[number]["id"];
 export const uiGroups = [
   "Foundations",
   "Layout",
@@ -44,6 +72,14 @@ const interactionGroup = (id: string, group: string): UiGroup => {
       : (group as UiGroup);
 };
 export const uiCatalog: readonly UiCatalogEntry[] = [
+  {
+    id: "playground",
+    name: "Playground",
+    group: "Foundations",
+    kind: "foundation",
+    description: "화면 전체를 쓰는 실험. 글자·공간·소리와 직접 놀아보세요.",
+    code: `import { ParticleText, SpatialBoard, SoundPad } from '@mingu/interaction-ui';\nimport '@mingu/interaction-ui/system.css';\nimport '@mingu/interaction-ui/styles.css';`,
+  },
   {
     id: "foundations",
     name: "Foundations",

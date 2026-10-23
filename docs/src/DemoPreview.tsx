@@ -29,6 +29,7 @@ import {
   type AiState,
   type MatrixState,
 } from "@mingu/interaction-ui";
+import ExperimentalPreview from "./ExperimentalPreview";
 import ExplorationPreview from "./ExplorationPreview";
 import GesturePreview from "./GesturePreview";
 import EverydayPreview from "./EverydayPreview";
@@ -130,6 +131,10 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "particle-text":
+    case "spatial-board":
+    case "sound-pad":
+      return <ExperimentalPreview id={id} compact={compact} />;
     case "swipe-actions":
     case "pull-to-refresh":
     case "long-press-menu":

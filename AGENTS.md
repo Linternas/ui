@@ -30,6 +30,7 @@ Use existing components and semantic tokens first. Keep product APIs, authentica
 | Catalog shell, search, navigation and theme | `docs/src/UiCatalog.tsx` |
 | Interactive control/state workbench | `docs/src/ControlWorkbench.tsx` |
 | Live examples | `docs/src/SystemComponentDemo.tsx`, `docs/src/DemoPreview.tsx`, other preview files |
+| Full-screen experimental playground | `docs/src/ExperimentalPlayground.tsx`, `src/experimental/canvas.ts` |
 | Catalog routes | `docs/src/main.tsx`, `docs/src/routing.tsx` |
 | Catalog styles | `docs/src/system-catalog.css`, `docs/src/site.css` |
 | Static build / HTTP server | `docs/build.mjs`, `docs/server.mjs` |

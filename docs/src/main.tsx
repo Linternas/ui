@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import { uiCatalog } from "../../src/system/ui-catalog";
+import ExperimentalPlayground from "./ExperimentalPlayground";
+import { uiCatalog, playgroundExperiments } from "../../src/system/ui-catalog";
 import UiCatalog from "./UiCatalog";
 import { usePathname } from "./routing";
 import "../../system.css";
@@ -13,11 +14,17 @@ function App() {
     path === "/"
       ? "foundations"
       : decodeURIComponent(path.replace(/^\//, "").replace(/\/$/, ""));
+  const experiment =
+    path.replace(/\/$/, "") === "/playground"
+      ? playgroundExperiments[0]
+      : playgroundExperiments.find((e) => e.path === path.replace(/\/$/, ""));
   const item = uiCatalog.find((item) => item.id === id);
   useEffect(() => {
-    document.title = item
-      ? `${item.name} — Mingu UI`
-      : "Page not found — Mingu UI";
+    document.title = experiment
+      ? `${experiment.name} — Playground — Mingu UI`
+      : item
+        ? `${item.name} — Mingu UI`
+        : "Page not found — Mingu UI";
     if (previous.current !== path) {
       window.scrollTo(0, 0);
       const heading = document.querySelector("h1");
@@ -25,8 +32,10 @@ function App() {
       heading?.focus({ preventScroll: true });
       previous.current = path;
     }
-  }, [path, item]);
-  return item ? (
+  }, [path, item, experiment]);
+  return experiment ? (
+    <ExperimentalPlayground id={experiment.id} />
+  ) : item ? (
     <UiCatalog selected={item.id} />
   ) : (
     <main className="docs-not-found">

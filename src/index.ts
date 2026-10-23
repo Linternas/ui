@@ -154,3 +154,14 @@ export { LongPressMenu } from "./LongPressMenu";
 export type { LongPressMenuProps } from "./LongPressMenu";
 export { SelectionBar } from "./SelectionBar";
 export type { SelectionBarProps } from "./SelectionBar";
+
+export { ParticleText } from "./ParticleText";
+export type { ParticleTextProps } from "./ParticleText";
+export { SpatialBoard } from "./SpatialBoard";
+export type {
+  SpatialBoardProps,
+  SpatialNode,
+  SpatialEdge,
+} from "./SpatialBoard";
+export { SoundPad } from "./SoundPad";
+export type { SoundPadProps, SoundPadNote } from "./SoundPad";
