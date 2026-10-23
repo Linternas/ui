@@ -1,3 +1,7 @@
+import WorkflowCollectionPreview from "./WorkflowCollectionPreview";
+import KineticCollectionPreview from "./KineticCollectionPreview";
+import { workflowCatalog } from "../../src/collections/workflow.catalog";
+import { kineticCatalog } from "../../src/collections/kinetic.catalog";
 import CreativeCollectionPreview from "./CreativeCollectionPreview";
 import { creativeCatalog } from "../../src/collections/creative.catalog";
 import AiCollectionPreview from "./AiCollectionPreview";
@@ -12,6 +16,10 @@ export default function CollectionPreview({
   id: string;
   compact?: boolean;
 }) {
+  if (workflowCatalog.some((entry) => entry.id === id))
+    return <WorkflowCollectionPreview id={id} />;
+  if (kineticCatalog.some((entry) => entry.id === id))
+    return <KineticCollectionPreview id={id} />;
   if (creativeCatalog.some((entry) => entry.id === id))
     return <CreativeCollectionPreview id={id} />;
   if (

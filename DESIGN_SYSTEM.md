@@ -394,3 +394,7 @@ PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter,
 ## Creative and workflow (0.22.0)
 
 GradientEditor, PixelEditor, ScratchCard, UndoHistory, MultiSelect, TransferList, Rating, CircularDial. 같은 semantic tokens와 Core 컨트롤을 사용한다. 패키지 루트 exports와 라이브 갤러리·Docs를 함께 제공하며 실제 UTC 추가일부터 30일 동안 New 배지를 표시한다. [API·제어 상태·키보드·터치·폼 규칙](./docs/collections/creative.md).
+
+## Workflow and kinetic lab (0.23.0)
+
+22 additions bring the component catalog to 200 entries: twelve workflow controls and ten kinetic/design tools. [Workflow APIs](./docs/collections/workflow.md) cover dates, time, ranges, hierarchy, mentions, steps, filters, columns, scheduling, windows and inboxes. [Kinetic/design APIs](./docs/collections/kinetic.md) cover flip cards, mazes, confetti, vector fields, reaction diffusion, terrain, pendulums, clip paths, contrast and shadows. Live previews, Docs and 30-day New badges share the public package implementation.

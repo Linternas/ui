@@ -696,3 +696,30 @@ PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter,
 | [CircularDial](https://ui.mingu.xyz/docs/circular-dial) | Turn a dial with pointer, keys or step buttons |
 
 [Props and behavior](./docs/collections/creative.md). The gallery renders the same public implementations and retains its deferred preview mounting.
+
+## Workflow and kinetic lab (0.23.0)
+
+- [DateRangePicker](https://ui.mingu.xyz/docs/date-range-picker) — Date range picker.
+- [TimePicker](https://ui.mingu.xyz/docs/time-picker) — Time picker.
+- [RangeSlider](https://ui.mingu.xyz/docs/range-slider) — Range slider.
+- [TreeSelect](https://ui.mingu.xyz/docs/tree-select) — Tree select.
+- [Cascader](https://ui.mingu.xyz/docs/cascader) — Cascader.
+- [MentionInput](https://ui.mingu.xyz/docs/mention-input) — Mention input.
+- [Stepper](https://ui.mingu.xyz/docs/stepper) — Stepper.
+- [FilterBuilder](https://ui.mingu.xyz/docs/filter-builder) — Filter builder.
+- [ColumnManager](https://ui.mingu.xyz/docs/column-manager) — Column manager.
+- [SchedulePicker](https://ui.mingu.xyz/docs/schedule-picker) — Schedule picker.
+- [DraggableWindow](https://ui.mingu.xyz/docs/draggable-window) — Draggable window.
+- [NotificationInbox](https://ui.mingu.xyz/docs/notification-inbox) — Notification inbox.
+- [FlipCard](https://ui.mingu.xyz/docs/flip-card) — Flip card.
+- [MazeRunner](https://ui.mingu.xyz/docs/maze-runner) — Maze runner.
+- [ConfettiBurst](https://ui.mingu.xyz/docs/confetti-burst) — Confetti burst.
+- [VectorField](https://ui.mingu.xyz/docs/vector-field) — Vector field.
+- [ReactionDiffusion](https://ui.mingu.xyz/docs/reaction-diffusion) — Reaction diffusion.
+- [TerrainMesh](https://ui.mingu.xyz/docs/terrain-mesh) — Terrain mesh.
+- [PendulumWave](https://ui.mingu.xyz/docs/pendulum-wave) — Pendulum wave.
+- [ClipPathEditor](https://ui.mingu.xyz/docs/clip-path-editor) — Clip path editor.
+- [ContrastChecker](https://ui.mingu.xyz/docs/contrast-checker) — Contrast checker.
+- [ShadowEditor](https://ui.mingu.xyz/docs/shadow-editor) — Shadow editor.
+
+[Workflow API](./docs/collections/workflow.md) · [Kinetic and design API](./docs/collections/kinetic.md). All 22 use the same public implementation in previews and retain deferred mounting.

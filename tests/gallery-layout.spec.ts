@@ -203,6 +203,7 @@ test("Gallery exposes the full inventory while mounting only nearby demos and pr
     await page.locator('[data-preview-ready="true"]').count(),
   ).toBeLessThan(24);
   const prompt = card(page, "prompt-composer");
+  await prompt.locator(".ui-gallery-title").scrollIntoViewIfNeeded();
   const message = prompt.getByRole("textbox", { name: "Message", exact: true });
   await message.fill("Keep my draft");
   const last = cards.last();

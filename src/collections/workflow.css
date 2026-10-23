@@ -1,0 +1,621 @@
+.mingu-workflow {
+  width: min(100%, 620px);
+  min-width: 0;
+  display: grid;
+  gap: var(--mingu-space-4);
+  color: var(--mingu-text);
+  font: var(--mingu-text-sm) / 1.6 var(--mingu-font-sans);
+}
+fieldset.mingu-workflow {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.mingu-workflow > legend {
+  padding: 0 0 var(--mingu-space-4);
+  font-weight: 550;
+}
+.mingu-workflow *,
+.mingu-workflow *::before,
+.mingu-workflow *::after {
+  box-sizing: border-box;
+}
+.mingu-workflow :focus-visible {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+}
+.mingu-workflow :is(input, textarea, select) {
+  accent-color: var(--mingu-accent);
+  min-width: 0;
+}
+.mingu-workflow :disabled {
+  cursor: not-allowed;
+}
+.mingu-workflow-label {
+  font-weight: 550;
+}
+.mingu-workflow-note {
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.mingu-workflow-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mingu-space-2);
+}
+.mingu-workflow-spread {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mingu-space-3);
+}
+.mingu-workflow-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--mingu-space-3);
+}
+.mingu-date-range output {
+  text-align: center;
+}
+.mingu-time-picker {
+  max-width: 330px;
+  text-align: center;
+}
+.mingu-time-picker > .mingu-field {
+  text-align: start;
+}
+.mingu-time-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+}
+.mingu-time-face strong {
+  font-size: 52px;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  font-weight: 550;
+  letter-spacing: -0.05em;
+}
+.mingu-time-face small {
+  color: var(--mingu-muted);
+}
+.mingu-dual-range {
+  padding-block: var(--mingu-space-4);
+}
+.mingu-dual-range output {
+  text-align: center;
+  font-size: var(--mingu-text-xl);
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+}
+.mingu-dual-range output span {
+  color: var(--mingu-muted);
+  padding-inline: var(--mingu-space-3);
+}
+.mingu-dual-track {
+  position: relative;
+  height: 44px;
+  margin-inline: 12px;
+}
+.mingu-dual-track::before,
+.mingu-dual-track > span {
+  content: "";
+  position: absolute;
+  top: 19px;
+  height: 6px;
+  border-radius: var(--mingu-radius-full);
+  background: var(--mingu-border);
+  width: 100%;
+}
+.mingu-dual-track > span {
+  background: var(--mingu-accent);
+  width: auto;
+}
+.mingu-dual-track input {
+  appearance: none;
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  background: transparent;
+  pointer-events: none;
+}
+.mingu-dual-track input::-webkit-slider-thumb {
+  appearance: none;
+  pointer-events: auto;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--mingu-accent);
+  border-radius: 50%;
+  background: var(--mingu-raised);
+  cursor: ew-resize;
+}
+.mingu-dual-track input::-moz-range-thumb {
+  pointer-events: auto;
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--mingu-accent);
+  border-radius: 50%;
+  background: var(--mingu-raised);
+  cursor: ew-resize;
+}
+.mingu-dual-track input:disabled {
+  opacity: 0.5;
+}
+.mingu-tree-select > ul {
+  margin: 0;
+  padding: 0;
+  max-height: 320px;
+  overflow: auto;
+}
+.mingu-tree-select ul {
+  list-style: none;
+}
+.mingu-tree-select ul ul {
+  margin: 0 0 0 18px;
+  padding: 0 0 0 10px;
+  border-left: 1px solid var(--mingu-border);
+}
+.mingu-tree-line {
+  display: flex;
+  gap: var(--mingu-space-2);
+  align-items: center;
+  min-height: 44px;
+}
+.mingu-tree-disclosure {
+  display: grid;
+  place-items: center;
+  flex: 0 0 32px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--mingu-radius-sm);
+  background: var(--mingu-raised);
+  color: var(--mingu-muted);
+  font: inherit;
+  cursor: pointer;
+}
+.mingu-tree-indent {
+  flex: 0 0 32px;
+}
+.mingu-tree-line .mingu-checkbox {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.mingu-cascader-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr));
+  gap: var(--mingu-space-2);
+}
+.mingu-cascader-columns fieldset {
+  min-width: 0;
+  padding: var(--mingu-space-2);
+  margin: 0;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+}
+.mingu-cascader-columns legend {
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+}
+.mingu-cascader-columns label {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-2);
+  min-height: 44px;
+  border-radius: var(--mingu-radius-sm);
+  padding: 6px;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.mingu-cascader-columns label:has(input:checked) {
+  background: var(--mingu-accent-soft);
+}
+.mingu-cascader-columns label > span:last-child {
+  margin-inline-start: auto;
+}
+.mingu-cascader-columns label:has(input:disabled) {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.mingu-mention {
+  position: relative;
+}
+.mingu-mention-panel {
+  width: 100%;
+  display: grid;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+  box-shadow: var(--mingu-shadow);
+  max-height: 260px;
+  overflow: auto;
+}
+.mingu-mention-panel > button {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-3);
+  text-align: start;
+  min-width: 0;
+  min-height: 52px;
+  border: 0;
+  border-radius: var(--mingu-radius-sm);
+  background: transparent;
+  color: var(--mingu-text);
+  font: inherit;
+  padding: 8px;
+  cursor: pointer;
+}
+.mingu-mention-panel > button[aria-selected="true"],
+.mingu-mention-panel > button:hover {
+  background: var(--mingu-accent-soft);
+}
+.mingu-mention-panel small {
+  display: block;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+}
+.mingu-mention-avatar {
+  flex: 0 0 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--mingu-border);
+  border-radius: 50%;
+}
+.mingu-stepper nav ol {
+  display: flex;
+  gap: var(--mingu-space-2);
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mingu-stepper nav li {
+  flex: 1;
+  min-width: 80px;
+}
+.mingu-stepper nav button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px;
+  border: 0;
+  border-bottom: 2px solid var(--mingu-border);
+  background: transparent;
+  color: var(--mingu-muted);
+  font: inherit;
+  cursor: pointer;
+}
+.mingu-stepper nav button > span {
+  display: grid;
+  place-items: center;
+  flex: 0 0 24px;
+  height: 24px;
+  border: 1px solid var(--mingu-border);
+  border-radius: 50%;
+  font-size: var(--mingu-text-xs);
+}
+.mingu-stepper nav button[aria-current] {
+  border-color: var(--mingu-accent);
+  color: var(--mingu-text);
+}
+.mingu-stepper nav button[aria-current] > span {
+  background: var(--mingu-accent);
+  color: var(--mingu-on-accent);
+}
+.mingu-stepper nav button:disabled {
+  opacity: 0.45;
+}
+.mingu-stepper-content {
+  min-width: 0;
+  display: grid;
+  gap: var(--mingu-space-3);
+  padding: var(--mingu-space-4);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+}
+.mingu-stepper-content h3 {
+  margin: 0;
+  font-size: var(--mingu-text-lg);
+  font-weight: 550;
+  letter-spacing: -0.03em;
+}
+.mingu-filter-builder ol {
+  display: grid;
+  gap: var(--mingu-space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mingu-filter-builder li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) 36px;
+  align-items: end;
+  gap: var(--mingu-space-2);
+}
+.mingu-filter-builder li > button {
+  margin-bottom: 4px;
+  padding-inline: 8px;
+}
+.mingu-column-manager ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mingu-column-manager li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mingu-space-2);
+  padding: var(--mingu-space-2);
+  border-bottom: 1px solid var(--mingu-border);
+}
+.mingu-column-manager li:last-child {
+  border-bottom: 0;
+}
+.mingu-column-manager small {
+  display: block;
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+}
+.mingu-schedule-grid {
+  display: grid;
+  gap: 3px;
+  user-select: none;
+}
+.mingu-schedule-grid > div {
+  display: grid;
+  gap: 3px;
+}
+.mingu-schedule-grid span {
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  color: var(--mingu-muted);
+  min-height: 28px;
+}
+.mingu-schedule-grid button {
+  min-width: 0;
+  min-height: 30px;
+  border: 1px solid var(--mingu-border);
+  border-radius: 4px;
+  background: var(--mingu-raised);
+  cursor: crosshair;
+  transition: background var(--mingu-duration-fast);
+}
+.mingu-schedule-grid button[aria-selected="true"] {
+  background: var(--mingu-accent);
+  border-color: var(--mingu-accent);
+}
+.mingu-schedule-grid button:disabled {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--mingu-surface) 0 4px,
+    var(--mingu-border) 4px 5px
+  );
+  cursor: not-allowed;
+}
+.mingu-schedule .mingu-checkbox {
+  font-size: var(--mingu-text-xs);
+}
+.mingu-floating-stage {
+  height: 300px;
+  width: 100%;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  border: 1px dashed var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: radial-gradient(var(--mingu-border) 0.7px, transparent 0.7px) 0
+    0 / 12px 12px;
+}
+.mingu-floating-pane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(calc(100% - 32px), 340px);
+  transform: translate(
+    calc(-50% + var(--window-x, 0px)),
+    calc(-50% + var(--window-y, 0px))
+  );
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+  box-shadow: var(--mingu-shadow);
+  overflow: hidden;
+}
+.mingu-floating-pane[data-maximized] {
+  inset: 8px;
+  width: auto;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+}
+.mingu-floating-pane header {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: var(--mingu-surface);
+  border-bottom: 1px solid var(--mingu-border);
+}
+.mingu-window-handle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  text-align: start;
+  border: 0;
+  background: transparent;
+  color: var(--mingu-text);
+  min-height: 36px;
+  font: inherit;
+  font-weight: 550;
+  padding: 4px 8px;
+  cursor: grab;
+  touch-action: none;
+}
+.mingu-window-handle > span {
+  color: var(--mingu-muted);
+}
+.mingu-floating-pane header > .mingu-button {
+  padding-inline: 8px;
+}
+.mingu-floating-content {
+  padding: var(--mingu-space-4);
+  max-height: 210px;
+  overflow: auto;
+}
+.mingu-floating-content[hidden] {
+  display: none;
+}
+.mingu-inbox {
+  max-width: 520px;
+}
+.mingu-inbox > .mingu-segmented-field {
+  justify-self: center;
+}
+.mingu-inbox ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow: auto;
+}
+.mingu-inbox li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mingu-space-3);
+  border-bottom: 1px solid var(--mingu-border);
+  padding: var(--mingu-space-3) 4px;
+}
+.mingu-inbox li > div {
+  flex: 1;
+  min-width: 0;
+}
+.mingu-inbox li p {
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+  margin: 4px 0;
+}
+.mingu-inbox small {
+  color: var(--mingu-muted);
+  font-size: 10px;
+}
+.mingu-inbox-dot {
+  flex: 0 0 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 9px;
+  background: transparent;
+}
+.mingu-inbox [data-unread] .mingu-inbox-dot {
+  background: var(--mingu-accent);
+}
+.mingu-inbox .mingu-workflow-actions {
+  justify-content: flex-start;
+}
+.mingu-workflow-demo {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--mingu-space-4);
+}
+.mingu-workflow-demo > * {
+  max-width: 100%;
+  min-width: 0;
+}
+.mingu-demo-results {
+  width: 100%;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  padding: var(--mingu-space-3);
+  background: var(--mingu-raised);
+}
+.mingu-demo-results table {
+  width: 100%;
+  font-size: var(--mingu-text-xs);
+}
+.mingu-demo-results th,
+.mingu-demo-results td {
+  text-align: start;
+  padding: 6px;
+}
+.mingu-demo-results > p {
+  margin: 0 0 8px;
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+}
+.ui-newest-card .mingu-inbox li p,
+.ui-newest-card .mingu-inbox small {
+  display: none;
+}
+.ui-newest-card .mingu-inbox ul {
+  max-height: 170px;
+}
+.ui-newest-card .mingu-floating-stage {
+  height: 250px;
+}
+.ui-newest-card .mingu-filter-builder li {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.ui-newest-card .mingu-demo-results {
+  padding: 8px;
+}
+.ui-newest-card .mingu-stepper-content {
+  padding: 12px;
+}
+@media (max-width: 480px) {
+  .mingu-workflow-two,
+  .mingu-filter-builder li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mingu-cascader-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mingu-cascader-columns fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+  }
+  .mingu-cascader-columns label {
+    flex: 1 1 110px;
+  }
+  .mingu-stepper nav li {
+    min-width: 68px;
+  }
+  .mingu-stepper nav button {
+    flex-direction: column;
+    font-size: var(--mingu-text-xs);
+  }
+  .mingu-window-handle {
+    font-size: var(--mingu-text-xs);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-workflow *,
+  .mingu-workflow *::before {
+    transition: none !important;
+    animation: none !important;
+  }
+}

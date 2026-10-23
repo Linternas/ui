@@ -184,3 +184,6 @@ export * from "./collections/tools";
 export * from "./collections/ai";
 
 export * from "./collections/creative";
+
+export * from "./collections/workflow";
+export * from "./collections/kinetic";

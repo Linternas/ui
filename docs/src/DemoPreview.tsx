@@ -132,6 +132,29 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "date-range-picker":
+    case "time-picker":
+    case "range-slider":
+    case "tree-select":
+    case "cascader":
+    case "mention-input":
+    case "stepper":
+    case "filter-builder":
+    case "column-manager":
+    case "schedule-picker":
+    case "draggable-window":
+    case "notification-inbox":
+    case "flip-card":
+    case "maze-runner":
+    case "confetti-burst":
+    case "vector-field":
+    case "reaction-diffusion":
+    case "terrain-mesh":
+    case "pendulum-wave":
+    case "clip-path-editor":
+    case "contrast-checker":
+    case "shadow-editor":
+      return <CollectionPreview id={id} compact={compact} />;
     case "gradient-editor":
     case "pixel-editor":
     case "scratch-card":

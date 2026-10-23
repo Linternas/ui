@@ -1,4 +1,12 @@
 import {
+  workflowCatalog,
+  workflowExamples,
+} from "../collections/workflow.catalog";
+import {
+  kineticCatalog,
+  kineticExamples,
+} from "../collections/kinetic.catalog";
+import {
   creativeCatalog,
   creativeExamples,
 } from "../collections/creative.catalog";
@@ -11,6 +19,8 @@ import {
 } from "../collections/navigation.catalog";
 import { labCatalog, labExamples } from "../collections/lab.catalog";
 export const interactionCatalog = [
+  ...workflowCatalog,
+  ...kineticCatalog,
   ...creativeCatalog,
   ...aiCatalog,
   ...toolsCatalog,
@@ -595,6 +605,8 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  ...workflowExamples,
+  ...kineticExamples,
   ...creativeExamples,
   ...aiExamples,
   ...toolsExamples,

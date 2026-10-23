@@ -1,3 +1,5 @@
+@import "./src/collections/workflow.css";
+@import "./src/collections/kinetic.css";
 @import "./src/collections/creative.css";
 @import "./src/collections/ai.css";
 @import "./src/collections/tools.css";

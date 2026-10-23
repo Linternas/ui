@@ -155,3 +155,7 @@ PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter,
 ## Creative and workflow (0.22.0)
 
 GradientEditor, PixelEditor, ScratchCard, UndoHistory, MultiSelect, TransferList, Rating, CircularDial. 그라디언트를 CSS로 복사하고, 픽셀을 그려 SVG로 가져가고, 스크래치로 콘텐츠를 공개하거나 실제 문서 상태를 되돌릴 수 있습니다. [전체 갤러리](https://ui.mingu.xyz/all)와 각 Docs에서 체험할 수 있습니다. [API·키보드·터치·폼 규칙](./docs/collections/creative.md).
+
+## Workflow and kinetic lab (0.23.0)
+
+22 additions bring the component catalog to 200 entries: twelve workflow controls and ten kinetic/design tools. [Workflow APIs](./docs/collections/workflow.md) cover dates, time, ranges, hierarchy, mentions, steps, filters, columns, scheduling, windows and inboxes. [Kinetic/design APIs](./docs/collections/kinetic.md) cover flip cards, mazes, confetti, vector fields, reaction diffusion, terrain, pendulums, clip paths, contrast and shadows. Live previews, Docs and 30-day New badges share the public package implementation.

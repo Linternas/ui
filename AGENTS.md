@@ -23,7 +23,7 @@ Use existing components and semantic tokens first. Keep product APIs, authentica
 | Button, copy, floating field, segmented and card interactions | `src/system/micro-interactions.tsx` |
 | Shared spring settings | `src/system/motion-tokens.ts` |
 | Interaction components and reading utilities | `src/*.tsx`, `src/useReadingPosition.ts` |
-| Lab, navigation, media, tools, AI and creative collections | `src/collections/*.{tsx,css,catalog.ts}`, `docs/collections/*.md` |
+| Lab, navigation, media, tools, AI, creative, workflow and kinetic collections | `src/collections/*.{tsx,css,catalog.ts}`, `docs/collections/*.md` |
 | Interaction styles | `styles.css`, `interaction.css` |
 | Public exports | `src/index.ts`, `src/system/index.tsx`, `package.json` |
 | Unified catalog metadata | `src/system/ui-catalog.ts` |
