@@ -327,7 +327,7 @@ export default function MediaCollectionPreview({
             items={photos}
             style={
               {
-                "--mingu-reel-height": compact ? "360px" : "480px",
+                "--mingu-reel-height": compact ? "260px" : "480px",
               } as React.CSSProperties
             }
           />

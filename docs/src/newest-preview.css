@@ -1,0 +1,415 @@
+/* Newest is a browsing surface. Full controls stay in the expanded demo and API page. */
+.ui-newest-intro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-3);
+  margin-bottom: var(--mingu-space-5);
+}
+.ui-newest-intro p {
+  margin: 0;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+  line-height: 1.7;
+}
+.ui-newest-intro > span {
+  font: var(--mingu-text-xs) var(--mingu-font-mono);
+  color: var(--mingu-muted);
+}
+.ui-newest-grid {
+  align-items: start;
+  margin-top: var(--mingu-space-5);
+}
+.ui-newest-card[data-preview-kind="scene"],
+.ui-newest-card[data-preview-kind="workspace"] {
+  grid-column: 1/-1;
+}
+.ui-newest-card > header a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mingu-space-3);
+}
+.ui-newest-card > footer p {
+  margin: 0;
+}
+.ui-newest-card > footer {
+  gap: var(--mingu-space-3);
+}
+.ui-newest-card[data-preview-kind="scene"] > footer,
+.ui-newest-card[data-preview-kind="workspace"] > footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--mingu-space-5);
+}
+.ui-newest-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-4);
+  flex-wrap: wrap;
+  flex: none;
+}
+.ui-newest-actions .mingu-button {
+  gap: var(--mingu-space-3);
+}
+.ui-newest-demo {
+  min-height: 240px;
+  overflow-wrap: anywhere;
+}
+.ui-newest-card[data-preview-kind="scene"] .ui-newest-demo {
+  padding: var(--mingu-space-3);
+}
+.ui-newest-card .experiment-preview {
+  --mingu-experiment-height: 300px;
+  max-width: none;
+}
+.ui-newest-card .experiment-open {
+  display: none;
+}
+.ui-newest-card .mingu-lab-surface {
+  height: 300px;
+}
+.ui-newest-card
+  :is(
+    .mingu-lab-settings,
+    .mingu-simulation-settings,
+    .mingu-sound-sequencer,
+    .mingu-spatial-footer
+  ) {
+  display: none;
+}
+.ui-newest-card .mingu-particle-text .mingu-experiment-controls > .mingu-field {
+  display: none;
+}
+.ui-newest-card .mingu-particle-text .mingu-experiment-controls {
+  display: block;
+}
+.ui-newest-card .mingu-experiment-buttons {
+  gap: var(--mingu-space-2);
+}
+.ui-newest-card .mingu-experiment-buttons > button:nth-child(n + 2) {
+  display: none;
+}
+.ui-newest-card[data-preview-id="webcam-pixel-grid"]
+  .mingu-experiment-buttons
+  > button {
+  display: none;
+}
+.ui-newest-card[data-preview-id="webcam-pixel-grid"]
+  .mingu-experiment-buttons
+  > button:nth-child(3) {
+  display: inline-flex;
+}
+.ui-newest-card .mingu-lab-collection > .mingu-experiment-status,
+.ui-newest-card .mingu-particle-text > .mingu-experiment-status,
+.ui-newest-card .mingu-cloth-playground > .mingu-experiment-status,
+.ui-newest-card .mingu-fluid-sandbox > .mingu-experiment-status,
+.ui-newest-card .mingu-orbit-composer > .mingu-experiment-status {
+  display: none;
+}
+/* Keep the pause control available for moving previews. Auxiliary controls are in the expanded view. */
+.ui-newest-card
+  .mingu-orbit-composer
+  > .mingu-experiment-buttons
+  > button:nth-child(2) {
+  display: inline-flex;
+}
+.ui-newest-card .mingu-dome-items {
+  display: none;
+}
+.ui-newest-card .mingu-spatial-board > .mingu-experiment-buttons {
+  display: none;
+}
+.ui-newest-card .mingu-sound-pad .mingu-experiment-buttons {
+  margin-top: var(--mingu-space-2);
+}
+/* Compact tool previews retain their main interaction, while numeric tuning stays in the large view. */
+.ui-newest-card .mingu-color-picker > .mingu-field:nth-child(5),
+.ui-newest-card .mingu-color-picker > .mingu-tool-columns,
+.ui-newest-card .mingu-bezier-editor > .mingu-tool-columns {
+  display: none;
+}
+.ui-newest-card .mingu-color-plane {
+  height: 180px;
+}
+.ui-newest-card .mingu-bezier-graph {
+  height: 210px;
+  max-width: 360px;
+  margin-inline: auto;
+}
+.ui-newest-card .mingu-live-sandbox > .mingu-field,
+.ui-newest-card .mingu-live-sandbox > .mingu-tool-heading,
+.ui-newest-card .mingu-live-sandbox > .mingu-tool-row,
+.ui-newest-card .mingu-live-sandbox > small {
+  display: none;
+}
+.ui-newest-card .mingu-sandbox-frame {
+  height: 260px;
+}
+.ui-newest-card .mingu-tools-preview > small,
+.ui-newest-card .mingu-tools-preview > details {
+  display: none;
+}
+.ui-newest-card .mingu-editor-document {
+  max-height: 220px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+}
+.ui-newest-card .mingu-chart-main {
+  max-height: 170px;
+}
+.ui-newest-card .mingu-chart-navigator details {
+  display: none;
+}
+.ui-newest-card
+  .mingu-tools-preview
+  > .mingu-tool-row
+  > button:nth-child(n + 2) {
+  display: none;
+}
+/* Media demo setup isn't part of the component's first impression. */
+.ui-newest-card .ui-media-demo > header,
+.ui-newest-card .ui-media-demo > .mingu-media-toolbar,
+.ui-newest-card .ui-media-demo > .ui-media-upload,
+.ui-newest-card .ui-media-demo > .mingu-media-label {
+  display: none;
+}
+.ui-newest-card .mingu-reel {
+  --mingu-reel-height: 260px;
+}
+.ui-newest-card .mingu-story-frame {
+  height: 260px;
+}
+.ui-newest-card .mingu-crop-stage {
+  height: 280px;
+}
+.ui-newest-card .mingu-crop-sliders {
+  display: none;
+}
+.ui-newest-card .mingu-video-player video {
+  max-height: 220px;
+}
+/* Remove caller-side failure/fixture settings; the real workbench stays interactive. */
+.ui-newest-card .mingu-collection-ai-demo > .mingu-collection-ai-eyebrow,
+.ui-newest-card .mingu-collection-ai-demo > .mingu-collection-ai-hint,
+.ui-newest-card .mingu-collection-ai-demo > .mingu-checkbox {
+  display: none;
+}
+.ui-newest-card[data-preview-id="tool-execution-panel"]
+  .mingu-collection-ai-demo
+  > .mingu-field {
+  display: none;
+}
+.ui-newest-card[data-preview-id="tool-execution-panel"]
+  .mingu-collection-ai-tool-body
+  pre {
+  max-height: 160px;
+}
+.ui-newest-card[data-preview-id="voice-input"]
+  .mingu-collection-ai-demo
+  > .mingu-collection-ai-toolbar {
+  display: none;
+}
+.ui-newest-card .mingu-collection-ai-artifact textarea {
+  height: 160px;
+  min-height: 160px;
+}
+.ui-newest-card .mingu-collection-ai-terminal-output {
+  height: 200px;
+}
+.ui-newest-expanded.mingu-dialog {
+  width: min(1120px, calc(100vw - 48px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  padding: var(--mingu-space-6);
+  background: var(--mingu-bg);
+}
+.ui-newest-expanded-preview {
+  min-width: 0;
+  padding-block: var(--mingu-space-3);
+}
+.ui-newest-expanded-preview .experiment-preview {
+  max-width: none;
+}
+.ui-newest-expanded-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--mingu-space-5);
+  flex-wrap: wrap;
+  margin-top: var(--mingu-space-6);
+  padding-top: var(--mingu-space-5);
+  border-top: 1px solid var(--mingu-border);
+  font-size: var(--mingu-text-sm);
+}
+.ui-newest-expanded-links a {
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+@media (max-width: 767px) {
+  .ui-newest-card[data-preview-kind="scene"] > footer,
+  .ui-newest-card[data-preview-kind="workspace"] > footer {
+    display: grid;
+    gap: var(--mingu-space-3);
+  }
+  .ui-newest-expanded.mingu-dialog {
+    width: calc(100vw - 16px);
+    max-height: calc(100dvh - 16px);
+    padding: var(--mingu-space-4);
+  }
+  .ui-newest-card .mingu-lab-surface {
+    height: 260px;
+  }
+  .ui-newest-card .experiment-preview {
+    --mingu-experiment-height: 260px;
+  }
+}
+
+.ui-newest-card
+  .mingu-lab-collection
+  .mingu-experiment-buttons
+  > button:nth-last-child(3),
+.ui-newest-card
+  .mingu-particle-text
+  .mingu-experiment-buttons
+  > button:nth-last-child(3),
+.ui-newest-card
+  .mingu-cloth-playground
+  .mingu-experiment-buttons
+  > button:nth-last-child(3),
+.ui-newest-card
+  .mingu-fluid-sandbox
+  > .mingu-experiment-buttons
+  > button:nth-child(4) {
+  display: inline-flex;
+}
+.ui-newest-card[data-preview-id="webcam-pixel-grid"]
+  .mingu-experiment-buttons
+  > button:nth-last-child(3) {
+  display: inline-flex;
+}
+.ui-newest-card .mingu-collection-ai-demo-drafts:empty {
+  display: none;
+}
+.ui-newest-card[data-preview-id="color-picker"] .mingu-tools-preview {
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+.ui-newest-section {
+  margin-top: var(--mingu-space-8);
+}
+.ui-newest-section-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-3);
+  padding-bottom: var(--mingu-space-4);
+  border-bottom: 1px solid var(--mingu-border);
+}
+.ui-newest-section-heading h2 {
+  font-size: var(--mingu-text-sm);
+  font-weight: 550;
+  margin: 0;
+}
+.ui-newest-section-heading span {
+  font: var(--mingu-text-xs) var(--mingu-font-mono);
+  color: var(--mingu-muted);
+}
+
+.ui-newest-intro {
+  scroll-margin-top: 100px;
+}
+.ui-newest-intro:focus {
+  outline: none;
+}
+.ui-newest-card .mingu-calendar-events,
+.ui-newest-card .mingu-calendar > form,
+.ui-newest-card .mingu-calendar > .mingu-media-status {
+  display: none;
+}
+.ui-newest-card .mingu-calendar-day {
+  min-height: 44px;
+  height: 44px;
+}
+.ui-newest-card .mingu-kanban > form,
+.ui-newest-card .mingu-kanban-card > .mingu-media-label {
+  display: none;
+}
+.ui-newest-card .mingu-kanban-columns {
+  max-height: 300px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+}
+.ui-newest-card .mingu-collection-ai-demo-output {
+  display: none;
+}
+.ui-newest-card .mingu-collection-ai-demo-terminal-controls {
+  display: none;
+}
+.ui-newest-card .mingu-collection-ai-demo > .mingu-collection-ai-nav-actions {
+  display: none;
+}
+.ui-newest-card .mingu-sound-pad > .mingu-field,
+.ui-newest-card .mingu-sound-pad > .mingu-experiment-status {
+  display: none;
+}
+.ui-newest-card .mingu-collection-demo-menu-space {
+  min-height: 160px;
+}
+.ui-newest-card .mingu-collection-demo > .mingu-collection-hint {
+  display: none;
+}
+.ui-newest-card .mingu-tools-preview .mingu-tool-row > small {
+  display: none;
+}
+@media (max-width: 767px) {
+  .ui-newest-card[data-preview-id="sortable-grid"] .mingu-collection-demo-art {
+    min-height: 70px;
+    padding: 8px;
+  }
+  .ui-newest-card[data-preview-id="sortable-grid"]
+    .mingu-collection-demo-art
+    strong {
+    font-size: 16px;
+  }
+  .ui-newest-card[data-preview-id="sortable-grid"]
+    .mingu-collection-demo-art
+    small,
+  .ui-newest-card[data-preview-id="sortable-grid"]
+    .mingu-collection-demo-art
+    > div {
+    display: none;
+  }
+}
+
+/* Skip offscreen layout/paint while retaining card headings and links in the document. */
+.ui-newest-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}
+.ui-newest-placeholder {
+  min-height: 260px;
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-surface);
+}
+.ui-newest-card[data-preview-kind="scene"] .ui-newest-placeholder {
+  min-height: 360px;
+}
+.ui-newest-card[data-preview-kind="workspace"] .ui-newest-placeholder {
+  min-height: 320px;
+}
+@media (max-width: 767px) {
+  .ui-newest-filter .mingu-segmented {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ui-newest-filter .mingu-segment {
+    padding: 12px 8px;
+    text-align: center;
+    font-size: var(--mingu-text-xs);
+  }
+}

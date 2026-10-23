@@ -642,6 +642,8 @@ export function Dialog({
       ref={ref}
       tabIndex={-1}
       onKeyDown={(event) => {
+        if ((event.target as Element).closest("dialog") !== event.currentTarget)
+          return;
         onKeyDown?.(event);
         if (event.defaultPrevented || event.key !== "Tab") return;
         const dialog = event.currentTarget;
@@ -682,10 +684,12 @@ export function Dialog({
       aria-labelledby={`${id}-title`}
       aria-describedby={description ? `${id}-description` : undefined}
       onCancel={(event) => {
+        if (event.target !== event.currentTarget) return;
         event.preventDefault();
         onOpenChange(false);
       }}
       onClose={(event) => {
+        if (event.target !== event.currentTarget) return;
         // A queued close event can arrive after a rapid reopen.
         if (open && !event.currentTarget.open) onOpenChange(false);
       }}

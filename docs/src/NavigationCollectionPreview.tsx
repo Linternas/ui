@@ -176,7 +176,7 @@ function IslandDemo() {
     </div>
   );
 }
-function GridDemo() {
+function GridDemo({ compact = false }: { compact?: boolean }) {
   const [order, setOrder] = useState([
     "notes",
     "photos",
@@ -188,7 +188,7 @@ function GridDemo() {
   return (
     <div className="mingu-collection-demo">
       <SortableGrid
-        minItemWidth={130}
+        minItemWidth={compact ? 80 : 130}
         order={order}
         onOrderChange={setOrder}
         items={[
@@ -222,10 +222,13 @@ function GridDemo() {
             label: "Tasks",
             content: <Art title="Tasks" number="06" />,
           },
-        ]}
+        ].slice(0, compact ? 3 : 6)}
       />
       <p className="mingu-collection-hint" data-testid="grid-order">
-        {order.join(" → ")}
+        {(compact
+          ? order.filter((id) => ["notes", "photos", "music"].includes(id))
+          : order
+        ).join(" → ")}
       </p>
       <Button
         size="sm"
@@ -421,7 +424,9 @@ export default function NavigationCollectionPreview({
 }) {
   switch (id) {
     case "page-transition":
-      return <PageTransition pages={projects} />;
+      return (
+        <PageTransition pages={compact ? projects.slice(0, 1) : projects} />
+      );
     case "dynamic-status-island":
       return <IslandDemo />;
     case "animated-mega-menu":
@@ -442,7 +447,7 @@ export default function NavigationCollectionPreview({
         </div>
       );
     case "sortable-grid":
-      return <GridDemo />;
+      return <GridDemo compact={compact} />;
     case "card-navigation":
       return (
         <CardNavigation

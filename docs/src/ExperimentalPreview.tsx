@@ -9,7 +9,13 @@ import {
 } from "@mingu/interaction-ui";
 import type { PlaygroundExperimentId } from "../../src/system/ui-catalog";
 import Link from "./routing";
-export function Experiment({ id }: { id: PlaygroundExperimentId }) {
+export function Experiment({
+  id,
+  compact = false,
+}: {
+  id: PlaygroundExperimentId;
+  compact?: boolean;
+}) {
   if (
     [
       "sticker-peel",
@@ -24,7 +30,7 @@ export function Experiment({ id }: { id: PlaygroundExperimentId }) {
       "image-relighting",
     ].includes(id)
   )
-    return <LabCollectionPreview id={id} />;
+    return <LabCollectionPreview id={id} compact={compact} />;
   switch (id) {
     case "cloth-playground":
       return <ClothPlayground />;
@@ -49,7 +55,7 @@ export default function ExperimentalPreview({
 }) {
   return (
     <div className={`experiment-preview${compact ? " is-compact" : ""}`}>
-      <Experiment id={id} />
+      <Experiment id={id} compact={compact} />
       <Link className="experiment-open" href={`/playground/${id}`}>
         Open playground <span aria-hidden="true">↗</span>
       </Link>

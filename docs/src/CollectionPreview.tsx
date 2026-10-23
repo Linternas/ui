@@ -3,7 +3,13 @@ import ToolsCollectionPreview from "./ToolsCollectionPreview";
 import MediaCollectionPreview from "./MediaCollectionPreview";
 import NavigationCollectionPreview from "./NavigationCollectionPreview";
 import LabCollectionPreview from "./LabCollectionPreview";
-export default function CollectionPreview({ id }: { id: string }) {
+export default function CollectionPreview({
+  id,
+  compact = false,
+}: {
+  id: string;
+  compact?: boolean;
+}) {
   if (
     [
       "page-transition",
@@ -18,7 +24,7 @@ export default function CollectionPreview({ id }: { id: string }) {
       "coverflow-carousel",
     ].includes(id)
   )
-    return <NavigationCollectionPreview id={id} />;
+    return <NavigationCollectionPreview id={id} compact={compact} />;
   if (
     [
       "split-flap-display",
@@ -33,7 +39,7 @@ export default function CollectionPreview({ id }: { id: string }) {
       "file-tree",
     ].includes(id)
   )
-    return <MediaCollectionPreview id={id} />;
+    return <MediaCollectionPreview id={id} compact={compact} />;
   if (
     [
       "tag-input",
@@ -48,7 +54,7 @@ export default function CollectionPreview({ id }: { id: string }) {
       "live-code-sandbox",
     ].includes(id)
   )
-    return <ToolsCollectionPreview id={id} />;
+    return <ToolsCollectionPreview id={id} compact={compact} />;
   if (
     [
       "prompt-composer",
@@ -63,6 +69,6 @@ export default function CollectionPreview({ id }: { id: string }) {
       "streaming-terminal",
     ].includes(id)
   )
-    return <AiCollectionPreview id={id} />;
-  return <LabCollectionPreview id={id} />;
+    return <AiCollectionPreview id={id} compact={compact} />;
+  return <LabCollectionPreview id={id} compact={compact} />;
 }

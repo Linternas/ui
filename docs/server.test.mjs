@@ -134,3 +134,15 @@ test("production docs server serves built routes, assets and health without expo
     await once(child, "exit");
   }
 });
+
+test("playground inventory starts at 01 and stays in numeric order", () => {
+  assert.deepEqual(
+    playgroundExperiments.map((item) => item.number),
+    playgroundExperiments.map((_, index) => String(index + 1).padStart(2, "0")),
+  );
+  assert.equal(playgroundExperiments[0].id, "particle-text");
+  assert.equal(
+    new Set(playgroundExperiments.map((item) => item.path)).size,
+    playgroundExperiments.length,
+  );
+});

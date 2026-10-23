@@ -1,3 +1,5 @@
+import NewestPreview from "../docs/src/NewestPreview";
+import { getNewestEntries, uiCatalog } from "../src/system/ui-catalog";
 import CollectionPreview from "../docs/src/CollectionPreview";
 import { DesignSystemProvider } from "../src/system/base";
 import { useRef } from "react";
@@ -69,7 +71,32 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  new URLSearchParams(location.search).has("collection") ? (
+  new URLSearchParams(location.search).has("newest-gallery") ? (
+    <DesignSystemProvider
+      theme={
+        new URLSearchParams(location.search).get("theme") === "dark"
+          ? "dark"
+          : "light"
+      }
+      accent="neutral"
+    >
+      <main style={{ maxWidth: 1100, margin: "24px auto", padding: 16 }}>
+        <NewestPreview
+          entries={getNewestEntries(
+            uiCatalog,
+            Date.parse("2026-10-23T12:00:00Z"),
+          ).filter(
+            (entry) =>
+              !new URLSearchParams(location.search).get("ids") ||
+              new URLSearchParams(location.search)
+                .get("ids")!
+                .split(",")
+                .includes(entry.id),
+          )}
+        />
+      </main>
+    </DesignSystemProvider>
+  ) : new URLSearchParams(location.search).has("collection") ? (
     <DesignSystemProvider
       theme={
         new URLSearchParams(location.search).get("theme") === "dark"

@@ -142,7 +142,7 @@ export default function DemoPreview({
     case "model-selector":
     case "voice-input":
     case "streaming-terminal":
-      return <CollectionPreview id={id} />;
+      return <CollectionPreview id={id} compact={compact} />;
 
     case "tag-input":
     case "wheel-picker":
@@ -154,7 +154,7 @@ export default function DemoPreview({
     case "carousel-scrubber":
     case "dialog-stack":
     case "live-code-sandbox":
-      return <CollectionPreview id={id} />;
+      return <CollectionPreview id={id} compact={compact} />;
 
     case "split-flap-display":
     case "variable-font-proximity":
@@ -166,7 +166,7 @@ export default function DemoPreview({
     case "gantt-timeline":
     case "kanban-board":
     case "file-tree":
-      return <CollectionPreview id={id} />;
+      return <CollectionPreview id={id} compact={compact} />;
 
     case "page-transition":
     case "dynamic-status-island":
@@ -178,7 +178,7 @@ export default function DemoPreview({
     case "footer-reveal":
     case "scroll-expand-media":
     case "coverflow-carousel":
-      return <CollectionPreview id={id} />;
+      return <CollectionPreview id={id} compact={compact} />;
 
     case "sticker-peel":
     case "elastic-mesh":
