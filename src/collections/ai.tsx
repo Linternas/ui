@@ -1049,6 +1049,15 @@ export interface ModelSelectorProps extends Shell {
   onValueChange?: (id: string) => void;
   disabled?: boolean;
   placeholder?: string;
+  labels?: {
+    title?: string;
+    description?: string;
+    search?: string;
+    options?: string;
+    empty?: string;
+    close?: string;
+    unavailable?: string;
+  };
 }
 export function ModelSelector({
   models,
@@ -1058,6 +1067,7 @@ export function ModelSelector({
   disabled = false,
   placeholder = "Choose a model",
   label = "Model",
+  labels,
   className,
   style,
 }: ModelSelectorProps) {
@@ -1112,13 +1122,14 @@ export function ModelSelector({
       <Dialog
         open={open}
         onOpenChange={setOpen}
-        title="Choose a model"
-        description="Search by model name or provider."
+        title={labels?.title ?? "Choose a model"}
+        description={labels?.description ?? "Search by model name or provider."}
+        closeLabel={labels?.close ?? "Close dialog"}
         initialFocus={search}
       >
         <TextField
           ref={search}
-          label="Search models"
+          label={labels?.search ?? "Search models"}
           value={query}
           onChange={(e) => {
             setQuery(e.currentTarget.value);
@@ -1160,7 +1171,7 @@ export function ModelSelector({
         <div
           id={id}
           role="listbox"
-          aria-label="Available models"
+          aria-label={labels?.options ?? "Available models"}
           className="mingu-collection-ai-model-list"
         >
           {filtered.map((model) => (
@@ -1193,7 +1204,7 @@ export function ModelSelector({
                 {selected === model.id
                   ? "✓"
                   : model.disabled
-                    ? "Unavailable"
+                    ? (labels?.unavailable ?? "Unavailable")
                     : ""}
               </span>
             </button>
@@ -1201,7 +1212,7 @@ export function ModelSelector({
         </div>
         {!filtered.length && (
           <p role="status" className="mingu-collection-ai-hint">
-            No models match your search.
+            {labels?.empty ?? "No models match your search."}
           </p>
         )}
       </Dialog>
