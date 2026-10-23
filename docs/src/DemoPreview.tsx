@@ -1,4 +1,5 @@
-"use client";
+import CollectionPreview from "./CollectionPreview";
+("use client");
 import { useEffect, useRef, useState } from "react";
 import {
   Folder,
@@ -131,6 +132,18 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "page-transition":
+    case "dynamic-status-island":
+    case "animated-mega-menu":
+    case "sortable-grid":
+    case "card-navigation":
+    case "scroll-stack":
+    case "sticky-scroll-story":
+    case "footer-reveal":
+    case "scroll-expand-media":
+    case "coverflow-carousel":
+      return <CollectionPreview id={id} />;
+
     case "sticker-peel":
     case "elastic-mesh":
     case "image-particle-morph":

@@ -1,3 +1,4 @@
+@import "./src/collections/navigation.css";
 @import "./src/collections/lab.css";
 @import "./interaction.css";
 /* Standalone styles. Override --mru-* on any ancestor to integrate a theme. */

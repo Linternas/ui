@@ -371,3 +371,7 @@ Tear mode에서는 드래그한 위치 주변의 연결을 끊는다. 키보드�
 ## Interactive lab (0.15)
 
 StickerPeel, ElasticMesh, ImageParticleMorph, DitherReveal, FluidGlassLens, Lanyard, DomeGallery, FoldablePaper, WebcamPixelGrid, ImageRelighting. 라이브 카탈로그와 `/playground/<id>`에서 같은 구현을 사용한다. [API와 입력·성능·권한 규칙](./docs/collections/lab.md). 새 항목은 실제 추가일로부터 30일 동안 Newest에 표시한다.
+
+## Navigation and scroll (0.16.0)
+
+PageTransition, DynamicStatusIsland, AnimatedMegaMenu, SortableGrid, CardNavigation, ScrollStack, StickyScrollStory, FooterReveal, ScrollExpandMedia, CoverflowCarousel. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/navigation.md).

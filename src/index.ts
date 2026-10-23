@@ -174,3 +174,5 @@ export { OrbitComposer } from "./OrbitComposer";
 export type { OrbitComposerProps, OrbitPreset } from "./OrbitComposer";
 
 export * from "./collections/lab";
+
+export * from "./collections/navigation";
