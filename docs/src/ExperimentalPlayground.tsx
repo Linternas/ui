@@ -5,7 +5,7 @@ import {
   type PlaygroundExperimentId,
 } from "../../src/system/ui-catalog";
 import { Experiment } from "./ExperimentalPreview";
-import Link from "./routing";
+import Link, { catalogHref } from "./routing";
 import "./experimental-playground.css";
 export default function ExperimentalPlayground({
   id,
@@ -81,7 +81,7 @@ export default function ExperimentalPlayground({
         </section>
         <footer className="experiment-footer">
           <span>Make something happen.</span>
-          <Link href={`/${id}`}>
+          <Link href={catalogHref(id)}>
             Component & API <span aria-hidden="true">↗</span>
           </Link>
         </footer>

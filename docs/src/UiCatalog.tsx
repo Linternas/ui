@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import Link from "./routing";
+import Link, { catalogHref } from "./routing";
 import {
   DesignSystemProvider,
   Input,
@@ -94,9 +94,16 @@ export default function UiCatalog({
     >
       <header className="system-catalog-header">
         <Link href="/lab/ui">
-          Mingu UI <span>/ Design system</span>
+          Mingu UI <span>/ {selected === "all" ? "Components" : "Docs"}</span>
         </Link>
         <div>
+          <Link
+            className="ui-docs-header"
+            href="/docs"
+            aria-current={selected !== "all" ? "page" : undefined}
+          >
+            Docs
+          </Link>
           <Link className="ui-playground-header" href="/playground">
             Playground ↗
           </Link>
@@ -168,7 +175,7 @@ export default function UiCatalog({
                     .map((entry) => (
                       <Link
                         key={entry.id}
-                        href={`/lab/ui/${entry.id}`}
+                        href={catalogHref(entry.id)}
                         aria-current={
                           entry.id === selected ? "page" : undefined
                         }
@@ -184,27 +191,29 @@ export default function UiCatalog({
           </nav>
         </aside>
         <main className="system-catalog-main">
-          <div className="system-catalog-mobile">
-            <Select
-              aria-label="Select a component"
-              value={selected}
-              onChange={(e) => {
-                router.push(`/lab/ui/${e.target.value}`);
-              }}
-            >
-              {uiGroups.map((group) => (
-                <optgroup label={group} key={group}>
-                  {uiCatalog
-                    .filter((entry) => entry.group === group)
-                    .map((entry) => (
-                      <option key={entry.id} value={entry.id}>
-                        {entry.name}
-                      </option>
-                    ))}
-                </optgroup>
-              ))}
-            </Select>
-          </div>
+          {selected !== "all" && (
+            <div className="system-catalog-mobile">
+              <Select
+                aria-label="Select a component"
+                value={selected}
+                onChange={(e) => {
+                  router.push(catalogHref(e.target.value));
+                }}
+              >
+                {uiGroups.map((group) => (
+                  <optgroup label={group} key={group}>
+                    {uiCatalog
+                      .filter((entry) => entry.group === group)
+                      .map((entry) => (
+                        <option key={entry.id} value={entry.id}>
+                          {entry.name}
+                        </option>
+                      ))}
+                  </optgroup>
+                ))}
+              </Select>
+            </div>
+          )}
           <div className="system-catalog-title">
             <span>
               {item.group}
@@ -218,7 +227,7 @@ export default function UiCatalog({
               {related.map((entry) => (
                 <Link
                   key={entry.id}
-                  href={`/lab/ui/${entry.id}`}
+                  href={catalogHref(entry.id)}
                   aria-current={entry.id === selected ? "page" : undefined}
                 >
                   {entry.name}

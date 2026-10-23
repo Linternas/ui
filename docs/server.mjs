@@ -15,6 +15,10 @@ const types = {
   ".woff2": "font/woff2",
 };
 const known = new Set([
+  "/docs",
+  ...uiCatalog
+    .filter((item) => !["all", "playground"].includes(item.id))
+    .map((item) => "/docs/" + item.id),
   ...uiCatalog.map((item) => "/" + item.id),
   ...playgroundExperiments.map((item) => item.path),
 ]);

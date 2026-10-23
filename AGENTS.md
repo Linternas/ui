@@ -80,6 +80,6 @@ Report checks actually run and any unverified behavior. Do not claim deployment 
 
 Railway deploys the catalog from this repository's root using `railpack.json`: build `npm run build`, start `npm start`, health check `/healthz`, bind `0.0.0.0:$PORT`.
 
-The catalog uses root routes such as `/button`; `/lab/ui/...` is a legacy redirect. Use https://ui.mingu.xyz for public catalog links.
+The gallery is `/all`, documentation is `/docs` and `/docs/<id>`, and root component routes such as `/button` remain compatible; `/lab/ui/...` is a legacy redirect. Use https://ui.mingu.xyz for public catalog links.
 
 A consuming app can pin this repository as a Git dependency or submodule. A catalog-only change does not require updating a consumer's package pin. Component adoption and consumer deployment are separate changes; do not edit a consumer checkout as a side effect.

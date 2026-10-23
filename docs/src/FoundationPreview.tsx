@@ -101,13 +101,13 @@ export default function FoundationPreview() {
         </Link>
         <Link
           className="mingu-button mingu-button-primary mingu-control-md"
-          href="/lab/ui/controls"
+          href="/docs/controls"
         >
           Controls playground →
         </Link>
         <Link
           className="mingu-button mingu-button-primary mingu-control-md"
-          href="/lab/ui/button"
+          href="/docs/button"
         >
           Button
         </Link>

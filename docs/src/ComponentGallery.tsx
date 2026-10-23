@@ -13,7 +13,7 @@ import {
   Tabs,
 } from "@mingu/interaction-ui/system";
 import { CodeBlock } from "@mingu/interaction-ui";
-import Link from "./routing";
+import Link, { catalogHref } from "./routing";
 import DemoPreview from "./DemoPreview";
 import SystemComponentDemo from "./SystemComponentDemo";
 import type { ComponentId } from "./catalog";
@@ -254,7 +254,7 @@ export default function ComponentGallery({
                 </header>
                 <Link
                   className="ui-gallery-code-link"
-                  href={`/${entry.id}`}
+                  href={catalogHref(entry.id)}
                   aria-label={`${entry.name} 코드 보기`}
                   title="컴포넌트·코드"
                 >
@@ -310,7 +310,10 @@ export default function ComponentGallery({
               ]}
             />
             <div className="ui-newest-expanded-links">
-              <Link href={`/${expanded.id}`} onClick={() => setExpanded(null)}>
+              <Link
+                href={catalogHref(expanded.id)}
+                onClick={() => setExpanded(null)}
+              >
                 컴포넌트·코드 →
               </Link>
               {experiment && (

@@ -1057,12 +1057,9 @@
     .system-catalog-mobile,
     .system-catalog-usage,
     .system-catalog-main > footer,
-    .ui-all-filters,
-    .ui-all-toolbar,
     .ui-newest-intro,
     .ui-newest-filter,
-    .ui-newest-section-heading,
-    .ui-all-groups
+    .ui-newest-section-heading
   ) {
   padding-inline: var(--mingu-space-4);
 }
@@ -1085,4 +1082,21 @@
 }
 .system-catalog-gallery .system-catalog-title p {
   font-size: var(--mingu-text-sm);
+}
+
+.ui-docs-header {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--mingu-text-sm);
+  text-decoration: none;
+  color: var(--mingu-text);
+}
+.ui-docs-header[aria-current="page"] {
+  font-weight: 650;
+}
+@media (max-width: 767px) {
+  .system-catalog-header > div {
+    gap: var(--mingu-space-2);
+  }
 }

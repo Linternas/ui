@@ -14,15 +14,20 @@ import { usePathname } from "./routing";
 export default function App() {
   const path = usePathname();
   const previous = useRef(path);
+  const route = path.replace(/\/$/, "") || "/";
+  const inDocs = route === "/docs" || route.startsWith("/docs/");
   const id =
-    path === "/"
+    route === "/docs" || route === "/"
       ? "foundations"
-      : decodeURIComponent(path.replace(/^\//, "").replace(/\/$/, ""));
+      : decodeURIComponent(route.replace(inDocs ? /^\/docs\// : /^\//, ""));
   const experiment =
     path.replace(/\/$/, "") === "/playground"
       ? playgroundExperiments[0]
       : playgroundExperiments.find((e) => e.path === path.replace(/\/$/, ""));
-  const item = uiCatalog.find((item) => item.id === id);
+  const item = uiCatalog.find(
+    (item) =>
+      item.id === id && (!inDocs || !["all", "playground"].includes(id)),
+  );
   useEffect(() => {
     document.title =
       path === "/"

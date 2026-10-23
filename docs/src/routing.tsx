@@ -5,6 +5,9 @@ export const docsPath = (href: string) =>
     : href.startsWith("/lab/ui/")
       ? href.slice("/lab/ui".length)
       : href;
+/** Gallery and playground stay outside the documentation section. */
+export const catalogHref = (id: string) =>
+  id === "all" || id === "playground" ? `/${id}` : `/docs/${id}`;
 function navigate(href: string) {
   history.pushState(null, "", docsPath(href));
   dispatchEvent(new Event("mingu:navigate"));

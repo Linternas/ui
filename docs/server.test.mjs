@@ -47,6 +47,11 @@ test("production docs server serves built routes, assets and health without expo
     );
     for (const route of [
       ...uiCatalog.map((item) => `/${item.id}`),
+      "/docs",
+      "/docs/",
+      ...uiCatalog
+        .filter((item) => !["all", "playground"].includes(item.id))
+        .map((item) => `/docs/${item.id}`),
       ...playgroundExperiments.map((item) => item.path),
     ])
       assert.equal((await fetch(base + route)).status, 200, route);
@@ -132,6 +137,9 @@ test("production docs server serves built routes, assets and health without expo
       "/docs/server.mjs",
       "/assets/missing.js",
       "/not-a-component",
+      "/docs/not-a-component",
+      "/docs/all",
+      "/docs/playground",
       "/newest",
       "/newest/",
       "/playground/missing",

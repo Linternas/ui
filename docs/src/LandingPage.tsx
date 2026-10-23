@@ -124,8 +124,8 @@ export default function LandingPage() {
           <Link href="/playground">
             Playground <Arrow diagonal />
           </Link>
-          <Link className="landing-foundations-link" href="/foundations">
-            The system
+          <Link className="landing-foundations-link" href="/docs">
+            Docs
           </Link>
         </nav>
         <div className="landing-header-actions">
@@ -307,7 +307,7 @@ export default function LandingPage() {
             <LinkButton href="/all" size="lg">
               Explore the components <Arrow />
             </LinkButton>
-            <LinkButton href="/foundations" variant="outline" size="lg">
+            <LinkButton href="/docs" variant="outline" size="lg">
               시스템 살펴보기 <Arrow diagonal />
             </LinkButton>
           </div>
@@ -340,8 +340,8 @@ export default function LandingPage() {
           >
             Source code <Arrow diagonal />
           </a>
-          <Link href="/foundations">
-            The system <Arrow diagonal />
+          <Link href="/docs">
+            Docs <Arrow diagonal />
           </Link>
           <Link href="/all">
             All components <Arrow diagonal />

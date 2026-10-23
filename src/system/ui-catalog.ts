@@ -207,7 +207,7 @@ export const uiCatalog: readonly UiCatalogEntry[] = [
     group: "Foundations",
     kind: "foundation",
     description:
-      "모든 기본 컴포넌트와 인터랙션. 카테고리로 찾고, 목록이나 라이브 미리보기로 둘러보세요.",
+      "모든 기본 컴포넌트와 인터랙션을 라이브 미리보기로 둘러보세요. 사용법과 코드는 Docs에서 확인할 수 있습니다.",
     code: `import { uiCatalog } from '@mingu/interaction-ui/catalog';\n\nconst components = uiCatalog.filter(({ kind }) => kind === 'core' || kind === 'interaction');`,
   },
   ...systemCatalog.map((item) => ({

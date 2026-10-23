@@ -75,7 +75,9 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  new URLSearchParams(location.search).has("landing") ? (
+  location.pathname === "/docs" ||
+    location.pathname.startsWith("/docs/") ||
+    new URLSearchParams(location.search).has("landing") ? (
     <DocsApp />
   ) : new URLSearchParams(location.search).has("morph-consumer") ? (
     <MorphConsumer />
