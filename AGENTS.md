@@ -48,7 +48,7 @@ Inspect existing implementations near the change before adding a new abstraction
 - Use semantic tokens rather than scattering new colors, spacing or motion constants across files. Keep themes scoped to the provider.
 - Default screens should remain calm and readable. Larger interactions are opt-in; respect reduced motion and touch input.
 - Reuse the same implementation in the package and catalog. Demos must show real component behavior.
-- For a new component, set `addedAt: "YYYY-MM-DD"` to its actual UTC release date in catalog metadata. Newest and New badges automatically expire after 30 days; do not renew dates on unrelated redeploys. The legacy ID fixture exempts older undated entries and must not be extended for new components.
+- For a new component, set `addedAt: "YYYY-MM-DD"` to its actual UTC release date in catalog metadata. New badges automatically expire after 30 days; do not renew dates on unrelated redeploys. The legacy ID fixture exempts older undated entries and must not be extended for new components.
 - For a new component, update the appropriate exports, catalog metadata, live preview and API documentation together. Check the unified catalog before registering a duplicate. Collection metadata lives alongside the implementation and is composed into `src/system/interaction-catalog.ts`; collection CSS is imported by `styles.css`. Keep the live preview dispatcher and its browser fixture connected to the same implementation.
 - Document breaking API changes and migration steps; do not silently rename or remove exports.
 

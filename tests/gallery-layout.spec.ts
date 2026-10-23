@@ -1,9 +1,9 @@
 import { uiCatalog, getNewestEntries } from "../src/system/ui-catalog";
 import { test, expect } from "@playwright/test";
-const visit = (ids: string[]) => `/?newest-gallery&ids=${ids.join(",")}`;
+const visit = (ids: string[]) => `/?component-gallery&ids=${ids.join(",")}`;
 const card = (page: import("@playwright/test").Page, id: string) =>
   page.locator(`.ui-newest-card[data-preview-id="${id}"]`);
-test("Newest keeps scenes in equal tiles with live controls and category filters", async ({
+test("Gallery keeps scenes in equal tiles with live controls and category filters", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -35,12 +35,12 @@ test("Newest keeps scenes in equal tiles with live controls and category filters
     (await scene.boundingBox())!.height,
   );
   await page
-    .getByRole("combobox", { name: "Newest 카테고리" })
+    .getByRole("combobox", { name: "컴포넌트 카테고리" })
     .selectOption("Forms");
   await expect(scene).toHaveCount(0);
   await expect(small).toBeVisible();
   await page
-    .getByRole("combobox", { name: "Newest 카테고리" })
+    .getByRole("combobox", { name: "컴포넌트 카테고리" })
     .selectOption("Visual effects");
   await expect(small).toHaveCount(0);
   await expect(scene).toBeVisible();
@@ -142,7 +142,7 @@ test("closing expanded camera unmounts the demo and stops a late permission resp
   await page.evaluate(() => (window as any).resolveCamera());
   await expect.poll(() => page.evaluate(() => (window as any).stops)).toBe(1);
 });
-test("narrow dark Newest keeps scenes short and reveals full controls in a bounded modal", async ({
+test("narrow dark Gallery keeps scenes short and reveals full controls in a bounded modal", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 320, height: 800 });
@@ -184,10 +184,10 @@ test("narrow dark Newest keeps scenes short and reveals full controls in a bound
   ).toBeFocused();
 });
 
-test("Newest exposes the full inventory while mounting only nearby demos and preserving visited state", async ({
+test("Gallery exposes the full inventory while mounting only nearby demos and preserving visited state", async ({
   page,
 }) => {
-  await page.goto("/?newest-gallery");
+  await page.goto("/?component-gallery");
   const cards = page.locator(".ui-newest-card");
   await expect(cards).toHaveCount(91);
   const ids = await cards.evaluateAll((nodes) =>
@@ -215,7 +215,7 @@ test("Newest exposes the full inventory while mounting only nearby demos and pre
   await prompt.locator(".ui-gallery-title").scrollIntoViewIfNeeded();
   await expect(message).toHaveValue("Keep my draft");
   await page
-    .getByRole("combobox", { name: "Newest 카테고리" })
+    .getByRole("combobox", { name: "컴포넌트 카테고리" })
     .selectOption("Forms");
   await expect(cards).toHaveCount(
     getNewestEntries(uiCatalog, Date.parse("2026-10-23T12:00:00Z")).filter(

@@ -9,7 +9,7 @@ import {
 } from "@mingu/interaction-ui/system";
 import { uiCatalog, uiGroups } from "@mingu/interaction-ui/catalog";
 import Link from "./routing";
-import NewestPreview from "./NewestPreview";
+import ComponentGallery from "./ComponentGallery";
 import { useNewestEntries } from "./useNewestEntries";
 import "./all-preview.css";
 
@@ -96,7 +96,7 @@ export default function AllPreview() {
           }
         />
       ) : view === "preview" ? (
-        <NewestPreview entries={filtered} label="All" filterable={false} />
+        <ComponentGallery entries={filtered} label="All" filterable={false} />
       ) : (
         <div className="ui-all-groups">
           {groups.map((group) => (

@@ -20,7 +20,7 @@ import {
 } from "@mingu/interaction-ui/catalog";
 import Link from "./routing";
 import { Arrow, Mark, Sun, Moon } from "./LandingIcons";
-const NewestPreview = lazy(() => import("./NewestPreview"));
+const ComponentGallery = lazy(() => import("./ComponentGallery"));
 const SystemBench = lazy(() => import("./LandingWorkbench"));
 import "./landing.css";
 
@@ -258,7 +258,7 @@ export default function LandingPage() {
             </div>
           </div>
           <Deferred className="landing-featured-deferred">
-            <NewestPreview
+            <ComponentGallery
               entries={featured}
               label="Featured"
               filterable={false}
@@ -340,8 +340,8 @@ export default function LandingPage() {
           >
             Source code <Arrow diagonal />
           </a>
-          <Link href="/newest">
-            Newest <Arrow diagonal />
+          <Link href="/foundations">
+            The system <Arrow diagonal />
           </Link>
           <Link href="/all">
             All components <Arrow diagonal />

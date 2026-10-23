@@ -2,7 +2,7 @@ import DocsApp from "../docs/src/App";
 import MorphConsumer from "./morph-consumer";
 import UiCatalog from "../docs/src/UiCatalog";
 import AllPreview from "../docs/src/AllPreview";
-import NewestPreview from "../docs/src/NewestPreview";
+import ComponentGallery from "../docs/src/ComponentGallery";
 import { getNewestEntries, uiCatalog } from "../src/system/ui-catalog";
 import CollectionPreview from "../docs/src/CollectionPreview";
 import { DesignSystemProvider } from "../src/system/base";
@@ -96,7 +96,7 @@ createRoot(document.getElementById("root")!).render(
         <AllPreview />
       </main>
     </DesignSystemProvider>
-  ) : new URLSearchParams(location.search).has("newest-gallery") ? (
+  ) : new URLSearchParams(location.search).has("component-gallery") ? (
     <DesignSystemProvider
       theme={
         new URLSearchParams(location.search).get("theme") === "dark"
@@ -106,7 +106,7 @@ createRoot(document.getElementById("root")!).render(
       accent="neutral"
     >
       <main style={{ maxWidth: 1100, margin: "24px auto", padding: 16 }}>
-        <NewestPreview
+        <ComponentGallery
           entries={getNewestEntries(
             uiCatalog,
             Date.parse("2026-10-23T12:00:00Z"),

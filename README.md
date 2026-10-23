@@ -6,9 +6,7 @@
 
 [홈](https://ui.mingu.xyz): 실제 컴포넌트로 만든 인터랙티브 랜딩. 입자 조형물을 바꾸고, 토큰·버튼 반응을 조절하며 코드와 결과를 함께 확인합니다. 문서와 아래쪽 작업대는 필요한 시점에 불러옵니다.
 
-[All](https://ui.mingu.xyz/all): 전체 컴포넌트를 검색·카테고리 필터로 찾습니다. 미리보기가 기본이며 화면 근처의 데모부터 렌더링합니다. All과 Newest는 3열(큰 화면 4열, 모바일 1열) 라이브 타일 갤러리를 사용합니다. 카드 이름을 누르면 전체 미리보기와 사용 코드를 열 수 있습니다. 가벼운 텍스트 목록으로도 전환할 수 있습니다.
-
-[Newest](https://ui.mingu.xyz/newest): 새 인터랙션을 추가일로부터 30일 동안 먼저 볼 수 있습니다. 전체 목록을 한 페이지에서 탐색하며 화면 가까이의 데모부터 렌더링합니다. 미리보기 타일에서 핵심 동작을 체험하고 카드 이름을 눌러 전체 설정과 사용 코드를 확인합니다.
+[All](https://ui.mingu.xyz/all): 전체 컴포넌트를 검색·카테고리 필터로 찾습니다. 미리보기가 기본이며 화면 근처의 데모부터 렌더링합니다. All은 3열(큰 화면 4열, 모바일 1열) 라이브 타일 갤러리를 사용합니다. 카드 이름을 누르면 전체 미리보기와 사용 코드를 열 수 있습니다. 가벼운 텍스트 목록으로도 전환할 수 있습니다.
 
 [통합 카탈로그](https://ui.mingu.xyz): 기능별 탐색·테마·미리보기·사용 코드.
 
@@ -127,26 +125,26 @@ npm run test:docs
 
 ### Playground
 
-[Playground](https://ui.mingu.xyz/playground)는 화면 전체를 쓰는 실험 공간이다. 글자를 입자로 밀어내는 **ParticleText**, 생각을 움직이고 연결하는 **SpatialBoard**, 빛과 소리로 루프를 만드는 **SoundPad**를 제공한다. 개별 컴포넌트 페이지와 Newest에서도 같은 구현을 사용한다. 패키지 루트 exports와 [API 문서](./DESIGN_SYSTEM.md#experimental-playground)를 통해 다른 앱에도 조합할 수 있다.
+[Playground](https://ui.mingu.xyz/playground)는 화면 전체를 쓰는 실험 공간이다. 글자를 입자로 밀어내는 **ParticleText**, 생각을 움직이고 연결하는 **SpatialBoard**, 빛과 소리로 루프를 만드는 **SoundPad**를 제공한다. 개별 컴포넌트 페이지와 전체 갤러리에서도 같은 구현을 사용한다. 패키지 루트 exports와 [API 문서](./DESIGN_SYSTEM.md#experimental-playground)를 통해 다른 앱에도 조합할 수 있다.
 
 **ClothPlayground**, **FluidSandbox**, **OrbitComposer**에서는 천을 잡아당기고 찢거나, 입자에 소용돌이를 만들거나, 궤도를 편집해 선을 그릴 수 있다. Playground의 실험 목록에서 이동하며 기존 컴포넌트처럼 패키지 루트에서 가져온다.
 
 ## Interactive lab (0.15)
 
-StickerPeel, ElasticMesh, ImageParticleMorph, DitherReveal, FluidGlassLens, Lanyard, DomeGallery, FoldablePaper, WebcamPixelGrid, ImageRelighting. 라이브 카탈로그와 `/playground/<id>`에서 같은 구현을 사용한다. [API와 입력·성능·권한 규칙](./docs/collections/lab.md). 새 항목은 실제 추가일로부터 30일 동안 Newest에 표시한다.
+StickerPeel, ElasticMesh, ImageParticleMorph, DitherReveal, FluidGlassLens, Lanyard, DomeGallery, FoldablePaper, WebcamPixelGrid, ImageRelighting. 라이브 카탈로그와 `/playground/<id>`에서 같은 구현을 사용한다. [API와 입력·성능·권한 규칙](./docs/collections/lab.md). 새 항목은 실제 추가일로부터 30일 동안 New 배지를 표시한다.
 
 ## Navigation and scroll (0.16.0)
 
-PageTransition, DynamicStatusIsland, AnimatedMegaMenu, SortableGrid, CardNavigation, ScrollStack, StickyScrollStory, FooterReveal, ScrollExpandMedia, CoverflowCarousel. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/navigation.md).
+PageTransition, DynamicStatusIsland, AnimatedMegaMenu, SortableGrid, CardNavigation, ScrollStack, StickyScrollStory, FooterReveal, ScrollExpandMedia, CoverflowCarousel. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/navigation.md).
 
 ## Media and workspace (0.17.0)
 
-SplitFlapDisplay, VariableFontProximity, VerticalReel, StoryViewer, VideoPlayer, ImageCropper, CalendarBoard, GanttTimeline, KanbanBoard, FileTree. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/media.md).
+SplitFlapDisplay, VariableFontProximity, VerticalReel, StoryViewer, VideoPlayer, ImageCropper, CalendarBoard, GanttTimeline, KanbanBoard, FileTree. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/media.md).
 
 ## Interactive tools (0.18.0)
 
-TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashCommandEditor, ChartRangeNavigator, CarouselScrubber, DialogStack, LiveCodeSandbox. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/tools.md).
+TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashCommandEditor, ChartRangeNavigator, CarouselScrubber, DialogStack, LiveCodeSandbox. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/tools.md).
 
 ## AI workbench (0.19.0)
 
-PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter, ArtifactPanel, Checkpoint, ModelSelector, VoiceInput, StreamingTerminal. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/ai.md).
+PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter, ArtifactPanel, Checkpoint, ModelSelector, VoiceInput, StreamingTerminal. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/ai.md).

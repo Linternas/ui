@@ -15,7 +15,6 @@ import { uiCatalog, uiGroups, uiFamilies } from "@mingu/interaction-ui/catalog";
 import { type SystemComponentId } from "@mingu/interaction-ui/system";
 import { type ComponentId } from "./catalog";
 import DemoPreview from "./DemoPreview";
-import NewestPreview from "./NewestPreview";
 import AllPreview from "./AllPreview";
 import { useNewestEntries } from "./useNewestEntries";
 import ControlWorkbench from "./ControlWorkbench";
@@ -32,8 +31,7 @@ export default function UiCatalog({
   const [query, setQuery] = useState("");
   const [theme, setTheme] = useState<Theme>("system");
   const router = useRouter();
-  const newest = useNewestEntries();
-  const newIds = new Set(newest.map((entry) => entry.id));
+  const newIds = new Set(useNewestEntries().map((entry) => entry.id));
   const sidebar = useRef<HTMLElement>(null);
   useEffect(() => {
     const container = sidebar.current;
@@ -87,7 +85,7 @@ export default function UiCatalog({
     <DesignSystemProvider
       theme={theme}
       accent="neutral"
-      className={`system-catalog${["all", "newest"].includes(selected) ? " system-catalog-gallery" : ""}`}
+      className={`system-catalog${selected === "all" ? " system-catalog-gallery" : ""}`}
       data-catalog-count={
         uiCatalog.filter(
           (entry) => entry.kind === "core" || entry.kind === "interaction",
@@ -101,12 +99,6 @@ export default function UiCatalog({
         <div>
           <Link className="ui-playground-header" href="/playground">
             Playground ↗
-          </Link>
-          <Link className="ui-newest-header" href="/newest">
-            Newest
-            {newest.length > 0 && (
-              <span className="ui-new-badge">{newest.length}</span>
-            )}
           </Link>
           <a
             className="ui-github-link"
@@ -159,20 +151,11 @@ export default function UiCatalog({
             >
               All components
             </Link>
-            <Link
-              className="ui-newest-shortcut"
-              href="/newest"
-              aria-current={selected === "newest" ? "page" : undefined}
-            >
-              Newest <span className="ui-new-badge">{newest.length}</span>
-            </Link>
             {!filtered.length && <p role="status">No matching components</p>}
             {uiGroups
               .filter((group) =>
                 filtered.some(
-                  (entry) =>
-                    entry.group === group &&
-                    !["newest", "all"].includes(entry.id),
+                  (entry) => entry.group === group && entry.id !== "all",
                 ),
               )
               .map((group) => (
@@ -180,9 +163,7 @@ export default function UiCatalog({
                   <h2>{group}</h2>
                   {filtered
                     .filter(
-                      (entry) =>
-                        entry.group === group &&
-                        !["newest", "all"].includes(entry.id),
+                      (entry) => entry.group === group && entry.id !== "all",
                     )
                     .map((entry) => (
                       <Link
@@ -246,16 +227,14 @@ export default function UiCatalog({
             </nav>
           )}
           <section
-            className={`system-catalog-preview${["newest", "all"].includes(selected) ? " ui-newest-preview" : ""}`}
+            className={`system-catalog-preview${selected === "all" ? " ui-newest-preview" : ""}`}
             aria-label={`${item.name} preview`}
           >
-            {!["newest", "all"].includes(selected) && (
+            {selected !== "all" && (
               <div className="system-preview-label">PREVIEW / STATES</div>
             )}
             {selected === "all" ? (
               <AllPreview />
-            ) : selected === "newest" ? (
-              <NewestPreview entries={newest} />
             ) : selected === "controls" ? (
               <ControlWorkbench theme={theme} />
             ) : item.kind === "foundation" ? (
@@ -273,7 +252,7 @@ export default function UiCatalog({
               />
             )}
           </section>
-          {!["all", "newest"].includes(selected) && (
+          {selected !== "all" && (
             <section id="usage" className="system-catalog-usage">
               <Heading level={2} size="lg">
                 Usage

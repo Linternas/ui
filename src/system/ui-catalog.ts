@@ -210,15 +210,6 @@ export const uiCatalog: readonly UiCatalogEntry[] = [
       "모든 기본 컴포넌트와 인터랙션. 카테고리로 찾고, 목록이나 라이브 미리보기로 둘러보세요.",
     code: `import { uiCatalog } from '@mingu/interaction-ui/catalog';\n\nconst components = uiCatalog.filter(({ kind }) => kind === 'core' || kind === 'interaction');`,
   },
-  {
-    id: "newest",
-    name: "Newest",
-    group: "Foundations",
-    kind: "foundation",
-    description:
-      "최근 30일 동안 추가된 인터랙션. 기간이 지나도 각 카테고리에서 계속 사용할 수 있습니다.",
-    code: `import { getNewestEntries } from '@mingu/interaction-ui/catalog';\n\nconst newest = getNewestEntries();\n// Add an addedAt: 'YYYY-MM-DD' UTC date to new catalog entries.\n// Entries automatically leave Newest after 30 days.`,
-  },
   ...systemCatalog.map((item) => ({
     ...item,
     group: item.group as UiGroup,

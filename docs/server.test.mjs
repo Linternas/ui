@@ -90,7 +90,6 @@ test("production docs server serves built routes, assets and health without expo
       "/sound-pad",
       "/button",
       "/controls",
-      "/newest",
       "/image-lens",
       "/directional-card",
       "/looping-ticker",
@@ -133,6 +132,8 @@ test("production docs server serves built routes, assets and health without expo
       "/docs/server.mjs",
       "/assets/missing.js",
       "/not-a-component",
+      "/newest",
+      "/newest/",
       "/playground/missing",
     ])
       assert.equal((await fetch(base + route)).status, 404, route);

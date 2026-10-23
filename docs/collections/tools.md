@@ -1,6 +1,6 @@
 # Interactive tools
 
-Reusable editors and navigation tools. Import components and types from `@mingu/interaction-ui`, and load `system.css` and `styles.css`. All ten appear in Newest for 30 days from 2026-10-23 UTC. These components have no service or storage dependency.
+Reusable editors and navigation tools. Import components and types from `@mingu/interaction-ui`, and load `system.css` and `styles.css`. All ten display a New badge for 30 days from 2026-10-23 UTC. These components have no service or storage dependency.
 
 ## TagInput
 

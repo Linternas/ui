@@ -67,7 +67,18 @@
   text-align: start;
   cursor: pointer;
 }
+.ui-gallery-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-2);
+  min-width: 0;
+}
+.ui-gallery-title-row .ui-new-badge {
+  flex-shrink: 0;
+}
 .ui-gallery-title strong {
+  min-width: 0;
+  color: var(--mingu-text);
   font-size: var(--mingu-text-sm);
   font-weight: 550;
   overflow: hidden;

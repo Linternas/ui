@@ -153,7 +153,7 @@ npm run test:browser
 
 ## Unified catalog
 
-홈(`/`)은 같은 컴포넌트를 조합한 인터랙티브 랜딩이다. `/all`은 전체 갤러리, `/newest`는 최근 추가 항목, `/foundations`는 토큰 문서다. 랜딩과 문서·실험 화면은 별도 모듈로 불러오며 아래쪽 작업대는 화면에 가까워질 때 마운트한다.
+홈(`/`)은 같은 컴포넌트를 조합한 인터랙티브 랜딩이다. `/all`은 전체 갤러리, `/foundations`는 토큰 문서다. 랜딩과 문서·실험 화면은 별도 모듈로 불러오며 아래쪽 작업대는 화면에 가까워질 때 마운트한다.
 
 [웹 카탈로그](https://ui.mingu.xyz)는 토큰·기본 UI·인터랙션·패턴을 하나의 검색, 탐색, 테마, 코드 미리보기로 제공한다. 기본 UI와 인터랙션은 기능별로 같은 그룹에 배치한다. Sidebar와 BounceSidebar처럼 관련된 항목은 같은 화면의 variant 탐색으로 연결한다.
 
@@ -208,9 +208,9 @@ npm run test:browser
 ```
 
 
-## Newest and exploration interactions (0.7)
+## New badges and exploration interactions (0.7)
 
-[Newest](https://ui.mingu.xyz/newest)는 컴포넌트의 `addedAt` UTC 날짜부터 30일 동안 라이브 미리보기를 모은다. 배포 날짜나 빌드 시각을 사용하지 않으며, 열린 카탈로그도 매분 및 탭 복귀 시 만료 상태를 갱신한다. 만료 후에도 원래 카테고리와 상세 주소는 유지된다. 메타데이터가 없는 기존 컴포넌트와 미래·잘못된 날짜는 노출하지 않는다.
+컴포넌트 목록의 `New` 배지는 `addedAt` UTC 날짜부터 30일 동안 표시한다. 배포 날짜나 빌드 시각을 사용하지 않으며, 열린 카탈로그도 매분 및 탭 복귀 시 만료 상태를 갱신한다. 만료 후에도 원래 카테고리와 상세 주소는 유지된다. 메타데이터가 없는 기존 컴포넌트와 미래·잘못된 날짜는 노출하지 않는다.
 
 새 Core/Interaction 항목에는 실제 추가일 `addedAt: 'YYYY-MM-DD'`를 기록한다. 새 컴포넌트의 날짜 누락은 카탈로그 회귀 검사에서 실패한다. 레거시 ID 목록을 늘려 검사를 우회하지 않는다. `getNewestEntries(entries?, now?, windowDays?)`와 `NEWEST_WINDOW_DAYS`는 `/catalog`에서 가져올 수 있다. 서버에서도 사용할 수 있는 순수 함수이며 타이머나 브라우저 API에 의존하지 않는다.
 
@@ -233,11 +233,11 @@ npm run test:browser
 | `MorphingSearch` | `value/defaultValue`, `onValueChange`, `onSearch`, `label`, `placeholder`, `clearLabel`, `closeLabel`, `name`, `disabled`, `defaultOpen`. 독립적인 search form이며 다른 form 안에 중첩하지 않는다. Enter/검색 버튼이 `onSearch(query)`를 호출한다. Escape로 접고 검색 버튼으로 포커스를 돌린다. 값은 접어도 유지하고 지우기는 명시적으로 실행한다. |
 | `ElasticSlider` | `label`, `value/defaultValue`, `onValueChange`, `min/max/step`, `formatValue`, `name/form/ref`, `disabled`, `style`. 수평 range에 실제 폼 값을 유지하고 드래그 중 선을 휘게 한다. 방향키·Home·End는 브라우저의 range 입력이다. 값은 범위와 step에 맞춰 정규화한다. `formatValue`가 화면과 접근성 값 설명에 함께 쓰인다. |
 
-루트에서 가져오며 `system.css`와 `styles.css`를 함께 사용한다. `--mingu-radial-size`, `--mingu-preview-width`, `--mingu-search-width`로 크기를 조정한다. 포인터 스프링·탄성 범위는 `src/system/motion-tokens.ts`에 있다. 모션 감소 설정에서는 링크를 즉시 배치하고 메뉴 이동·검색창 전환·슬라이더 휨을 생략한다. 네 항목도 실제 추가일 기준의 Newest 규칙을 따른다.
+루트에서 가져오며 `system.css`와 `styles.css`를 함께 사용한다. `--mingu-radial-size`, `--mingu-preview-width`, `--mingu-search-width`로 크기를 조정한다. 포인터 스프링·탄성 범위는 `src/system/motion-tokens.ts`에 있다. 모션 감소 설정에서는 링크를 즉시 배치하고 메뉴 이동·검색창 전환·슬라이더 휨을 생략한다. 네 항목도 실제 추가일 기준의 New 배지 규칙을 따른다.
 
 ## Everyday interactions (0.9)
 
-12개 패턴은 패키지 루트에서 가져온다. `system.css`와 `styles.css`를 함께 불러오며, 카탈로그의 각각의 상세 주소에서 같은 구현을 실행한다. 새 항목은 `addedAt` UTC 날짜를 기준으로 Newest에 30일간 표시한다.
+12개 패턴은 패키지 루트에서 가져온다. `system.css`와 `styles.css`를 함께 불러오며, 카탈로그의 각각의 상세 주소에서 같은 구현을 실행한다. 새 항목은 `addedAt` UTC 날짜를 기준으로 New 배지를 30일간 표시한다.
 
 | 컴포넌트 | 주요 API / 사용 기준 |
 | --- | --- |
@@ -267,7 +267,7 @@ npm run test:browser
 | `LoopingTicker` | `label`, `items:{id,content}[]`, `speed=36`(8–120 px/s), `direction='left'|'right'`, `autoPlay=true`. 실제 길이를 측정해 이어지는 스트립을 만든다. Pause/Play 버튼·hover·콘텐츠 내 focus·화면 밖·백그라운드에서 멈춘다. 복제 그룹은 inert/aria-hidden이다. 링크·버튼이 있는 스트립은 hover/focus 시 원본 위치로 돌아가 정적인 원본을 조작하게 한다. 모션 감소와 autoPlay=false에서는 복제본을 숨기고 원본을 수동 가로 스크롤한다. 복제될 content에는 DOM id가 있는 폼이나 상태ful 위젯을 넣지 말고 텍스트·로고·링크처럼 가벼운 콘텐츠를 사용한다. |
 | `RotatingText` | `words`, `label?`, `interval=2400`(800–10000 ms), `autoPlay=true`. 가장 긴 표현의 공간을 확보하고 단어를 전환한다. Pause/Play·hover·화면 밖·백그라운드에서 멈추며 모션 감소에서는 첫 표현을 표시한다. 접근성 트리는 `label` 또는 전체 표현 목록을 한 번 읽고 매 전환을 알리지 않는다. 문장 전체를 설명하는 label을 권장한다. |
 
-루트에서 가져오며 기존 system.css/styles.css와 같은 테마를 사용한다. 새 항목도 UTC 추가일부터 30일 동안 Newest에 표시한다.
+루트에서 가져오며 기존 system.css/styles.css와 같은 테마를 사용한다. 새 항목도 UTC 추가일부터 30일 동안 New 배지를 표시한다.
 
 `AiStatus`는 모든 상태의 20px 아이콘 슬롯과 첫 텍스트 줄을 정렬한다. 회전 문자를 SVG로 바꿔 시스템 폰트에 따른 높이 차이를 제거하고, 긴 label/detail은 줄바꿈하며 타이머는 고정 폭 숫자를 사용한다. 기존 props는 유지한다.
 
@@ -282,7 +282,7 @@ npm run test:browser
 | `HoldToConfirm` | `label`, `onConfirm(): void \| Promise<void>`, `duration=1200`(600–4000ms), `disabled`. 길게 누르는 진행률과 일반 클릭/키보드용 확인 대화상자를 제공한다. 포인터 이탈·취소·blur·백그라운드에서는 진행을 취소하고 작업 중 중복 실행을 막는다. Promise 실패를 표시하며 재시도할 수 있다. `confirmationTitle/confirmationDescription/confirmLabel/cancelLabel/successLabel/errorMessage`로 문구를 바꾼다. 실제 작업은 콜백이 처리한다. |
 | `NumberScrubber` | `label`, `value/defaultValue/onValueChange`, `min/max/step`, `hint/error`, native Input props/ref와 `scrubLabel`. 별도 핸들의 수평 드래그(8px/step), 방향키·Shift+방향키(10step), Home/End와 실제 number 입력을 제공한다. Escape는 진행 중 드래그 시작값으로 돌아간다. 입력 중 초안은 유지하고 blur에서 범위/step에 맞춘다. native `name/form/required/disabled/readOnly`를 유지하며 reset은 uncontrolled 기본값으로 돌아간다. controlled 값은 소비 앱이 관리한다. |
 
-`system.css`와 `styles.css`를 함께 사용한다. 모션 감소에서도 갤러리·프로필·확인·숫자 조작은 유지한다. 카탈로그 데모는 패키지의 실제 구현을 사용하며 서비스 API를 호출하지 않는다. 위 항목도 실제 UTC 추가일부터 30일 동안 Newest에 표시한다.
+`system.css`와 `styles.css`를 함께 사용한다. 모션 감소에서도 갤러리·프로필·확인·숫자 조작은 유지한다. 카탈로그 데모는 패키지의 실제 구현을 사용하며 서비스 API를 호출하지 않는다. 위 항목도 실제 UTC 추가일부터 30일 동안 New 배지를 표시한다.
 
 ## Touch interactions (0.12)
 
@@ -297,7 +297,7 @@ npm run test:browser
 
 `TouchAction`은 `{id,label,icon?,disabled?,danger?,onAction(): void | Promise<void>}`다. id는 같은 액션 목록에서 고유하게 지정한다. 네 컴포넌트는 루트 exports와 기존 `system.css`·`styles.css`를 사용한다. Core Button·BottomSheet를 재사용하고 키보드·Refresh/Actions 같은 명시적 버튼을 함께 제공한다. 모션 감소에서는 스프링·누름 확대를 생략하고 액션과 입력은 유지한다. 운영 데이터 요청·삭제·선택 상태는 소비 앱에 둔다.
 
-당겨 새로고침은 자체 스크롤 영역 안에서만 적용한다. 터치 판별은 [MDN touch-action](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/touch-action)의 제스처 시작·브라우저 스크롤 규칙을 따른다. 실제 iOS/Android 기기의 브라우저·웹뷰 차이는 소비 화면에서도 확인한다. 새 항목의 Newest 표시는 실제 UTC 추가일부터 30일간 유지한다.
+당겨 새로고침은 자체 스크롤 영역 안에서만 적용한다. 터치 판별은 [MDN touch-action](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/touch-action)의 제스처 시작·브라우저 스크롤 규칙을 따른다. 실제 iOS/Android 기기의 브라우저·웹뷰 차이는 소비 화면에서도 확인한다. 새 항목의 New 배지는 실제 UTC 추가일부터 30일간 유지한다.
 
 
 ## Interaction refinements (0.12.2)
@@ -312,7 +312,7 @@ npm run test:browser
 
 ## Experimental playground
 
-`/playground`는 카탈로그와 분리된 큰 실험 화면이다. `/playground/particle-text`, `/playground/spatial-board`, `/playground/sound-pad`에 직접 접근할 수 있다. 각 실험은 패키지 루트에서 같은 구현을 export하며, 개별 컴포넌트 페이지와 Newest에서도 사용할 수 있다. 추가일은 2026-10-23 UTC다. 기존 컴포넌트의 추가일은 갱신하지 않는다.
+`/playground`는 카탈로그와 분리된 큰 실험 화면이다. `/playground/particle-text`, `/playground/spatial-board`, `/playground/sound-pad`에 직접 접근할 수 있다. 각 실험은 패키지 루트에서 같은 구현을 export하며, 개별 컴포넌트 페이지와 전체 갤러리에서도 사용할 수 있다. 추가일은 2026-10-23 UTC다. 기존 컴포넌트의 추가일은 갱신하지 않는다.
 
 ```tsx
 import { DesignSystemProvider, ParticleText, SpatialBoard, SoundPad } from '@mingu/interaction-ui';
@@ -368,24 +368,24 @@ Tear mode에서는 드래그한 위치 주변의 연결을 끊는다. 키보드�
 
 중심과 각 궤도의 손잡이를 직접 드래그하거나 방향키(8px, Shift 24px)로 움직인다. 중심은 화면의 5–95% 안으로 제한하고 개별 반경은 짧은 변의 0.02–0.3배(Reach 적용 전)로 제한한다. 중심을 가장자리로 옮기거나 반경을 크게 늘리면 일부 궤도가 표면 밖으로 나갈 수 있다. Reset이나 Reach 축소로 전체를 다시 볼 수 있다. 손잡이에 포커스가 있으면 움직임을 멈춰 키보드 편집이 가능하며 Tab으로 떠나면 재개한다. 포인터로 드래그한 뒤에는 손잡이에서 포커스를 옮겨 자동으로 재개한다. Pause는 별도로 유지되는 수동 정지 상태다. Draw a cycle은 현재 속도와 위상으로 한 주기를 즉시 계산해 정지 상태에서도 궤적을 만든다. Hide/Show trail·Clear trail을 제공하고, 모션 감소에서는 정적 궤도와 수동 편집을 유지한다.
 
-새 세 실험은 `/playground/cloth-playground`, `/playground/fluid-sandbox`, `/playground/orbit-composer`에 있다. 개별 카탈로그와 Newest에서도 같은 구현을 사용한다. 모바일은 손잡이의 직접 터치를 지원하고, 표면 전체의 터치 제스처는 Touch interaction을 켰을 때만 사용한다. 선택하지 않은 표면에서는 세로 스크롤과 핀치 확대를 보존한다.
+새 세 실험은 `/playground/cloth-playground`, `/playground/fluid-sandbox`, `/playground/orbit-composer`에 있다. 개별 카탈로그와 전체 갤러리에서도 같은 구현을 사용한다. 모바일은 손잡이의 직접 터치를 지원하고, 표면 전체의 터치 제스처는 Touch interaction을 켰을 때만 사용한다. 선택하지 않은 표면에서는 세로 스크롤과 핀치 확대를 보존한다.
 
 ## Interactive lab (0.15)
 
-StickerPeel, ElasticMesh, ImageParticleMorph, DitherReveal, FluidGlassLens, Lanyard, DomeGallery, FoldablePaper, WebcamPixelGrid, ImageRelighting. 라이브 카탈로그와 `/playground/<id>`에서 같은 구현을 사용한다. [API와 입력·성능·권한 규칙](./docs/collections/lab.md). 새 항목은 실제 추가일로부터 30일 동안 Newest에 표시한다.
+StickerPeel, ElasticMesh, ImageParticleMorph, DitherReveal, FluidGlassLens, Lanyard, DomeGallery, FoldablePaper, WebcamPixelGrid, ImageRelighting. 라이브 카탈로그와 `/playground/<id>`에서 같은 구현을 사용한다. [API와 입력·성능·권한 규칙](./docs/collections/lab.md). 새 항목은 실제 추가일로부터 30일 동안 New 배지를 표시한다.
 
 ## Navigation and scroll (0.16.0)
 
-PageTransition, DynamicStatusIsland, AnimatedMegaMenu, SortableGrid, CardNavigation, ScrollStack, StickyScrollStory, FooterReveal, ScrollExpandMedia, CoverflowCarousel. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/navigation.md).
+PageTransition, DynamicStatusIsland, AnimatedMegaMenu, SortableGrid, CardNavigation, ScrollStack, StickyScrollStory, FooterReveal, ScrollExpandMedia, CoverflowCarousel. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/navigation.md).
 
 ## Media and workspace (0.17.0)
 
-SplitFlapDisplay, VariableFontProximity, VerticalReel, StoryViewer, VideoPlayer, ImageCropper, CalendarBoard, GanttTimeline, KanbanBoard, FileTree. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/media.md).
+SplitFlapDisplay, VariableFontProximity, VerticalReel, StoryViewer, VideoPlayer, ImageCropper, CalendarBoard, GanttTimeline, KanbanBoard, FileTree. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/media.md).
 
 ## Interactive tools (0.18.0)
 
-TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashCommandEditor, ChartRangeNavigator, CarouselScrubber, DialogStack, LiveCodeSandbox. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/tools.md).
+TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashCommandEditor, ChartRangeNavigator, CarouselScrubber, DialogStack, LiveCodeSandbox. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/tools.md).
 
 ## AI workbench (0.19.0)
 
-PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter, ArtifactPanel, Checkpoint, ModelSelector, VoiceInput, StreamingTerminal. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/ai.md).
+PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter, ArtifactPanel, Checkpoint, ModelSelector, VoiceInput, StreamingTerminal. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/ai.md).

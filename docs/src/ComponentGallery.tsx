@@ -19,6 +19,7 @@ import SystemComponentDemo from "./SystemComponentDemo";
 import type { ComponentId } from "./catalog";
 import type { SystemComponentId } from "@mingu/interaction-ui/system";
 import "./newest-preview.css";
+import { useNewestEntries } from "./useNewestEntries";
 const scenes = new Set<string>(playgroundExperiments.map((item) => item.id));
 const workspaces = new Set([
   "page-transition",
@@ -129,15 +130,16 @@ function usage(entry: UiCatalogEntry) {
   ).join(", ");
   return `import { ${imports} } from '@mingu/interaction-ui';\nimport '@mingu/interaction-ui/system.css';\nimport '@mingu/interaction-ui/styles.css';\n\n${entry.code}`;
 }
-export default function NewestPreview({
+export default function ComponentGallery({
   entries,
-  label = "Newest",
+  label = "Components",
   filterable = true,
 }: {
   entries: readonly UiCatalogEntry[];
   label?: string;
   filterable?: boolean;
 }) {
+  const newIds = new Set(useNewestEntries().map((entry) => entry.id));
   const [expanded, setExpanded] = useState<UiCatalogEntry | null>(null),
     [tab, setTab] = useState("preview");
   const [category, setCategory] = useState("all"),
@@ -159,8 +161,8 @@ export default function NewestPreview({
   if (!entries.length)
     return (
       <EmptyState
-        title="All caught up"
-        description="새 컴포넌트가 추가되면 이곳에서 30일 동안 먼저 볼 수 있습니다."
+        title="표시할 컴포넌트가 없습니다"
+        description="전체 카탈로그에서 컴포넌트를 찾아보세요."
         action={<Link href="/all">전체 카탈로그 보기 →</Link>}
       />
     );
@@ -170,13 +172,13 @@ export default function NewestPreview({
         <div className="ui-gallery-tools">
           <TextField
             type="search"
-            label="새 컴포넌트 검색"
+            label="컴포넌트 검색"
             placeholder="이름, 설명, 키워드…"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
           <SelectField
-            label="Newest 카테고리"
+            label="컴포넌트 카테고리"
             value={category}
             onChange={(event) => setCategory(event.target.value)}
           >
@@ -238,7 +240,12 @@ export default function NewestPreview({
                     aria-label={`${entry.name} 크게 보기`}
                     onClick={() => expand(entry)}
                   >
-                    <strong>{entry.name}</strong>
+                    <span className="ui-gallery-title-row">
+                      <strong>{entry.name}</strong>
+                      {newIds.has(entry.id) && (
+                        <span className="ui-new-badge">New</span>
+                      )}
+                    </span>
                     <span>
                       {entry.group} ·{" "}
                       {entry.kind === "core" ? "Core" : "Interaction"}

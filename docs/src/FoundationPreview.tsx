@@ -95,9 +95,9 @@ export default function FoundationPreview() {
       <Stack direction="row" gap={3}>
         <Link
           className="mingu-button mingu-button-outline mingu-control-md"
-          href="/newest"
+          href="/all"
         >
-          Newest interactions ↗
+          All components ↗
         </Link>
         <Link
           className="mingu-button mingu-button-primary mingu-control-md"

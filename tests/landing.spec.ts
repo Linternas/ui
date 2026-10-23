@@ -34,6 +34,7 @@ test("landing starts with one live sculpture, real inventory and deferred lower 
     "Built tofeel right.",
   );
   await expect(page).toHaveTitle("Mingu UI — Built to feel right.");
+  await expect(page.locator('a[href="/newest"]')).toHaveCount(0);
   await expect(page.locator(".landing-facts")).toContainText(String(count));
   await expect(page.locator("canvas")).toHaveCount(1);
   await expect(page.getByTestId("landing-bench")).toHaveCount(0);

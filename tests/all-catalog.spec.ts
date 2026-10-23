@@ -109,7 +109,7 @@ test("dark mobile inventory stays within the viewport and supports keyboard view
   ).toBeLessThanOrEqual(1);
 });
 
-for (const selected of ["all", "newest"]) {
+for (const selected of ["all"]) {
   test(`${selected} gallery uses the entire viewport at desktop and mobile widths`, async ({
     page,
   }) => {
@@ -142,3 +142,36 @@ for (const selected of ["all", "newest"]) {
     }
   });
 }
+
+test("New badges remain in live tiles and text lists without a Newest page link", async ({
+  page,
+}) => {
+  await page.clock.setFixedTime(new Date("2026-10-23T12:00:00Z"));
+  await page.goto("/?catalog-shell&selected=all");
+  await expect(
+    page.locator(
+      'a[href="/newest"], a[href="/lab/ui/newest"], option[value="newest"]',
+    ),
+  ).toHaveCount(0);
+  await expect(
+    page.locator(
+      '.ui-newest-card[data-preview-id="prompt-composer"] .ui-new-badge',
+    ),
+  ).toHaveText("New");
+  await expect(
+    page.locator('.ui-newest-card[data-preview-id="button"] .ui-new-badge'),
+  ).toHaveCount(0);
+  await page.getByText("목록", { exact: true }).click();
+  await expect(
+    page.locator('.ui-all-list a[href="/prompt-composer"] .ui-new-badge'),
+  ).toHaveText("New");
+  await expect(
+    page.locator('.ui-all-list a[href="/button"] .ui-new-badge'),
+  ).toHaveCount(0);
+  await page.clock.setFixedTime(new Date("2026-11-23T12:00:00Z"));
+  await page.reload();
+  await expect(
+    page.locator('.ui-newest-card[data-preview-id="prompt-composer"]'),
+  ).toHaveCount(1);
+  await expect(page.locator(".ui-new-badge")).toHaveCount(0);
+});
