@@ -1,3 +1,4 @@
+import ToolsCollectionPreview from "./ToolsCollectionPreview";
 import MediaCollectionPreview from "./MediaCollectionPreview";
 import NavigationCollectionPreview from "./NavigationCollectionPreview";
 import LabCollectionPreview from "./LabCollectionPreview";
@@ -32,5 +33,20 @@ export default function CollectionPreview({ id }: { id: string }) {
     ].includes(id)
   )
     return <MediaCollectionPreview id={id} />;
+  if (
+    [
+      "tag-input",
+      "wheel-picker",
+      "color-picker",
+      "bezier-editor",
+      "collaborative-cursor",
+      "slash-command-editor",
+      "chart-range-navigator",
+      "carousel-scrubber",
+      "dialog-stack",
+      "live-code-sandbox",
+    ].includes(id)
+  )
+    return <ToolsCollectionPreview id={id} />;
   return <LabCollectionPreview id={id} />;
 }

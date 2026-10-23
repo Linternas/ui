@@ -1,3 +1,4 @@
+import { toolsCatalog, toolsExamples } from "../collections/tools.catalog";
 import { mediaCatalog, mediaExamples } from "../collections/media.catalog";
 import {
   navigationCatalog,
@@ -5,6 +6,7 @@ import {
 } from "../collections/navigation.catalog";
 import { labCatalog, labExamples } from "../collections/lab.catalog";
 export const interactionCatalog = [
+  ...toolsCatalog,
   ...mediaCatalog,
   ...navigationCatalog,
   ...labCatalog,
@@ -586,6 +588,7 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
+  ...toolsExamples,
   ...mediaExamples,
   ...navigationExamples,
   ...labExamples,

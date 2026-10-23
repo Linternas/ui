@@ -132,6 +132,18 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "tag-input":
+    case "wheel-picker":
+    case "color-picker":
+    case "bezier-editor":
+    case "collaborative-cursor":
+    case "slash-command-editor":
+    case "chart-range-navigator":
+    case "carousel-scrubber":
+    case "dialog-stack":
+    case "live-code-sandbox":
+      return <CollectionPreview id={id} />;
+
     case "split-flap-display":
     case "variable-font-proximity":
     case "vertical-reel":

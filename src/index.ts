@@ -178,3 +178,5 @@ export * from "./collections/lab";
 export * from "./collections/navigation";
 
 export * from "./collections/media";
+
+export * from "./collections/tools";

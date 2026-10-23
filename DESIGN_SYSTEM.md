@@ -379,3 +379,7 @@ PageTransition, DynamicStatusIsland, AnimatedMegaMenu, SortableGrid, CardNavigat
 ## Media and workspace (0.17.0)
 
 SplitFlapDisplay, VariableFontProximity, VerticalReel, StoryViewer, VideoPlayer, ImageCropper, CalendarBoard, GanttTimeline, KanbanBoard, FileTree. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/media.md).
+
+## Interactive tools (0.18.0)
+
+TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashCommandEditor, ChartRangeNavigator, CarouselScrubber, DialogStack, LiveCodeSandbox. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/tools.md).
