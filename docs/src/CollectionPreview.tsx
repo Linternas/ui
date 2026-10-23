@@ -1,3 +1,4 @@
+import AiCollectionPreview from "./AiCollectionPreview";
 import ToolsCollectionPreview from "./ToolsCollectionPreview";
 import MediaCollectionPreview from "./MediaCollectionPreview";
 import NavigationCollectionPreview from "./NavigationCollectionPreview";
@@ -48,5 +49,20 @@ export default function CollectionPreview({ id }: { id: string }) {
     ].includes(id)
   )
     return <ToolsCollectionPreview id={id} />;
+  if (
+    [
+      "prompt-composer",
+      "tool-execution-panel",
+      "plan-review",
+      "approval-card",
+      "context-usage-meter",
+      "artifact-panel",
+      "checkpoint",
+      "model-selector",
+      "voice-input",
+      "streaming-terminal",
+    ].includes(id)
+  )
+    return <AiCollectionPreview id={id} />;
   return <LabCollectionPreview id={id} />;
 }

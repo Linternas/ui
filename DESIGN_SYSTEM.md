@@ -383,3 +383,7 @@ SplitFlapDisplay, VariableFontProximity, VerticalReel, StoryViewer, VideoPlayer,
 ## Interactive tools (0.18.0)
 
 TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashCommandEditor, ChartRangeNavigator, CarouselScrubber, DialogStack, LiveCodeSandbox. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/tools.md).
+
+## AI workbench (0.19.0)
+
+PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter, ArtifactPanel, Checkpoint, ModelSelector, VoiceInput, StreamingTerminal. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/ai.md).

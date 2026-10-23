@@ -132,6 +132,18 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "prompt-composer":
+    case "tool-execution-panel":
+    case "plan-review":
+    case "approval-card":
+    case "context-usage-meter":
+    case "artifact-panel":
+    case "checkpoint":
+    case "model-selector":
+    case "voice-input":
+    case "streaming-terminal":
+      return <CollectionPreview id={id} />;
+
     case "tag-input":
     case "wheel-picker":
     case "color-picker":

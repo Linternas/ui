@@ -23,6 +23,7 @@ Use existing components and semantic tokens first. Keep product APIs, authentica
 | Button, copy, floating field, segmented and card interactions | `src/system/micro-interactions.tsx` |
 | Shared spring settings | `src/system/motion-tokens.ts` |
 | Interaction components and reading utilities | `src/*.tsx`, `src/useReadingPosition.ts` |
+| Lab, navigation, media, tools and AI collections | `src/collections/*.{tsx,css,catalog.ts}`, `docs/collections/*.md` |
 | Interaction styles | `styles.css`, `interaction.css` |
 | Public exports | `src/index.ts`, `src/system/index.tsx`, `package.json` |
 | Unified catalog metadata | `src/system/ui-catalog.ts` |
@@ -46,7 +47,7 @@ Inspect existing implementations near the change before adding a new abstraction
 - Default screens should remain calm and readable. Larger interactions are opt-in; respect reduced motion and touch input.
 - Reuse the same implementation in the package and catalog. Demos must show real component behavior.
 - For a new component, set `addedAt: "YYYY-MM-DD"` to its actual UTC release date in catalog metadata. Newest and New badges automatically expire after 30 days; do not renew dates on unrelated redeploys. The legacy ID fixture exempts older undated entries and must not be extended for new components.
-- For a new component, update the appropriate exports, catalog metadata, live preview and API documentation together. Check the unified catalog before registering a duplicate.
+- For a new component, update the appropriate exports, catalog metadata, live preview and API documentation together. Check the unified catalog before registering a duplicate. Collection metadata lives alongside the implementation and is composed into `src/system/interaction-catalog.ts`; collection CSS is imported by `styles.css`. Keep the live preview dispatcher and its browser fixture connected to the same implementation.
 - Document breaking API changes and migration steps; do not silently rename or remove exports.
 
 ## Local commands
@@ -65,7 +66,7 @@ npm start
 
 Run checks relevant to the change:
 
-- Package/API change: `npm run typecheck`.
+- Package/API change: `npm run typecheck`; collection exports also run `npm run test:ssr` (classic JSX, no browser globals).
 - Catalog change: `npm run typecheck:docs` and `npm run build`; inspect affected pages on desktop and mobile.
 - Interaction/accessibility change: `npm run test:browser`. Install the browser with `npx playwright install chromium`, or use `PLAYWRIGHT_CHANNEL=chrome npm run test:browser` with installed Chrome.
 - Build, routing or server change: `npm run test:docs` (builds and tests the HTTP server).

@@ -1,0 +1,756 @@
+.mingu-collection-ai-composer,
+.mingu-collection-ai-tool,
+.mingu-collection-ai-plan,
+.mingu-collection-ai-approval,
+.mingu-collection-ai-context,
+.mingu-collection-ai-artifact,
+.mingu-collection-ai-checkpoint,
+.mingu-collection-ai-voice,
+.mingu-collection-ai-terminal {
+  width: 100%;
+  min-width: 0;
+  color: var(--mingu-text);
+  font-family: var(--mingu-font-sans);
+  background: var(--mingu-surface);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+}
+.mingu-collection-ai-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.mingu-collection-ai-hint {
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+  line-height: 1.6;
+}
+.mingu-collection-ai-error {
+  color: var(--mingu-danger);
+  font-size: var(--mingu-text-sm);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.mingu-collection-ai-eyebrow {
+  font-size: var(--mingu-text-xs);
+  letter-spacing: 0.08em;
+  color: var(--mingu-muted);
+}
+.mingu-collection-ai-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mingu-space-3);
+  flex-wrap: wrap;
+}
+.mingu-collection-ai-toolbar > div,
+.mingu-collection-ai-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-2);
+  flex-wrap: wrap;
+}
+.mingu-collection-ai-composer {
+  padding: var(--mingu-space-4);
+  display: grid;
+  gap: var(--mingu-space-3);
+  transition: border-color var(--mingu-duration-fast);
+  box-shadow: var(--mingu-shadow);
+}
+.mingu-collection-ai-composer:focus-within {
+  border-color: var(--mingu-accent);
+}
+.mingu-collection-ai-composer > textarea {
+  background: transparent;
+  border: 0;
+  padding: var(--mingu-space-1) 0;
+  resize: vertical;
+  min-height: 90px;
+  max-height: 260px;
+  box-shadow: none;
+}
+.mingu-collection-ai-composer > textarea:focus-visible {
+  outline: 0;
+  box-shadow: none;
+}
+.mingu-collection-ai-composer > .mingu-collection-ai-hint {
+  margin: 0;
+  font-size: var(--mingu-text-xs);
+}
+.mingu-collection-ai-files {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-2);
+}
+.mingu-collection-ai-files > li {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-2);
+  padding: var(--mingu-space-2);
+  background: var(--mingu-raised);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  font-size: var(--mingu-text-sm);
+  max-width: 100%;
+}
+.mingu-collection-ai-files > li > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.mingu-collection-ai-files small {
+  display: block;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+}
+.mingu-collection-ai-tool details > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--mingu-space-3);
+  padding: var(--mingu-space-4);
+  cursor: pointer;
+  min-height: 56px;
+  list-style: none;
+}
+.mingu-collection-ai-tool details > summary::-webkit-details-marker {
+  display: none;
+}
+.mingu-collection-ai-tool details > summary:after {
+  content: "+";
+  margin-left: auto;
+}
+.mingu-collection-ai-tool details[open] > summary:after {
+  content: "−";
+}
+.mingu-collection-ai-tool details > summary strong {
+  font-size: var(--mingu-text-sm);
+  overflow-wrap: anywhere;
+}
+.mingu-collection-ai-tool details > summary small {
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+}
+.mingu-collection-ai-tool-glyph {
+  display: grid;
+  place-items: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+  line-height: 1;
+}
+.mingu-collection-ai-tool[data-status="success"]
+  .mingu-collection-ai-tool-glyph {
+  color: var(--mingu-success);
+  background: var(--mingu-success-soft);
+}
+.mingu-collection-ai-tool[data-status="error"] .mingu-collection-ai-tool-glyph {
+  color: var(--mingu-danger);
+  background: var(--mingu-danger-soft);
+}
+.mingu-collection-ai-tool[data-status="running"]
+  .mingu-collection-ai-tool-glyph {
+  animation: mingu-collection-ai-spin 2s linear infinite;
+}
+.mingu-collection-ai-pill {
+  font-size: var(--mingu-text-xs);
+  font-weight: 500;
+  color: var(--mingu-muted);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-full);
+  padding: 3px 8px;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+.mingu-collection-ai-tool-body {
+  border-top: 1px solid var(--mingu-border);
+  padding: var(--mingu-space-4);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--mingu-space-4);
+}
+.mingu-collection-ai-tool-body > * {
+  min-width: 0;
+}
+.mingu-collection-ai-tool-body pre,
+.mingu-collection-ai-artifact > pre {
+  margin: var(--mingu-space-2) 0 0;
+  padding: var(--mingu-space-4);
+  border-radius: var(--mingu-radius-md);
+  font-family: var(--mingu-font-mono);
+  font-size: var(--mingu-text-xs);
+  line-height: 1.8;
+  background: var(--mingu-raised);
+  overflow: auto;
+  max-height: 280px;
+  tab-size: 2;
+}
+.mingu-collection-ai-plan,
+.mingu-collection-ai-approval {
+  padding: var(--mingu-space-5);
+  display: grid;
+  gap: var(--mingu-space-4);
+}
+.mingu-collection-ai-section-heading h3,
+.mingu-collection-ai-approval h3 {
+  margin: var(--mingu-space-2) 0 0;
+  font-size: var(--mingu-text-xl);
+  letter-spacing: -0.03em;
+}
+.mingu-collection-ai-plan ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mingu-collection-ai-plan li {
+  padding: var(--mingu-space-4) 0;
+  border-bottom: 1px solid var(--mingu-border);
+}
+.mingu-collection-ai-plan li:last-child {
+  border-bottom: 0;
+}
+.mingu-collection-ai-plan-line {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--mingu-space-3);
+  align-items: center;
+}
+.mingu-collection-ai-plan-line > *:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.mingu-collection-ai-step-description {
+  margin: var(--mingu-space-2) 0 0;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+  line-height: 1.7;
+}
+.mingu-collection-ai-plan li[data-status="complete"] .mingu-collection-ai-pill {
+  color: var(--mingu-success);
+}
+.mingu-collection-ai-plan li[data-status="error"] .mingu-collection-ai-pill {
+  color: var(--mingu-danger);
+}
+.mingu-collection-ai-approval > h3,
+.mingu-collection-ai-approval > div.mingu-collection-ai-hint {
+  margin: 0;
+}
+.mingu-collection-ai-approval-summary {
+  border-left: 2px solid var(--mingu-accent);
+  background: var(--mingu-raised);
+  padding: var(--mingu-space-4);
+  border-radius: 0 var(--mingu-radius-md) var(--mingu-radius-md) 0;
+  line-height: 1.8;
+}
+.mingu-collection-ai-approval-summary del {
+  color: var(--mingu-muted);
+  display: block;
+}
+.mingu-collection-ai-approval-summary ins {
+  text-decoration: none;
+  display: block;
+  font-weight: 600;
+}
+.mingu-collection-ai-decision {
+  margin: 0;
+  font-size: var(--mingu-text-sm);
+  font-weight: 600;
+}
+.mingu-collection-ai-approval[data-decision="approved"]
+  .mingu-collection-ai-decision {
+  color: var(--mingu-success);
+}
+.mingu-collection-ai-context {
+  overflow: hidden;
+}
+.mingu-collection-ai-context > button {
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  border: 0;
+  font: inherit;
+  display: flex;
+  gap: var(--mingu-space-4);
+  align-items: center;
+  padding: var(--mingu-space-4);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  min-height: 80px;
+}
+.mingu-collection-ai-context > button > svg {
+  flex: 0 0 48px;
+}
+.mingu-collection-ai-context > button > span:first-of-type {
+  display: grid;
+  gap: var(--mingu-space-1);
+  min-width: 0;
+}
+.mingu-collection-ai-context > button > span:last-of-type {
+  margin-left: auto;
+}
+.mingu-collection-ai-context > button strong {
+  font-size: var(--mingu-text-sm);
+}
+.mingu-collection-ai-context > button small {
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+}
+.mingu-collection-ai-context > div:not([hidden]) {
+  border-top: 1px solid var(--mingu-border);
+  padding: var(--mingu-space-4);
+}
+.mingu-collection-ai-context dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--mingu-space-4);
+}
+.mingu-collection-ai-context dt {
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+}
+.mingu-collection-ai-context dd {
+  margin: var(--mingu-space-1) 0 0;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--mingu-text-lg);
+}
+.mingu-collection-ai-artifact {
+  overflow: hidden;
+}
+.mingu-collection-ai-artifact > header,
+.mingu-collection-ai-terminal > header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--mingu-space-3);
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--mingu-space-4);
+  border-bottom: 1px solid var(--mingu-border);
+}
+.mingu-collection-ai-artifact h3 {
+  font-size: var(--mingu-text-md);
+  margin: var(--mingu-space-1) 0 0;
+}
+.mingu-collection-ai-artifact > textarea {
+  border: 0;
+  border-radius: 0;
+  min-height: 240px;
+  max-height: 480px;
+  font-family: var(--mingu-font-mono);
+  font-size: var(--mingu-text-xs);
+  line-height: 1.8;
+  background: var(--mingu-raised);
+  resize: vertical;
+  padding: var(--mingu-space-4);
+}
+.mingu-collection-ai-artifact > pre {
+  margin: 0;
+  border-radius: 0;
+  min-height: 160px;
+}
+.mingu-collection-ai-artifact-tabs {
+  display: flex;
+  gap: var(--mingu-space-1);
+  padding: var(--mingu-space-2) var(--mingu-space-4);
+  border-bottom: 1px solid var(--mingu-border);
+}
+.mingu-collection-ai-artifact-preview {
+  padding: var(--mingu-space-5);
+  min-height: 220px;
+  overflow-wrap: anywhere;
+}
+.mingu-collection-ai-artifact > footer,
+.mingu-collection-ai-terminal > footer {
+  padding: var(--mingu-space-3) var(--mingu-space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mingu-space-3);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--mingu-border);
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+}
+.mingu-collection-ai-checkpoint {
+  display: flex;
+  gap: var(--mingu-space-3);
+  border: 0;
+  border-radius: 0;
+  padding: var(--mingu-space-4) 0;
+  background: transparent;
+}
+.mingu-collection-ai-checkpoint-marker {
+  color: var(--mingu-muted);
+  padding-top: 12px;
+  width: 20px;
+  flex: 0 0 20px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.mingu-collection-ai-checkpoint-marker:after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  bottom: -16px;
+  left: 50%;
+  border-left: 1px solid var(--mingu-border);
+}
+.mingu-collection-ai-checkpoint[data-current="true"]
+  .mingu-collection-ai-checkpoint-marker {
+  color: var(--mingu-accent);
+}
+.mingu-collection-ai-checkpoint-main {
+  flex: 1;
+  min-width: 0;
+}
+.mingu-collection-ai-checkpoint h3 {
+  margin: 0;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-collection-ai-checkpoint-main > p {
+  margin: var(--mingu-space-2) 0;
+}
+.mingu-collection-ai-checkpoint-main > details {
+  margin-top: var(--mingu-space-3);
+  font-size: var(--mingu-text-sm);
+}
+.mingu-collection-ai-checkpoint-main summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.mingu-collection-ai-checkpoint-confirm {
+  padding: var(--mingu-space-4);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+  margin-top: var(--mingu-space-3);
+}
+.mingu-collection-ai-checkpoint-confirm > p {
+  margin: 0 0 var(--mingu-space-3);
+  font-size: var(--mingu-text-sm);
+  line-height: 1.6;
+}
+.mingu-collection-ai-model {
+  min-width: 0;
+}
+.mingu-collection-ai-model-list {
+  max-height: 300px;
+  overflow: auto;
+  display: grid;
+  gap: var(--mingu-space-2);
+  margin-top: var(--mingu-space-4);
+  scrollbar-width: thin;
+}
+.mingu-collection-ai-model-list > button {
+  appearance: none;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--mingu-radius-md);
+  display: flex;
+  gap: var(--mingu-space-3);
+  align-items: center;
+  padding: var(--mingu-space-3);
+  min-height: 64px;
+  cursor: pointer;
+  width: 100%;
+}
+.mingu-collection-ai-model-list > button[data-active="true"] {
+  border-color: var(--mingu-border);
+  background: var(--mingu-raised);
+}
+.mingu-collection-ai-model-list > button[aria-selected="true"] {
+  border-color: var(--mingu-accent);
+}
+.mingu-collection-ai-model-list > button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.mingu-collection-ai-model-provider {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  background: var(--mingu-accent-soft);
+  color: var(--mingu-accent);
+  border-radius: var(--mingu-radius-md);
+  display: grid;
+  place-items: center;
+  font-size: var(--mingu-text-xs);
+}
+.mingu-collection-ai-model-list > button > span:nth-child(2) {
+  min-width: 0;
+  flex: 1;
+}
+.mingu-collection-ai-model-list strong {
+  font-size: var(--mingu-text-sm);
+  display: block;
+}
+.mingu-collection-ai-model-list small {
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+  display: block;
+  margin-top: var(--mingu-space-1);
+  overflow-wrap: anywhere;
+}
+.mingu-collection-ai-model-list > button > span:last-child {
+  font-size: var(--mingu-text-xs);
+}
+.mingu-collection-ai-voice {
+  padding: var(--mingu-space-5);
+  display: grid;
+  gap: var(--mingu-space-4);
+}
+.mingu-collection-ai-voice-top {
+  display: flex;
+  gap: var(--mingu-space-4);
+  align-items: flex-start;
+}
+.mingu-collection-ai-voice-top strong {
+  font-size: var(--mingu-text-lg);
+  letter-spacing: -0.02em;
+}
+.mingu-collection-ai-voice-top p {
+  margin: var(--mingu-space-2) 0 0;
+}
+.mingu-collection-ai-voice-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  flex: 0 0 44px;
+  height: 44px;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-full);
+}
+.mingu-collection-ai-voice-wave > i {
+  width: 2px;
+  height: 8px;
+  background: var(--mingu-accent);
+  border-radius: 2px;
+}
+.mingu-collection-ai-voice-wave > i:nth-child(2),
+.mingu-collection-ai-voice-wave > i:nth-child(4) {
+  height: 14px;
+}
+.mingu-collection-ai-voice-wave > i:nth-child(3) {
+  height: 20px;
+}
+.mingu-collection-ai-voice-wave[data-listening="true"] > i {
+  animation: mingu-collection-ai-wave 600ms ease-in-out infinite alternate;
+}
+.mingu-collection-ai-interim {
+  color: var(--mingu-muted);
+  font-style: italic;
+  font-size: var(--mingu-text-sm);
+  margin: 0;
+}
+.mingu-collection-ai-terminal {
+  overflow: hidden;
+}
+.mingu-collection-ai-terminal > header > strong {
+  font-size: var(--mingu-text-sm);
+}
+.mingu-collection-ai-terminal-search {
+  padding: var(--mingu-space-3) var(--mingu-space-4);
+  border-bottom: 1px solid var(--mingu-border);
+}
+.mingu-collection-ai-terminal-search .mingu-field {
+  gap: var(--mingu-space-1);
+}
+.mingu-collection-ai-terminal-output {
+  max-height: 280px;
+  min-height: 200px;
+  overflow: auto;
+  padding: var(--mingu-space-3) 0;
+  background: var(--mingu-raised);
+  font-family: var(--mingu-font-mono);
+  scrollbar-width: thin;
+}
+.mingu-collection-ai-terminal-line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--mingu-space-3);
+  padding: var(--mingu-space-1) var(--mingu-space-4);
+  min-width: max-content;
+}
+.mingu-collection-ai-terminal-line > time {
+  color: var(--mingu-muted);
+  font-size: 10px;
+  white-space: nowrap;
+}
+.mingu-collection-ai-terminal-line pre {
+  margin: 0;
+  font: inherit;
+  font-size: var(--mingu-text-xs);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  min-width: 0;
+}
+.mingu-collection-ai-terminal-level {
+  color: var(--mingu-muted);
+  font-size: 10px;
+  min-width: 42px;
+}
+.mingu-collection-ai-terminal-line[data-level="error"]
+  .mingu-collection-ai-terminal-level {
+  color: var(--mingu-danger);
+}
+.mingu-collection-ai-terminal-line[data-level="success"]
+  .mingu-collection-ai-terminal-level {
+  color: var(--mingu-success);
+}
+.mingu-collection-ai-terminal-line[data-level="warning"]
+  .mingu-collection-ai-terminal-level {
+  color: var(--mingu-warning);
+}
+.mingu-collection-ai-terminal-output > .mingu-collection-ai-hint {
+  padding-inline: var(--mingu-space-4);
+  font-family: var(--mingu-font-sans);
+}
+.mingu-collection-ai-context > button:focus-visible,
+.mingu-collection-ai-tool summary:focus-visible,
+.mingu-collection-ai-terminal-output:focus-visible,
+.mingu-collection-ai-model-list > button:focus-visible,
+.mingu-collection-ai-checkpoint summary:focus-visible {
+  outline: var(--mingu-focus-width) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset);
+}
+@keyframes mingu-collection-ai-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes mingu-collection-ai-wave {
+  to {
+    transform: scaleY(0.35);
+  }
+}
+@media (max-width: 480px) {
+  .mingu-collection-ai-plan,
+  .mingu-collection-ai-approval,
+  .mingu-collection-ai-voice {
+    padding: var(--mingu-space-4);
+  }
+  .mingu-collection-ai-plan-line {
+    align-items: flex-start;
+  }
+  .mingu-collection-ai-composer .mingu-collection-ai-toolbar > div {
+    gap: var(--mingu-space-1);
+  }
+  .mingu-collection-ai-terminal-line {
+    gap: var(--mingu-space-2);
+  }
+  .mingu-collection-ai-terminal-line > time {
+    display: none;
+  }
+  .mingu-collection-ai-terminal > header > .mingu-collection-ai-nav-actions {
+    gap: 0;
+  }
+  .mingu-collection-ai-terminal > header button {
+    padding-inline: var(--mingu-space-2);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-collection-ai-composer {
+    transition: none;
+  }
+  .mingu-collection-ai-tool-glyph,
+  .mingu-collection-ai-voice-wave > i {
+    animation: none !important;
+  }
+}
+/* Catalog frames only; the demos exercise the package components above. */
+.mingu-collection-ai-demo {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--mingu-space-4);
+}
+.mingu-collection-ai-demo > button {
+  justify-self: start;
+}
+.mingu-collection-ai-demo > p {
+  margin: 0;
+}
+.mingu-collection-ai-demo-centered {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mingu-space-5);
+  text-align: center;
+}
+.mingu-collection-ai-demo-centered p {
+  margin: 0;
+  max-width: 38ch;
+}
+.mingu-collection-ai-demo-drafts {
+  display: grid;
+  gap: var(--mingu-space-3);
+}
+.mingu-collection-ai-demo-drafts article {
+  border-left: 2px solid var(--mingu-accent);
+  padding: var(--mingu-space-4);
+  background: var(--mingu-raised);
+  border-radius: 0 var(--mingu-radius-md) var(--mingu-radius-md) 0;
+}
+.mingu-collection-ai-demo-drafts p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+  margin: var(--mingu-space-2) 0;
+}
+.mingu-collection-ai-demo-drafts small {
+  display: block;
+  color: var(--mingu-muted);
+}
+.mingu-collection-ai-demo-output {
+  margin: 0;
+  padding: var(--mingu-space-4);
+  background: var(--mingu-raised);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  font-family: var(--mingu-font-mono);
+  font-size: var(--mingu-text-xs);
+  line-height: 1.8;
+  overflow: auto;
+}
+.mingu-collection-ai-demo-document {
+  font-family: var(--mingu-font-sans);
+  line-height: 1.7;
+}
+.mingu-collection-ai-demo-document h3 {
+  font-size: var(--mingu-text-xl);
+  margin-block: 0 var(--mingu-space-4);
+}
+.mingu-collection-ai-demo-document p {
+  margin: 0;
+}
+.mingu-collection-ai-demo-terminal-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--mingu-space-3);
+  flex-wrap: wrap;
+}
+.mingu-collection-ai-demo-terminal-controls .mingu-field {
+  flex: 1;
+  min-width: min(100%, 220px);
+}
