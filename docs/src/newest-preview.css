@@ -1,64 +1,173 @@
-/* Newest is a browsing surface. Full controls stay in the expanded demo and API page. */
-.ui-newest-intro {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--mingu-space-3);
-  margin-bottom: var(--mingu-space-5);
-}
-.ui-newest-intro p {
-  margin: 0;
-  color: var(--mingu-muted);
-  font-size: var(--mingu-text-sm);
-  line-height: 1.7;
-}
-.ui-newest-intro > span {
-  font: var(--mingu-text-xs) var(--mingu-font-mono);
-  color: var(--mingu-muted);
-}
-.ui-newest-grid {
+/* A browsing gallery: real, responsive demos in consistent tiles. */
+.ui-newest-grid.ui-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--mingu-space-4);
+  margin-top: 0;
+  padding: 0 var(--mingu-space-4) var(--mingu-space-8);
   align-items: start;
-  margin-top: var(--mingu-space-5);
 }
-.ui-newest-card[data-preview-kind="scene"],
-.ui-newest-card[data-preview-kind="workspace"] {
-  grid-column: 1/-1;
+.ui-newest-grid > article.ui-newest-card[data-preview-kind] {
+  grid-column: auto;
+  height: 420px;
+  background: var(--mingu-surface);
+  border-radius: var(--mingu-radius-lg);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
 }
-.ui-newest-card > header a {
+.ui-newest-card > .ui-newest-demo {
+  flex: 0 0 340px;
+  height: 340px;
+  min-height: 0;
+  display: block;
+  padding: var(--mingu-space-4);
+  background: var(--mingu-surface);
+  overflow: auto;
+  overflow-wrap: anywhere;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+}
+.ui-gallery-demo-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center;
+  min-height: 100%;
+  min-width: 0;
+}
+.ui-gallery-demo-content > * {
+  flex-shrink: 0;
+  min-width: 0;
+}
+.ui-newest-grid .ui-newest-card > footer {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mingu-space-2);
+  padding: var(--mingu-space-2) var(--mingu-space-4);
+  background: var(--mingu-bg);
+}
+.ui-newest-card > footer > header {
+  min-width: 0;
+  flex: 1;
+}
+.ui-gallery-title {
+  appearance: none;
+  display: grid;
+  gap: var(--mingu-space-1);
+  align-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--mingu-text);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.ui-gallery-title strong {
+  font-size: var(--mingu-text-sm);
+  font-weight: 550;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ui-gallery-title > span {
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+}
+.ui-gallery-code-link {
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  height: 44px;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-full);
+}
+.ui-newest-card:focus-within {
+  border-color: var(--mingu-accent);
+}
+.ui-newest-placeholder {
+  height: 220px;
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+}
+.ui-gallery-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px auto;
+  align-items: end;
+  gap: var(--mingu-space-4);
+  padding: var(--mingu-space-4);
+  margin-bottom: var(--mingu-space-4);
+  background: var(--mingu-bg);
+  border-bottom: 1px solid var(--mingu-border);
+  position: sticky;
+  top: 0;
+  z-index: var(--mingu-z-sticky);
+}
+.ui-gallery-tools > [role="status"] {
+  align-self: center;
+  color: var(--mingu-muted);
+  font: var(--mingu-text-xs) var(--mingu-font-mono);
+}
+.ui-newest-expanded.mingu-dialog {
+  width: min(1120px, calc(100vw - 48px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  padding: var(--mingu-space-6);
+  background: var(--mingu-bg);
+}
+.ui-newest-expanded-preview {
+  min-width: 0;
+  padding-block: var(--mingu-space-3);
+}
+.ui-newest-expanded-preview .experiment-preview {
+  max-width: none;
+}
+.ui-newest-expanded-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--mingu-space-5);
+  flex-wrap: wrap;
+  margin-top: var(--mingu-space-6);
+  padding-top: var(--mingu-space-5);
+  border-top: 1px solid var(--mingu-border);
+  font-size: var(--mingu-text-sm);
+}
+.ui-newest-expanded-links a {
+  text-decoration: none;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
-  gap: var(--mingu-space-3);
 }
-.ui-newest-card > footer p {
-  margin: 0;
+@media (min-width: 1800px) {
+  .ui-newest-grid.ui-gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
-.ui-newest-card > footer {
-  gap: var(--mingu-space-3);
+@media (max-width: 1179px) {
+  .ui-newest-grid.ui-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-.ui-newest-card[data-preview-kind="scene"] > footer,
-.ui-newest-card[data-preview-kind="workspace"] > footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--mingu-space-5);
-}
-.ui-newest-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--mingu-space-4);
-  flex-wrap: wrap;
-  flex: none;
-}
-.ui-newest-actions .mingu-button {
-  gap: var(--mingu-space-3);
-}
-.ui-newest-demo {
-  min-height: 240px;
-  overflow-wrap: anywhere;
-}
-.ui-newest-card[data-preview-kind="scene"] .ui-newest-demo {
-  padding: var(--mingu-space-3);
+@media (max-width: 759px) {
+  .ui-newest-grid.ui-gallery-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ui-gallery-tools {
+    grid-template-columns: minmax(0, 1fr) 132px;
+    gap: var(--mingu-space-2);
+  }
+  .ui-gallery-tools > [role="status"] {
+    grid-column: 1/-1;
+  }
+  .ui-newest-expanded.mingu-dialog {
+    width: calc(100vw - 16px);
+    max-height: calc(100dvh - 16px);
+    padding: var(--mingu-space-4);
+  }
 }
 .ui-newest-card .experiment-preview {
   --mingu-experiment-height: 300px;
@@ -219,55 +328,6 @@
 .ui-newest-card .mingu-collection-ai-terminal-output {
   height: 200px;
 }
-.ui-newest-expanded.mingu-dialog {
-  width: min(1120px, calc(100vw - 48px));
-  max-width: none;
-  max-height: calc(100dvh - 48px);
-  padding: var(--mingu-space-6);
-  background: var(--mingu-bg);
-}
-.ui-newest-expanded-preview {
-  min-width: 0;
-  padding-block: var(--mingu-space-3);
-}
-.ui-newest-expanded-preview .experiment-preview {
-  max-width: none;
-}
-.ui-newest-expanded-links {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--mingu-space-5);
-  flex-wrap: wrap;
-  margin-top: var(--mingu-space-6);
-  padding-top: var(--mingu-space-5);
-  border-top: 1px solid var(--mingu-border);
-  font-size: var(--mingu-text-sm);
-}
-.ui-newest-expanded-links a {
-  text-decoration: none;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
-@media (max-width: 767px) {
-  .ui-newest-card[data-preview-kind="scene"] > footer,
-  .ui-newest-card[data-preview-kind="workspace"] > footer {
-    display: grid;
-    gap: var(--mingu-space-3);
-  }
-  .ui-newest-expanded.mingu-dialog {
-    width: calc(100vw - 16px);
-    max-height: calc(100dvh - 16px);
-    padding: var(--mingu-space-4);
-  }
-  .ui-newest-card .mingu-lab-surface {
-    height: 260px;
-  }
-  .ui-newest-card .experiment-preview {
-    --mingu-experiment-height: 260px;
-  }
-}
-
 .ui-newest-card
   .mingu-lab-collection
   .mingu-experiment-buttons
@@ -299,32 +359,6 @@
   margin-inline: auto;
 }
 
-.ui-newest-section {
-  margin-top: var(--mingu-space-8);
-}
-.ui-newest-section-heading {
-  display: flex;
-  align-items: center;
-  gap: var(--mingu-space-3);
-  padding-bottom: var(--mingu-space-4);
-  border-bottom: 1px solid var(--mingu-border);
-}
-.ui-newest-section-heading h2 {
-  font-size: var(--mingu-text-sm);
-  font-weight: 550;
-  margin: 0;
-}
-.ui-newest-section-heading span {
-  font: var(--mingu-text-xs) var(--mingu-font-mono);
-  color: var(--mingu-muted);
-}
-
-.ui-newest-intro {
-  scroll-margin-top: 100px;
-}
-.ui-newest-intro:focus {
-  outline: none;
-}
 .ui-newest-card .mingu-calendar-events,
 .ui-newest-card .mingu-calendar > form,
 .ui-newest-card .mingu-calendar > .mingu-media-status {
@@ -366,50 +400,78 @@
 .ui-newest-card .mingu-tools-preview .mingu-tool-row > small {
   display: none;
 }
-@media (max-width: 767px) {
-  .ui-newest-card[data-preview-id="sortable-grid"] .mingu-collection-demo-art {
-    min-height: 70px;
-    padding: 8px;
-  }
-  .ui-newest-card[data-preview-id="sortable-grid"]
-    .mingu-collection-demo-art
-    strong {
-    font-size: 16px;
-  }
-  .ui-newest-card[data-preview-id="sortable-grid"]
-    .mingu-collection-demo-art
-    small,
-  .ui-newest-card[data-preview-id="sortable-grid"]
-    .mingu-collection-demo-art
-    > div {
-    display: none;
-  }
+
+/* Size the real components to the tile, without transforming their pointer coordinates. */
+.ui-newest-card .experiment-preview {
+  --mingu-experiment-height: 240px;
+}
+.ui-newest-card .mingu-lab-surface {
+  height: 240px;
+}
+.ui-newest-card .mingu-collection-ai-composer > textarea {
+  height: 72px;
+  min-height: 72px;
+}
+.ui-newest-card .mingu-collection-ai-composer > .mingu-collection-ai-hint {
+  display: none;
+}
+.ui-newest-card .mingu-collection-ai-step-description {
+  display: none;
+}
+.ui-newest-card .mingu-collection-ai-context {
+  padding: var(--mingu-space-4);
+}
+.ui-newest-card .mingu-collection-ai-terminal-output {
+  height: 140px;
+}
+.ui-newest-card .mingu-collection-ai-tool details > summary {
+  padding: var(--mingu-space-3);
+}
+.ui-newest-card .mingu-collection-ai-approval {
+  padding: var(--mingu-space-4);
+}
+.ui-newest-card .mingu-calendar-day {
+  min-height: 32px;
+  height: 32px;
+}
+.ui-newest-card .mingu-crop-stage {
+  height: 220px;
+}
+.ui-newest-card .mingu-kanban-columns {
+  max-height: 260px;
 }
 
-/* Skip offscreen layout/paint while retaining card headings and links in the document. */
-.ui-newest-card {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 480px;
+.ui-newest-card .mingu-collection-ai-plan {
+  padding: var(--mingu-space-4);
+  gap: var(--mingu-space-3);
 }
-.ui-newest-placeholder {
-  min-height: 260px;
-  border-radius: var(--mingu-radius-md);
-  background: var(--mingu-surface);
+.ui-newest-card .mingu-collection-ai-plan li {
+  padding-block: var(--mingu-space-2);
 }
-.ui-newest-card[data-preview-kind="scene"] .ui-newest-placeholder {
-  min-height: 360px;
+.ui-newest-card .mingu-collection-ai-section-heading h3,
+.ui-newest-card .mingu-collection-ai-approval > h3 {
+  font-size: var(--mingu-text-md);
+  margin: 0;
 }
-.ui-newest-card[data-preview-kind="workspace"] .ui-newest-placeholder {
-  min-height: 320px;
+.ui-newest-card
+  .mingu-collection-ai-section-heading
+  > .mingu-collection-ai-eyebrow,
+.ui-newest-card .mingu-collection-ai-approval > .mingu-collection-ai-eyebrow,
+.ui-newest-card .mingu-collection-ai-approval > .mingu-field {
+  display: none;
 }
-@media (max-width: 767px) {
-  .ui-newest-filter .mingu-segmented {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .ui-newest-filter .mingu-segment {
-    padding: 12px 8px;
-    text-align: center;
-    font-size: var(--mingu-text-xs);
-  }
+.ui-newest-card .mingu-collection-ai-approval {
+  gap: var(--mingu-space-3);
+}
+.ui-newest-card .mingu-collection-ai-artifact textarea {
+  height: 112px;
+  min-height: 112px;
+}
+.ui-newest-card[data-preview-id="checkpoint"]
+  .mingu-collection-ai-demo
+  > .mingu-field,
+.ui-newest-card[data-preview-id="checkpoint"]
+  .mingu-collection-ai-demo
+  > button {
+  display: none;
 }

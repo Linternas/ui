@@ -1,8 +1,9 @@
+import { uiCatalog, getNewestEntries } from "../src/system/ui-catalog";
 import { test, expect } from "@playwright/test";
 const visit = (ids: string[]) => `/?newest-gallery&ids=${ids.join(",")}`;
 const card = (page: import("@playwright/test").Page, id: string) =>
   page.locator(`.ui-newest-card[data-preview-id="${id}"]`);
-test("Newest gives scenes full width, hides tuning and keeps a working primary action", async ({
+test("Newest keeps scenes in equal tiles with live controls and category filters", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -15,7 +16,7 @@ test("Newest gives scenes full width, hides tuning and keeps a working primary a
     ]),
   );
   const scene = card(page, "image-particle-morph");
-  expect((await scene.boundingBox())!.width).toBeGreaterThan(1000);
+  expect((await scene.boundingBox())!.width).toBeLessThan(400);
   await expect(
     scene.getByRole("slider", { name: "Globe amount" }),
   ).toBeHidden();
@@ -26,15 +27,21 @@ test("Newest gives scenes full width, hides tuning and keeps a working primary a
   await expect(scene.getByRole("button", { name: "Form image" })).toBeVisible();
   expect((await scene.boundingBox())!.height).toBeLessThan(540);
   const small = card(page, "tag-input");
-  expect((await small.boundingBox())!.width).toBeLessThan(
-    (await scene.boundingBox())!.width * 0.6,
+  expect((await small.boundingBox())!.width).toBeCloseTo(
+    (await scene.boundingBox())!.width,
+    0,
   );
-  await page.getByText(/^컴포넌트 \d+$/).click();
-  await expect(page.getByRole("radio", { name: /컴포넌트/ })).toBeChecked();
+  expect((await small.boundingBox())!.height).toBe(
+    (await scene.boundingBox())!.height,
+  );
+  await page
+    .getByRole("combobox", { name: "Newest 카테고리" })
+    .selectOption("Forms");
   await expect(scene).toHaveCount(0);
   await expect(small).toBeVisible();
-  await page.getByRole("radio", { name: /컴포넌트/ }).press("ArrowLeft");
-  await expect(page.getByRole("radio", { name: /인터랙션/ })).toBeChecked();
+  await page
+    .getByRole("combobox", { name: "Newest 카테고리" })
+    .selectOption("Visual effects");
   await expect(small).toHaveCount(0);
   await expect(scene).toBeVisible();
 });
@@ -192,25 +199,49 @@ test("Newest exposes the full inventory while mounting only nearby demos and pre
   ).toBeVisible();
   expect(
     await page.locator('[data-preview-ready="true"]').count(),
-  ).toBeLessThan(12);
+  ).toBeLessThan(24);
   const prompt = card(page, "prompt-composer");
   const message = prompt.getByRole("textbox", { name: "Message", exact: true });
   await message.fill("Keep my draft");
   const last = cards.last();
-  await last.locator("header a").scrollIntoViewIfNeeded();
+  await last.locator(".ui-gallery-title").scrollIntoViewIfNeeded();
   await expect(last.locator("[data-preview-ready]")).toHaveAttribute(
     "data-preview-ready",
     "true",
   );
   expect(
     await page.locator('[data-preview-ready="true"]').count(),
-  ).toBeLessThan(20);
-  await prompt.locator("header a").scrollIntoViewIfNeeded();
+  ).toBeLessThan(32);
+  await prompt.locator(".ui-gallery-title").scrollIntoViewIfNeeded();
   await expect(message).toHaveValue("Keep my draft");
-  await page.getByText(/^컴포넌트 \d+$/).click();
-  await expect(cards).toHaveCount(50);
+  await page
+    .getByRole("combobox", { name: "Newest 카테고리" })
+    .selectOption("Forms");
+  await expect(cards).toHaveCount(
+    getNewestEntries(uiCatalog, Date.parse("2026-10-23T12:00:00Z")).filter(
+      (entry) => entry.group === "Forms",
+    ).length,
+  );
   await expect(page.locator('[data-preview-kind="scene"]')).toHaveCount(0);
+});
+
+test("expanded tile exposes copyable code and switches back to the live component", async ({
+  page,
+}) => {
+  await page.goto(visit(["foldable-paper"]));
+  await page.getByRole("button", { name: "Foldable paper 크게 보기" }).click();
+  const modal = page.getByRole("dialog", {
+    name: "Foldable paper",
+    exact: true,
+  });
+  await modal.getByRole("tab", { name: "코드", exact: true }).click();
+  await expect(modal.locator("code")).toContainText("FoldablePaper");
+  await expect(modal.getByRole("button", { name: "Copy code" })).toBeVisible();
+  await expect(modal.getByRole("textbox", { name: "Paper text" })).toHaveCount(
+    0,
+  );
+  await modal.getByRole("tab", { name: "미리보기", exact: true }).click();
   await expect(
-    page.getByRole("region", { name: "Newest results" }),
-  ).toBeFocused();
+    modal.getByRole("textbox", { name: "Paper text" }),
+  ).toBeVisible();
 });

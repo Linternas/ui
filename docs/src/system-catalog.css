@@ -1066,3 +1066,23 @@
   ) {
   padding-inline: var(--mingu-space-4);
 }
+
+.system-catalog-gallery .system-catalog-main {
+  padding-top: var(--mingu-space-5);
+}
+.system-catalog-gallery .system-catalog-title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-4);
+  margin-bottom: var(--mingu-space-5);
+}
+.system-catalog-gallery .system-catalog-title > span {
+  display: none;
+}
+.system-catalog-gallery .system-catalog-title h1 {
+  font-size: var(--mingu-text-2xl);
+}
+.system-catalog-gallery .system-catalog-title p {
+  font-size: var(--mingu-text-sm);
+}

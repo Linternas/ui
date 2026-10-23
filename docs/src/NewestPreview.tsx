@@ -1,14 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import {
   playgroundExperiments,
+  uiGroups,
   type UiCatalogEntry,
 } from "@mingu/interaction-ui/catalog";
 import {
   Button,
   Dialog,
   EmptyState,
-  SegmentedControl,
+  SelectField,
+  TextField,
+  Tabs,
 } from "@mingu/interaction-ui/system";
+import { CodeBlock } from "@mingu/interaction-ui";
 import Link from "./routing";
 import DemoPreview from "./DemoPreview";
 import SystemComponentDemo from "./SystemComponentDemo";
@@ -43,6 +47,7 @@ const workspaces = new Set([
   "animated-filter-bar",
   "resizable-panels",
 ]);
+
 function Preview({
   entry,
   compact = false,
@@ -56,11 +61,12 @@ function Preview({
     <SystemComponentDemo id={entry.id as SystemComponentId} />
   );
 }
-// Keep the complete inventory discoverable without mounting every live demo at once.
-// Once visited, preserve its state; canvas components already pause outside the viewport.
+// Only mount nearby demos. Keep visited state; canvas components pause offscreen.
 function DeferredPreview({ entry }: { entry: UiCatalogEntry }) {
-  const root = useRef<HTMLDivElement>(null);
-  const [ready, setReady] = useState(false);
+  const root = useRef<HTMLDivElement>(null),
+    content = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false),
+    [scrollable, setScrollable] = useState(false);
   useEffect(() => {
     if (ready) return;
     if (typeof IntersectionObserver === "undefined") {
@@ -74,9 +80,21 @@ function DeferredPreview({ entry }: { entry: UiCatalogEntry }) {
           observer.disconnect();
         }
       },
-      { rootMargin: "600px 0px" },
+      { rootMargin: "400px 0px" },
     );
     if (root.current) observer.observe(root.current);
+    return () => observer.disconnect();
+  }, [ready]);
+  useEffect(() => {
+    if (!ready || !root.current || !content.current) return;
+    const update = () =>
+      setScrollable(
+        root.current!.scrollHeight > root.current!.clientHeight + 1,
+      );
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(root.current);
+    observer.observe(content.current);
     return () => observer.disconnect();
   }, [ready]);
   return (
@@ -84,15 +102,32 @@ function DeferredPreview({ entry }: { entry: UiCatalogEntry }) {
       ref={root}
       className="ui-newest-demo"
       data-preview-ready={ready}
+      data-scrollable={scrollable || undefined}
+      role="region"
+      aria-label={`${entry.name} 미리보기`}
+      tabIndex={scrollable ? 0 : undefined}
       onFocusCapture={() => setReady(true)}
     >
-      {ready ? (
-        <Preview entry={entry} compact />
-      ) : (
-        <div className="ui-newest-placeholder" aria-hidden="true" />
-      )}
+      <div ref={content} className="ui-gallery-demo-content">
+        {ready ? (
+          <Preview entry={entry} compact />
+        ) : (
+          <div className="ui-newest-placeholder" aria-hidden="true" />
+        )}
+      </div>
     </div>
   );
+}
+function usage(entry: UiCatalogEntry) {
+  const imports = Array.from(
+    new Set(
+      Array.from(
+        entry.code.matchAll(/<([A-Z][A-Za-z0-9]*)/g),
+        (match) => match[1],
+      ),
+    ),
+  ).join(", ");
+  return `import { ${imports} } from '@mingu/interaction-ui';\nimport '@mingu/interaction-ui/system.css';\nimport '@mingu/interaction-ui/styles.css';\n\n${entry.code}`;
 }
 export default function NewestPreview({
   entries,
@@ -103,139 +138,126 @@ export default function NewestPreview({
   label?: string;
   filterable?: boolean;
 }) {
-  const [expanded, setExpanded] = useState<UiCatalogEntry | null>(null);
-  const [category, setCategory] = useState("all");
-  const browse = useRef<HTMLDivElement>(null),
-    navigating = useRef(false);
-  const isLarge = (entry: UiCatalogEntry) =>
-    scenes.has(entry.id) || workspaces.has(entry.id);
-  const largeCount = entries.filter(isLarge).length;
+  const [expanded, setExpanded] = useState<UiCatalogEntry | null>(null),
+    [tab, setTab] = useState("preview");
+  const [category, setCategory] = useState("all"),
+    [query, setQuery] = useState("");
   const filtered = entries.filter(
     (entry) =>
-      category === "all" ||
-      (category === "interactive" ? isLarge(entry) : !isLarge(entry)),
+      (category === "all" || entry.group === category) &&
+      `${entry.name} ${entry.description} ${entry.tags?.join(" ") ?? ""}`
+        .toLowerCase()
+        .includes(query.trim().toLowerCase()),
   );
-  useEffect(() => {
-    if (!navigating.current) return;
-    navigating.current = false;
-    browse.current?.scrollIntoView({ block: "start", behavior: "instant" });
-    browse.current?.focus({ preventScroll: true });
-  }, [category]);
-
+  const experiment = playgroundExperiments.find(
+    (item) => item.id === expanded?.id,
+  );
+  const expand = (entry: UiCatalogEntry) => {
+    setTab("preview");
+    setExpanded(entry);
+  };
   if (!entries.length)
     return (
       <EmptyState
         title="All caught up"
         description="새 컴포넌트가 추가되면 이곳에서 30일 동안 먼저 볼 수 있습니다."
-        action={<Link href="/">전체 카탈로그 보기 →</Link>}
+        action={<Link href="/all">전체 카탈로그 보기 →</Link>}
       />
     );
-  const experiment = playgroundExperiments.find(
-    (item) => item.id === expanded?.id,
-  );
-  const renderCard = (entry: UiCatalogEntry) => {
-    const kind = scenes.has(entry.id)
-      ? "scene"
-      : workspaces.has(entry.id)
-        ? "workspace"
-        : "component";
-    return (
-      <article
-        key={entry.id}
-        className="ui-newest-card"
-        data-preview-kind={kind}
-        data-preview-id={entry.id}
-      >
-        <header>
-          <Link href={`/${entry.id}`}>
-            {entry.name}
-            <span aria-hidden="true">↗</span>
-          </Link>
-          {entry.addedAt && (
-            <time dateTime={entry.addedAt}>
-              {entry.addedAt.replace(/-/g, ".")}
-            </time>
-          )}
-        </header>
-        <DeferredPreview entry={entry} />
-        <footer>
-          <p>{entry.description}</p>
-          <div className="ui-newest-actions">
-            <Button
-              size="sm"
-              variant="secondary"
-              aria-label={`${entry.name} 크게 보기`}
-              onClick={() => setExpanded(entry)}
-            >
-              크게 보기 <span aria-hidden="true">↗</span>
-            </Button>
-            <Link href={`/${entry.id}`}>컴포넌트·코드 →</Link>
-          </div>
-        </footer>
-      </article>
-    );
-  };
-  const groups = [
-    {
-      id: "interactive",
-      title: "인터랙션",
-      items: filtered.filter(isLarge),
-    },
-    {
-      id: "components",
-      title: "컴포넌트",
-      items: filtered.filter((entry) => !isLarge(entry)),
-    },
-  ].filter(
-    (group) =>
-      group.items.length && (category === "all" || category === group.id),
-  );
   return (
     <>
-      <div
-        className="ui-newest-intro"
-        ref={browse}
-        tabIndex={-1}
-        role="region"
-        aria-label={`${label} results`}
-      >
-        <p>핵심 동작을 가볍게 둘러보고, 크게 열어 전체 설정을 조절해 보세요.</p>
-        <span role="status">{filtered.length} items</span>
-      </div>
       {filterable && (
-        <div className="ui-newest-filter">
-          <SegmentedControl
-            label="Newest category"
-            value={category}
-            onValueChange={(value) => {
-              navigating.current = true;
-              setCategory(value);
-            }}
-            options={[
-              { value: "all", label: `전체 ${entries.length}` },
-              { value: "interactive", label: `인터랙션 ${largeCount}` },
-              {
-                value: "components",
-                label: `컴포넌트 ${entries.length - largeCount}`,
-              },
-            ]}
+        <div className="ui-gallery-tools">
+          <TextField
+            type="search"
+            label="새 컴포넌트 검색"
+            placeholder="이름, 설명, 키워드…"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
           />
+          <SelectField
+            label="Newest 카테고리"
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+          >
+            <option value="all">전체 카테고리</option>
+            {uiGroups
+              .filter((group) => entries.some((entry) => entry.group === group))
+              .map((group) => (
+                <option value={group} key={group}>
+                  {group}
+                </option>
+              ))}
+          </SelectField>
+          <span role="status">
+            {filtered.length} / {entries.length}
+          </span>
         </div>
       )}
-      {groups.map((group) => (
-        <section
-          key={group.id}
-          className="ui-newest-section"
-          aria-label={group.title}
+      {!filtered.length ? (
+        <EmptyState
+          title="검색 결과가 없습니다"
+          description="다른 검색어나 카테고리로 찾아보세요."
+          action={
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setQuery("");
+                setCategory("all");
+              }}
+            >
+              필터 초기화
+            </Button>
+          }
+        />
+      ) : (
+        <div
+          className="ui-newest-grid ui-gallery-grid"
+          role="region"
+          aria-label={`${label} results`}
         >
-          <header className="ui-newest-section-heading">
-            <h2>{group.title}</h2>
-            <span>{group.items.length}</span>
-          </header>
-          <div className="ui-newest-grid">{group.items.map(renderCard)}</div>
-        </section>
-      ))}
-
+          {filtered.map((entry) => (
+            <article
+              key={entry.id}
+              className="ui-newest-card"
+              data-preview-id={entry.id}
+              data-preview-kind={
+                scenes.has(entry.id)
+                  ? "scene"
+                  : workspaces.has(entry.id)
+                    ? "workspace"
+                    : "component"
+              }
+            >
+              <DeferredPreview entry={entry} />
+              <footer>
+                <header>
+                  <button
+                    type="button"
+                    className="ui-gallery-title"
+                    aria-label={`${entry.name} 크게 보기`}
+                    onClick={() => expand(entry)}
+                  >
+                    <strong>{entry.name}</strong>
+                    <span>
+                      {entry.group} ·{" "}
+                      {entry.kind === "core" ? "Core" : "Interaction"}
+                    </span>
+                  </button>
+                </header>
+                <Link
+                  className="ui-gallery-code-link"
+                  href={`/${entry.id}`}
+                  aria-label={`${entry.name} 코드 보기`}
+                  title="컴포넌트·코드"
+                >
+                  <span aria-hidden="true">↗</span>
+                </Link>
+              </footer>
+            </article>
+          ))}
+        </div>
+      )}
       <Dialog
         open={!!expanded}
         onOpenChange={(open) => {
@@ -248,9 +270,38 @@ export default function NewestPreview({
       >
         {expanded && (
           <>
-            <div className="ui-newest-expanded-preview" key={expanded.id}>
-              <Preview entry={expanded} />
-            </div>
+            <Tabs
+              label="컴포넌트 상세"
+              value={tab}
+              onValueChange={setTab}
+              items={[
+                {
+                  value: "preview",
+                  label: "미리보기",
+                  content:
+                    tab === "preview" ? (
+                      <div
+                        className="ui-newest-expanded-preview"
+                        key={expanded.id}
+                      >
+                        <Preview entry={expanded} />
+                      </div>
+                    ) : null,
+                },
+                {
+                  value: "code",
+                  label: "코드",
+                  content:
+                    tab === "code" ? (
+                      <CodeBlock
+                        code={usage(expanded)}
+                        language="tsx"
+                        filename={`${expanded.id}.tsx`}
+                      />
+                    ) : null,
+                },
+              ]}
+            />
             <div className="ui-newest-expanded-links">
               <Link href={`/${expanded.id}`} onClick={() => setExpanded(null)}>
                 컴포넌트·코드 →

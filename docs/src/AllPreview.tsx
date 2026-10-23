@@ -13,9 +13,9 @@ import NewestPreview from "./NewestPreview";
 import { useNewestEntries } from "./useNewestEntries";
 import "./all-preview.css";
 
-const components = uiCatalog.filter(
-  (entry) => entry.kind === "core" || entry.kind === "interaction",
-);
+const components = uiCatalog
+  .filter((entry) => entry.kind === "core" || entry.kind === "interaction")
+  .sort((a, b) => (b.addedAt ?? "").localeCompare(a.addedAt ?? ""));
 
 export default function AllPreview() {
   const [query, setQuery] = useState("");
@@ -38,42 +38,46 @@ export default function AllPreview() {
     .filter((group) => group.entries.length);
   return (
     <div className="ui-all">
-      <div className="ui-all-filters">
-        <TextField
-          type="search"
-          label="컴포넌트 검색"
-          placeholder="이름, 설명, 키워드…"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        <SelectField
-          label="카테고리"
-          value={group}
-          onChange={(event) => setGroup(event.target.value)}
-        >
-          <option value="all">전체 카테고리</option>
-          {uiGroups
-            .filter((name) => components.some((entry) => entry.group === name))
-            .map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-        </SelectField>
-      </div>
-      <div className="ui-all-toolbar">
-        <p role="status">
-          {filtered.length} / {components.length} components
-        </p>
-        <SegmentedControl
-          label="목록 표시 방식"
-          value={view}
-          onValueChange={setView}
-          options={[
-            { value: "list", label: "목록" },
-            { value: "preview", label: "미리보기" },
-          ]}
-        />
+      <div className="ui-all-controls">
+        <div className="ui-all-filters">
+          <TextField
+            type="search"
+            label="컴포넌트 검색"
+            placeholder="이름, 설명, 키워드…"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+          <SelectField
+            label="카테고리"
+            value={group}
+            onChange={(event) => setGroup(event.target.value)}
+          >
+            <option value="all">전체 카테고리</option>
+            {uiGroups
+              .filter((name) =>
+                components.some((entry) => entry.group === name),
+              )
+              .map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+          </SelectField>
+        </div>
+        <div className="ui-all-toolbar">
+          <p role="status">
+            {filtered.length} / {components.length} components
+          </p>
+          <SegmentedControl
+            label="목록 표시 방식"
+            value={view}
+            onValueChange={setView}
+            options={[
+              { value: "list", label: "목록" },
+              { value: "preview", label: "미리보기" },
+            ]}
+          />
+        </div>
       </div>
       {!filtered.length ? (
         <EmptyState

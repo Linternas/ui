@@ -67,7 +67,7 @@ test("live view keeps the entire inventory deferred and filters work in both mod
   ).toBeVisible();
   expect(
     await page.locator('[data-preview-ready="true"]').count(),
-  ).toBeLessThan(12);
+  ).toBeLessThan(24);
   const search = page.getByRole("searchbox", { name: "컴포넌트 검색" });
   await search.fill("Tag input");
   await expect(page.locator(".ui-newest-card")).toHaveCount(1);
@@ -121,10 +121,19 @@ for (const selected of ["all", "newest"]) {
       expect(bounds!.x).toBe(0);
       expect(bounds!.width).toBe(width);
       await expect(page.locator(".system-catalog-sidebar")).toBeHidden();
-      const large = page
-        .locator('.ui-newest-card[data-preview-kind="workspace"]')
-        .first();
-      expect((await large.boundingBox())!.width).toBe(width);
+      const tile = page.locator(".ui-newest-card").first();
+      const columns = width >= 1800 ? 4 : width >= 1180 ? 3 : 1;
+      const grid = page.locator(".ui-newest-grid");
+      expect(
+        await grid.evaluate(
+          (el) => getComputedStyle(el).gridTemplateColumns.split(" ").length,
+        ),
+      ).toBe(columns);
+      expect((await tile.boundingBox())!.width).toBeCloseTo(
+        (width - 32 - (columns - 1) * 16) / columns,
+        0,
+      );
+      expect((await tile.boundingBox())!.height).toBe(420);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth - innerWidth,

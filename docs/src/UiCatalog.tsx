@@ -273,7 +273,7 @@ export default function UiCatalog({
               />
             )}
           </section>
-          {selected !== "all" && (
+          {!["all", "newest"].includes(selected) && (
             <section id="usage" className="system-catalog-usage">
               <Heading level={2} size="lg">
                 Usage
