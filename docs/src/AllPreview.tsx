@@ -20,7 +20,7 @@ const components = uiCatalog.filter(
 export default function AllPreview() {
   const [query, setQuery] = useState("");
   const [group, setGroup] = useState("all");
-  const [view, setView] = useState("list");
+  const [view, setView] = useState("preview");
   const newest = new Set(useNewestEntries().map((entry) => entry.id));
   const search = query.trim().toLowerCase();
   const filtered = components.filter(

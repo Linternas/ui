@@ -8,6 +8,7 @@ test("All exposes every component once as real links without mounting previews",
   page,
 }) => {
   await page.goto("/?all-gallery");
+  await page.getByText("목록", { exact: true }).click();
   const links = page.locator(".ui-all-list > li > a");
   await expect(links).toHaveCount(entries.length);
   expect(
@@ -28,6 +29,7 @@ test("search and category intersect, announce no results and reset together", as
   page,
 }) => {
   await page.goto("/?all-gallery");
+  await page.getByText("목록", { exact: true }).click();
   const search = page.getByRole("searchbox", { name: "컴포넌트 검색" }),
     category = page.getByRole("combobox", { name: "카테고리" });
   await category.selectOption("Forms");
@@ -56,7 +58,9 @@ test("live view keeps the entire inventory deferred and filters work in both mod
   page,
 }) => {
   await page.goto("/?all-gallery");
-  await page.getByText("미리보기", { exact: true }).click();
+  await expect(
+    page.getByRole("radio", { name: "미리보기", exact: true }),
+  ).toBeChecked();
   await expect(page.locator(".ui-newest-card")).toHaveCount(entries.length);
   await expect(
     page.locator('[data-preview-ready="true"]').first(),
@@ -88,7 +92,11 @@ test("dark mobile inventory stays within the viewport and supports keyboard view
       () => document.documentElement.scrollWidth - innerWidth,
     ),
   ).toBeLessThanOrEqual(1);
-  await page.getByRole("radio", { name: "목록", exact: true }).focus();
+  await page.getByRole("radio", { name: "미리보기", exact: true }).focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(
+    page.getByRole("radio", { name: "목록", exact: true }),
+  ).toBeChecked();
   await page.keyboard.press("ArrowRight");
   await expect(
     page.getByRole("radio", { name: "미리보기", exact: true }),
@@ -100,3 +108,28 @@ test("dark mobile inventory stays within the viewport and supports keyboard view
     ),
   ).toBeLessThanOrEqual(1);
 });
+
+for (const selected of ["all", "newest"]) {
+  test(`${selected} gallery uses the entire viewport at desktop and mobile widths`, async ({
+    page,
+  }) => {
+    await page.goto(`/?catalog-shell&selected=${selected}`);
+    await page.addStyleTag({ content: "body { margin: 0; }" });
+    for (const width of [1440, 1920, 320]) {
+      await page.setViewportSize({ width, height: 1000 });
+      const bounds = await page.locator(".system-catalog-main").boundingBox();
+      expect(bounds!.x).toBe(0);
+      expect(bounds!.width).toBe(width);
+      await expect(page.locator(".system-catalog-sidebar")).toBeHidden();
+      const large = page
+        .locator('.ui-newest-card[data-preview-kind="workspace"]')
+        .first();
+      expect((await large.boundingBox())!.width).toBe(width);
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth - innerWidth,
+        ),
+      ).toBeLessThanOrEqual(1);
+    }
+  });
+}

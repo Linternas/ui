@@ -1,3 +1,4 @@
+import UiCatalog from "../docs/src/UiCatalog";
 import AllPreview from "../docs/src/AllPreview";
 import NewestPreview from "../docs/src/NewestPreview";
 import { getNewestEntries, uiCatalog } from "../src/system/ui-catalog";
@@ -72,7 +73,11 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  new URLSearchParams(location.search).has("all-gallery") ? (
+  new URLSearchParams(location.search).has("catalog-shell") ? (
+    <UiCatalog
+      selected={new URLSearchParams(location.search).get("selected") || "all"}
+    />
+  ) : new URLSearchParams(location.search).has("all-gallery") ? (
     <DesignSystemProvider
       theme={
         new URLSearchParams(location.search).get("theme") === "dark"

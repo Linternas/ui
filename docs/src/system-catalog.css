@@ -1032,3 +1032,37 @@
 .ui-progress-demo > p {
   margin: 0;
 }
+
+/* Galleries use the viewport; detail pages keep their reading width and sidebar. */
+.system-catalog-gallery {
+  margin: 0;
+  width: 100%;
+}
+.system-catalog-gallery .system-catalog-layout {
+  display: block;
+  max-width: none;
+}
+.system-catalog-gallery .system-catalog-sidebar {
+  display: none;
+}
+.system-catalog-gallery .system-catalog-header {
+  padding-inline: var(--mingu-space-4);
+}
+.system-catalog-gallery .system-catalog-main {
+  padding: var(--mingu-space-8) 0;
+}
+.system-catalog-gallery
+  :is(
+    .system-catalog-title,
+    .system-catalog-mobile,
+    .system-catalog-usage,
+    .system-catalog-main > footer,
+    .ui-all-filters,
+    .ui-all-toolbar,
+    .ui-newest-intro,
+    .ui-newest-filter,
+    .ui-newest-section-heading,
+    .ui-all-groups
+  ) {
+  padding-inline: var(--mingu-space-4);
+}

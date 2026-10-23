@@ -87,7 +87,7 @@ export default function UiCatalog({
     <DesignSystemProvider
       theme={theme}
       accent="neutral"
-      className="system-catalog"
+      className={`system-catalog${["all", "newest"].includes(selected) ? " system-catalog-gallery" : ""}`}
       data-catalog-count={
         uiCatalog.filter(
           (entry) => entry.kind === "core" || entry.kind === "interaction",
