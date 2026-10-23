@@ -1,3 +1,4 @@
+import MediaCollectionPreview from "./MediaCollectionPreview";
 import NavigationCollectionPreview from "./NavigationCollectionPreview";
 import LabCollectionPreview from "./LabCollectionPreview";
 export default function CollectionPreview({ id }: { id: string }) {
@@ -16,5 +17,20 @@ export default function CollectionPreview({ id }: { id: string }) {
     ].includes(id)
   )
     return <NavigationCollectionPreview id={id} />;
+  if (
+    [
+      "split-flap-display",
+      "variable-font-proximity",
+      "vertical-reel",
+      "story-viewer",
+      "video-player",
+      "image-cropper",
+      "calendar-board",
+      "gantt-timeline",
+      "kanban-board",
+      "file-tree",
+    ].includes(id)
+  )
+    return <MediaCollectionPreview id={id} />;
   return <LabCollectionPreview id={id} />;
 }

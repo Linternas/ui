@@ -1,0 +1,786 @@
+/* Media, typography and editable workspace surfaces share the system's semantic palette. */
+.mingu-media-component {
+  display: grid;
+  gap: var(--mingu-space-4, 16px);
+  width: 100%;
+  min-width: 0;
+  color: var(--mingu-text);
+  font-family: var(--mingu-font-sans);
+}
+.mingu-media-toolbar {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: var(--mingu-space-3, 12px);
+  min-width: 0;
+}
+.mingu-media-toolbar h3 {
+  margin: auto;
+  font-size: var(--mingu-text-lg);
+  font-weight: 600;
+  text-align: center;
+}
+.mingu-media-toolbar > .mingu-field,
+.mingu-media-toolbar > .mingu-slider {
+  flex: 1 1 160px;
+  min-width: 0;
+}
+.mingu-media-label {
+  display: grid;
+  gap: var(--mingu-space-2, 8px);
+  min-width: 0;
+  font-size: var(--mingu-text-sm);
+  color: var(--mingu-muted);
+}
+.mingu-media-status,
+.mingu-media-empty {
+  margin: 0;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.mingu-media-status[role="alert"] {
+  color: var(--mingu-danger);
+}
+.mingu-media-empty {
+  padding: var(--mingu-space-4, 16px);
+}
+.mingu-media-time {
+  margin-left: auto;
+  align-self: center;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-family: var(--mingu-font-mono);
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+}
+.mingu-media-unavailable {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  background: var(--mingu-raised);
+  color: var(--mingu-muted);
+}
+.mingu-split-flap {
+  display: grid;
+  place-items: center;
+  max-width: 100%;
+  padding: var(--mingu-space-6, 24px);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+  color: var(--mingu-text);
+}
+.mingu-flap-cells {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  perspective: 700px;
+}
+.mingu-flap-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 0.72em;
+  height: 1.22em;
+  flex: none;
+  border-radius: 5px;
+  font: 650 clamp(24px, 5vw, 54px) / 1 var(--mingu-font-mono);
+  background: var(--mingu-surface);
+  border: 1px solid var(--mingu-border);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--mingu-text) 7%, transparent);
+  overflow: hidden;
+}
+.mingu-flap-letter {
+  animation: mingu-media-flap 480ms var(--mingu-ease) var(--flap-delay, 0ms)
+    both;
+  transform-origin: center;
+}
+.mingu-flap-hinge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--mingu-border);
+  box-shadow: 0 1px color-mix(in srgb, var(--mingu-surface) 60%, transparent);
+}
+@keyframes mingu-media-flap {
+  from {
+    transform: rotateX(-100deg);
+    opacity: 0.3;
+  }
+  to {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+.mingu-font-proximity {
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  padding: clamp(20px, 5vw, 48px);
+  color: var(--mingu-text);
+  background: var(--mingu-surface);
+  overflow-wrap: anywhere;
+}
+.mingu-font-proximity:focus-visible {
+  outline: var(--mingu-focus-width, 2px) solid var(--mingu-accent);
+  outline-offset: var(--mingu-focus-offset, 3px);
+}
+.mingu-proximity-letters {
+  display: block;
+  font-family: var(--mingu-font-sans);
+  font-size: clamp(36px, 6vw, 76px);
+  letter-spacing: -0.055em;
+  line-height: 1.06;
+}
+.mingu-proximity-letters > span {
+  transition:
+    font-weight var(--mingu-duration-fast),
+    font-variation-settings var(--mingu-duration-fast);
+}
+.mingu-video-player video {
+  display: block;
+  width: 100%;
+  max-height: 380px;
+  min-height: 120px;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+}
+.mingu-reel {
+  max-width: 420px;
+  margin-inline: auto;
+}
+.mingu-reel-viewport {
+  position: relative;
+  height: var(--mingu-reel-height, 480px);
+  max-height: 70svh;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+  border-radius: var(--mingu-radius-lg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-muted) transparent;
+  background: var(--mingu-raised);
+}
+.mingu-reel-slide {
+  position: relative;
+  height: 100%;
+  min-height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  isolation: isolate;
+}
+.mingu-reel-slide > img,
+.mingu-reel-slide > .mingu-media-unavailable {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mingu-reel-slide > .mingu-video-player {
+  height: 100%;
+  padding: var(--mingu-space-3, 12px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.mingu-reel-slide > .mingu-video-player + .mingu-reel-caption {
+  position: static;
+}
+.mingu-reel-caption {
+  position: absolute;
+  z-index: 1;
+  inset: auto 16px 16px;
+  padding: var(--mingu-space-4, 16px);
+  border-radius: var(--mingu-radius-md);
+  background: color-mix(in srgb, var(--mingu-surface) 92%, transparent);
+  backdrop-filter: blur(12px);
+  color: var(--mingu-text);
+  border: 1px solid var(--mingu-border);
+}
+.mingu-reel-caption strong {
+  display: block;
+  font-size: var(--mingu-text-lg);
+}
+.mingu-reel-caption p {
+  margin: var(--mingu-space-2, 8px) 0 0;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+  line-height: 1.5;
+}
+.mingu-reel .mingu-media-toolbar {
+  justify-content: space-between;
+  align-items: center;
+}
+.mingu-reel .mingu-media-toolbar > span {
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+}
+.mingu-stories {
+  max-width: 520px;
+  margin-inline: auto;
+}
+.mingu-story-progress {
+  display: flex;
+  gap: var(--mingu-space-2, 8px);
+}
+.mingu-story-progress button {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  padding: 16px 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.mingu-story-progress button::before,
+.mingu-story-progress button > span {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 0;
+  height: 4px;
+  border-radius: var(--mingu-radius-full);
+  background: var(--mingu-border);
+  width: 100%;
+}
+.mingu-story-progress button > span {
+  background: var(--mingu-accent);
+}
+.mingu-story-progress button[aria-current]::before {
+  background: var(--mingu-accent-soft);
+  outline: 1px solid var(--mingu-accent);
+}
+.mingu-story-progress button:focus-visible {
+  outline: 2px solid var(--mingu-accent);
+  outline-offset: 2px;
+  border-radius: var(--mingu-radius-sm);
+}
+.mingu-story-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-raised);
+}
+.mingu-story-frame > img,
+.mingu-story-frame > .mingu-media-unavailable {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mingu-crop-stage {
+  position: relative;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+}
+.mingu-crop-stage > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+.mingu-crop-selection {
+  position: absolute;
+  border: 2px solid var(--mingu-on-accent);
+  box-shadow: 0 0 0 9999px
+    color-mix(in srgb, var(--mingu-text) 45%, transparent);
+  box-sizing: border-box;
+  cursor: move;
+  touch-action: none;
+}
+.mingu-crop-selection > span {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to right,
+      transparent 32.8%,
+      color-mix(in srgb, var(--mingu-on-accent) 55%, transparent) 33%,
+      transparent 33.3%,
+      transparent 66.4%,
+      color-mix(in srgb, var(--mingu-on-accent) 55%, transparent) 66.6%,
+      transparent 67%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 32.8%,
+      color-mix(in srgb, var(--mingu-on-accent) 55%, transparent) 33%,
+      transparent 33.3%,
+      transparent 66.4%,
+      color-mix(in srgb, var(--mingu-on-accent) 55%, transparent) 66.6%,
+      transparent 67%
+    );
+  pointer-events: none;
+}
+.mingu-crop-resize {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--mingu-on-accent);
+  border-radius: var(--mingu-radius-sm) 0 0;
+  background: var(--mingu-accent);
+  color: var(--mingu-on-accent);
+  cursor: nwse-resize;
+  touch-action: none;
+  font-size: 22px;
+}
+.mingu-crop-resize:focus-visible {
+  outline: 3px solid var(--mingu-accent);
+  outline-offset: 3px;
+}
+.mingu-crop-sliders {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+  gap: var(--mingu-space-4, 16px);
+}
+.mingu-media-download {
+  color: var(--mingu-accent);
+  padding: var(--mingu-space-3, 12px);
+  text-underline-offset: 4px;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-crop-result {
+  width: 100px;
+  max-height: 140px;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-sm);
+}
+.mingu-calendar-grid {
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  overflow: hidden;
+}
+.mingu-calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+.mingu-calendar-week [role="columnheader"] {
+  padding: var(--mingu-space-3, 12px) 0;
+  text-align: center;
+  font-size: var(--mingu-text-xs);
+  color: var(--mingu-muted);
+  background: var(--mingu-raised);
+}
+.mingu-calendar-week [role="gridcell"] {
+  min-width: 0;
+  border-top: 1px solid var(--mingu-border);
+}
+.mingu-calendar-day {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  height: 68px;
+  padding: 4px;
+  border: 0;
+  background: var(--mingu-surface);
+  color: var(--mingu-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-calendar-day:hover {
+  background: var(--mingu-raised);
+}
+.mingu-calendar-day[data-outside] {
+  color: var(--mingu-muted);
+}
+.mingu-calendar-day[aria-pressed="true"] {
+  background: var(--mingu-accent-soft);
+  color: var(--mingu-accent);
+  box-shadow: inset 0 0 0 2px var(--mingu-accent);
+}
+.mingu-calendar-day:focus-visible {
+  outline: 2px solid var(--mingu-accent);
+  outline-offset: -4px;
+  z-index: 1;
+}
+.mingu-calendar-day small {
+  display: grid;
+  place-items: center;
+  min-width: 15px;
+  min-height: 15px;
+  border-radius: var(--mingu-radius-full);
+  background: var(--mingu-accent-soft);
+  color: var(--mingu-accent);
+  font-size: 10px;
+  font-weight: 600;
+}
+.mingu-calendar-events {
+  display: grid;
+  gap: var(--mingu-space-3, 12px);
+}
+.mingu-calendar-events h4 {
+  margin: 0;
+  font-size: var(--mingu-text-sm);
+  font-family: var(--mingu-font-mono);
+}
+.mingu-calendar-event {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(135px, 1fr) auto;
+  align-items: end;
+  gap: var(--mingu-space-2, 8px);
+  padding: var(--mingu-space-3, 12px);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-raised);
+}
+.mingu-gantt-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-muted) transparent;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+}
+.mingu-gantt-inner {
+  min-width: 640px;
+}
+.mingu-gantt-axis,
+.mingu-gantt-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  align-items: center;
+}
+.mingu-gantt-axis {
+  padding-block: 12px;
+  background: var(--mingu-raised);
+  color: var(--mingu-muted);
+  font-size: 10px;
+}
+.mingu-gantt-axis > span,
+.mingu-gantt-row > strong {
+  padding: var(--mingu-space-3, 12px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--mingu-text-xs);
+}
+.mingu-gantt-axis > div {
+  display: flex;
+}
+.mingu-gantt-axis > div > span {
+  flex: 1;
+  text-align: center;
+}
+.mingu-gantt-row {
+  border-top: 1px solid var(--mingu-border);
+}
+.mingu-gantt-track {
+  position: relative;
+  height: 64px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--mingu-border) 0 1px,
+    transparent 1px calc(100% / var(--gantt-days))
+  );
+}
+.mingu-gantt-bar {
+  position: absolute;
+  top: 10px;
+  height: 44px;
+  display: flex;
+  border-radius: var(--mingu-radius-sm);
+  background: var(--mingu-accent-soft);
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--mingu-accent) 25%, transparent);
+}
+.mingu-gantt-bar button {
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  background: transparent;
+  border: 0;
+  border-radius: inherit;
+  color: var(--mingu-accent);
+  font: inherit;
+  font-size: var(--mingu-text-xs);
+  cursor: grab;
+  touch-action: none;
+}
+.mingu-gantt-bar button > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mingu-gantt-bar button.mingu-gantt-resize {
+  width: 28px;
+  min-width: 28px;
+  padding: 0;
+  justify-content: center;
+  flex: none;
+  cursor: ew-resize;
+}
+.mingu-gantt-bar button:focus-visible {
+  outline: 2px solid var(--mingu-accent);
+  outline-offset: 2px;
+  z-index: 1;
+}
+.mingu-gantt-editor {
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  padding: var(--mingu-space-4, 16px);
+}
+.mingu-gantt-editor summary {
+  cursor: pointer;
+  font-size: var(--mingu-text-sm);
+  padding-block: var(--mingu-space-2, 8px);
+}
+.mingu-gantt-editor > div {
+  padding-block: var(--mingu-space-3, 12px);
+}
+.mingu-kanban-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  align-items: start;
+  gap: var(--mingu-space-3, 12px);
+}
+.mingu-kanban-column {
+  display: grid;
+  gap: var(--mingu-space-3, 12px);
+  padding: var(--mingu-space-3, 12px);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  min-width: 0;
+  background: var(--mingu-raised);
+}
+.mingu-kanban-column > h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mingu-space-2, 8px);
+  margin: 0;
+  padding: var(--mingu-space-2, 8px);
+  font-size: var(--mingu-text-sm);
+  font-weight: 600;
+}
+.mingu-kanban-column > h3 > span {
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-xs);
+}
+.mingu-kanban-card {
+  display: grid;
+  gap: var(--mingu-space-3, 12px);
+  padding: var(--mingu-space-3, 12px);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-md);
+  background: var(--mingu-surface);
+  min-width: 0;
+}
+.mingu-kanban-grip {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-2, 8px);
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--mingu-muted);
+  padding: 0;
+  font: inherit;
+  cursor: grab;
+  text-align: left;
+}
+.mingu-kanban-grip > span {
+  color: var(--mingu-text);
+  font-weight: 600;
+  font-size: var(--mingu-text-sm);
+  overflow-wrap: anywhere;
+}
+.mingu-kanban-grip:focus-visible {
+  outline: 2px solid var(--mingu-accent);
+  outline-offset: 3px;
+  border-radius: var(--mingu-radius-sm);
+}
+.mingu-file-tree {
+  min-width: 0;
+  width: 100%;
+  padding: var(--mingu-space-3, 12px);
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-lg);
+  background: var(--mingu-surface);
+  color: var(--mingu-text);
+  box-sizing: border-box;
+}
+.mingu-tree-row {
+  display: flex;
+  align-items: center;
+  gap: var(--mingu-space-2, 8px);
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  padding-inline-start: min(calc(8px + (var(--tree-level, 1) - 1) * 20px), 40%);
+  text-align: left;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: var(--mingu-radius-sm);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--mingu-text-sm);
+}
+.mingu-tree-row > svg,
+.mingu-tree-arrow {
+  flex: none;
+  color: var(--mingu-muted);
+}
+.mingu-tree-arrow {
+  width: 12px;
+  text-align: center;
+}
+.mingu-tree-row > span:last-child {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.mingu-tree-row:hover {
+  background: var(--mingu-raised);
+}
+.mingu-tree-row[aria-selected="true"] {
+  background: var(--mingu-accent-soft);
+  color: var(--mingu-accent);
+}
+.mingu-tree-row:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mingu-tree-row:focus-visible {
+  outline: 2px solid var(--mingu-accent);
+  outline-offset: -2px;
+}
+.ui-media-demo {
+  display: grid;
+  gap: var(--mingu-space-6, 24px);
+  width: 100%;
+  min-width: 0;
+}
+.ui-media-demo > header {
+  display: grid;
+  gap: var(--mingu-space-2, 8px);
+}
+.ui-media-demo > header > span {
+  font-family: var(--mingu-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  color: var(--mingu-muted);
+}
+.ui-media-demo > header > p {
+  color: var(--mingu-muted);
+  margin: 0;
+  font-size: var(--mingu-text-sm);
+  line-height: 1.6;
+}
+.ui-media-upload {
+  display: grid;
+  gap: var(--mingu-space-2, 8px);
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+}
+.ui-media-upload input {
+  width: 100%;
+  min-width: 0;
+  font: inherit;
+  color: var(--mingu-text);
+}
+.ui-media-upload input::file-selector-button {
+  min-height: 44px;
+  padding: 8px 14px;
+  margin-right: 12px;
+  border: 1px solid var(--mingu-border);
+  border-radius: var(--mingu-radius-sm);
+  background: var(--mingu-raised);
+  color: var(--mingu-text);
+  font: inherit;
+  cursor: pointer;
+}
+.ui-media-result {
+  padding: var(--mingu-space-3, 12px);
+  border-radius: var(--mingu-radius-sm);
+  border: 1px dashed var(--mingu-border);
+  color: var(--mingu-muted);
+  font-family: var(--mingu-font-mono);
+  font-size: var(--mingu-text-xs);
+}
+@media (max-width: 480px) {
+  .mingu-split-flap {
+    padding: var(--mingu-space-4, 16px);
+  }
+  .mingu-flap-cells {
+    gap: 3px;
+  }
+  .mingu-calendar-day {
+    height: 52px;
+  }
+  .mingu-calendar-event {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .mingu-calendar-event > :nth-child(2) {
+    grid-column: 1;
+  }
+  .mingu-calendar-event > button {
+    grid-column: 2;
+    grid-row: 1/3;
+    align-self: center;
+  }
+  .mingu-story-frame {
+    aspect-ratio: 3/4;
+  }
+  .mingu-stories > .mingu-media-toolbar {
+    gap: 8px;
+  }
+  .mingu-stories > .mingu-media-toolbar > button {
+    flex: 1 1 100px;
+  }
+  .mingu-crop-resize {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-flap-letter {
+    animation: none;
+  }
+  .mingu-proximity-letters > span {
+    transition: none;
+  }
+  .mingu-reel-viewport {
+    scroll-behavior: auto;
+  }
+}
+@media (forced-colors: active) {
+  .mingu-flap-cell,
+  .mingu-crop-selection,
+  .mingu-gantt-bar {
+    border: 1px solid CanvasText;
+  }
+  .mingu-tree-row[aria-selected="true"],
+  .mingu-calendar-day[aria-pressed="true"] {
+    outline: 2px solid Highlight;
+  }
+}
+
+.mingu-calendar-day:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

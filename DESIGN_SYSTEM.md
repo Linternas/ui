@@ -375,3 +375,7 @@ StickerPeel, ElasticMesh, ImageParticleMorph, DitherReveal, FluidGlassLens, Lany
 ## Navigation and scroll (0.16.0)
 
 PageTransition, DynamicStatusIsland, AnimatedMegaMenu, SortableGrid, CardNavigation, ScrollStack, StickyScrollStory, FooterReveal, ScrollExpandMedia, CoverflowCarousel. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/navigation.md).
+
+## Media and workspace (0.17.0)
+
+SplitFlapDisplay, VariableFontProximity, VerticalReel, StoryViewer, VideoPlayer, ImageCropper, CalendarBoard, GanttTimeline, KanbanBoard, FileTree. 각 항목의 라이브 데모·사용 코드·Newest를 제공한다. [API와 조작 규칙](./docs/collections/media.md).

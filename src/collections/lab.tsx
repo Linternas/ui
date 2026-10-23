@@ -8,13 +8,9 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import {
-  motion,
-  useDragControls,
-  useMotionValue,
-  useReducedMotion,
-} from "motion/react";
+import { motion, useDragControls, useMotionValue } from "motion/react";
 import { Button, TextField, Select, Dialog } from "../system/base";
+import { useMotionPreference as useReducedMotion } from "../experimental/motion-preference";
 import { Slider, TextareaField } from "../system/forms";
 import { useExperimentCanvas } from "../experimental/canvas";
 import { prepareSurface, clamp } from "../experimental/surface";

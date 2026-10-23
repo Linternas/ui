@@ -132,6 +132,18 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "split-flap-display":
+    case "variable-font-proximity":
+    case "vertical-reel":
+    case "story-viewer":
+    case "video-player":
+    case "image-cropper":
+    case "calendar-board":
+    case "gantt-timeline":
+    case "kanban-board":
+    case "file-tree":
+      return <CollectionPreview id={id} />;
+
     case "page-transition":
     case "dynamic-status-island":
     case "animated-mega-menu":

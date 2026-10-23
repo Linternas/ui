@@ -6,7 +6,7 @@ import {
   useState,
   type RefObject,
 } from "react";
-import { useReducedMotion } from "motion/react";
+import { useMotionPreference as useReducedMotion } from "./motion-preference";
 import { experimentalMotion } from "../system/motion-tokens";
 /** One bounded canvas loop; paused/reduced scenes redraw only when invalidated. */
 export function useExperimentCanvas(

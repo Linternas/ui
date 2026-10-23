@@ -297,3 +297,25 @@ test("all lab controls fit a 320px viewport in dark reduced motion", async ({
     ).toBe(true);
   }
 });
+
+test("OS motion preference changes stop running canvases and retain manual image editing", async ({
+  page,
+}) => {
+  await page.goto(visit("image-particle-morph"));
+  await ready(page);
+  await expect(
+    page.getByRole("button", { name: "Pause motion" }),
+  ).toBeEnabled();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(
+    page.getByRole("button", { name: "Pause motion" }),
+  ).toBeDisabled();
+  await page.getByRole("button", { name: "Form globe" }).click();
+  await expect(page.getByRole("slider", { name: "Globe amount" })).toHaveValue(
+    "1",
+  );
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect(
+    page.getByRole("button", { name: "Pause motion" }),
+  ).toBeEnabled();
+});
