@@ -389,3 +389,8 @@ TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashComm
 ## AI workbench (0.19.0)
 
 PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter, ArtifactPanel, Checkpoint, ModelSelector, VoiceInput, StreamingTerminal. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/ai.md).
+
+
+## Creative and workflow (0.22.0)
+
+GradientEditor, PixelEditor, ScratchCard, UndoHistory, MultiSelect, TransferList, Rating, CircularDial. 같은 semantic tokens와 Core 컨트롤을 사용한다. 패키지 루트 exports와 라이브 갤러리·Docs를 함께 제공하며 실제 UTC 추가일부터 30일 동안 New 배지를 표시한다. [API·제어 상태·키보드·터치·폼 규칙](./docs/collections/creative.md).

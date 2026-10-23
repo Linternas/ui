@@ -132,6 +132,15 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "gradient-editor":
+    case "pixel-editor":
+    case "scratch-card":
+    case "undo-history":
+    case "multi-select":
+    case "transfer-list":
+    case "rating":
+    case "circular-dial":
+      return <CollectionPreview id={id} compact={compact} />;
     case "prompt-composer":
     case "tool-execution-panel":
     case "plan-review":

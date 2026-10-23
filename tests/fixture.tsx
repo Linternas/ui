@@ -1,3 +1,4 @@
+import CreativeFixture from "./creative";
 import DocsApp from "../docs/src/App";
 import MorphConsumer from "./morph-consumer";
 import UiCatalog from "../docs/src/UiCatalog";
@@ -79,6 +80,8 @@ createRoot(document.getElementById("root")!).render(
     location.pathname.startsWith("/docs/") ||
     new URLSearchParams(location.search).has("landing") ? (
     <DocsApp />
+  ) : new URLSearchParams(location.search).has("creative-form") ? (
+    <CreativeFixture />
   ) : new URLSearchParams(location.search).has("morph-consumer") ? (
     <MorphConsumer />
   ) : new URLSearchParams(location.search).has("catalog-shell") ? (

@@ -1,3 +1,5 @@
+import CreativeCollectionPreview from "./CreativeCollectionPreview";
+import { creativeCatalog } from "../../src/collections/creative.catalog";
 import AiCollectionPreview from "./AiCollectionPreview";
 import ToolsCollectionPreview from "./ToolsCollectionPreview";
 import MediaCollectionPreview from "./MediaCollectionPreview";
@@ -10,6 +12,8 @@ export default function CollectionPreview({
   id: string;
   compact?: boolean;
 }) {
+  if (creativeCatalog.some((entry) => entry.id === id))
+    return <CreativeCollectionPreview id={id} />;
   if (
     [
       "page-transition",

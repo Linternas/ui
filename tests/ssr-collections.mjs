@@ -8,6 +8,14 @@ import { renderToString } from "react-dom/server";
 const noop = () => {};
 // Consumer fixtures use minimum valid props, including empty data and idle states.
 const fixtures = {
+  MultiSelect: { options: [] },
+  TransferList: { options: [] },
+  Rating: {},
+  UndoHistory: { entries: [], value: "", onValueChange: noop },
+  GradientEditor: {},
+  PixelEditor: {},
+  ScratchCard: { children: "A surprise" },
+  CircularDial: {},
   StickerPeel: {},
   ElasticMesh: {},
   ImageParticleMorph: {},
@@ -78,15 +86,15 @@ test("published collection exports render without browser globals under classic 
     const lib = await import(pathToFileURL(outfile).href);
     let count = 0;
     for (const [name, props] of Object.entries(fixtures)) {
-      if (!lib[name]) continue;
       assert.equal(typeof lib[name], "function", name);
       const output = renderToString(createElement(lib[name], props));
       assert.ok(output.length > 0, `${name} produced no server markup`);
       count++;
     }
-    assert.ok(
-      count >= 10 && count % 10 === 0,
-      `Expected complete ten-component batches; received ${count}`,
+    assert.equal(
+      count,
+      Object.keys(fixtures).length,
+      "Every public fixture must render",
     );
     console.log(`${count} public collection components: SSR PASS`);
   } finally {

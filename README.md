@@ -150,3 +150,8 @@ TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashComm
 ## AI workbench (0.19.0)
 
 PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter, ArtifactPanel, Checkpoint, ModelSelector, VoiceInput, StreamingTerminal. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/ai.md).
+
+
+## Creative and workflow (0.22.0)
+
+GradientEditor, PixelEditor, ScratchCard, UndoHistory, MultiSelect, TransferList, Rating, CircularDial. 그라디언트를 CSS로 복사하고, 픽셀을 그려 SVG로 가져가고, 스크래치로 콘텐츠를 공개하거나 실제 문서 상태를 되돌릴 수 있습니다. [전체 갤러리](https://ui.mingu.xyz/all)와 각 Docs에서 체험할 수 있습니다. [API·키보드·터치·폼 규칙](./docs/collections/creative.md).

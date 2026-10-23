@@ -680,3 +680,19 @@ TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashComm
 ## AI workbench (0.19.0)
 
 PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter, ArtifactPanel, Checkpoint, ModelSelector, VoiceInput, StreamingTerminal. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/ai.md).
+
+
+## Creative and workflow (0.22.0)
+
+| Component | Interaction |
+| --- | --- |
+| [GradientEditor](https://ui.mingu.xyz/docs/gradient-editor) | Drag stops, edit colors and angles, copy CSS |
+| [PixelEditor](https://ui.mingu.xyz/docs/pixel-editor) | Draw and erase pixels, keyboard grid, copy SVG |
+| [ScratchCard](https://ui.mingu.xyz/docs/scratch-card) | Scratch a mask, reveal content, reset |
+| [UndoHistory](https://ui.mingu.xyz/docs/undo-history) | Undo/redo and select a version |
+| [MultiSelect](https://ui.mingu.xyz/docs/multi-select) | Search options, select multiple values, remove chips |
+| [TransferList](https://ui.mingu.xyz/docs/transfer-list) | Assign checked items between two searchable lists |
+| [Rating](https://ui.mingu.xyz/docs/rating) | Preview and choose stars with native radios |
+| [CircularDial](https://ui.mingu.xyz/docs/circular-dial) | Turn a dial with pointer, keys or step buttons |
+
+[Props and behavior](./docs/collections/creative.md). The gallery renders the same public implementations and retains its deferred preview mounting.

@@ -189,7 +189,9 @@ test("Gallery exposes the full inventory while mounting only nearby demos and pr
 }) => {
   await page.goto("/?component-gallery");
   const cards = page.locator(".ui-newest-card");
-  await expect(cards).toHaveCount(91);
+  await expect(cards).toHaveCount(
+    getNewestEntries(uiCatalog, Date.parse("2026-10-23T12:00:00Z")).length,
+  );
   const ids = await cards.evaluateAll((nodes) =>
     nodes.map((node) => node.getAttribute("data-preview-id")),
   );

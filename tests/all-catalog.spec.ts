@@ -8,9 +8,15 @@ test("All always shows every live preview without a search, filter or view toolb
   page,
 }) => {
   await page.goto("/?all-gallery");
-  await expect(page.getByRole("searchbox")).toHaveCount(0);
-  await expect(page.getByRole("combobox")).toHaveCount(0);
-  await expect(page.getByRole("radiogroup")).toHaveCount(0);
+  await expect(
+    page.getByRole("searchbox", { name: "컴포넌트 검색", exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("combobox", { name: "카테고리", exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("radiogroup", { name: "목록 표시 방식", exact: true }),
+  ).toHaveCount(0);
   await expect(page.locator(".ui-all-controls, .ui-all-list")).toHaveCount(0);
   const cards = page.locator(".ui-newest-card");
   await expect(cards).toHaveCount(entries.length);

@@ -182,3 +182,5 @@ export * from "./collections/media";
 export * from "./collections/tools";
 
 export * from "./collections/ai";
+
+export * from "./collections/creative";
