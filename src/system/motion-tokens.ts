@@ -16,6 +16,7 @@ export const explorationMotion = {
   dockScale: 1.6,
   dockLift: 12,
   deckTilt: 12,
+  deckExit: 0.16,
   deckThreshold: 75,
   deckVelocity: 650,
   scrambleFrame: 32,
@@ -46,4 +47,11 @@ export const mobileMotion = {
   pullLimit: 100,
   pullResistance: 0.5,
   longPressSlop: 10,
+};
+
+export const filterMotion = {
+  layout: { type: "spring" as const, stiffness: 620, damping: 38 },
+  opacity: { duration: 0.12 },
+  y: { duration: 0.14 },
+  scale: { duration: 0.12 },
 };

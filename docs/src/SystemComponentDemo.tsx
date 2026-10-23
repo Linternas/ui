@@ -1,4 +1,5 @@
 "use client";
+import ProgressPreview from "./ProgressPreview";
 import ButtonInteractions from "./ButtonInteractions";
 import { useState } from "react";
 import * as UI from "@mingu/interaction-ui/system";
@@ -29,8 +30,7 @@ export default function SystemComponentDemo({
     [open, setOpen] = useState(false),
     [page, setPage] = useState(1),
     [query, setQuery] = useState(""),
-    [menu, setMenu] = useState("No action selected"),
-    [progress, setProgress] = useState(45);
+    [menu, setMenu] = useState("No action selected");
   const [messages, setMessages] = useState<UI.ToastMessage[]>([]);
   const columns: UI.DataColumn<(typeof rows)[number]>[] = [
     {
@@ -791,18 +791,7 @@ export default function SystemComponentDemo({
         </UI.Stack>
       );
     case "progress":
-      return (
-        <UI.Stack>
-          <UI.Progress label="Upload" value={progress} />
-          <UI.Button
-            variant="secondary"
-            onClick={() => setProgress((current) => (current + 10) % 110)}
-          >
-            Advance
-          </UI.Button>
-          <UI.Progress label="Connecting" />
-        </UI.Stack>
-      );
+      return <ProgressPreview />;
     case "skeleton":
       return (
         <UI.Stack>

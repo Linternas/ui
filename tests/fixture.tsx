@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { CodeBlock, RailToc, ScrollProgress } from "../src";
+import RefinementFixture from "./refinement";
 import MobileFixture from "./mobile";
 import PlaygroundFixture from "./playground";
 import StudioFixture from "./studio";
@@ -65,7 +66,9 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  location.search.includes("mobile") ? (
+  location.search.includes("refinement") ? (
+    <RefinementFixture />
+  ) : location.search.includes("mobile") ? (
     <MobileFixture />
   ) : location.search.includes("playground") ? (
     <PlaygroundFixture />

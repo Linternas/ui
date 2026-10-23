@@ -113,11 +113,13 @@ export function Progress({
   label,
   value,
   max = 100,
+  animated = true,
   ...props
 }: Omit<ComponentProps<"progress">, "value" | "max" | "aria-label"> & {
   label: string;
   value?: number;
   max?: number;
+  animated?: boolean;
 }) {
   const id = useId();
   const limit = Number.isFinite(max) && max > 0 ? max : 100;
@@ -133,13 +135,31 @@ export function Progress({
           <span>{Math.round((bounded / limit) * 100)}%</span>
         )}
       </div>
-      <progress
-        {...props}
-        id={id}
-        className={`mingu-progress-bar ${props.className ?? ""}`}
-        max={limit}
-        value={bounded}
-      />
+      <div
+        className="mingu-progress-track"
+        data-animated={animated || undefined}
+        data-indeterminate={bounded === undefined || undefined}
+        data-complete={bounded === limit || undefined}
+      >
+        <progress
+          {...props}
+          id={id}
+          className={`mingu-progress-bar ${props.className ?? ""}`}
+          max={limit}
+          value={bounded}
+        />
+        {animated && (
+          <span className="mingu-progress-visual" aria-hidden="true">
+            <span
+              className="mingu-progress-fill"
+              style={{
+                width:
+                  bounded === undefined ? "40%" : `${(bounded / limit) * 100}%`,
+              }}
+            />
+          </span>
+        )}
+      </div>
     </div>
   );
 }

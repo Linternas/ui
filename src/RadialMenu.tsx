@@ -22,7 +22,7 @@ export function RadialMenu({
   items,
   onSelect,
   label = "Quick actions",
-  icon = "+",
+  icon,
   disabled,
   className = "",
 }: RadialMenuProps) {
@@ -128,7 +128,19 @@ export function RadialMenu({
           animate={{ rotate: open && !reduced ? 45 : 0 }}
           transition={selectionSpring}
         >
-          {icon}
+          {icon ?? (
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              aria-hidden="true"
+            >
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          )}
         </motion.span>
       </button>
       {open && !disabled && (

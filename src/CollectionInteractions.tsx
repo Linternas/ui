@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { useId, useState, type ReactNode } from "react";
+import { useId, useState, type Ref, type ReactNode } from "react";
 import {
   AnimatePresence,
   motion,
@@ -11,7 +11,7 @@ import {
 } from "motion/react";
 import { useControllable } from "./shared";
 import { SegmentedControl } from "./system/micro-interactions";
-import { selectionSpring } from "./system/motion-tokens";
+import { selectionSpring, filterMotion } from "./system/motion-tokens";
 export interface FilterOption {
   value: string;
   label: string;
@@ -35,21 +35,24 @@ export interface AnimatedFilterBarProps<T> {
 function FilterResult({
   children,
   reduced,
+  ref,
 }: {
+  ref?: Ref<HTMLDivElement>;
   children: ReactNode;
   reduced: boolean | null;
 }) {
   const present = useIsPresent();
   return (
     <motion.div
+      ref={ref}
       role="listitem"
-      layout={!reduced}
+      layout={reduced ? false : "position"}
       inert={!present || undefined}
       aria-hidden={!present || undefined}
       initial={reduced ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: reduced ? 1 : 0.98 }}
-      transition={reduced ? { duration: 0 } : selectionSpring}
+      transition={reduced ? { duration: 0 } : filterMotion}
     >
       {children}
     </motion.div>
@@ -103,7 +106,7 @@ export function AnimatedFilterBar<T>({
         aria-label={`${label} results`}
         className="mingu-filter-results"
       >
-        <AnimatePresence initial={false}>
+        <AnimatePresence initial={false} mode="popLayout">
           {visible.map((item) => (
             <FilterResult key={getKey(item)} reduced={reduced}>
               {renderItem(item)}

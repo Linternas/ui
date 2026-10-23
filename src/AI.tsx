@@ -13,7 +13,10 @@ export interface GridRevealProps {
   onRevealComplete?: () => void;
   onError?: () => void;
 }
-export function GridReveal({
+export function GridReveal(props: GridRevealProps) {
+  return <GridRevealFrame key={props.src ?? ""} {...props} />;
+}
+function GridRevealFrame({
   src,
   alt,
   progress,
@@ -26,9 +29,26 @@ export function GridReveal({
     [failed, setFailed] = useState(""),
     [clock, setClock] = useState(0);
   const reduced = useReducedMotion();
+  const image = useRef<HTMLImageElement>(null),
+    reported = useRef(false);
+  const reveal = () => {
+    if (!src || reported.current) return;
+    reported.current = true;
+    setLoaded(src);
+    onRevealComplete?.();
+  };
+  const reject = () => {
+    if (!src || reported.current) return;
+    reported.current = true;
+    setFailed(src);
+    onError?.();
+  };
   useEffect(() => {
-    setLoaded("");
-    setFailed("");
+    // A cached SSR image may have finished before hydration attached its load listener.
+    if (image.current?.complete) {
+      if (image.current.naturalWidth > 0) reveal();
+      else reject();
+    }
   }, [src]);
   useEffect(() => {
     setClock(0);
@@ -75,17 +95,12 @@ export function GridReveal({
     >
       {src && (
         <img
+          ref={image}
           key={src}
           src={src}
           alt={alt}
-          onLoad={() => {
-            setLoaded(src);
-            onRevealComplete?.();
-          }}
-          onError={() => {
-            setFailed(src);
-            onError?.();
-          }}
+          onLoad={reveal}
+          onError={reject}
           className="mi-grid-image"
           data-ready={ready || undefined}
         />

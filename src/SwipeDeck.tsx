@@ -3,6 +3,7 @@ import * as React from "react";
 import { useRef, type ReactNode } from "react";
 import {
   AnimatePresence,
+  animate,
   motion,
   useDragControls,
   useMotionValue,
@@ -40,7 +41,7 @@ function DeckCard({
   draggable,
 }: {
   item: SwipeCard;
-  onSwipe: (direction: number) => void;
+  onSwipe: (direction: number) => boolean;
   draggable: boolean;
 }) {
   const x = useMotionValue(0);
@@ -71,6 +72,7 @@ function DeckCard({
           x: direction * 260,
           opacity: 0,
           rotate: direction * explorationMotion.deckTilt,
+          transition: { duration: explorationMotion.deckExit, ease: "easeOut" },
         }),
       }}
       exit={reduced ? { opacity: 0 } : "leave"}
@@ -80,7 +82,7 @@ function DeckCard({
       dragControls={controls}
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.85}
-      dragSnapToOrigin
+      onDragStart={() => x.stop()}
       onPointerDown={(event) => {
         if (
           !(event.target as HTMLElement).closest(
@@ -94,7 +96,8 @@ function DeckCard({
           Math.abs(info.offset.x) > explorationMotion.deckThreshold ||
           (Math.abs(info.offset.x) > 18 &&
             Math.abs(info.velocity.x) > explorationMotion.deckVelocity);
-        if (committed) onSwipe(info.offset.x < 0 ? 1 : -1);
+        if (!committed || !onSwipe(info.offset.x < 0 ? 1 : -1))
+          animate(x, 0, deckSpring);
       }}
     >
       {item.content}
@@ -125,13 +128,14 @@ export function SwipeDeck({
     ),
   );
   const move = (delta: number) => {
-    if (items.length < 2) return;
+    if (items.length < 2) return false;
     const next = loop
       ? (selected + delta + items.length) % items.length
       : Math.max(0, Math.min(items.length - 1, selected + delta));
-    if (next === selected) return;
+    if (next === selected) return false;
     direction.current = delta > 0 ? -1 : 1;
     setCurrent(next);
+    return true;
   };
   if (!items.length)
     return <p className="mingu-muted">{labels?.empty ?? "No cards"}</p>;
@@ -151,7 +155,7 @@ export function SwipeDeck({
             />
           </>
         )}
-        <AnimatePresence initial={false} custom={direction.current}>
+        <AnimatePresence initial={false} custom={direction.current} mode="wait">
           <DeckCard
             key={items[selected].id}
             item={items[selected]}

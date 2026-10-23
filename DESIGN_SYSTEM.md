@@ -248,7 +248,7 @@ npm run test:browser
 | `SelectionToolbar` | `children`, `actions: {id,label,onSelect(text,range)}[]`, `label`. children 안에서 선택한 문장에 기본 Copy와 사용자 액션을 제공한다. 실제 Range의 복사본을 전달하며 저장·공유는 소비 앱 콜백에서 처리한다. Clipboard 성공/실패를 표시하고 Escape·스크롤·리사이즈로 닫힌다. iframe과 편집기 입력 영역 대신 읽기용 본문에 사용한다. |
 | `SmartHeader` | native header props/ref, `containerRef?`, `threshold?`. 기본값은 window 스크롤이며 지정한 컨테이너의 스크롤도 추적한다. 아래로 읽을 때 접고 위로 움직일 때 복귀하며 헤더 내 포커스와 페이지 상단에서는 항상 표시한다. sticky가 작동하는 스크롤 컨테이너 안에 배치한다. |
 | `CodeTabs` | `items: (CodeBlockProps & {id,label,disabled?})[]`, `label`, `value/defaultValue/onValueChange`. 기존 Tabs와 CodeBlock을 조합한다. 방향키·Home/End, 코드 높이 전환, 파일 이름·문법 강조·실제 복사를 유지한다. |
-| `BottomSheet` | 기존 `DialogProps`와 `snapPoints`(뷰포트 비율 0.2–0.95), `defaultSnap`(정렬된 배열의 index). 손잡이를 잡아 높이를 바꾸고 놓으면 가까운 snap에 멈춘다. 최저 snap보다 충분히 아래로 끌면 닫힌다. 손잡이의 방향키·Home/End도 높이를 바꾸며 본문 스크롤과 손잡이 드래그를 분리한다. |
+| `BottomSheet` | 기존 `DialogProps`와 `snapPoints`(뷰포트 비율 0.2–0.95), `defaultSnap`(정렬된 배열의 index), `fitContent=true`. defaultSnap을 생략하면 내용 높이에 맞춰 열리고 사용자가 드래그·키보드로 조절한 뒤에는 snap 높이를 사용한다. `fitContent=false` 또는 명시한 defaultSnap은 고정 snap 높이를 유지한다. 손잡이를 잡아 높이를 바꾸고 놓으면 가까운 snap에 멈춘다. 최저 snap보다 충분히 아래로 끌면 닫힌다. 손잡이의 방향키·Home/End도 높이를 바꾸며 본문 스크롤과 손잡이 드래그를 분리한다. |
 | `ActionToast` | `messages: ActionToastMessage[]`, `onDismiss`, `label`, `placement='bottom-right'|'inline'`. 기존 ToastMessage에 `action?: {label,onAction}`, `progress?`(0–100), `busy?`를 더한다. 액션 Promise 중 중복 실행을 막고 실패 시 다시 누를 수 있다. 알림 수명과 실행 취소의 실제 데이터 복원은 앱이 관리한다. 자동 만료하지 않는다. |
 | `FileDropzone` | `label`, `files?/onFilesChange`, `accept`, `multiple=true`, `maxFiles=5`, `maxSize`(bytes, 기본 10 MB), `name/form/required/disabled`, `hint`, `onReject`, `onUpload(file,{signal,onProgress})`. 네이티브 FileUpload와 FileList를 유지한다. 드롭/선택한 파일을 검증하고 중복을 제외하며 이미지 Object URL은 해제한다. 업로드 버튼이 콜백을 호출하고 실패 시 Retry를 제공한다. 제거·unmount 시 AbortSignal을 취소한다. 서버의 파일 검증과 전송 구현은 소비 앱에 둔다. |
 
@@ -296,3 +296,14 @@ npm run test:browser
 `TouchAction`은 `{id,label,icon?,disabled?,danger?,onAction(): void | Promise<void>}`다. id는 같은 액션 목록에서 고유하게 지정한다. 네 컴포넌트는 루트 exports와 기존 `system.css`·`styles.css`를 사용한다. Core Button·BottomSheet를 재사용하고 키보드·Refresh/Actions 같은 명시적 버튼을 함께 제공한다. 모션 감소에서는 스프링·누름 확대를 생략하고 액션과 입력은 유지한다. 운영 데이터 요청·삭제·선택 상태는 소비 앱에 둔다.
 
 당겨 새로고침은 자체 스크롤 영역 안에서만 적용한다. 터치 판별은 [MDN touch-action](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/touch-action)의 제스처 시작·브라우저 스크롤 규칙을 따른다. 실제 iOS/Android 기기의 브라우저·웹뷰 차이는 소비 화면에서도 확인한다. 새 항목의 Newest 표시는 실제 UTC 추가일부터 30일간 유지한다.
+
+
+## Interaction refinements (0.12.2)
+
+- `AnimatedFilterBar`는 퇴장 항목을 즉시 레이아웃에서 분리하고 120ms 안에 페이드아웃한다. 새 결과는 퇴장을 기다리지 않고 재배치한다.
+- `FocusDock`은 확대된 아이콘의 가로 공간을 함께 확보한다. 컨테이너가 좁으면 확대량을 줄이며 네이티브 버튼 크기와 키보드 선택은 유지한다.
+- `RadialMenu`의 기본 트리거는 SVG이며 아이콘 슬롯은 고정 크기로 중앙 정렬한다.
+- `SwipeDeck`은 퇴장과 진입을 순서대로 처리해 카드 본문이 겹치지 않게 한다. 덱 데모는 가능한 폭을 사용하고 장식 영역이 텍스트에 의해 줄어들지 않는다.
+- `GridReveal`은 이미지 source별 로드 상태를 분리하고 캐시된 SSR 이미지의 complete 상태도 확인한다. `onRevealComplete`와 `onError`는 같은 이미지 로드에 중복 호출하지 않는다.
+- `Progress`는 네이티브 progress 값·ref·접근성 이름을 유지하면서 표시 막대를 보간한다. `animated=false`는 네이티브 표시를 사용한다. 모션 감소에서는 보간과 미확정 반복 모션을 끄고 강제 색상에서는 네이티브 표시로 복귀한다. Progress 자체는 읽기용 상태이며 데모의 시작·일시정지·초기화·슬라이더가 값을 변경한다.
+- `BottomSheet`는 `defaultSnap`을 생략했을 때 기본적으로 짧은 내용에 맞춰 열리고 드래그·방향키·Home·End로 조절하면 지정 snap을 사용한다. `fitContent=false`로 이전 기본 70% 높이를 유지할 수 있다. 명시한 `defaultSnap`도 기존 snap 동작을 유지한다.

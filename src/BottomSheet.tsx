@@ -6,10 +6,12 @@ export interface BottomSheetProps
   extends Omit<DialogProps, "motionOrigin" | "motion"> {
   snapPoints?: readonly number[];
   defaultSnap?: number;
+  fitContent?: boolean;
 }
 export function BottomSheet({
   snapPoints = [0.4, 0.7, 0.92],
-  defaultSnap = 1,
+  defaultSnap,
+  fitContent = true,
   children,
   className = "",
   ...props
@@ -23,15 +25,70 @@ export function BottomSheet({
   ].sort((a, b) => a - b);
   if (!snaps.length) snaps.push(0.5);
   const [height, setHeight] = useState(
-    snaps[Math.max(0, Math.min(snaps.length - 1, defaultSnap))],
+    snaps[Math.max(0, Math.min(snaps.length - 1, defaultSnap ?? 1))],
   );
-  const pointer = useRef<{ id: number; y: number; height: number } | null>(
-    null,
-  );
-  const content = useRef<HTMLDivElement>(null);
+  const pointer = useRef<{
+    id: number;
+    y: number;
+    height: number;
+    fitting: boolean;
+    ceiling: number;
+  } | null>(null);
+  const content = useRef<HTMLDivElement>(null),
+    inner = useRef<HTMLDivElement>(null);
+  const [resized, setResized] = useState(false),
+    [natural, setNatural] = useState<number | null>(null),
+    [viewport, setViewport] = useState(0);
+  const fitting = fitContent && defaultSnap === undefined && !resized;
+  const displayed =
+    fitting && natural !== null && viewport > 0
+      ? Math.min(height, natural / viewport)
+      : height;
+  useEffect(() => {
+    if (props.open && fitContent && defaultSnap === undefined)
+      setResized(false);
+  }, [props.open, fitContent, defaultSnap]);
+  useEffect(() => {
+    const dialog = content.current?.closest("dialog"),
+      body = inner.current,
+      scroll = body?.parentElement;
+    if (!dialog || !body || !scroll || !props.open) return;
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      setViewport(window.innerHeight);
+      const styles = getComputedStyle(scroll);
+      const height =
+        body.getBoundingClientRect().height +
+        dialog.getBoundingClientRect().height -
+        scroll.getBoundingClientRect().height +
+        parseFloat(styles.paddingTop) +
+        parseFloat(styles.paddingBottom);
+      setNatural((previous) =>
+        previous !== null && Math.abs(previous - height) < 1
+          ? previous
+          : Math.ceil(height),
+      );
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(body);
+    observer.observe(dialog);
+    window.addEventListener("resize", schedule);
+    schedule();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", schedule);
+    };
+  }, [props.open, props.description]);
   const index = snaps.reduce(
     (best, point, i) =>
-      Math.abs(point - height) < Math.abs(snaps[best] - height) ? i : best,
+      Math.abs(point - displayed) < Math.abs(snaps[best] - displayed)
+        ? i
+        : best,
     0,
   );
   useEffect(() => {
@@ -39,9 +96,11 @@ export function BottomSheet({
     if (dialog)
       dialog.style.setProperty(
         "--mingu-sheet-height",
-        `${Math.round(height * 100)}dvh`,
+        fitting && natural !== null
+          ? `min(${Math.round(height * 100)}dvh, ${natural}px)`
+          : `${Math.round(height * 100)}dvh`,
       );
-  }, [height, props.open]);
+  }, [height, props.open, fitting, natural]);
   return (
     <Dialog
       {...props}
@@ -54,17 +113,23 @@ export function BottomSheet({
           role="slider"
           tabIndex={0}
           aria-label="Sheet height"
-          aria-valuemin={Math.round(snaps[0] * 100)}
+          aria-valuemin={Math.round(Math.min(snaps[0], displayed) * 100)}
           aria-valuemax={Math.round(snaps[snaps.length - 1] * 100)}
-          aria-valuenow={Math.round(height * 100)}
-          aria-valuetext={`${Math.round(height * 100)}% of viewport`}
+          aria-valuenow={Math.round(displayed * 100)}
+          aria-valuetext={`${Math.round(displayed * 100)}% of viewport`}
           aria-orientation="vertical"
           onKeyDown={(event) => {
             const next =
               event.key === "ArrowUp" || event.key === "ArrowRight"
-                ? Math.min(snaps.length - 1, index + 1)
+                ? snaps.findIndex((point) => point > displayed + 0.001) < 0
+                  ? snaps.length - 1
+                  : snaps.findIndex((point) => point > displayed + 0.001)
                 : event.key === "ArrowDown" || event.key === "ArrowLeft"
-                  ? Math.max(0, index - 1)
+                  ? snaps.reduce(
+                      (best, point, i) =>
+                        point < displayed - 0.001 ? i : best,
+                      0,
+                    )
                   : event.key === "Home"
                     ? 0
                     : event.key === "End"
@@ -72,14 +137,23 @@ export function BottomSheet({
                       : null;
             if (next !== null) {
               event.preventDefault();
+              setResized(true);
               setHeight(snaps[next]);
             }
           }}
           onPointerDown={(event) => {
-            if (event.button !== 0) return;
+            if (!event.isPrimary || event.button !== 0) return;
             event.preventDefault();
             event.currentTarget.focus();
-            pointer.current = { id: event.pointerId, y: event.clientY, height };
+            setResized(true);
+            setHeight(displayed);
+            pointer.current = {
+              id: event.pointerId,
+              y: event.clientY,
+              height: displayed,
+              fitting,
+              ceiling: height,
+            };
             event.currentTarget.setPointerCapture(event.pointerId);
           }}
           onPointerMove={(event) => {
@@ -89,7 +163,7 @@ export function BottomSheet({
                 Math.max(
                   0.1,
                   Math.min(
-                    0.95,
+                    snaps[snaps.length - 1],
                     start.height + (start.y - event.clientY) / innerHeight,
                   ),
                 ),
@@ -97,23 +171,42 @@ export function BottomSheet({
           }}
           onPointerUp={(event) => {
             if (pointer.current?.id !== event.pointerId) return;
+            const start = pointer.current;
             pointer.current = null;
             event.currentTarget.releasePointerCapture(event.pointerId);
-            if (height < snaps[0] - 0.08) props.onOpenChange(false);
+            if (Math.abs(event.clientY - start.y) < 8) {
+              setHeight(start.ceiling);
+              setResized(!start.fitting);
+              return;
+            }
+            if (height < snaps[0] - 0.08 && event.clientY - start.y > 50)
+              props.onOpenChange(false);
             else setHeight(snaps[index]);
           }}
           onPointerCancel={() => {
+            const start = pointer.current;
             pointer.current = null;
-            setHeight(snaps[index]);
+            if (start) {
+              setHeight(start.ceiling);
+              setResized(!start.fitting);
+            }
           }}
           onLostPointerCapture={() => {
-            if (pointer.current) setHeight(snaps[index]);
+            const start = pointer.current;
             pointer.current = null;
+            if (start) {
+              setHeight(start.ceiling);
+              setResized(!start.fitting);
+            }
           }}
         >
           <span aria-hidden="true" />
         </div>
-        <div className="mingu-sheet-scroll">{children}</div>
+        <div className="mingu-sheet-scroll">
+          <div ref={inner} className="mingu-sheet-inner">
+            {children}
+          </div>
+        </div>
       </div>
     </Dialog>
   );

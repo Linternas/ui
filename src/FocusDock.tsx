@@ -1,11 +1,12 @@
 "use client";
 import * as React from "react";
-import { useState, useRef, type ReactNode } from "react";
+import { useEffect, useState, useRef, type ReactNode } from "react";
 import {
   motion,
   useMotionValue,
   useTransform,
   useSpring,
+  useMotionTemplate,
   useReducedMotion,
   type MotionValue,
 } from "motion/react";
@@ -29,6 +30,7 @@ export interface FocusDockProps {
 function DockButton({
   item,
   pointer,
+  capacity,
   active,
   onSelect,
   onNavigate,
@@ -37,28 +39,32 @@ function DockButton({
 }: {
   item: DockItem;
   pointer: MotionValue<number>;
+  capacity: MotionValue<number>;
   active: boolean;
   tabIndex: number;
   onFocus: () => void;
   onSelect: () => void;
   onNavigate: (key: string, element: HTMLButtonElement) => void;
 }) {
-  const ref = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const focused = useMotionValue(0);
   const reduced = useReducedMotion();
-  const proximity = useTransform([pointer, focused], ([x, focus]: number[]) => {
-    if (reduced || item.disabled) return 0;
-    if (focus) return 0.6;
-    const bounds = ref.current?.getBoundingClientRect();
-    return bounds
-      ? Math.max(
-          0,
-          1 -
-            Math.abs(x - bounds.left - bounds.width / 2) /
-              explorationMotion.dockReach,
-        )
-      : 0;
-  });
+  const proximity = useTransform(
+    [pointer, focused, capacity],
+    ([x, focus, space]: number[]) => {
+      if (reduced || item.disabled) return 0;
+      if (focus) return 0.6 * space;
+      const bounds = ref.current?.getBoundingClientRect();
+      return bounds
+        ? Math.max(
+            0,
+            1 -
+              Math.abs(x - bounds.left - bounds.width / 2) /
+                explorationMotion.dockReach,
+          ) * space
+        : 0;
+    },
+  );
   const scale = useSpring(
     useTransform(proximity, [0, 1], [1, explorationMotion.dockScale]),
     dockSpring,
@@ -67,10 +73,14 @@ function DockButton({
     useTransform(proximity, [0, 1], [0, -explorationMotion.dockLift]),
     dockSpring,
   );
+  const width = useMotionTemplate`calc(var(--mingu-dock-size) * ${scale})`;
   return (
-    <div className="mingu-dock-slot">
+    <motion.div
+      ref={ref}
+      className="mingu-dock-slot"
+      style={{ width: reduced ? undefined : width }}
+    >
       <motion.button
-        ref={ref}
         type="button"
         className="mingu-dock-item"
         disabled={item.disabled}
@@ -98,7 +108,7 @@ function DockButton({
       <span className="mingu-dock-label" aria-hidden="true">
         {item.label}
       </span>
-    </div>
+    </motion.div>
   );
 }
 export function FocusDock({
@@ -110,6 +120,44 @@ export function FocusDock({
   className = "",
 }: FocusDockProps) {
   const pointer = useMotionValue(Infinity);
+  const capacity = useMotionValue(1),
+    root = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = root.current,
+      parent = element?.parentElement;
+    if (!element || !parent) return;
+    const measure = () => {
+      const styles = getComputedStyle(element),
+        size =
+          element.querySelector<HTMLButtonElement>("button")?.offsetWidth ?? 44;
+      const gap = parseFloat(styles.columnGap) || 0,
+        padding =
+          parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+      const base =
+        items.length * size + Math.max(0, items.length - 1) * gap + padding;
+      let neighbours = 1;
+      for (
+        let distance = size + gap;
+        distance < explorationMotion.dockReach;
+        distance += size + gap
+      )
+        neighbours += 2 * (1 - distance / explorationMotion.dockReach);
+      const demand =
+        size *
+        (explorationMotion.dockScale - 1) *
+        Math.min(items.length, neighbours);
+      capacity.set(
+        demand > 0
+          ? Math.max(0, Math.min(1, (parent.clientWidth - base - 4) / demand))
+          : 0,
+      );
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(parent);
+    observer.observe(element);
+    measure();
+    return () => observer.disconnect();
+  }, [items.length, capacity]);
   const [selected, select] = useControllable(
     value,
     defaultValue,
@@ -137,6 +185,7 @@ export function FocusDock({
   };
   return (
     <div
+      ref={root}
       className={`mingu-dock ${className}`}
       role="toolbar"
       aria-label={label}
@@ -150,6 +199,7 @@ export function FocusDock({
           key={item.id}
           item={item}
           pointer={pointer}
+          capacity={capacity}
           active={selected === item.id}
           onSelect={() => select(item.id)}
           onNavigate={navigate}

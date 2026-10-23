@@ -383,7 +383,7 @@ neutral·accent·success·warning·danger. 제목·본문·live region 조합.
 
 ### Progress
 
-확정 진행률과 미확정 진행 상태. 네이티브 progress.
+확정 진행률과 미확정 진행 상태. 네이티브 progress 값·접근성을 유지하며 표시 막대를 보간한다. `animated={false}`로 네이티브 표시를 사용한다.
 
 [Live preview](https://ui.mingu.xyz/progress)
 

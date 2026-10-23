@@ -1147,15 +1147,20 @@ button:where([class^="mi-"]):disabled {
   box-shadow: var(--mingu-shadow);
 }
 .mingu-dock-slot {
+  flex-shrink: 0;
   position: relative;
   width: var(--mingu-dock-size);
   height: var(--mingu-dock-size);
 }
 .mingu-dock-item {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: calc(var(--mingu-dock-size) / -2);
   display: grid;
   place-items: center;
-  width: 100%;
-  height: 100%;
+  width: var(--mingu-dock-size);
+  height: var(--mingu-dock-size);
   padding: 0;
   border: 1px solid var(--mingu-border);
   border-radius: var(--mingu-radius-md);
@@ -3106,4 +3111,28 @@ button:where([class^="mi-"]):disabled {
   .mingu-long-surface[data-pressing] {
     transform: none;
   }
+}
+
+/* Icon wrappers use a fixed line box rather than an inline SVG baseline. */
+.mingu-radial-trigger > span,
+.mingu-radial-item > span {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  font-size: 20px;
+}
+.mingu-radial-trigger svg,
+.mingu-radial-item svg {
+  display: block;
+}
+.mingu-deck {
+  min-width: 0;
+}
+.mingu-deck-stage {
+  isolation: isolate;
+}
+.mingu-sheet-inner {
+  display: flow-root;
 }

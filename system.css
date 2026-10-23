@@ -1518,3 +1518,60 @@ html:has(dialog.mingu-dialog[open]) {
     outline-color: Highlight;
   }
 }
+
+/* Native progress keeps its value and accessible name; the visual fill can interpolate. */
+.mingu-progress-track {
+  position: relative;
+}
+.mingu-progress-track[data-animated] > progress {
+  opacity: 0;
+  animation: none;
+}
+.mingu-progress-visual {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--mingu-radius-full);
+  background: var(--mingu-surface);
+  pointer-events: none;
+}
+.mingu-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--mingu-accent);
+  transition:
+    width var(--mingu-duration-normal) var(--mingu-ease),
+    background var(--mingu-duration-normal);
+}
+.mingu-progress-track[data-complete] .mingu-progress-fill {
+  background: var(--mingu-success);
+}
+.mingu-progress-track[data-indeterminate] .mingu-progress-fill {
+  animation: mingu-progress-travel 1.4s ease-in-out infinite;
+}
+@keyframes mingu-progress-travel {
+  from {
+    transform: translateX(-110%);
+  }
+  to {
+    transform: translateX(360%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mingu-progress-fill {
+    transition: none;
+  }
+  .mingu-progress-track[data-indeterminate] .mingu-progress-fill {
+    animation: none;
+  }
+}
+@media (forced-colors: active) {
+  .mingu-progress-track[data-animated] > progress {
+    opacity: 1;
+    appearance: auto;
+  }
+  .mingu-progress-visual {
+    display: none;
+  }
+}

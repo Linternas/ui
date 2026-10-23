@@ -24,10 +24,15 @@ const css =
     "",
   ) +
   (await readFile(new URL("../interaction.css", import.meta.url), "utf8"));
-const demoCss = await readFile(
-  new URL("../docs/src/system-catalog.css", import.meta.url),
-  "utf8",
-);
+const demoCss =
+  (await readFile(
+    new URL("../docs/src/system-catalog.css", import.meta.url),
+    "utf8",
+  )) +
+  (await readFile(
+    new URL("../docs/src/interaction-previews.css", import.meta.url),
+    "utf8",
+  ));
 createServer(async (req, res) => {
   if (
     ["/ui-lab/landscape.svg", "/ui-lab/landscape-night.svg"].includes(req.url)

@@ -364,6 +364,7 @@
   min-width: 0;
 }
 .ui-dock-stage {
+  width: 100%;
   padding-top: var(--mingu-space-8);
 }
 .ui-command-launcher {
@@ -388,10 +389,12 @@
   color: var(--mingu-muted);
 }
 .ui-deck-demo {
+  width: min(100%, 24rem);
+  min-width: 0;
   --mingu-deck-height: 360px;
 }
 .ui-deck-demo-compact {
-  --mingu-deck-height: 260px;
+  --mingu-deck-height: 320px;
 }
 .ui-deck-index {
   font: 10px var(--mingu-font-mono);
@@ -996,4 +999,36 @@
   padding-left: 28px;
   font-size: var(--mingu-text-xs);
   color: var(--mingu-muted);
+}
+
+.ui-deck-orbit,
+.ui-deck-grid,
+.ui-deck-wave,
+.ui-deck-index {
+  flex-shrink: 0;
+}
+
+.ui-progress-demo {
+  display: grid;
+  gap: var(--mingu-space-5);
+  width: min(100%, 480px);
+  margin-inline: auto;
+  padding-block: var(--mingu-space-5);
+}
+.ui-progress-heading,
+.ui-progress-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--mingu-space-3);
+}
+.ui-progress-heading {
+  justify-content: space-between;
+}
+.ui-progress-heading > [role="status"] {
+  color: var(--mingu-muted);
+  font: var(--mingu-text-xs) / 1.5 var(--mingu-font-mono);
+}
+.ui-progress-demo > p {
+  margin: 0;
 }
