@@ -405,7 +405,7 @@
 }
 .mingu-skeleton {
   min-height: 1em;
-  background: var(--mingu-surface);
+  background: var(--mingu-border);
   border-radius: var(--mingu-radius-sm);
   animation: mingu-pulse 1.6s ease-in-out infinite;
 }

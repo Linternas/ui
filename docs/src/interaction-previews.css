@@ -155,3 +155,47 @@
     padding: 20px 14px;
   }
 }
+
+/* Intrinsic visuals stay centered; forms, boards and reading layouts retain their width. */
+:is(
+    .ui-gallery-demo-content,
+    .ui-newest-expanded-preview,
+    .system-catalog-preview
+  )
+  > :is(
+    button,
+    a,
+    svg,
+    canvas,
+    [role="img"],
+    .mi-sidebar,
+    .mi-folder,
+    .mi-fluid-orb,
+    .mi-matrix-orb,
+    .studio-counter,
+    .mingu-badge,
+    .mingu-spinner,
+    .mingu-sidebar,
+    .mi-player,
+    .mi-voice,
+    .mi-otp,
+    .ui-deck-demo
+  ) {
+  align-self: center;
+  max-width: 100%;
+  margin-inline: auto;
+}
+:is(
+    .ui-gallery-demo-content,
+    .ui-newest-expanded-preview,
+    .system-catalog-preview
+  )
+  > .mingu-stack {
+  justify-content: center;
+}
+.ui-newest-expanded-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center;
+  gap: var(--mingu-space-4);
+}

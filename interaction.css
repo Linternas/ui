@@ -580,16 +580,20 @@ button:where([class^="mi-"]):disabled {
   width: 18px;
   font-size: 17px;
 }
-.mi-sidebar-hook {
+.mi-sidebar > button > .mi-sidebar-hook {
+  position: relative;
   width: 22px;
   height: 40px;
   flex-shrink: 0;
   margin-block: -12px;
   border-left: 1px dashed var(--mru-border, #dedfe2);
 }
-.mi-sidebar-hook svg {
+.mi-sidebar > button > .mi-sidebar-hook > svg {
   position: absolute;
   inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
   fill: none;
   stroke: var(--mru-accent, #3976b6);
   stroke-width: 1.5;

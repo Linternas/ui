@@ -109,9 +109,12 @@ createRoot(document.getElementById("root")!).render(
     >
       <main style={{ maxWidth: 1100, margin: "24px auto", padding: 16 }}>
         <ComponentGallery
-          entries={getNewestEntries(
-            uiCatalog,
-            Date.parse("2026-10-23T12:00:00Z"),
+          entries={(new URLSearchParams(location.search).has("ids")
+            ? uiCatalog.filter(
+                (entry) =>
+                  entry.kind === "core" || entry.kind === "interaction",
+              )
+            : getNewestEntries(uiCatalog, Date.parse("2026-10-23T12:00:00Z"))
           ).filter(
             (entry) =>
               !new URLSearchParams(location.search).get("ids") ||
