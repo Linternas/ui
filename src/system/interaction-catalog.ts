@@ -1,5 +1,35 @@
 export const interactionCatalog = [
   {
+    id: "cloth-playground",
+    name: "Cloth playground",
+    group: "Visual effects",
+    component: "ClothPlayground",
+    addedAt: "2026-10-23",
+    tags: ["experimental", "playground", "physics", "실험"],
+    description:
+      "천을 잡아당기고 실을 끊습니다. 바람·중력·고정점을 바꾸며 부드러운 움직임을 만듭니다.",
+  },
+  {
+    id: "fluid-sandbox",
+    name: "Fluid sandbox",
+    group: "Visual effects",
+    component: "FluidSandbox",
+    addedAt: "2026-10-23",
+    tags: ["experimental", "playground", "physics", "실험"],
+    description:
+      "입자를 붓고 휘저으며 소용돌이를 만듭니다. 중력과 점도를 조절하는 작은 유체 놀이터.",
+  },
+  {
+    id: "orbit-composer",
+    name: "Orbit composer",
+    group: "Visual effects",
+    component: "OrbitComposer",
+    addedAt: "2026-10-23",
+    tags: ["experimental", "playground", "generative", "실험"],
+    description:
+      "세 궤도의 속도와 반경을 바꾸면 새로운 선이 그려집니다. 손으로 편집하는 움직이는 드로잉.",
+  },
+  {
     id: "particle-text",
     name: "Particle text",
     group: "Visual effects",
@@ -547,9 +577,12 @@ export const interactionCatalog = [
 ] as const;
 export type InteractionComponentId = (typeof interactionCatalog)[number]["id"];
 export const interactionExamples: Record<InteractionComponentId, string> = {
-  "particle-text": `import { ParticleText } from '@mingu/interaction-ui';\n\n<ParticleText defaultText="PLAY" onTextChange={setWord} />`,
-  "spatial-board": `import { SpatialBoard } from '@mingu/interaction-ui';\n\n<SpatialBoard onNodesChange={setNodes} onEdgesChange={setEdges} />`,
-  "sound-pad": `import { SoundPad } from '@mingu/interaction-ui';\n\n<SoundPad onNote={(note) => console.log(note.label)} />\n// Audio starts only after the user chooses Enable sound.`,
+  "cloth-playground": `<ClothPlayground defaultWind={0.4} defaultGravity={0.7} />`,
+  "fluid-sandbox": `<FluidSandbox defaultCount={180} />`,
+  "orbit-composer": `<OrbitComposer defaultPreset="petal" />`,
+  "particle-text": `<ParticleText defaultText="PLAY" />`,
+  "spatial-board": `<SpatialBoard />`,
+  "sound-pad": `<SoundPad onNote={(note) => console.log(note.label)} />\n// Audio starts only after the user chooses Enable sound.`,
   "swipe-actions":
     '<SwipeActions label="Note actions" endActions={[{id:"archive",label:"Archive",onAction:archiveNote}]}><p>Field notes</p></SwipeActions>',
   "pull-to-refresh":

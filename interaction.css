@@ -3488,3 +3488,129 @@ button:where([class^="mi-"]):disabled {
   max-width: 180px;
   min-width: 0;
 }
+
+.mingu-cloth-playground,
+.mingu-fluid-sandbox,
+.mingu-orbit-composer {
+  width: 100%;
+  min-width: 0;
+  color: var(--mingu-text);
+  font-family: var(--mingu-font-sans);
+}
+.mingu-simulation-surface {
+  background: var(--mingu-bg);
+  cursor: crosshair;
+}
+.mingu-simulation-surface canvas {
+  pointer-events: none;
+}
+.mingu-simulation-surface[data-tearing] {
+  cursor: cell;
+}
+.mingu-simulation-handle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  border: 0;
+  background: transparent;
+  color: var(--mingu-text);
+  font: 12px var(--mingu-font-mono);
+  cursor: grab;
+  touch-action: none;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.mingu-simulation-handle > span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--mingu-border);
+  border-radius: 50%;
+  background: var(--mingu-raised);
+  box-shadow: var(--mingu-shadow);
+}
+.mingu-simulation-handle:active {
+  cursor: grabbing;
+}
+.mingu-simulation-handle:focus-visible {
+  outline: 2px solid var(--mingu-accent);
+  outline-offset: -3px;
+  border-radius: 50%;
+}
+.mingu-simulation-handle:hover > span {
+  border-color: var(--mingu-muted);
+}
+.mingu-simulation-settings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--mingu-space-4);
+  align-items: end;
+  margin: var(--mingu-space-5) 0;
+}
+.mingu-fluid-sandbox .mingu-simulation-settings {
+  grid-template-columns: 1fr 1fr minmax(100px, 0.6fr);
+}
+.mingu-orbit-settings {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.mingu-simulation-settings .mingu-field-heading {
+  flex-wrap: wrap;
+}
+.mingu-simulation-empty {
+  position: absolute;
+  inset: 40% var(--mingu-space-6) auto;
+  text-align: center;
+  color: var(--mingu-muted);
+  font-size: var(--mingu-text-sm);
+  pointer-events: none;
+}
+.mingu-orbit-surface {
+  background-image: radial-gradient(
+    var(--mingu-border) 0.7px,
+    transparent 0.7px
+  );
+  background-size: 24px 24px;
+}
+.mingu-orbit-handle > span {
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+}
+.mingu-orbit-handle.is-center > span {
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
+}
+@media (max-width: 767px) {
+  .mingu-orbit-settings {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mingu-orbit-settings > :last-child {
+    grid-column: 1/-1;
+  }
+  .mingu-fluid-sandbox .mingu-simulation-settings {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mingu-fluid-sandbox .mingu-simulation-settings > select {
+    grid-column: 1/-1;
+    width: 100%;
+  }
+}
+@media (forced-colors: active) {
+  .mingu-simulation-handle > span {
+    border: 1px solid ButtonText;
+    background: Canvas;
+    color: ButtonText;
+  }
+}
+
+.mingu-fluid-sandbox .mingu-experiment-coordinate {
+  bottom: auto;
+  top: var(--mingu-space-5);
+}

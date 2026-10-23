@@ -30,6 +30,30 @@ export const playgroundExperiments = [
     hint: "Play the pads or keys 1–8. Capture notes to make your own loop.",
     path: "/playground/sound-pad",
   },
+  {
+    id: "cloth-playground",
+    name: "Cloth playground",
+    number: "04",
+    description: "Something soft. Something you can break.",
+    hint: "Pull the fabric. Send a gust through it. Switch to tear mode and make a little mess.",
+    path: "/playground/cloth-playground",
+  },
+  {
+    id: "fluid-sandbox",
+    name: "Fluid sandbox",
+    number: "05",
+    description: "A little liquid. A lot to play with.",
+    hint: "Pour particles. Drag to stir. Change the viscosity and send the pool spinning.",
+    path: "/playground/fluid-sandbox",
+  },
+  {
+    id: "orbit-composer",
+    name: "Orbit composer",
+    number: "06",
+    description: "Small circles. Unexpected paths.",
+    hint: "Drag the center and orbit points. Change their speeds. Watch a new pattern unfold.",
+    path: "/playground/orbit-composer",
+  },
 ] as const;
 export type PlaygroundExperimentId =
   (typeof playgroundExperiments)[number]["id"];

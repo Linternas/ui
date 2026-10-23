@@ -44,6 +44,12 @@ test("production docs server serves built routes, assets and health without expo
     assert.match(js.headers.get("content-type"), /javascript/);
     assert.match(js.headers.get("cache-control"), /immutable/);
     for (const route of [
+      "/cloth-playground",
+      "/fluid-sandbox",
+      "/orbit-composer",
+      "/playground/cloth-playground",
+      "/playground/fluid-sandbox",
+      "/playground/orbit-composer",
       "/playground",
       "/playground/particle-text",
       "/playground/spatial-board",

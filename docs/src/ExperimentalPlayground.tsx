@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { DesignSystemProvider, Select } from "@mingu/interaction-ui";
 import {
   playgroundExperiments,
@@ -13,6 +13,12 @@ export default function ExperimentalPlayground({
   id: PlaygroundExperimentId;
 }) {
   const [theme, setTheme] = useState<"system" | "light" | "dark">("system");
+  const navigation = useRef<HTMLElement>(null);
+  useEffect(() => {
+    navigation.current
+      ?.querySelector<HTMLElement>('[aria-current="page"]')
+      ?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [id]);
   const entry = playgroundExperiments.find((e) => e.id === id)!;
   return (
     <DesignSystemProvider
@@ -53,7 +59,11 @@ export default function ExperimentalPlayground({
           </div>
           <p>{entry.hint}</p>
         </div>
-        <nav aria-label="Experiments" className="experiment-nav">
+        <nav
+          ref={navigation}
+          aria-label="Experiments"
+          className="experiment-nav"
+        >
           {playgroundExperiments.map((e) => (
             <Link
               key={e.id}

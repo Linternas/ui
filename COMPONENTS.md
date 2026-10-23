@@ -650,10 +650,13 @@ caption과 스크롤 영역을 가진 네이티브 테이블.
 
 ## Experimental
 
-큰 실험 화면은 [Playground](https://ui.mingu.xyz/playground)에 모은다. 세 컴포넌트 모두 패키지 루트에서 export한다. [API와 제약](./DESIGN_SYSTEM.md#experimental-playground).
+큰 실험 화면은 [Playground](https://ui.mingu.xyz/playground)에 모은다. 모든 실험 컴포넌트는 패키지 루트에서 export한다. [API와 제약](./DESIGN_SYSTEM.md#experimental-playground).
 
 | Component | Interaction | States and alternatives |
 | --- | --- | --- |
 | [ParticleText](https://ui.mingu.xyz/particle-text) | 글자 입자 반발·흩뜨리기·복귀, Word/Force 편집 | 일시 정지·초기화·빈 글자·모션 감소·터치 선택 사용 |
 | [SpatialBoard](https://ui.mingu.xyz/spatial-board) | 노트 이동·연결·편집, 화면 이동·확대·맞춤 | 키보드 손잡이·노트 포커스·연결 취소/삭제·빈 보드·12개 상한 |
 | [SoundPad](https://ui.mingu.xyz/sound-pad) | 여덟 패드, 시각 음표·8단계 캡처/반복 | 명시적 소리 활성화·음소거·볼륨·오디오 실패·키보드·이탈 시 중지 |
+| [ClothPlayground](https://ui.mingu.xyz/cloth-playground) | 천의 점 드래그·절단·바람·중력·고정점 | 키보드 손잡이·절단 버튼·앵커 복구·일시정지·정적 모션 감소 |
+| [FluidSandbox](https://ui.mingu.xyz/fluid-sandbox) | 입자 붓기·젓기·소용돌이·점도 | 420개 상한·비우기/복구·키보드 소용돌이·정적 표시·모션 감소 |
+| [OrbitComposer](https://ui.mingu.xyz/orbit-composer) | 상대 궤도·반경·속도·궤적 편집 | 세 프리셋·키보드/터치 손잡이·포커스 시 정지·방향 반전·모션 감소 |

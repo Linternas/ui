@@ -216,3 +216,31 @@
   width: auto;
   flex: 0 0 auto;
 }
+
+/* Experiments stay reachable as the collection grows, including narrow screens. */
+.experiment-nav {
+  overflow-x: auto;
+  justify-content: flex-start;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mingu-border) transparent;
+  gap: 28px;
+}
+.experiment-nav a {
+  flex: 0 0 auto;
+}
+.experiment-nav::-webkit-scrollbar {
+  height: 3px;
+}
+.experiment-nav::-webkit-scrollbar-thumb {
+  background: var(--mingu-border);
+  border-radius: 99px;
+}
+@media (max-width: 767px) {
+  .experiment-nav {
+    gap: 24px;
+  }
+  .experiment-nav a {
+    font-size: 12px;
+    min-height: 44px;
+  }
+}

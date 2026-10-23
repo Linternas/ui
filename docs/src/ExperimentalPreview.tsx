@@ -1,8 +1,21 @@
-import { ParticleText, SpatialBoard, SoundPad } from "@mingu/interaction-ui";
+import {
+  ParticleText,
+  SpatialBoard,
+  SoundPad,
+  ClothPlayground,
+  FluidSandbox,
+  OrbitComposer,
+} from "@mingu/interaction-ui";
 import type { PlaygroundExperimentId } from "../../src/system/ui-catalog";
 import Link from "./routing";
 export function Experiment({ id }: { id: PlaygroundExperimentId }) {
   switch (id) {
+    case "cloth-playground":
+      return <ClothPlayground />;
+    case "fluid-sandbox":
+      return <FluidSandbox />;
+    case "orbit-composer":
+      return <OrbitComposer defaultPreset="petal" />;
     case "particle-text":
       return <ParticleText />;
     case "spatial-board":

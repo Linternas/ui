@@ -124,3 +124,5 @@ npm run test:docs
 ### Playground
 
 [Playground](https://ui.mingu.xyz/playground)는 화면 전체를 쓰는 실험 공간이다. 글자를 입자로 밀어내는 **ParticleText**, 생각을 움직이고 연결하는 **SpatialBoard**, 빛과 소리로 루프를 만드는 **SoundPad**를 제공한다. 개별 컴포넌트 페이지와 Newest에서도 같은 구현을 사용한다. 패키지 루트 exports와 [API 문서](./DESIGN_SYSTEM.md#experimental-playground)를 통해 다른 앱에도 조합할 수 있다.
+
+**ClothPlayground**, **FluidSandbox**, **OrbitComposer**에서는 천을 잡아당기고 찢거나, 입자에 소용돌이를 만들거나, 궤도를 편집해 선을 그릴 수 있다. Playground의 실험 목록에서 이동하며 기존 컴포넌트처럼 패키지 루트에서 가져온다.

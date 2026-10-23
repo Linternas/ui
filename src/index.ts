@@ -165,3 +165,10 @@ export type {
 } from "./SpatialBoard";
 export { SoundPad } from "./SoundPad";
 export type { SoundPadProps, SoundPadNote } from "./SoundPad";
+
+export { ClothPlayground } from "./ClothPlayground";
+export type { ClothPlaygroundProps } from "./ClothPlayground";
+export { FluidSandbox } from "./FluidSandbox";
+export type { FluidSandboxProps } from "./FluidSandbox";
+export { OrbitComposer } from "./OrbitComposer";
+export type { OrbitComposerProps, OrbitPreset } from "./OrbitComposer";

@@ -40,6 +40,9 @@ test("newest uses UTC release windows and excludes future, invalid and expired d
       (e) => e.id,
     ),
   ).toEqual([
+    "cloth-playground",
+    "fluid-sandbox",
+    "orbit-composer",
     "particle-text",
     "spatial-board",
     "sound-pad",

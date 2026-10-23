@@ -1,6 +1,9 @@
 import { useState } from "react";
 import {
   DesignSystemProvider,
+  ClothPlayground,
+  FluidSandbox,
+  OrbitComposer,
   ParticleText,
   SpatialBoard,
   SoundPad,
@@ -9,6 +12,9 @@ import {
   type SpatialEdge,
 } from "../src";
 export default function ExperimentalFixture() {
+  const [torn, setTorn] = useState(0),
+    [fluidCount, setFluidCount] = useState(180),
+    [orbitPreset, setOrbitPreset] = useState("loom");
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [shown, setShown] = useState(true),
     [nodes, setNodes] = useState<readonly SpatialNode[]>([
@@ -47,6 +53,18 @@ export default function ExperimentalFixture() {
           <Button onClick={() => setShown(!shown)}>Toggle sound scene</Button>
           {shown && <SoundPad onNote={() => setNotes((n) => n + 1)} />}
           <output aria-label="Played notes">{notes}</output>
+        </section>
+        <section data-testid="cloth">
+          <ClothPlayground onTear={setTorn} />
+          <output aria-label="Torn threads">{torn}</output>
+        </section>
+        <section data-testid="fluid">
+          <FluidSandbox onCountChange={setFluidCount} />
+          <output aria-label="Fluid count">{fluidCount}</output>
+        </section>
+        <section data-testid="orbit">
+          <OrbitComposer onPresetChange={setOrbitPreset} />
+          <output aria-label="Selected orbit preset">{orbitPreset}</output>
         </section>
       </main>
     </DesignSystemProvider>

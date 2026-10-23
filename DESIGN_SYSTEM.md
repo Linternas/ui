@@ -324,7 +324,7 @@ import '@mingu/interaction-ui/styles.css';
 </DesignSystemProvider>
 ```
 
-- 세 컴포넌트의 표면 높이는 CSS 변수 `--mingu-experiment-height`로 조절한다. 기본 400px, 480px 이하 화면에서는 320px이다. `className`, `style`, 그룹의 접근성 이름 `label`을 받는다.
+- 실험 컴포넌트의 표면 높이는 CSS 변수 `--mingu-experiment-height`로 조절한다. 기본 400px, 480px 이하 화면에서는 320px이다. `className`, `style`, 그룹의 접근성 이름 `label`을 받는다.
 - 캔버스는 장식이다. 텍스트·노트·패드·시퀀서 조작은 DOM으로 제공한다. RAF는 화면 밖과 백그라운드에서 멈추며, 모션 감소에서는 입력 시에만 정적인 결과를 그린다. 픽셀 비율 1.5, 캔버스 2048×1200, 입자 1800개, 음표 효과 32개로 제한한다.
 - 터치 스크롤을 기본으로 보존한다. Particle text의 `Touch interaction`, Spatial board의 `Move canvas`를 켠 표면에서만 제스처를 점유한다. 노트 이동 손잡이는 직접 드래그할 수 있다. 작은 보드의 `Focus a note`는 선택한 노트를 100% 크기로 가운데에 표시한다.
 - Sound pad는 마이크나 네트워크를 사용하지 않는다. `Enable sound`라는 명시적 사용자 조작 후 하나의 AudioContext를 사용하며, 동시에 최대 여섯 음을 짧게 재생한다. Mute·화면 이탈·문서 숨김에서 음과 반복 재생을 멈추고, 언마운트에서 컨텍스트를 닫는다. 소리 사용 가능 여부와 관계없이 시각적 패드와 패턴 편집을 유지한다. [Web Audio AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext).
@@ -347,3 +347,23 @@ import '@mingu/interaction-ui/styles.css';
 `notes?: readonly SoundPadNote[]`, `onNote?(note)`를 받는다. `SoundPadNote`는 `{id, label, frequency}`이며 첫 여덟 개만 사용한다. 기본값은 C4–E5 음역의 펜타토닉 음계다. 재생 주파수는 80–1200Hz로 제한한다. 비어 있는 notes는 연주·반복·입력을 비활성화한다.
 
 패드 포인터/터치·Enter/Space 또는 그룹 안의 숫자 1–8로 연주한다. `onNote`는 수동 입력과 시퀀서 재생에 호출한다. Capture notes는 다음 입력을 여덟 단계에 순서대로 기록한다. 각 단계 버튼은 현재 선택한 음과 빈 칸 사이에서 전환한다. Play loop는 단계당 360ms로 반복하고 Stop/Clear로 중단한다. Volume은 0–50이며 낮은 출력 gain을 사용한다. AudioContext 생성/재개가 실패하면 오류를 표시하고 시각적 조작을 유지한다.
+
+### ClothPlayground API
+
+`defaultWind=0.4`(-2–2), `defaultGravity=0.7`(0–1.8), `onTear?(total)`과 공통 `label/className/style`을 받는다. 25×17개의 점과 808개 연결로 천을 구성한다. 포인터로 가까운 점을 잡아당기며, Pull fabric 손잡이는 방향키로 12단위, Shift와 함께 32단위씩 움직인다. 고정된 위쪽 점 다섯 개는 Release/Restore anchors로 해제·복구한다.
+
+Tear mode에서는 드래그한 위치 주변의 연결을 끊는다. 키보드에서는 Cut a slit으로 중앙에 틈을 낸다. `onTear`에는 누적 절단 수를 전달한다. Reset cloth와 Restore anchors는 천의 형태와 절단 상태를 복구하며 바람·중력 슬라이더 값은 유지한다. 화면 크기가 바뀌면 새 크기에 맞는 천을 만들고 절단 수를 초기화한다. 모션 감소·일시정지에서는 자동 물리 운동을 끄며 손잡이 이동과 절단은 유지한다. `onTear`는 절단할 때 호출하며 reset/resize 콜백은 아니다.
+
+### FluidSandbox API
+
+`defaultCount=180`(0–420), `onCountChange?(count)`과 공통 `label/className/style`을 받는다. 입자 간 반발과 속도 혼합으로 움직이는 유체 효과다. Soft ink는 최대 320×400의 저해상도 알파 필드로 입자를 연결하고 Particles는 개별 점을 그린다. Gravity와 Viscosity를 바꾸고 Soft ink/Particles 표시를 선택한다. Pour는 32개를 추가하며 최대 420개를 유지한다. Drain은 모두 제거하고 Reset fluid는 초기 개수로 복구한다. 개수 콜백은 Pour/Drain/Reset 동작에 호출한다. 크기 변경에서는 현재 입자 수를 보존하고 위치를 새 높이에 맞춘다.
+
+표면을 드래그하면 주변 입자에 회전과 이동 힘을 준다. Spin left/right는 키보드에서도 사용할 수 있는 2초 소용돌이다. 모션 감소·일시정지에서는 움직임을 멈추고 Pour/Drain 및 표시 선택을 유지한다. 입자 수·속도·인접 공간 탐색을 제한하며 정지한 탭과 화면 밖에서는 기존 캔버스 스케줄러가 자동 계산을 멈춘다.
+
+### OrbitComposer API
+
+`defaultPreset='loom'`, `onPresetChange?(preset)`과 공통 `label/className/style`을 받는다. `OrbitPreset`은 `'loom' | 'petal' | 'satellite'`다. 세 개의 상대 궤도와 최대 900점의 궤적으로 드로잉을 만든다. Reach(0.4–1.4), 각 궤도 속도(-5–5)를 조절한다. 속도 변경·Reverse는 변경 시점의 각도를 보존한다. 프리셋 선택·Reset은 중심·속도·반경·Reach·궤적을 프리셋으로 되돌린다. `onPresetChange`는 프리셋 선택과 Reset에 호출한다.
+
+중심과 각 궤도의 손잡이를 직접 드래그하거나 방향키(8px, Shift 24px)로 움직인다. 중심은 화면의 5–95% 안으로 제한하고 개별 반경은 짧은 변의 0.02–0.3배(Reach 적용 전)로 제한한다. 중심을 가장자리로 옮기거나 반경을 크게 늘리면 일부 궤도가 표면 밖으로 나갈 수 있다. Reset이나 Reach 축소로 전체를 다시 볼 수 있다. 손잡이에 포커스가 있으면 움직임을 멈춰 키보드 편집이 가능하며 Tab으로 떠나면 재개한다. 포인터로 드래그한 뒤에는 손잡이에서 포커스를 옮겨 자동으로 재개한다. Pause는 별도로 유지되는 수동 정지 상태다. Draw a cycle은 현재 속도와 위상으로 한 주기를 즉시 계산해 정지 상태에서도 궤적을 만든다. Hide/Show trail·Clear trail을 제공하고, 모션 감소에서는 정적 궤도와 수동 편집을 유지한다.
+
+새 세 실험은 `/playground/cloth-playground`, `/playground/fluid-sandbox`, `/playground/orbit-composer`에 있다. 개별 카탈로그와 Newest에서도 같은 구현을 사용한다. 모바일은 손잡이의 직접 터치를 지원하고, 표면 전체의 터치 제스처는 Touch interaction을 켰을 때만 사용한다. 선택하지 않은 표면에서는 세로 스크롤과 핀치 확대를 보존한다.

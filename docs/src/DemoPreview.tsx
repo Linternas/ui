@@ -131,6 +131,9 @@ export default function DemoPreview({
     </button>
   );
   switch (id) {
+    case "cloth-playground":
+    case "fluid-sandbox":
+    case "orbit-composer":
     case "particle-text":
     case "spatial-board":
     case "sound-pad":

@@ -72,3 +72,12 @@ export const experimentalMotion = {
   stepLength: 360,
   voiceLimit: 6,
 };
+
+export const simulationMotion = {
+  clothPasses: 3,
+  tearRadius: 14,
+  fluidLimit: 420,
+  fluidStart: 180,
+  fluidRadius: 24,
+  trailLimit: 900,
+};
