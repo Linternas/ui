@@ -1064,6 +1064,12 @@ html:has(dialog.mingu-dialog[open]) {
     background var(--mingu-duration-normal),
     border-color var(--mingu-duration-normal);
 }
+.mingu-disclosure-chevron {
+  display: block;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+}
 .mingu-button-content {
   position: relative;
   z-index: 1;

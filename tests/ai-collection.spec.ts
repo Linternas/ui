@@ -205,6 +205,41 @@ test("checkpoint confirmation restores real state and cancellation preserves it"
   await expect(first).toHaveAttribute("data-current", "true");
 });
 
+test("composer model chevron stays centered across fonts and narrow viewports", async ({
+  page,
+}) => {
+  await page.goto(visit("prompt-composer"));
+  const trigger = page.getByRole("button", { name: "Model: Swift" });
+  for (const width of [1440, 320]) {
+    await page.setViewportSize({ width, height: 850 });
+    for (const font of ["system-ui", "serif", '"Segoe UI", sans-serif']) {
+      await trigger.evaluate((element, font) => {
+        element.style.fontFamily = font;
+      }, font);
+      const geometry = await trigger.evaluate((button) => {
+        const icon = button.querySelector("svg")!,
+          outer = button.getBoundingClientRect(),
+          box = icon.getBoundingClientRect();
+        return {
+          offset: box.y + box.height / 2 - outer.y - outer.height / 2,
+          width: box.width,
+          height: box.height,
+          shrink: getComputedStyle(icon).flexShrink,
+        };
+      });
+      expect(Math.abs(geometry.offset)).toBeLessThan(0.6);
+      expect(geometry.width).toBe(geometry.height);
+      expect(geometry.shrink).toBe("0");
+    }
+  }
+  await trigger.click();
+  await expect(
+    page.getByRole("combobox", { name: "Search models" }),
+  ).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(trigger).toBeFocused();
+});
+
 test("model selector searches names and providers, skips disabled and returns focus", async ({
   page,
 }) => {

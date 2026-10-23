@@ -1,4 +1,5 @@
 "use client";
+import { ChevronDown } from "../system/icons";
 import * as React from "react";
 import {
   useCallback,
@@ -1106,7 +1107,7 @@ export function ModelSelector({
         }}
       >
         {chosen?.name ?? placeholder}
-        <span aria-hidden="true">⌄</span>
+        <ChevronDown />
       </Button>
       <Dialog
         open={open}

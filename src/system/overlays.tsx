@@ -1,4 +1,5 @@
 "use client";
+import { ChevronDown } from "./icons";
 import * as React from "react";
 import {
   cloneElement,
@@ -131,7 +132,7 @@ export function DropdownMenu({
           }
         }}
       >
-        {label} <span aria-hidden="true">⌄</span>
+        {label} <ChevronDown />
       </Button>
       <div
         id={p.id}
