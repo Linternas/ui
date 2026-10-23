@@ -643,20 +643,33 @@ export function ElasticMesh({
 export interface ImageParticleMorphProps extends LabProps {
   src?: string;
   alt?: string;
+  amount?: number;
+  defaultAmount?: number;
+  onAmountChange?: (amount: number) => void;
+  autoRotate?: boolean;
 }
 export function ImageParticleMorph({
   src,
   alt = "Image transformed into a particle globe",
+  amount: amountProp,
+  defaultAmount = 0,
+  onAmountChange,
+  autoRotate = false,
   label = "Image particle morph",
   className,
   style,
 }: ImageParticleMorphProps) {
   const { raster, error } = useRaster(src),
-    [amount, setAmount] = useState(0),
+    [amount, setAmount] = useControllable(
+      amountProp === undefined ? undefined : clamp(amountProp, 0, 1),
+      clamp(defaultAmount, 0, 1),
+      onAmountChange,
+    ),
     [yaw, setYaw] = useState(0),
     [paused, setPaused] = useState(false),
     [touch, setTouch] = useState(false),
-    progress = useRef(0),
+    progress = useRef(clamp(amountProp ?? defaultAmount, 0, 1)),
+    rotation = useRef(0),
     gesture = useRef<{ id: number; x: number; start: number } | null>(null),
     live = useRef({ raster, amount, yaw, reduced: false });
   live.current = { raster, amount, yaw, reduced: live.current.reduced };
@@ -665,6 +678,8 @@ export function ImageParticleMorph({
       r = live.current.raster;
     if (!s || !r) return;
     const { context: c, width, height } = s;
+    if (autoRotate && !gesture.current)
+      rotation.current = (rotation.current + delta * 0.22) % (Math.PI * 2);
     progress.current =
       live.current.reduced || paused
         ? live.current.amount
@@ -685,11 +700,12 @@ export function ImageParticleMorph({
         idx = (sy * r.width + sx) * 4,
         gy = 1 - (2 * i) / (total - 1),
         ring = Math.sqrt(Math.max(0, 1 - gy * gy)),
-        angle = i * 2.399963 + live.current.yaw,
+        angle = i * 2.399963 + live.current.yaw + rotation.current,
         gx = Math.cos(angle) * ring,
         gz = Math.sin(angle) * ring,
         z = gz * radius * t,
         p = 700 / (700 - z),
+        light = 1 - t * 0.25 * (1 - gz),
         x = ((u - 0.5) * fit.width * (1 - t) + gx * radius * t) * p + width / 2,
         y =
           ((v - 0.5) * fit.height * (1 - t) + gy * radius * t) * p + height / 2;
@@ -697,7 +713,7 @@ export function ImageParticleMorph({
         x,
         y,
         z,
-        color: `rgb(${r.pixels[idx]} ${r.pixels[idx + 1]} ${r.pixels[idx + 2]})`,
+        color: `rgb(${Math.round(r.pixels[idx] * light)} ${Math.round(r.pixels[idx + 1] * light)} ${Math.round(r.pixels[idx + 2] * light)})`,
       });
     }
     particles.sort((a, b) => a.z - b.z);
@@ -712,7 +728,7 @@ export function ImageParticleMorph({
   live.current.reduced = !!animation.reduced;
   useEffect(
     () => animation.invalidate(),
-    [raster, amount, yaw, animation.invalidate],
+    [raster, amount, yaw, autoRotate, animation.invalidate],
   );
   return (
     <Shell
@@ -785,9 +801,10 @@ export function ImageParticleMorph({
           touch={touch}
           setTouch={setTouch}
           reset={() => {
-            setAmount(0);
+            setAmount(clamp(defaultAmount, 0, 1));
             setYaw(0);
-            progress.current = 0;
+            rotation.current = 0;
+            progress.current = clamp(amountProp ?? defaultAmount, 0, 1);
             animation.invalidate();
           }}
         />

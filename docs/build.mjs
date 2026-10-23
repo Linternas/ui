@@ -16,6 +16,7 @@ const result = await build({
   entryNames: "[name]-[hash]",
   assetNames: "[name]-[hash]",
   bundle: true,
+  splitting: true,
   minify: true,
   format: "esm",
   jsx: "automatic",
@@ -42,13 +43,15 @@ await build({
   target: "node22",
   logLevel: "silent",
 });
-const files = Object.keys(result.metafile.outputs);
-const js = files.find((file) => file.endsWith(".js")),
-  css = files.find((file) => file.endsWith(".css"));
+const js = Object.entries(result.metafile.outputs).find(
+  ([file, details]) =>
+    file.endsWith(".js") && details.entryPoint === "docs/src/main.tsx",
+)?.[0];
+const css = js && result.metafile.outputs[js].cssBundle;
 if (!js || !css) throw Error("Docs bundle did not produce JS and CSS");
 await cp(path.join(root, "docs/public"), out, { recursive: true });
 await writeFile(
   path.join(out, "index.html"),
-  `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Mingu UI — foundations, components, interactions and patterns."><meta name="mingu-ui-version" content="${version}"><meta name="robots" content="noindex,nofollow"><title>Mingu UI</title><link rel="stylesheet" href="/${css.replace(/^dist\//, "")}"></head><body><div id="root"></div><script type="module" src="/${js.replace(/^dist\//, "")}"></script></body></html>`,
+  `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Mingu UI — Built to feel right. React 컴포넌트와 인터랙션을 직접 만지고, 바꾸고, 가져다 쓰는 디자인 시스템."><meta name="mingu-ui-version" content="${version}"><meta name="robots" content="noindex,nofollow"><title>Mingu UI — Built to feel right.</title><link rel="stylesheet" href="/${css.replace(/^dist\//, "")}"></head><body><div id="root"></div><script type="module" src="/${js.replace(/^dist\//, "")}"></script></body></html>`,
 );
 console.log("Standalone Mingu UI docs built to dist/");

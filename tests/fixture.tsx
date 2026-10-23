@@ -1,3 +1,5 @@
+import DocsApp from "../docs/src/App";
+import MorphConsumer from "./morph-consumer";
 import UiCatalog from "../docs/src/UiCatalog";
 import AllPreview from "../docs/src/AllPreview";
 import NewestPreview from "../docs/src/NewestPreview";
@@ -73,7 +75,11 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  new URLSearchParams(location.search).has("catalog-shell") ? (
+  new URLSearchParams(location.search).has("landing") ? (
+    <DocsApp />
+  ) : new URLSearchParams(location.search).has("morph-consumer") ? (
+    <MorphConsumer />
+  ) : new URLSearchParams(location.search).has("catalog-shell") ? (
     <UiCatalog
       selected={new URLSearchParams(location.search).get("selected") || "all"}
     />

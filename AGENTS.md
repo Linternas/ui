@@ -28,6 +28,8 @@ Use existing components and semantic tokens first. Keep product APIs, authentica
 | Public exports | `src/index.ts`, `src/system/index.tsx`, `package.json` |
 | Unified catalog metadata | `src/system/ui-catalog.ts` |
 | Core / interaction inventory | `src/system/catalog.ts`, `src/system/interaction-catalog.ts` |
+| Landing and live token workbench | `docs/src/LandingPage.tsx`, `docs/src/LandingWorkbench.tsx`, `docs/src/landing.css` |
+| Client routes and lazy page loading | `docs/src/App.tsx` |
 | Catalog shell, search, navigation and theme | `docs/src/UiCatalog.tsx` |
 | Interactive control/state workbench | `docs/src/ControlWorkbench.tsx` |
 | Live examples | `docs/src/SystemComponentDemo.tsx`, `docs/src/DemoPreview.tsx`, other preview files |

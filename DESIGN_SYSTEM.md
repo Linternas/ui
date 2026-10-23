@@ -153,6 +153,8 @@ npm run test:browser
 
 ## Unified catalog
 
+홈(`/`)은 같은 컴포넌트를 조합한 인터랙티브 랜딩이다. `/all`은 전체 갤러리, `/newest`는 최근 추가 항목, `/foundations`는 토큰 문서다. 랜딩과 문서·실험 화면은 별도 모듈로 불러오며 아래쪽 작업대는 화면에 가까워질 때 마운트한다.
+
 [웹 카탈로그](https://ui.mingu.xyz)는 토큰·기본 UI·인터랙션·패턴을 하나의 검색, 탐색, 테마, 코드 미리보기로 제공한다. 기본 UI와 인터랙션은 기능별로 같은 그룹에 배치한다. Sidebar와 BounceSidebar처럼 관련된 항목은 같은 화면의 variant 탐색으로 연결한다.
 
 카탈로그 데이터는 `@mingu/interaction-ui/catalog`의 `uiCatalog`, `uiGroups`, `uiFamilies`가 단일 기준이다. 서버와 클라이언트에서 모두 불러올 수 있는 정적 데이터다. 기존 `systemCatalog`는 기본 컴포넌트 목록으로 유지한다.

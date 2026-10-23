@@ -56,6 +56,24 @@ test("production docs server serves built routes, assets and health without expo
     assert.equal(js.status, 200);
     assert.match(js.headers.get("content-type"), /javascript/);
     assert.match(js.headers.get("cache-control"), /immutable/);
+    // Every emitted import must remain fetchable after splitting the catalog from home.
+    const visited = new Set();
+    const queue = [new URL(asset, base).href];
+    while (queue.length) {
+      const url = queue.shift();
+      if (visited.has(url)) continue;
+      visited.add(url);
+      const response = await fetch(url);
+      assert.equal(response.status, 200, url);
+      assert.match(response.headers.get("content-type"), /javascript/);
+      const source = await response.text();
+      for (const match of source.matchAll(
+        /(?:from|import\s*\(?)["'](\.\/[^"']+\.js)["']/g,
+      ))
+        queue.push(new URL(match[1], url).href);
+    }
+    assert.ok(visited.size > 1, "home and catalog have separate module assets");
+
     for (const route of [
       "/cloth-playground",
       "/fluid-sandbox",

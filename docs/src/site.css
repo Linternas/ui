@@ -49,3 +49,15 @@ a {
     background: #111111;
   }
 }
+
+.docs-route-loading {
+  display: grid;
+  gap: 16px;
+  align-content: center;
+  justify-items: center;
+  min-height: 70dvh;
+  padding: 32px;
+  font:
+    14px/1.8 system-ui,
+    sans-serif;
+}
