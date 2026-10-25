@@ -137,6 +137,24 @@ export default function ControlFixture() {
             </div>
           ))}
         </div>
+        <Select
+          aria-label="Multi-select list"
+          multiple
+          size={3}
+          defaultValue={["preview"]}
+        >
+          <option value="production">Production</option>
+          <option value="preview">Preview</option>
+          <option value="local">Local</option>
+        </Select>
+        <Select aria-label="Single listbox" size={3} defaultValue="preview">
+          <option value="production">Production</option>
+          <option value="preview">Preview</option>
+          <option value="local">Local</option>
+        </Select>
+        <Select aria-label="Explicit dropdown" size={1}>
+          <option>Preview</option>
+        </Select>
         <Stack data-testid="long-content-stack">
           <CodeBlock
             code={'const source = "' + "long source line ".repeat(30) + '";'}

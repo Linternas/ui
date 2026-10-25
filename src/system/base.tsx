@@ -236,7 +236,12 @@ export function Select({
   return (
     <select
       {...props}
-      className={cx("mingu-input", `mingu-input-${controlSize}`, className)}
+      className={cx(
+        "mingu-input",
+        "mingu-select",
+        `mingu-input-${controlSize}`,
+        className,
+      )}
     />
   );
 }

@@ -171,6 +171,60 @@
 .mingu-input[aria-invalid="true"]:focus-visible {
   outline-color: var(--mingu-danger);
 }
+/* Keep native selection, focus and form semantics; draw the indicator in CSS.
+   currentColor follows scoped themes and disabled opacity without an extra DOM slot. */
+select.mingu-select:not([multiple]):where(
+    :not([size]),
+    [size="0"],
+    [size="1"]
+  ) {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-inline-end: calc(
+    var(--mingu-control-padding) + 16px + var(--mingu-space-2)
+  );
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent calc(50% - 0.75px),
+      currentColor calc(50% - 0.75px),
+      currentColor calc(50% + 0.75px),
+      transparent calc(50% + 0.75px)
+    ),
+    linear-gradient(
+      -45deg,
+      transparent calc(50% - 0.75px),
+      currentColor calc(50% - 0.75px),
+      currentColor calc(50% + 0.75px),
+      transparent calc(50% + 0.75px)
+    );
+  background-size: 8px 8px;
+  background-position:
+    right calc(var(--mingu-control-padding) + 8px) center,
+    right var(--mingu-control-padding) center;
+  background-repeat: no-repeat;
+}
+select.mingu-select:not([multiple]):where(
+    :not([size]),
+    [size="0"],
+    [size="1"]
+  ):dir(rtl) {
+  background-position:
+    left var(--mingu-control-padding) center,
+    left calc(var(--mingu-control-padding) + 8px) center;
+}
+@media (forced-colors: active) {
+  select.mingu-select:not([multiple]):where(
+      :not([size]),
+      [size="0"],
+      [size="1"]
+    ) {
+    appearance: auto;
+    -webkit-appearance: auto;
+    background-image: none;
+    padding-inline-end: var(--mingu-control-padding);
+  }
+}
 .mingu-input-shell {
   display: flex;
   align-items: center;

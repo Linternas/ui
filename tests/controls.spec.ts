@@ -169,3 +169,105 @@ test("status buttons preserve semantic backgrounds while hovered", async ({
     .poll(() => error.evaluate((el) => getComputedStyle(el).backgroundColor))
     .toBe("rgb(255, 240, 241)");
 });
+
+test("Select indicators share centered size, token insets and text clearance across fonts and RTL", async ({
+  page,
+}) => {
+  for (const width of [1440, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const font of ["Arial, sans-serif", "Georgia, serif"]) {
+      await page.locator('[data-testid="sizes"]').evaluate((el, font) => {
+        (el as HTMLElement).style.fontFamily = font;
+      }, font);
+      for (const [size, inset] of [
+        ["sm", 10],
+        ["md", 12],
+        ["lg", 16],
+      ] as const) {
+        const select = page.getByRole("combobox", {
+          name: `${size} select`,
+          exact: true,
+        });
+        const css = await select.evaluate((el) => {
+          const s = getComputedStyle(el);
+          return {
+            appearance: s.appearance,
+            size: s.backgroundSize,
+            x: s.backgroundPositionX,
+            y: s.backgroundPositionY,
+            padding: s.paddingInlineEnd,
+            color: s.color,
+            image: s.backgroundImage,
+          };
+        });
+        expect(css.appearance).toBe("none");
+        expect(css.size).toBe("8px 8px, 8px 8px");
+        expect(css.y).toBe("50%, 50%");
+        expect(css.x).toContain(`${inset + 8}px`);
+        expect(css.x).toContain(`${inset}px`);
+        expect(parseFloat(css.padding)).toBe(inset + 24);
+        expect(css.image).toContain(css.color);
+        await select.evaluate((el) => (el.dir = "rtl"));
+        await expect
+          .poll(() =>
+            select.evaluate((el) => getComputedStyle(el).backgroundPositionX),
+          )
+          .toBe(`${inset}px, ${inset + 8}px`);
+        await select.evaluate((el) => (el.dir = "ltr"));
+      }
+    }
+  }
+  await expect(
+    page.getByRole("listbox", { name: "Multi-select list" }),
+  ).toHaveCSS("appearance", "auto");
+  await expect(
+    page.getByRole("listbox", { name: "Multi-select list" }),
+  ).toHaveCSS("background-image", "none");
+  await expect(page.getByRole("listbox", { name: "Single listbox" })).toHaveCSS(
+    "background-image",
+    "none",
+  );
+  await expect(
+    page.getByRole("combobox", { name: "Explicit dropdown" }),
+  ).toHaveCSS("appearance", "none");
+  await page.emulateMedia({ forcedColors: "active" });
+  await expect(
+    page.getByRole("combobox", { name: "md select", exact: true }),
+  ).toHaveCSS("appearance", "auto");
+  await expect(
+    page.getByRole("combobox", { name: "md select", exact: true }),
+  ).toHaveCSS("background-image", "none");
+});
+
+test("Select Docs indicators retain color and disabled state in light and dark", async ({
+  page,
+}) => {
+  await page.goto("/docs/select");
+  for (const theme of ["light", "dark"]) {
+    await page
+      .locator("[data-mingu-theme]")
+      .first()
+      .evaluate(
+        (el, theme) => el.setAttribute("data-mingu-theme", theme),
+        theme,
+      );
+    const select = page.getByRole("combobox", {
+      name: "Environment (md)",
+      exact: true,
+    });
+    const css = await select.evaluate((el) => {
+      const s = getComputedStyle(el);
+      return { color: s.color, image: s.backgroundImage };
+    });
+    expect(css.image).toContain(css.color);
+    const disabled = page.getByRole("combobox", {
+      name: "Disabled select",
+      exact: true,
+    });
+    await expect(disabled).toBeDisabled();
+    await expect(disabled).toHaveCSS("opacity", "0.5");
+    await expect(disabled).toHaveCSS("appearance", "none");
+    await select.selectOption("Preview");
+    await expect(select).toHaveValue("Preview");
+  }
+});

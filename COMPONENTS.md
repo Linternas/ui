@@ -81,7 +81,7 @@ label·hint·error와 입력을 자동으로 연결한다. leading은 장식용 
 
 ### Select
 
-네이티브 선택 컨트롤. 키보드·모바일 선택 UI와 폼 제출 유지.
+네이티브 선택 컨트롤. 키보드·모바일 선택 UI와 폼 제출 유지. 단일 드롭다운은 글자색을 따르는 16px CSS 화살표를 크기별 토큰 여백에 맞춰 중앙 정렬한다. RTL에서는 왼쪽으로 이동한다. `multiple`/다중 행 `size`는 목록 UI를 유지하며 강제 색상 모드에서는 브라우저 기본 화살표를 사용한다.
 
 [Live preview](https://ui.mingu.xyz/select)
 
