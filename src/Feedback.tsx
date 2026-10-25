@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Icon } from "./shared";
 
 const defaultReactions = [
@@ -136,45 +136,56 @@ export function EmojiReaction({
     </div>
   );
 }
+export interface NotificationBellProps extends Omit<React.ComponentProps<"button">, "children"> {
+  count?: number;
+  label?: string;
+  size?: "default" | "compact";
+  indicator?: "count" | "dot";
+}
 export function NotificationBell({
   count = 0,
   onClick,
   label = "Notifications",
-}: {
-  count?: number;
-  onClick?: () => void;
-  label?: string;
-}) {
+  size = "default",
+  indicator = "count",
+  className = "",
+  type = "button",
+  ...props
+}: NotificationBellProps) {
   const [rings, setRings] = useState(0);
-  const unread = Math.max(0, Math.floor(count));
+  const reduced = useReducedMotion();
+  const unread = Number.isFinite(count) ? Math.max(0, Math.floor(count)) : 0;
   return (
     <button
-      type="button"
-      className="mi-notification"
-      aria-label={`${label}, ${unread} unread`}
-      onClick={() => {
+      {...props}
+      type={type}
+      className={`mi-notification mi-notification-${size} ${className}`.trim()}
+      aria-label={props["aria-label"] ?? `${label}, ${unread} unread`}
+      onClick={(event) => {
         setRings((value) => value + 1);
-        onClick?.();
+        onClick?.(event);
       }}
     >
       <motion.span
         key={rings}
         className="mi-notification-icon"
-        animate={{ rotate: rings ? [0, -19, 17, -12, 9, -4, 0] : 0 }}
+        animate={{ rotate: rings && !reduced ? [0, -19, 17, -12, 9, -4, 0] : 0 }}
         transition={{ duration: 0.65 }}
       >
-        <Icon name="bell" size={31} />
+        <Icon name="bell" size={size === "compact" ? 20 : 31} />
       </motion.span>
       <AnimatePresence>
         {unread > 0 && (
           <motion.span
             className="mi-notification-badge"
+            data-indicator={indicator}
+            aria-hidden="true"
             key={unread}
-            initial={{ scale: 0.4, opacity: 0 }}
+            initial={reduced ? false : { scale: 0.4, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
           >
-            {unread > 99 ? "99+" : unread}
+            {indicator === "count" ? (unread > 99 ? "99+" : unread) : null}
           </motion.span>
         )}
       </AnimatePresence>

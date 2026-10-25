@@ -143,6 +143,26 @@ test("player completes, voice can seek, and notifications clear", async ({
   ).toBeVisible();
 });
 
+test("compact notification keeps its indicator clear of the bell and preserves keyboard and native props", async ({page}) => {
+  await page.setViewportSize({width:390,height:700});
+  await page.goto('/?interactions&notificationCompact');
+  await page.getByLabel('Component under test').selectOption('NotificationBell');
+  const bell=page.getByRole('button',{name:'작업 알림',exact:true});
+  await expect(bell).toHaveAttribute('aria-expanded','false');
+  await expect(bell).toHaveAttribute('aria-controls','notification-list');
+  const box=await bell.boundingBox(),icon=await bell.locator('svg').boundingBox(),dot=await bell.locator('[data-indicator="dot"]').boundingBox();
+  expect(box!.width).toBe(44);expect(box!.height).toBe(44);expect(icon!.width).toBe(20);
+  expect(dot!.x+dot!.width/2).toBeGreaterThan(icon!.x+icon!.width/2+5);
+  expect(dot!.y+dot!.height/2).toBeLessThan(icon!.y+icon!.height/2-5);
+  await bell.focus();await page.keyboard.press('Enter');
+  await expect(page.getByLabel('Callback result')).toHaveText('button');
+  await expect(bell.locator('[data-indicator="dot"]')).toHaveCount(0);
+  await expect(bell).toBeFocused();
+  await page.goto('/?interactions&notificationCompact&notificationDisabled');
+  await page.getByLabel('Component under test').selectOption('NotificationBell');
+  await expect(page.getByRole('button',{name:'작업 알림',exact:true})).toBeDisabled();
+});
+
 test("activity stack, image resolution, and source disclosure update", async ({
   page,
 }) => {

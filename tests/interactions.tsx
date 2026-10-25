@@ -46,6 +46,7 @@ const image =
     '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="blue"/></svg>',
   );
 export default function InteractionFixture() {
+  const compactBell = location.search.includes("notificationCompact");
   const [selected, select] = useState("Folder"),
     [number, setNumber] = useState(999),
     [count, setCount] = useState(128),
@@ -105,7 +106,16 @@ export default function InteractionFixture() {
     GooeyNav: <GooeyNav items={items} />,
     EmojiReaction: <EmojiReaction onReact={(value) => setLast(value)} />,
     NotificationBell: (
-      <NotificationBell count={count} onClick={() => setCount(0)} />
+      <NotificationBell
+        count={count}
+        size={compactBell ? "compact" : "default"}
+        indicator={compactBell ? "dot" : "count"}
+        aria-label={compactBell ? "작업 알림" : undefined}
+        aria-expanded={compactBell ? false : undefined}
+        aria-controls={compactBell ? "notification-list" : undefined}
+        disabled={location.search.includes("notificationDisabled")}
+        onClick={(event) => {setCount(0);setLast(event.currentTarget.type);}}
+      />
     ),
     VoiceNote: <VoiceNote duration={2} />,
     GravityLetters: <GravityLetters maxGlyphs={3} />,

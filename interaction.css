@@ -695,6 +695,33 @@ button:where([class^="mi-"]):disabled {
   background: var(--mru-surface, #eee) !important;
   display: grid;
   place-items: center;
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  color: var(--mru-text, currentColor);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.mi-notification:focus-visible {
+  outline: 2px solid var(--mru-accent, currentColor);
+  outline-offset: 2px;
+}
+.mi-notification:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mi-notification-compact {
+  width: var(--mingu-control-height-md, 44px);
+  height: var(--mingu-control-height-md, 44px);
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: var(--mingu-control-radius, 8px);
+  background: transparent !important;
+  color: var(--mru-muted, currentColor);
+}
+.mi-notification-compact:hover:not(:disabled) {
+  background: var(--mru-surface, transparent) !important;
+  color: var(--mru-text, currentColor);
 }
 .mi-notification-icon {
   display: grid;
@@ -715,6 +742,24 @@ button:where([class^="mi-"]):disabled {
   display: grid;
   place-items: center;
   font: 10px/1 system-ui;
+}
+.mi-notification-compact .mi-notification-badge {
+  right: 0;
+  top: 0;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 3px;
+  border-width: 2px;
+}
+.mi-notification .mi-notification-badge[data-indicator="dot"] {
+  right: 8px;
+  top: 8px;
+  width: 6px;
+  min-width: 0;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  background: var(--mru-accent, currentColor);
 }
 .mi-voice {
   display: flex;

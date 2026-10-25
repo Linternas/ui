@@ -13,7 +13,7 @@ test("public exports retain typed props without inheriting stricter consumer com
     writeFileSync(
       join(fixture, "consumer.tsx"),
       `
-import {DateRangePicker,TimePicker,RangeSlider,TreeSelect,Cascader,MentionInput,Stepper,FilterBuilder,ColumnManager,SchedulePicker,DraggableWindow,NotificationInbox,FlipCard,MazeRunner,ConfettiBurst,VectorField,ReactionDiffusion,TerrainMesh,PendulumWave,ClipPathEditor,ContrastChecker,ShadowEditor,ModelSelector,FileDropzone,MultiSelect,TransferList,Rating,UndoHistory,GradientEditor,PixelEditor,ScratchCard,CircularDial} from '@mingu/interaction-ui';
+import {DateRangePicker,TimePicker,RangeSlider,TreeSelect,Cascader,MentionInput,Stepper,FilterBuilder,ColumnManager,SchedulePicker,DraggableWindow,NotificationInbox,FlipCard,MazeRunner,ConfettiBurst,VectorField,ReactionDiffusion,TerrainMesh,PendulumWave,ClipPathEditor,ContrastChecker,ShadowEditor,ModelSelector,FileDropzone,MultiSelect,TransferList,Rating,UndoHistory,GradientEditor,PixelEditor,ScratchCard,CircularDial,NotificationBell} from '@mingu/interaction-ui';
 import {Button,Input,Dialog} from '@mingu/interaction-ui/system';
 import {uiCatalog} from '@mingu/interaction-ui/catalog';
 const models=[{id:'local:test',name:'Test',provider:'Local'}];
@@ -35,13 +35,14 @@ const additions=<>
 <FilterBuilder fields={[]} onValueChange={v=>v.rules[0]?.value}/><ColumnManager onValueChange={v=>v[0]?.visible}/><SchedulePicker onValueChange={v=>v[0]?.toUpperCase()}/><DraggableWindow title="Notes" onPositionChange={v=>v.x.toFixed()}>Notes</DraggableWindow><NotificationInbox onValueChange={v=>v[0]?.title}/>
 <FlipCard front="Front" back="Back" onFlippedChange={v=>!v}/><MazeRunner onPositionChange={v=>v.row.toFixed()}/><ConfettiBurst/><VectorField onValueChange={v=>v[0]?.strength}/><ReactionDiffusion onParametersChange={v=>v.feed.toFixed()}/><TerrainMesh onAmplitudeChange={v=>v.toFixed()}/><PendulumWave onGravityChange={v=>v.toFixed()}/><ClipPathEditor onValueChange={v=>v[0]?.x}/><ContrastChecker onValueChange={v=>v.foreground.toUpperCase()}/><ShadowEditor onValueChange={v=>v[0]?.blur}/>
 </>;
+const bell=<NotificationBell count={2} size="compact" indicator="dot" aria-label="알림" aria-expanded={false} aria-controls="alerts" disabled={false} onClick={event=>event.currentTarget.focus()}/>;
 const controls=<><Button type="submit"/><Input aria-label="Name"/><Dialog title="Details" open={false} onOpenChange={()=>{}}>Details</Dialog></>;
 const catalog: string | undefined=uiCatalog[0]?.name;
 // @ts-expect-error models remain required in the public API
 const missing=<ModelSelector/>;
 // @ts-expect-error native input props remain typed
 const invalid=<Input type="number" min={{bad:true}}/>;
-export {additions,picker,upload,creative,controls,catalog,missing,invalid};
+export {additions,picker,upload,creative,bell,controls,catalog,missing,invalid};
 `,
     );
     const project = join(fixture, "tsconfig.json");

@@ -43,6 +43,7 @@ export {
 } from "./Navigation";
 export type { NavigationItem, SidebarProps } from "./Navigation";
 export { EmojiReaction, NotificationBell } from "./Feedback";
+export type { NotificationBellProps } from "./Feedback";
 export type { EmojiReactionProps } from "./Feedback";
 export { VoiceNote } from "./VoiceNote";
 export type { VoiceNoteProps } from "./VoiceNote";
