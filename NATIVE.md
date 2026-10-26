@@ -38,7 +38,7 @@ export default function App() {
 }
 ```
 
-[examples/native](./examples/native/README.md) is a runnable Expo app with a complete, interactive Native showcase. It has a fixed AppBar and bottom navigation with Components, Inputs and More screens, plus theme switching, forms, choices, date/time controls, tabs, local notifications and all overlay variants. Controlled example values survive tab changes; unmounted uncontrolled examples reset. It has no API, account or storage dependencies. The Native inventory was added on 2026-10-26 UTC; its New badges expire after 30 days. The Web catalog has installation and inventory documentation at `/native`; it does not substitute a browser rendering for a Native device preview.
+[examples/native](./examples/native/README.md) is a runnable Expo app with a complete, interactive Native showcase. It has a fixed AppBar and bottom navigation with Components, Inputs, Planning and More screens, plus theme switching, forms, choices, date/time controls, tabs, local notifications and all overlay variants. Controlled example values survive tab changes; unmounted uncontrolled examples reset. It has no API, account or storage dependencies. The Native inventory was added on 2026-10-26 UTC; its New badges expire after 30 days. The Web catalog has installation and inventory documentation at `/native`; it does not substitute a browser rendering for a Native device preview.
 
 ## Preview on your phone
 
@@ -87,7 +87,7 @@ Avoid double safe-area padding: place a standalone BottomNavigation outside a sc
 
 `Button` accepts Native Pressable props and ref, `variant=primary|secondary|outline|ghost|danger`, `size=sm|md|lg`, `loading`, `icon`, `textStyle`. Touch height is at least 44 logical points even for `sm`; larger font content can grow it. `loading` exposes busy state and prevents duplicate presses. Native `onPress`, `onLongPress`, `accessibilityLabel`, `accessibilityHint`, `testID` and style callbacks are retained. Text children are wrapped in Native Text; custom ReactNode children must be valid Native content.
 
-`IconButton` requires `label` and a Native icon/Text child. It keeps a 44pt minimum width/height, removes vertical text-button padding, and allows the content to grow rather than forcing a square that clips large glyphs. `LinkButton` uses link accessibility semantics and `onPress`; the consumer owns Linking/navigation and success/failure. No link or business mutation is executed automatically.
+`IconButton` requires `label` and a Native icon/Text child. `iconSize=22` sets a minimum visual slot independently of its touch target, with `flexShrink:0`. `CloseButton` requires the same `label`, retains press/ref/disabled/testID props and uses font-independent View geometry. `Icon name="close"|"chevron-left"|"chevron-right"|"more"` is decorative; `size=22` and `color` are configurable. Give the enclosing control an accessible name; use `color` when its background needs a different foreground. It keeps a 44pt minimum width/height, removes vertical text-button padding, and allows the content to grow rather than forcing a square that clips large glyphs. `LinkButton` uses link accessibility semantics and `onPress`; the consumer owns Linking/navigation and success/failure. No link or business mutation is executed automatically.
 
 ## Forms and choices
 
@@ -109,9 +109,74 @@ There is no HTML form or FormData on Native. The app owns validation, submitting
 | `Select` / `SelectField` | Same choice API + `placeholder`, `searchable`, `searchLabel`, `emptyLabel`, `closeLabel`, `hint/error/required`. Opens a Native bottom sheet, searches local options, exposes selected/disabled radio states and commits one value. FlatList virtualizes the result list; it is not nested inside another ScrollView. The alias has the same implementation. |
 | `NumberStepper` | `label`, `value/defaultValue`, `onValueChange`, `min=0`, `max=100`, `step=1`, `disabled`, `decreaseLabel/increaseLabel`. Plus/minus IconButtons keep 44pt minimum touch targets and clamp finite values to bounds. |
 | `Slider` | `label`, `value/defaultValue`, `onValueChange`, `min=0`, `max=100`, `step=1`, `formatValue`, remaining Native slider props. Real iOS slider / Android SeekBar; accessible value and disabled behavior. Values are bounded, then committed by the caller when controlled. |
-| `DatePicker`, `TimePicker` | `label`, `value/defaultValue:Date`, `onValueChange(Date)`, `minimumDate/maximumDate` (date only), `locale`, `disabled`, `hint/error`, `confirmLabel/cancelLabel`, `style`. Native date/time UI; iOS uses a draft with explicit Done/Cancel. Android commits only a set event and ignores dismissal. Uses split change/dismiss callbacks with datetimepicker v9, retaining the legacy callback for v8 peers. It does not convert timezones; valid Date values and ordered bounds are caller requirements. |
+| `DatePicker`, `TimePicker` | `label`, `value/defaultValue:Date`, `onValueChange(Date)`, explicit nullable overload `Date|null` with `onValueChange(Date|null)`, `placeholder`, `clearable/clearLabel`, `formatValue(Date)` or Intl `format`, `minimumDate/maximumDate` (date only), `locale`, `disabled`, `hint/error`, `confirmLabel/cancelLabel`, `style`. Native date/time UI; iOS uses a draft with explicit Done/Cancel. Android commits only a set event and ignores dismissal. Uses split change/dismiss callbacks with datetimepicker v9, retaining the legacy callback for v8 peers. It does not convert timezones; valid Date values and ordered bounds are caller requirements. |
 
 Choice options: `{value:string,label:string,description?:string,disabled?:boolean}` with unique values. Controlled components emit requested changes; the caller must update the value to accept them. Selection values should reference current options. A selected value is preserved when a disabled option remains selected. `Select` supports one open modal per instance; apps should avoid stacking independent overlays.
+
+## Calendar, ranges and amount editing (0.26)
+
+The five new planning controls use RN primitives and existing Mingu components, with no new package, native module or calendar dependency. Their state is independent of accounts, storage and payroll rules. See the [planning verification record](./docs/qa/native-planning-2026-10-26.md) for actual tested and untested environments.
+
+### DatePicker and nullable values
+
+Existing Date-only callbacks and implicit-today uncontrolled defaults remain compatible. Pass `value={null}` for a controlled unselected date, or `defaultValue={null}` for an initially empty uncontrolled field. `undefined` remains uncontrolled. Empty values display `placeholder` and emit nothing merely by opening/dismissing the OS picker. Today may seed the temporary native control but becomes a value only on explicit confirmation. With `clearable`, clearing emits null; use the nullable callback signature. `formatValue` takes precedence over Intl `format`, then locale defaults. TimePicker accepts the same nullable overload; customize its placeholder/clear label.
+
+```tsx
+const [start, setStart] = useState<Date | null>(null);
+<DatePicker label="Start date" value={start} onValueChange={setStart}
+  placeholder="Not entered" clearable formatValue={dateToCalendarDate} />
+```
+
+### Civil-date contract
+
+`CalendarDate` is a string in **YYYY-MM-DD** form (years 0001–9999). `parseCalendarDate` validates it, including leap years. Calendar and DateRangePicker use civil dates, not instants. `MonthValue` is `{year, month}` with month 1–12; callbacks never invent a selected day. `DateRangeValue` is `{start:CalendarDate|null,end:CalendarDate|null}`; null/null is empty, start/null is partial, and completed ranges are inclusive and ordered. External values/bounds must satisfy these contracts; do not pass invalid or reversed bounds.
+
+`dateToCalendarDate(Date)` reads local year/month/day. `calendarDateToDate(string)` constructs local noon for date presentation/weekday calculation; it is not a storage timestamp. Do not use `toISOString().slice(0,10)` to convert civil dates. Existing DatePicker/TimePicker remain Date-based; migrate explicitly with these helpers rather than changing storage semantics.
+
+### MonthPicker
+
+Field props plus `value/defaultValue:MonthValue|null`, `onValueChange`, `minimumMonth/maximumMonth`, `disabled`, `locale`, `formatValue`, `placeholder`, `clearable=true`, and localized `confirmLabel/cancelLabel/clearLabel/previousLabel/nextLabel/previousYearLabel/nextYearLabel`.
+
+The outer arrows commit an adjacent month directly; the panel edits a draft year/month and commits only with Apply. Clear in the panel clears the draft; Cancel/backdrop/back discards it. Range checks disable unavailable months and adjacent moves. `value={null}` has no implied selected month. The initial panel can show the current year without storing it.
+
+### DateRangePicker
+
+Field props plus `value/defaultValue:DateRangeValue`, `onValueChange`, `minimumDate/maximumDate`, `isDateDisabled(date)`, `weekStartsOn`, `locale`, `disabled`, `allowPartial=true`, `placeholder`, `formatValue`, and `confirmLabel/cancelLabel/clearLabel`.
+
+One tap starts a draft range; a second completes it. Reversed endpoint taps are ordered; the same day is allowed. A subsequent tap starts a new draft. Apply commits a copy; Cancel/Close/back/backdrop discards the draft. `allowPartial=false` disables Apply for a lone start. Empty can be confirmed to clear. Bounds/disabled checks apply to endpoints; application-specific policies for disabled dates inside a range belong to the app.
+
+### Calendar
+
+Required `label` (visible by default; `showLabel=false` when a containing picker already labels it). `value/defaultValue:CalendarDate|null`, `onValueChange(date)`, `month/defaultMonth:MonthValue`, `onMonthChange`, `minimumDate/maximumDate`, `isDateDisabled`, `disabled`, `weekStartsOn=0` (Sunday), `locale`, Sunday-first seven-element `weekdayLabels`, localized `todayLabel/previousLabel/nextLabel`, and `style`.
+
+`items:Record<CalendarDate,readonly {id,label}[]>`, `maxVisibleItems=1` (bounded 0–3) show short single-line items plus an overflow count. All item labels remain in the default date accessibility label. `renderDay(state)` replaces supplemental content, preserving the date number and built-in press target. `getDayAccessibilityLabel(state,items)` customizes the full spoken label. State contains `{date,day,today,selected,disabled,inRange}`; optional `range` highlights an inclusive civil-date span. A border/dot marks today independently of the selected background.
+
+Date targets keep at least 44pt width/height. The grid is horizontally scrollable when its available width falls below 308pt, including padded 320pt screens; it does not shrink seven touch targets below 44pt. Rows grow for scaled text. Custom renderers must keep content bounded and must not add nested interactive controls inside a date target. A controlled `month` requires the caller to accept `onMonthChange`; similarly, the caller owns selected values.
+
+### WeekdayPicker
+
+Field props plus `value/defaultValue:readonly Weekday[]`, `onValueChange(Weekday[])`, `disabled`, `disabledDays`, `weekStartsOn`, Sunday-first `labels/accessibilityLabels` (seven entries), `locale`, and `presets:{id,label,days}[]`. Weekday is 0=Sunday through 6=Saturday. Outputs are unique ascending day numbers, independent of visible order. Targets wrap and retain 44pt minimum dimensions. Presets change enabled days and preserve existing disabled-day selections. No presets or industry policies are hardcoded. Checkbox semantics expose full weekday names and checked states.
+
+### MoneyField
+
+TextField props except numeric `keyboardType`, `value/defaultValue` and `onChangeText`; instead use **string** `value/defaultValue` and `onValueChange(rawString)`. Additional props: `unit`, `grouping=true`, `allowDecimal=false`, `decimalScale=2` (0–12), `allowNegative=false`, `min/max`, `rangeError`, `signLabel`.
+
+The canonical edit string uses ASCII digits, an optional leading minus and a decimal dot. Empty, `-`, `.` and a trailing decimal dot are drafts; empty never becomes zero. Grouping commas and unsupported pasted characters are stripped; excess decimal digits are truncated to the configured scale. This is a decimal-dot editor, not a locale-specific currency parser. `10320` and pasted `10,320` both emit `10320`. Grouping is shown only while blurred; focus displays the raw string and keystrokes do not inject separators or control the native selection, preserving middle edits. An explicit sign button works with number pads that have no minus key. `editable=false` also disables it.
+
+`parseMoneyInput(raw)` returns a finite number or null for empty/intermediate drafts; `formatMoneyInput(raw)` groups display strings without number coercion. Range errors are displayed without clamping the user's input. For integer KRW storage the app must require an integer and `Number.isSafeInteger`, apply domain bounds, and reject incomplete drafts before saving. The library performs no wage, tax or rounding policy.
+
+```tsx
+const [amount, setAmount] = useState("");
+<MoneyField label="Adjustment" value={amount} onValueChange={setAmount}
+  unit="KRW" allowNegative min={-1000000} max={1000000} />
+// On explicit save: validate parseMoneyInput(amount), integer/safe-integer and domain rules.
+```
+
+### Apps in Toss and remaining work
+
+[Apps in Toss's official React Native guide](https://developers-apps-in-toss.toss.im/ai-vibe-coding/tutorials/react-native) restricts native-module libraries to modules supported by the host and requires Granite 1.x (checked 2026-10-26). Expo Go success does not establish Toss compatibility. Existing safe-area-context, datetimepicker, slider and the consumer's Expo modules still require host/version validation. These changes add no dependency, Pod or Gradle module. Calendar/MonthPicker/DateRangePicker can supply a non-OS date UI, but importing the current aggregate `/native` entry still requires its existing native peers; this release does not claim module isolation or a validated Granite entry point.
+
+Consumer adoption belongs in the consuming app: replace its Amount/Weekdays wrappers, choose a civil-date conversion at its boundary, wire fixed footers and dirty/busy state, then verify the app. No consumer files, business calculations or lockfile pins are changed automatically here. DurationField, TimeRangeField and FormStepper remain the requested P2 follow-up after P0/P1 adoption; drag/snap sheet behavior is also deferred. iPhone verification remains separate from Android results.
 
 ## Display and feedback
 
@@ -152,9 +217,23 @@ const [page, setPage] = useState('home');
 
 Add `hideFooterOnKeyboard` to Screen when the footer contains navigation rather than submit actions. Screen owns the safe area here, so `safeArea={false}` avoids a second bottom inset. The `key` resets scroll position when switching screens; keep values that must survive outside the keyed screen. This is a local UI example; integrate real routes, back stacks and deep links through the app's navigation library.
 
-`Dialog` / `BottomSheet`: controlled `open/onOpenChange`, required `title`, optional `description`, `children`, `closeLabel`, `dismissible=true`, `returnFocusRef`, `style`, `testID`, `scrollable=true`. Both use React Native Modal, Android `onRequestClose`, iOS accessibility escape and a separate modal safe-area provider. iOS padding / Android height keyboard avoidance, bounded scrolling and modal accessibility isolation are applied. Centered dialogs use content padding; bottom sheets add the bottom safe inset to content padding when the keyboard is hidden. `scrollable=false` is for an embedded FlatList/ScrollView. Reduced motion removes the transition. `returnFocusRef` requests accessibility focus on a retained native trigger after closing; verify timing with VoiceOver/TalkBack in the consuming app. BottomSheet is a content sheet with explicit dismissal; it does not implement gesture detents or swipe physics.
+`Dialog` / `BottomSheet`: `footer?:ReactNode` outside body scrolling, `size="content"|"large"|"fullscreen"` (default content), `maxHeight` (points or percentage), `onCloseRequest?(reason)`, controlled `open/onOpenChange`, required `title`, optional `description`, `children`, `closeLabel`, `dismissible=true`, `returnFocusRef`, `style`, `testID`, `scrollable=true`. Both use React Native Modal, Android `onRequestClose`, iOS accessibility escape and a separate modal safe-area provider. iOS padding / Android height keyboard avoidance, bounded scrolling and modal accessibility isolation are applied. Centered dialogs use content padding; bottom sheets add the bottom safe inset to content padding when the keyboard is hidden. `scrollable=false` is for an embedded FlatList/ScrollView. Reduced motion removes the transition. `returnFocusRef` requests accessibility focus on a retained native trigger after closing; verify timing with VoiceOver/TalkBack in the consuming app. BottomSheet is a content sheet with explicit dismissal; it does not implement gesture detents or swipe physics.
 
 `AlertDialog`: Dialog props + `onConfirm`, `confirmLabel`, `cancelLabel`, `loading`, `destructive`, `error`. Loading disables actions and dismissal. Caller performs the operation, reports actual errors and closes on success; the component never infers successful deletion.
+
+When `onCloseRequest` is provided it replaces automatic `onOpenChange(false)` for dismissal requests. Reasons are `close-button`, `backdrop`, `hardware-back`, `accessibility-escape` and AlertDialog's `cancel-button`. Keep `open` true to veto, or update it after your own unsaved-change confirmation. `dismissible=false` blocks implicit dismissal and removes CloseButton. The library never decides whether data is dirty or saved. Explicit app actions still belong to the app.
+
+Header and footer are siblings of the body. A very long heading/description has its own bounded scrolling area (30% of the keyboard-adjusted height limit, with a 44pt minimum) so it cannot displace all form content. A footer taller than 35% of the current keyboard-adjusted modal height limit scrolls independently, keeping a large-font footer reachable. `scrollable=true` creates the body ScrollView; set false when supplying a FlatList or another bounded scroll owner. Large/fullscreen layouts allocate the remaining body space. `maxHeight` may further constrain any size; test extreme custom heights with your content. Drag dismissal and snap points are not implemented.
+
+```tsx
+<BottomSheet open={editing} title="Edit details" size="large"
+  onOpenChange={setEditing}
+  onCloseRequest={(reason) => dirty ? requestDiscard(reason) : setEditing(false)}
+  dismissible={!saving}
+  footer={<Button loading={saving} onPress={save}>Save</Button>}>
+  <TextField label="Name" value={name} onChangeText={setName} />
+</BottomSheet>
+```
 
 `ActionSheet`: BottomSheet props + `items:{id,label,onPress,disabled?,destructive?,icon?}[]`. Dismisses before calling an enabled action; apps can then open another workflow. No OS action or external message is triggered implicitly.
 

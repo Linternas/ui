@@ -163,3 +163,5 @@ GradientEditor, PixelEditor, ScratchCard, UndoHistory, MultiSelect, TransferList
 ## React Native (0.25.0)
 
 모바일 앱은 `@mingu/interaction-ui/native`에서 가져옵니다. 공통 토큰과 Native 기본 UI, 안전 영역·키보드·모달·날짜/시간 컨트롤을 제공합니다. [설치·전체 API](./NATIVE.md), [Expo Go 실행 예제](./examples/native/README.md), [Native Docs](https://ui.mingu.xyz/native). 기존 웹 import는 유지합니다.
+
+Native 0.26 adds Icon/CloseButton, fixed overlay footers and app-owned close requests, nullable dates, MoneyField, MonthPicker, DateRangePicker, Calendar and WeekdayPicker. [Value contracts and adoption](./NATIVE.md#calendar-ranges-and-amount-editing-026) · [Android verification](./docs/qa/native-planning-2026-10-26.md). No new Native dependency is introduced.

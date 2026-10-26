@@ -81,6 +81,11 @@ export interface DatePickerProps {
   value?: Date;
   defaultValue?: Date;
   onValueChange?: (date: Date) => void;
+  clearable?: false;
+  placeholder?: string;
+  clearLabel?: string;
+  formatValue?: (date: Date) => string;
+  format?: Intl.DateTimeFormatOptions;
   minimumDate?: Date;
   maximumDate?: Date;
   disabled?: boolean;
@@ -90,6 +95,17 @@ export interface DatePickerProps {
   confirmLabel?: string;
   cancelLabel?: string;
   style?: StyleProp<ViewStyle>;
+}
+/** Explicit null is unselected; undefined retains uncontrolled semantics. */
+export interface NullableDatePickerProps
+  extends Omit<
+    DatePickerProps,
+    "value" | "defaultValue" | "onValueChange" | "clearable"
+  > {
+  value?: Date | null;
+  defaultValue?: Date | null;
+  onValueChange?: (date: Date | null) => void;
+  clearable?: boolean;
 }
 function DateTimeField({
   mode,
@@ -103,21 +119,43 @@ function DateTimeField({
   hint,
   error,
   locale,
+  placeholder = mode === "date" ? "Choose date" : "Choose time",
+  clearable = false,
+  clearLabel = mode === "date" ? "Clear date" : "Clear time",
+  formatValue,
+  format,
   confirmLabel = "Done",
   cancelLabel = "Cancel",
   style,
-}: DatePickerProps & { mode: "date" | "time" }) {
+}: (DatePickerProps | NullableDatePickerProps) & { mode: "date" | "time" }) {
   const { mode: theme } = useTheme(),
     initial = useRef(
-      defaultValue && Number.isFinite(defaultValue.getTime())
-        ? defaultValue
-        : new Date(),
+      defaultValue === null
+        ? null
+        : defaultValue && Number.isFinite(defaultValue.getTime())
+          ? defaultValue
+          : new Date(),
     ),
-    [selected, setSelected] = useValue(value, initial.current, onValueChange),
+    [selected, setSelected] = useValue<Date | null>(
+      value,
+      initial.current,
+      (next) =>
+        (onValueChange as ((v: Date | null) => void) | undefined)?.(next),
+    ),
     [open, setOpen] = useState(false),
     [draft, setDraft] = useState(selected);
-  const valid = (d: Date) => d instanceof Date && Number.isFinite(d.getTime());
-  const actual = valid(selected) ? selected : initial.current;
+  const valid = (d: Date | null): d is Date =>
+    d instanceof Date && Number.isFinite(d.getTime());
+  const actual = valid(selected) ? selected : new Date();
+  const display = valid(selected)
+    ? (formatValue?.(selected) ??
+      (mode === "date"
+        ? selected.toLocaleDateString(locale, format)
+        : selected.toLocaleTimeString(
+            locale,
+            format ?? { hour: "2-digit", minute: "2-digit" },
+          )))
+    : placeholder;
   const bound = (d: Date) =>
     new Date(
       clamp(
@@ -132,7 +170,7 @@ function DateTimeField({
     );
   const control = (
     <NativeDateTimePicker
-      value={valid(draft) ? draft : actual}
+      value={valid(draft) ? draft : bound(actual)}
       mode={mode}
       minimumDate={mode === "date" ? minimumDate : undefined}
       maximumDate={mode === "date" ? maximumDate : undefined}
@@ -165,26 +203,30 @@ function DateTimeField({
       <Button
         variant="outline"
         disabled={disabled}
-        accessibilityLabel={`${label}, ${mode === "date" ? actual.toLocaleDateString(locale) : actual.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" })}`}
+        accessibilityLabel={`${label}, ${display}`}
         accessibilityState={{ expanded: open }}
         onPress={() => {
           setDraft(bound(actual));
           setOpen(true);
         }}
       >
-        {mode === "date"
-          ? actual.toLocaleDateString(locale)
-          : actual.toLocaleTimeString(locale, {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
+        {display}
       </Button>
+      {clearable && valid(selected) && (
+        <Button
+          variant="ghost"
+          disabled={disabled}
+          onPress={() => setSelected(null)}
+        >
+          {clearLabel}
+        </Button>
+      )}
       {Platform.OS === "ios" ? (
         <Dialog title={label} open={open && !disabled} onOpenChange={setOpen}>
           {control}
           <Button
             onPress={() => {
-              setSelected(bound(draft));
+              setSelected(bound(draft ?? actual));
               setOpen(false);
             }}
           >
@@ -200,9 +242,13 @@ function DateTimeField({
     </Field>
   );
 }
-export function DatePicker(props: DatePickerProps) {
+export function DatePicker(props: DatePickerProps): React.JSX.Element;
+export function DatePicker(props: NullableDatePickerProps): React.JSX.Element;
+export function DatePicker(props: DatePickerProps | NullableDatePickerProps) {
   return <DateTimeField {...props} mode="date" />;
 }
-export function TimePicker(props: DatePickerProps) {
+export function TimePicker(props: DatePickerProps): React.JSX.Element;
+export function TimePicker(props: NullableDatePickerProps): React.JSX.Element;
+export function TimePicker(props: DatePickerProps | NullableDatePickerProps) {
   return <DateTimeField {...props} mode="time" />;
 }

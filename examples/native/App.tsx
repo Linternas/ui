@@ -29,7 +29,24 @@ function Showcase({
     [messages, setMessages] = useState<UI.ToastMessage[]>([]),
     [refreshing, setRefreshing] = useState(false),
     [selected, setSelected] = useState(false),
-    [query, setQuery] = useState("");
+    [query, setQuery] = useState(""),
+    [optionalDate, setOptionalDate] = useState<Date | null>(null),
+    [amount, setAmount] = useState("10320"),
+    [month, setMonth] = useState<UI.MonthValue | null>({
+      year: 2026,
+      month: 10,
+    }),
+    [period, setPeriod] = useState<UI.DateRangeValue>({
+      start: null,
+      end: null,
+    }),
+    [weekdays, setWeekdays] = useState<UI.Weekday[]>([]),
+    [calendarDay, setCalendarDay] = useState<UI.CalendarDate | null>(null),
+    [protectDraft, setProtectDraft] = useState(true),
+    [blockClosing, setBlockClosing] = useState(false),
+    [closeReason, setCloseReason] = useState<UI.OverlayCloseReason | null>(
+      null,
+    );
   const notify = (title: string) =>
     setMessages([{ id: "current", title, tone: "success" }]);
   const options = [
@@ -52,7 +69,9 @@ function Showcase({
               ? "Mingu Native"
               : tab === "inputs"
                 ? "Inputs & choices"
-                : "Display & navigation"
+                : tab === "planning"
+                  ? "Dates & amounts"
+                  : "Display & navigation"
           }
           subtitle="Core components · iOS / Android"
           trailing={
@@ -61,7 +80,7 @@ function Showcase({
               variant="ghost"
               onPress={() => setModal("actions")}
             >
-              <UI.Text>•••</UI.Text>
+              <UI.Icon name="more" />
             </UI.IconButton>
           }
         />
@@ -96,6 +115,11 @@ function Showcase({
                 value: "inputs",
                 label: "Inputs",
                 icon: <TabIcon kind="sliders" active={tab === "inputs"} />,
+              },
+              {
+                value: "planning",
+                label: "Planning",
+                icon: <UI.Icon name="chevron-right" />,
               },
               {
                 value: "more",
@@ -252,6 +276,96 @@ function Showcase({
           </UI.Card>
         </>
       )}
+      {tab === "planning" && (
+        <>
+          <UI.Card>
+            <UI.Heading level={2}>Dates & amounts</UI.Heading>
+            <UI.DatePicker
+              label="Optional start"
+              value={optionalDate}
+              onValueChange={setOptionalDate}
+              placeholder="Not entered"
+              clearable
+              formatValue={UI.dateToCalendarDate}
+            />
+            <UI.MoneyField
+              label="Adjustment amount"
+              value={amount}
+              onValueChange={setAmount}
+              allowNegative
+              unit="KRW"
+              hint="Grouping on blur; empty and a minus sign remain drafts."
+            />
+            <UI.MonthPicker
+              label="Payroll month"
+              value={month}
+              onValueChange={setMonth}
+              minimumMonth={{ year: 2025, month: 1 }}
+              maximumMonth={{ year: 2028, month: 12 }}
+            />
+            <UI.DateRangePicker
+              label="Schedule period"
+              value={period}
+              onValueChange={setPeriod}
+              minimumDate="2026-01-01"
+              maximumDate="2027-12-31"
+            />
+            <UI.WeekdayPicker
+              label="Repeat days"
+              value={weekdays}
+              onValueChange={setWeekdays}
+              weekStartsOn={1}
+              presets={[
+                { id: "weekdays", label: "Weekdays", days: [1, 2, 3, 4, 5] },
+                { id: "weekend", label: "Weekend", days: [0, 6] },
+                { id: "none", label: "Clear days", days: [] },
+              ]}
+            />
+          </UI.Card>
+          <UI.Card>
+            <UI.Calendar
+              label="Sample calendar"
+              value={calendarDay}
+              onValueChange={setCalendarDay}
+              defaultMonth={{ year: 2026, month: 10 }}
+              weekStartsOn={1}
+              items={{
+                "2026-10-26": [
+                  { id: "a", label: "AM" },
+                  { id: "b", label: "PM" },
+                  { id: "c", label: "Evening" },
+                ],
+              }}
+            />
+            <UI.Text accessibilityLiveRegion="polite">
+              Selected: {calendarDay ?? "none"}
+            </UI.Text>
+          </UI.Card>
+          <UI.Card>
+            <UI.Heading level={2}>Long forms</UI.Heading>
+            <UI.Text>
+              Fixed actions, scrollable body and app-owned close requests.
+            </UI.Text>
+            <UI.Button
+              onPress={() => {
+                setCloseReason(null);
+                setModal("long-sheet");
+              }}
+            >
+              Open long form
+            </UI.Button>
+            <UI.Button
+              variant="outline"
+              onPress={() => {
+                setCloseReason(null);
+                setModal("full-form");
+              }}
+            >
+              Open full screen
+            </UI.Button>
+          </UI.Card>
+        </>
+      )}
       {tab === "more" && (
         <>
           <UI.Card>
@@ -353,16 +467,18 @@ function Showcase({
         }}
         title="A little more room"
         description="Native modal with keyboard avoidance."
+        footer={
+          <UI.Button
+            onPress={() => {
+              notify("Thought saved locally");
+              setModal("");
+            }}
+          >
+            Save thought
+          </UI.Button>
+        }
       >
         <UI.TextField label="Quick thought" />
-        <UI.Button
-          onPress={() => {
-            notify("Thought saved locally");
-            setModal("");
-          }}
-        >
-          Save thought
-        </UI.Button>
       </UI.Dialog>
       <UI.BottomSheet
         open={modal === "sheet"}
@@ -370,9 +486,68 @@ function Showcase({
           if (!open) setModal("");
         }}
         title="Keep exploring"
+        footer={<UI.Button onPress={() => setModal("")}>Done</UI.Button>}
       >
         <UI.Text>A bounded sheet that respects the bottom safe area.</UI.Text>
-        <UI.Button onPress={() => setModal("")}>Done</UI.Button>
+      </UI.BottomSheet>
+      <UI.BottomSheet
+        open={modal === "long-sheet" || modal === "full-form"}
+        size={modal === "full-form" ? "fullscreen" : "large"}
+        title="A longer editor title that wraps without shrinking its close button"
+        dismissible={!blockClosing}
+        onOpenChange={(open) => {
+          if (!open) setModal("");
+        }}
+        onCloseRequest={(reason) => {
+          if (protectDraft) setCloseReason(reason);
+          else setModal("");
+        }}
+        footer={
+          <UI.Stack gap="2">
+            {closeReason && (
+              <UI.Alert
+                title={`Close requested: ${closeReason}`}
+                description="The app kept this draft open. Discard or continue editing."
+              />
+            )}
+            <UI.Button
+              disabled={blockClosing}
+              onPress={() => {
+                notify("Draft saved in this preview");
+                setModal("");
+              }}
+            >
+              Save preview draft
+            </UI.Button>
+            {closeReason && (
+              <UI.Button
+                variant="danger"
+                disabled={blockClosing}
+                onPress={() => setModal("")}
+              >
+                Discard draft
+              </UI.Button>
+            )}
+          </UI.Stack>
+        }
+      >
+        <UI.Checkbox
+          label="Protect unsaved draft"
+          checked={protectDraft}
+          onCheckedChange={setProtectDraft}
+        />
+        <UI.Switch
+          label="Block closing while busy"
+          value={blockClosing}
+          onValueChange={setBlockClosing}
+        />
+        {Array.from({ length: 8 }, (_, i) => (
+          <UI.TextField
+            key={i}
+            label={`Form field ${i + 1}`}
+            placeholder="Enter a local draft"
+          />
+        ))}
       </UI.BottomSheet>
       <UI.AlertDialog
         open={modal === "confirm"}

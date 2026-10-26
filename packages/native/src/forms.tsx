@@ -249,6 +249,7 @@ export function Checkbox({
         style={{
           width: 24,
           height: 24,
+          flexShrink: 0,
           borderRadius: 6,
           borderWidth: 1,
           borderColor: value || indeterminate ? c.accent : c["control-border"],
@@ -257,9 +258,22 @@ export function Checkbox({
           justifyContent: "center",
         }}
       >
-        <Text style={{ color: c["on-accent"], fontSize: 16, lineHeight: 20 }}>
-          {indeterminate ? "−" : value ? "✓" : ""}
-        </Text>
+        {indeterminate ? (
+          <View
+            style={{ width: 12, height: 2, backgroundColor: c["on-accent"] }}
+          />
+        ) : value ? (
+          <View
+            style={{
+              width: 12,
+              height: 7,
+              borderLeftWidth: 2,
+              borderBottomWidth: 2,
+              borderColor: c["on-accent"],
+              transform: [{ rotate: "-45deg" }, { translateY: -1 }],
+            }}
+          />
+        ) : null}
       </View>
       <View style={{ flex: 1 }}>
         <Text size="sm">{label}</Text>

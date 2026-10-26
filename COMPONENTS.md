@@ -727,3 +727,5 @@ PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter,
 ## Native core
 
 The mobile core inventory is separate from the Web catalog: [Native Docs](https://ui.mingu.xyz/native), [complete API](./NATIVE.md), [actual Native showcase](./examples/native/App.tsx). Import from `@mingu/interaction-ui/native` for native actions, forms, layout, display, navigation and overlays.
+
+Native planning additions (0.26): Icon, CloseButton, MoneyField, MonthPicker, DateRangePicker, Calendar and WeekdayPicker. Their runtime-free inventory is `packages/native/catalog.ts`; see [value contracts and integration](./NATIVE.md#calendar-ranges-and-amount-editing-026). These are separate from the 200 Web entries.

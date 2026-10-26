@@ -17,7 +17,7 @@ export const nativeGroups = [
   },
   {
     name: "Actions",
-    components: ["Button", "IconButton", "LinkButton"],
+    components: ["Button", "IconButton", "CloseButton", "Icon", "LinkButton"],
     description: "44pt 이상 터치 영역, 로딩·비활성 상태, Native press 이벤트",
   },
   {
@@ -40,6 +40,11 @@ export const nativeGroups = [
       "Slider",
       "DatePicker",
       "TimePicker",
+      "MoneyField",
+      "MonthPicker",
+      "DateRangePicker",
+      "Calendar",
+      "WeekdayPicker",
     ],
     description: "라벨·힌트·오류, 제어 상태, 실제 Native 입력과 날짜·시간 선택",
   },

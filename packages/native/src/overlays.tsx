@@ -1,6 +1,7 @@
 import React, {
   useEffect,
   useRef,
+  useState,
   type ReactNode,
   type RefObject,
 } from "react";
@@ -13,6 +14,7 @@ import {
   Platform,
   AccessibilityInfo,
   findNodeHandle,
+  useWindowDimensions,
   type StyleProp,
   type ViewStyle,
 } from "react-native";
@@ -23,13 +25,26 @@ import {
 import { useTheme } from "./theme";
 import { Heading, Text } from "./typography";
 import { useKeyboardVisible } from "./state";
-import { Button, IconButton } from "./actions";
+import { Button } from "./actions";
+import { CloseButton } from "./icons";
+export type OverlayCloseReason =
+  | "close-button"
+  | "backdrop"
+  | "hardware-back"
+  | "accessibility-escape"
+  | "cancel-button";
 export interface DialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
   description?: string;
   children?: ReactNode;
+  /** Outside body scrolling; a tall footer has its own bounded scrolling area. */
+  footer?: ReactNode;
+  size?: "content" | "large" | "fullscreen";
+  maxHeight?: number | `${number}%`;
+  /** When supplied, owns dismissal: update open after any unsaved-change check. */
+  onCloseRequest?: (reason: OverlayCloseReason) => void;
   closeLabel?: string;
   dismissible?: boolean;
   returnFocusRef?: RefObject<React.ComponentRef<typeof View> | null>;
@@ -45,6 +60,10 @@ function ModalSurface({
   title,
   description,
   children,
+  footer,
+  size = "content",
+  maxHeight,
+  onCloseRequest,
   closeLabel = "Close",
   dismissible = true,
   returnFocusRef,
@@ -52,8 +71,10 @@ function ModalSurface({
   testID,
   scrollable = true,
 }: DialogProps & { placement?: "center" | "bottom" }) {
-  const { colors: c, reducedMotion } = useTheme(),
-    wasOpen = useRef(open);
+  const { reducedMotion } = useTheme(),
+    wasOpen = useRef(open),
+    viewport = useWindowDimensions(),
+    [availableHeight, setAvailableHeight] = useState(viewport.height);
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout> | undefined;
     if (wasOpen.current && !open && returnFocusRef?.current) {
@@ -67,15 +88,17 @@ function ModalSurface({
     return () => clearTimeout(timer);
   }, [open, returnFocusRef]);
   if (!open) return null;
-  const close = () => {
-    if (dismissible) onOpenChange(false);
+  const close = (reason: OverlayCloseReason) => {
+    if (!dismissible) return;
+    if (onCloseRequest) onCloseRequest(reason);
+    else onOpenChange(false);
   };
   return (
     <NativeModal
       visible
       transparent
       animationType={reducedMotion ? "none" : "fade"}
-      onRequestClose={close}
+      onRequestClose={() => close("hardware-back")}
       statusBarTranslucent
     >
       <SafeAreaProvider>
@@ -84,6 +107,9 @@ function ModalSurface({
           style={{ flex: 1 }}
         >
           <View
+            onLayout={(event) =>
+              setAvailableHeight(event.nativeEvent.layout.height)
+            }
             style={{
               flex: 1,
               justifyContent: placement === "bottom" ? "flex-end" : "center",
@@ -93,7 +119,7 @@ function ModalSurface({
             <Pressable
               accessible={false}
               importantForAccessibility="no"
-              onPress={close}
+              onPress={() => close("backdrop")}
               style={{
                 position: "absolute",
                 top: 0,
@@ -113,6 +139,10 @@ function ModalSurface({
               style={style}
               testID={testID}
               scrollable={scrollable}
+              footer={footer}
+              size={size}
+              maxHeight={maxHeight}
+              availableHeight={availableHeight}
             >
               {children}
             </ModalContent>
@@ -133,66 +163,126 @@ function ModalContent({
   children,
   testID,
   scrollable,
+  footer,
+  size,
+  maxHeight,
+  availableHeight,
 }: Omit<DialogProps, "open" | "onOpenChange"> & {
   placement: "center" | "bottom";
-  close: () => void;
+  close: (reason: OverlayCloseReason) => void;
+  availableHeight: number;
 }) {
   const { colors: c } = useTheme(),
     insets = useSafeAreaInsets(),
     keyboardVisible = useKeyboardVisible();
+  const requestedLimit =
+    typeof maxHeight === "number"
+      ? maxHeight
+      : availableHeight *
+        (maxHeight
+          ? Math.max(0, Math.min(100, parseFloat(maxHeight))) / 100
+          : size === "fullscreen"
+            ? 1
+            : 0.85);
+  const contentLimit = Number.isFinite(requestedLimit)
+    ? Math.min(availableHeight, requestedLimit)
+    : availableHeight * 0.85;
   return (
     <View
       testID={testID}
       accessibilityViewIsModal
-      onAccessibilityEscape={close}
+      onAccessibilityEscape={() => close("accessibility-escape")}
       style={[
         {
-          width: placement === "bottom" ? "100%" : "90%",
-          maxWidth: 600,
-          maxHeight: "85%",
-          borderRadius: 20,
-          borderBottomLeftRadius: placement === "bottom" ? 0 : 20,
-          borderBottomRightRadius: placement === "bottom" ? 0 : 20,
+          width:
+            placement === "bottom" || size === "fullscreen" ? "100%" : "90%",
+          maxWidth: size === "fullscreen" ? undefined : 600,
+          height:
+            size === "fullscreen"
+              ? "100%"
+              : size === "large"
+                ? "85%"
+                : undefined,
+          maxHeight: maxHeight ?? (size === "fullscreen" ? "100%" : "85%"),
+          borderRadius: size === "fullscreen" ? 0 : 20,
+          borderBottomLeftRadius:
+            placement === "bottom" || size === "fullscreen" ? 0 : 20,
+          borderBottomRightRadius:
+            placement === "bottom" || size === "fullscreen" ? 0 : 20,
           backgroundColor: c.raised,
-          paddingTop: 20,
+          paddingTop: 20 + (size === "fullscreen" ? insets.top : 0),
           paddingHorizontal: 20,
           paddingBottom:
             20 +
-            (placement === "bottom" && !keyboardVisible ? insets.bottom : 0),
+            ((placement === "bottom" || size === "fullscreen") &&
+            !keyboardVisible
+              ? insets.bottom
+              : 0),
           gap: 12,
         },
         style,
       ]}
     >
       <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-        <View style={{ flex: 1 }}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          style={{
+            flex: 1,
+            minWidth: 0,
+            maxHeight: Math.max(44, contentLimit * 0.3),
+          }}
+          contentContainerStyle={{ gap: 4 }}
+        >
           <Heading level={3}>{title}</Heading>
           {description && (
             <Text size="sm" tone="muted">
               {description}
             </Text>
           )}
-        </View>
+        </ScrollView>
         {dismissible && (
-          <IconButton
+          <CloseButton
             label={closeLabel ?? "Close"}
-            variant="ghost"
-            onPress={close}
-          >
-            <Text size="xl">×</Text>
-          </IconButton>
+            onPress={() => close("close-button")}
+          />
         )}
       </View>
       {scrollable ? (
         <ScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ gap: 16 }}
-          style={{ flexGrow: 0, flexShrink: 1 }}
+          style={{
+            flexGrow: size === "content" ? 0 : 1,
+            flexShrink: 1,
+            minHeight: 0,
+          }}
         >
           {children}
         </ScrollView>
       ) : (
-        <View style={{ gap: 16, flexShrink: 1 }}>{children}</View>
+        <View
+          style={{
+            gap: 16,
+            flexShrink: 1,
+            minHeight: 0,
+            flex: size === "content" ? undefined : 1,
+          }}
+        >
+          {children}
+        </View>
+      )}
+      {footer != null && (
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          style={{
+            flexGrow: 0,
+            flexShrink: 0,
+            maxHeight: contentLimit * 0.35,
+          }}
+          contentContainerStyle={{ gap: 12 }}
+        >
+          <View>{footer}</View>
+        </ScrollView>
       )}
     </View>
   );
@@ -222,7 +312,11 @@ export function AlertDialog({
   ...props
 }: AlertDialogProps) {
   return (
-    <Dialog {...props} onOpenChange={onOpenChange} dismissible={!loading}>
+    <Dialog
+      {...props}
+      onOpenChange={onOpenChange}
+      dismissible={!loading && props.dismissible !== false}
+    >
       <View style={{ gap: 12 }}>
         {error && (
           <Text tone="danger" accessibilityRole="alert">
@@ -239,7 +333,11 @@ export function AlertDialog({
         <Button
           variant="outline"
           disabled={loading}
-          onPress={() => onOpenChange(false)}
+          onPress={() =>
+            props.onCloseRequest
+              ? props.onCloseRequest("cancel-button")
+              : onOpenChange(false)
+          }
         >
           {cancelLabel}
         </Button>

@@ -1,6 +1,7 @@
 import React, { type ReactNode } from "react";
 import {
   Pressable,
+  View,
   ActivityIndicator,
   Text as NativeText,
   type PressableProps,
@@ -105,8 +106,16 @@ export interface IconButtonProps
   extends Omit<ButtonProps, "children" | "accessibilityLabel"> {
   label: string;
   children: ReactNode;
+  /** Minimum visual slot, independent of the 44pt touch target. */
+  iconSize?: number;
 }
-export function IconButton({ label, style, ...props }: IconButtonProps) {
+export function IconButton({
+  label,
+  style,
+  children,
+  iconSize = 22,
+  ...props
+}: IconButtonProps) {
   return (
     <Button
       {...props}
@@ -114,12 +123,29 @@ export function IconButton({ label, style, ...props }: IconButtonProps) {
       style={(state) => [
         {
           minWidth: 44,
+          flexShrink: 0,
           paddingHorizontal: 8,
           paddingVertical: 0,
         },
         typeof style === "function" ? style(state) : style,
       ]}
-    />
+    >
+      {typeof children === "string" || typeof children === "number" ? (
+        children
+      ) : (
+        <View
+          style={{
+            minWidth: iconSize,
+            minHeight: iconSize,
+            flexShrink: 0,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {children}
+        </View>
+      )}
+    </Button>
   );
 }
 export function LinkButton(props: ButtonProps) {
