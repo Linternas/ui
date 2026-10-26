@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.native.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "baseUrl": "../..",
+    "paths": {
+      "@mingu/interaction-ui/native": ["packages/native/src/index.ts"]
+    }
+  },
+  "include": [
+    "../../examples/native/App.tsx",
+    "../../packages/native/src",
+    "../../packages/tokens/src"
+  ]
+}

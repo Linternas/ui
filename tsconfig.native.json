@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "target": "ES2023",
+    "rootDir": "./packages",
+    "outDir": "./dist/types/platforms",
+    "noEmit": true,
+    "types": ["react", "react-native"]
+  },
+  "include": ["packages/native/src", "packages/tokens/src"]
+}

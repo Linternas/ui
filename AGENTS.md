@@ -16,7 +16,8 @@ Use existing components and semantic tokens first. Keep product APIs, authentica
 
 | Change | Location |
 | --- | --- |
-| Semantic colors, spacing, typography, motion | `tokens.css` |
+| Shared colors, spacing, typography, motion | `packages/tokens/src/index.ts`, `scripts/sync-tokens.mjs` → `tokens.css` |
+| React Native core, APIs and app example | `packages/native/src`, `NATIVE.md`, `examples/native/App.tsx` |
 | Core component styles | `system.css` |
 | Shared field labels, descriptions and input slots | `src/system/field-frame.tsx` |
 | Core controls, forms, display, navigation, overlays | `src/system/` |
@@ -83,3 +84,7 @@ Railway deploys the catalog from this repository's root using `railpack.json`: b
 The gallery is `/all`, documentation is `/docs` and `/docs/<id>`, and root component routes such as `/button` remain compatible; `/lab/ui/...` is a legacy redirect. Use https://ui.mingu.xyz for public catalog links.
 
 A consuming app can pin this repository as a Git dependency or submodule. A catalog-only change does not require updating a consumer's package pin. Component adoption and consumer deployment are separate changes; do not edit a consumer checkout as a side effect.
+
+## Native changes
+
+Read NATIVE.md before editing mobile UI. Keep Native imports inside the explicit `/native` entry, independent of the DOM/CSS/web exports. Shared primitive values come from `packages/tokens/src/index.ts`; run `tokens:sync` after changing them and keep `tokens:check` passing. Preserve optional peer dependencies so web consumers do not need Native modules. For Native changes run `typecheck`, `test:native`, and `build`; the strict Native consumer test must compile the complete example without DOM libraries. Node tests mock OS boundaries and cannot be described as device verification. Catalog-only Native inventory belongs in `packages/native/catalog.ts`, separate from the 200 web entries.

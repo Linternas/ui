@@ -129,6 +129,7 @@ export default function LandingPage() {
           </Link>
         </nav>
         <div className="landing-header-actions">
+          <Link href="/native">Native</Link>
           <a
             href="https://github.com/Linternas/ui"
             target="_blank"

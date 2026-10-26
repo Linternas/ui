@@ -159,3 +159,7 @@ GradientEditor, PixelEditor, ScratchCard, UndoHistory, MultiSelect, TransferList
 ## Workflow and kinetic lab (0.23.0)
 
 22 additions bring the component catalog to 200 entries: twelve workflow controls and ten kinetic/design tools. [Workflow APIs](./docs/collections/workflow.md) cover dates, time, ranges, hierarchy, mentions, steps, filters, columns, scheduling, windows and inboxes. [Kinetic/design APIs](./docs/collections/kinetic.md) cover flip cards, mazes, confetti, vector fields, reaction diffusion, terrain, pendulums, clip paths, contrast and shadows. Live previews, Docs and 30-day New badges share the public package implementation.
+
+## React Native (0.25.0)
+
+모바일 앱은 `@mingu/interaction-ui/native`에서 가져옵니다. 공통 토큰과 Native 기본 UI, 안전 영역·키보드·모달·날짜/시간 컨트롤을 제공합니다. [설치·전체 API](./NATIVE.md), [모바일 예제](./examples/native/App.tsx), [Native Docs](https://ui.mingu.xyz/native). 기존 웹 import는 유지합니다.

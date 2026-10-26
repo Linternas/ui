@@ -48,6 +48,8 @@ test("production docs server serves built routes, assets and health without expo
     for (const route of [
       ...uiCatalog.map((item) => `/${item.id}`),
       "/docs",
+      "/native",
+      "/native/",
       "/docs/",
       ...uiCatalog
         .filter((item) => !["all", "playground"].includes(item.id))

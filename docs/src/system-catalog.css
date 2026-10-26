@@ -1084,7 +1084,8 @@
   font-size: var(--mingu-text-sm);
 }
 
-.ui-docs-header {
+.ui-docs-header,
+.ui-native-header {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -1096,7 +1097,13 @@
   font-weight: 650;
 }
 @media (max-width: 767px) {
+  .system-catalog-header > a {
+    flex-shrink: 0;
+  }
   .system-catalog-header > div {
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: var(--mingu-space-2);
   }
 }

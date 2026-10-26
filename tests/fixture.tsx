@@ -77,7 +77,8 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  location.pathname === "/docs" ||
+  location.pathname === "/native" ||
+    location.pathname === "/docs" ||
     location.pathname.startsWith("/docs/") ||
     new URLSearchParams(location.search).has("landing") ? (
     <DocsApp />

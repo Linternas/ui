@@ -108,6 +108,9 @@ export default function UiCatalog({
           <Link className="ui-playground-header" href="/playground">
             Playground ↗
           </Link>
+          <Link className="ui-native-header" href="/native">
+            Native
+          </Link>
           <a
             className="ui-github-link"
             href="https://github.com/Linternas/ui"

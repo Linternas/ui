@@ -8,6 +8,7 @@ import {
 } from "react";
 const ExperimentalPlayground = lazy(() => import("./ExperimentalPlayground"));
 import { uiCatalog, playgroundExperiments } from "../../src/system/ui-catalog";
+const NativePage = lazy(() => import("./NativePage"));
 const UiCatalog = lazy(() => import("./UiCatalog"));
 import LandingPage from "./LandingPage";
 import { usePathname } from "./routing";
@@ -32,11 +33,13 @@ export default function App() {
     document.title =
       path === "/"
         ? "Mingu UI — Built to feel right."
-        : experiment
-          ? `${experiment.name} — Playground — Mingu UI`
-          : item
-            ? `${item.name} — Mingu UI`
-            : "Page not found — Mingu UI";
+        : route === "/native"
+          ? "Mingu Native — Mobile core UI"
+          : experiment
+            ? `${experiment.name} — Playground — Mingu UI`
+            : item
+              ? `${item.name} — Mingu UI`
+              : "Page not found — Mingu UI";
     if (previous.current !== path) {
       window.scrollTo(0, 0);
       const focusHeading = () => {
@@ -71,6 +74,8 @@ export default function App() {
       >
         {path === "/" ? (
           <LandingPage />
+        ) : route === "/native" ? (
+          <NativePage />
         ) : experiment ? (
           <ExperimentalPlayground id={experiment.id} />
         ) : item ? (

@@ -723,3 +723,7 @@ PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter,
 - [ShadowEditor](https://ui.mingu.xyz/docs/shadow-editor) — Shadow editor.
 
 [Workflow API](./docs/collections/workflow.md) · [Kinetic and design API](./docs/collections/kinetic.md). All 22 use the same public implementation in previews and retain deferred mounting.
+
+## Native core
+
+The mobile core inventory is separate from the Web catalog: [Native Docs](https://ui.mingu.xyz/native), [complete API](./NATIVE.md), [actual Native showcase](./examples/native/App.tsx). Import from `@mingu/interaction-ui/native` for native actions, forms, layout, display, navigation and overlays.

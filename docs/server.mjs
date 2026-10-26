@@ -16,6 +16,7 @@ const types = {
 };
 const known = new Set([
   "/docs",
+  "/native",
   ...uiCatalog
     .filter((item) => !["all", "playground"].includes(item.id))
     .map((item) => "/docs/" + item.id),

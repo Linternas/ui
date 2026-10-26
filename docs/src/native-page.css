@@ -1,0 +1,113 @@
+.native-docs {
+  min-height: 100vh;
+  background: var(--mingu-bg);
+  color: var(--mingu-text);
+  font-family: var(--mingu-font-sans);
+}
+.native-docs * {
+  box-sizing: border-box;
+  min-width: 0;
+}
+.native-docs > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--mingu-border);
+}
+.native-docs nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+}
+.native-docs nav select {
+  width: auto;
+}
+.native-docs a {
+  color: inherit;
+  text-underline-offset: 4px;
+}
+.native-docs > header > a {
+  font-weight: 600;
+  text-decoration: none;
+}
+.native-docs main {
+  max-width: 1120px;
+  margin: auto;
+  padding: 64px 24px;
+  display: grid;
+  gap: 56px;
+}
+.native-docs main > section {
+  display: grid;
+  gap: 20px;
+}
+.native-docs .native-docs-intro {
+  max-width: 760px;
+  gap: 24px;
+}
+.native-docs-intro h1 {
+  font-size: clamp(40px, 7vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.06em;
+  margin: 0;
+}
+.native-docs-intro p {
+  font-size: 18px;
+  line-height: 1.7;
+}
+.native-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.native-docs-grid ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 8px 0 0;
+}
+.native-docs-grid li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  background: var(--mingu-surface);
+  border-radius: 6px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .native-docs > header {
+    align-items: flex-start;
+    padding: 16px;
+    gap: 12px;
+  }
+  .native-docs nav {
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .native-docs main {
+    padding: 40px 16px;
+  }
+  .native-docs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.native-docs > header > a {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.native-docs nav > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.native-docs-intro > .mingu-badge {
+  justify-self: start;
+}
