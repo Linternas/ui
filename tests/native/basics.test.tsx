@@ -249,7 +249,32 @@ test("all core components compose into the real Native showcase without a DOM re
   const App = require("../../examples/native/App").default;
   await render(<App />);
   expect(screen.getByText("Made for touch.")).toBeOnTheScreen();
+  // The bar is a non-focusable group; each tab is its own accessibility target.
+  const navigation = screen.container.queryAll(
+    (node) =>
+      node.props.accessibilityRole === "tablist" &&
+      node.props.accessibilityLabel === "Showcase navigation",
+  )[0];
+  for (let node = navigation.parent; node; node = node.parent) {
+    expect(String(node.type)).not.toMatch(/ScrollView/);
+  }
+  expect(screen.getByRole("tab", { name: "Components" })).toHaveProp(
+    "accessibilityState",
+    { selected: true, disabled: false },
+  );
+  await fireEvent.press(
+    screen.getByRole("tab", { name: "Inputs", exact: true }),
+  );
+  expect(screen.queryByText("Made for touch.")).toBeNull();
   expect(screen.getByLabelText("Name")).toHaveDisplayValue("Mingu");
+  await fireEvent.changeText(screen.getByLabelText("Name"), "New project");
+  await fireEvent.press(screen.getByRole("tab", { name: "More", exact: true }));
+  expect(screen.getByText("Display & feedback")).toBeOnTheScreen();
+  await fireEvent.press(
+    screen.getByRole("tab", { name: "Inputs", exact: true }),
+  );
+  expect(screen.getByLabelText("Name")).toHaveDisplayValue("New project");
+  await fireEvent.press(screen.getByRole("tab", { name: "More", exact: true }));
   await fireEvent(
     screen.getByRole("switch", { name: "Dark theme" }),
     "valueChange",
@@ -417,4 +442,120 @@ test("slider emits bounded values without replacing controlled state; action she
   await fireEvent.press(screen.getByRole("button", { name: "Save" }));
   expect(closed).toHaveBeenCalledWith(false);
   expect(action).toHaveBeenCalledTimes(1);
+});
+
+test("Screen keeps app chrome outside scroll content in both layout modes", async () => {
+  for (const scroll of [true, false]) {
+    const result = await render(
+      <UI.Screen
+        scroll={scroll}
+        testID="screen-content"
+        header={<UI.Text>Fixed header</UI.Text>}
+        footer={<UI.Text>Fixed footer</UI.Text>}
+      >
+        <UI.Text>Body content</UI.Text>
+      </UI.Screen>,
+      { wrapper: Wrapper },
+    );
+    for (const label of ["Fixed header", "Fixed footer"]) {
+      for (
+        let node = screen.getByText(label).parent;
+        node;
+        node = node.parent
+      ) {
+        expect(node.props.testID).not.toBe("screen-content");
+      }
+    }
+    expect(screen.getByText("Body content")).toBeOnTheScreen();
+    await result.unmount();
+  }
+});
+
+test("bottom navigation reports actual selection, preserves controlled ownership and skips disabled tabs", async () => {
+  const changed = jest.fn();
+  const items = [
+    { value: "locked", label: "Locked", disabled: true },
+    { value: "home", label: "Home" },
+    { value: "inbox", label: "Inbox", badge: 0 },
+  ];
+  const result = await render(
+    <UI.BottomNavigation
+      label="App routes"
+      items={items}
+      value="home"
+      onValueChange={changed}
+    />,
+    { wrapper: Wrapper },
+  );
+  await fireEvent.press(screen.getByRole("tab", { name: "Locked" }));
+  expect(changed).not.toHaveBeenCalled();
+  await fireEvent.press(screen.getByRole("tab", { name: "Inbox, 0" }));
+  expect(changed).toHaveBeenCalledWith("inbox");
+  expect(screen.getByRole("tab", { name: "Home" })).toHaveProp(
+    "accessibilityState",
+    { selected: true, disabled: false },
+  );
+  await result.rerender(
+    <UI.BottomNavigation
+      label="App routes"
+      items={items}
+      value="inbox"
+      onValueChange={changed}
+    />,
+  );
+  expect(screen.getByRole("tab", { name: "Inbox, 0" })).toHaveProp(
+    "accessibilityState",
+    { selected: true, disabled: false },
+  );
+  await result.unmount();
+  await render(<UI.BottomNavigation label="App routes" items={items} />, {
+    wrapper: Wrapper,
+  });
+  expect(screen.getByRole("tab", { name: "Home" })).toHaveProp(
+    "accessibilityState",
+    { selected: true, disabled: false },
+  );
+  await fireEvent.press(screen.getByRole("tab", { name: "Inbox, 0" }));
+  expect(screen.getByRole("tab", { name: "Inbox, 0" })).toHaveProp(
+    "accessibilityState",
+    { selected: true, disabled: false },
+  );
+});
+
+test("bottom navigation respects landscape and home-indicator insets without double padding", async () => {
+  const safeArea = require("react-native-safe-area-context");
+  const insets = jest
+    .spyOn(safeArea, "useSafeAreaInsets")
+    .mockReturnValue({ top: 0, bottom: 34, left: 44, right: 21 });
+  try {
+    const props = {
+      label: "Safe routes",
+      items: [{ value: "one", label: "One" }],
+    };
+    const result = await render(<UI.BottomNavigation {...props} />, {
+      wrapper: Wrapper,
+    });
+    expect(
+      screen.container.queryAll(
+        (node) => node.props.accessibilityRole === "tablist",
+      )[0],
+    ).toHaveStyle({
+      paddingBottom: 34,
+      paddingLeft: 44,
+      paddingRight: 21,
+      flexShrink: 0,
+    });
+    await result.rerender(<UI.BottomNavigation {...props} safeArea={false} />);
+    expect(
+      screen.container.queryAll(
+        (node) => node.props.accessibilityRole === "tablist",
+      )[0],
+    ).toHaveStyle({
+      paddingBottom: 8,
+      paddingLeft: 8,
+      paddingRight: 8,
+    });
+  } finally {
+    insets.mockRestore();
+  }
 });

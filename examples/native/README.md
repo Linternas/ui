@@ -31,6 +31,12 @@ npm start -- --tunnel
 
 예제를 업데이트했다면 서버를 종료하고 `npm ci` 후 `npm start -- --clear`로 다시 실행하세요. Expo Go가 다른 SDK를 지원하면 앱 설치 방식에 맞는 호환 버전을 사용하거나 예제 의존성 전체를 해당 SDK에 맞춰야 합니다. [Expo 공식 버전 오류 안내](https://docs.expo.dev/troubleshooting/expo-go-version-mismatch/)
 
+## 화면 구성
+
+하단의 **Components / Inputs / More** 탭으로 화면을 전환합니다. 상단 AppBar와 하단 내비게이션은 본문을 스크롤해도 유지됩니다. Inputs에서 바꾼 이름·선택·슬라이더 등의 controlled 값은 탭을 왕복해도 유지됩니다. 화면을 떠나면 uncontrolled 예제는 다시 초기화됩니다. More에는 표시·피드백, 내부 Tabs와 모달 예제가 있습니다.
+
+`Screen.header`와 `Screen.footer`에 기존 AppBar·BottomNavigation을 조합한 레이아웃입니다. Screen이 safe area를 처리하므로 하단 바에는 `safeArea={false}`를 사용합니다. 컴포넌트를 제품 앱에서도 같은 방식으로 배치할 수 있습니다.
+
 ## 확인할 항목
 
 - 라이트·다크 모드, 카드·텍스트·배지·아바타

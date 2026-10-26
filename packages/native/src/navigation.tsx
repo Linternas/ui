@@ -125,6 +125,9 @@ export function BottomNavigation({
           borderTopColor: c.border,
           padding: 8,
           paddingBottom: safeArea ? Math.max(8, insets.bottom) : 8,
+          paddingLeft: safeArea ? Math.max(8, insets.left) : 8,
+          paddingRight: safeArea ? Math.max(8, insets.right) : 8,
+          flexShrink: 0,
           gap: 4,
         },
         style,
@@ -134,7 +137,7 @@ export function BottomNavigation({
         <Pressable
           key={item.value}
           accessibilityRole="tab"
-          accessibilityLabel={`${item.label}${item.badge ? `, ${item.badge}` : ""}`}
+          accessibilityLabel={`${item.label}${item.badge != null ? `, ${item.badge}` : ""}`}
           accessibilityState={{
             selected: selected === item.value,
             disabled: !!(disabled || item.disabled),
@@ -154,7 +157,43 @@ export function BottomNavigation({
             opacity: disabled || item.disabled ? 0.5 : 1,
           }}
         >
-          {item.icon}
+          {(item.icon || item.badge != null) && (
+            <View
+              accessible={false}
+              style={{
+                minWidth: 24,
+                minHeight: 24,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {item.icon}
+              {item.badge != null && (
+                <View
+                  style={{
+                    position: "absolute",
+                    top: -5,
+                    right: -14,
+                    minWidth: 18,
+                    minHeight: 18,
+                    paddingHorizontal: 5,
+                    borderRadius: 999,
+                    backgroundColor: c.accent,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    size="xs"
+                    weight="semibold"
+                    style={{ color: c["on-accent"] }}
+                  >
+                    {item.badge}
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
           <Text
             size="xs"
             tone={selected === item.value ? "accent" : "muted"}
@@ -162,11 +201,6 @@ export function BottomNavigation({
           >
             {item.label}
           </Text>
-          {item.badge != null && (
-            <Text size="xs" tone="accent">
-              {item.badge}
-            </Text>
-          )}
         </Pressable>
       ))}
     </View>

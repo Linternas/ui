@@ -108,10 +108,15 @@ export interface ScreenProps extends ScrollViewProps {
   refreshing?: boolean;
   onRefresh?: () => void;
   children?: ReactNode;
+  /** Persistent chrome outside the scrolling content, inside safe-area/keyboard layout. */
+  header?: ReactNode;
+  footer?: ReactNode;
 }
 /** Flex root with safe area, keyboard avoidance and controlled pull-to-refresh. */
 export function Screen({
   children,
+  header,
+  footer,
   scroll = true,
   safeEdges = ["top", "bottom", "left", "right"],
   keyboardAvoiding = true,
@@ -139,6 +144,7 @@ export function Screen({
       style={{ flex: 1, backgroundColor: c.bg }}
     >
       <View style={[{ flex: 1 }, edges]}>
+        {header}
         {scroll ? (
           <ScrollView
             {...props}
@@ -180,6 +186,7 @@ export function Screen({
             {children}
           </View>
         )}
+        {footer}
       </View>
     </KeyboardAvoidingView>
   );

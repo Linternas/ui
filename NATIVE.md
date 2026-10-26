@@ -38,7 +38,7 @@ export default function App() {
 }
 ```
 
-[examples/native](./examples/native/README.md) is a runnable Expo app with a complete, interactive Native showcase. It includes theme switching, forms, choices, date/time controls, tabs, local notifications and all overlay variants. It has no API, account or storage dependencies. The Native inventory was added on 2026-10-26 UTC; its New badges expire after 30 days. The Web catalog has installation and inventory documentation at `/native`; it does not substitute a browser rendering for a Native device preview.
+[examples/native](./examples/native/README.md) is a runnable Expo app with a complete, interactive Native showcase. It has a fixed AppBar and bottom navigation with Components, Inputs and More screens, plus theme switching, forms, choices, date/time controls, tabs, local notifications and all overlay variants. Controlled example values survive tab changes; unmounted uncontrolled examples reset. It has no API, account or storage dependencies. The Native inventory was added on 2026-10-26 UTC; its New badges expire after 30 days. The Web catalog has installation and inventory documentation at `/native`; it does not substitute a browser rendering for a Native device preview.
 
 ## Preview on your phone
 
@@ -74,7 +74,7 @@ If Expo Go reports `Project is incompatible with this version of Expo Go`, compa
 | `NativeProvider` | Convenience root: SafeAreaProvider + DesignSystemProvider. `theme="system"\|"light"\|"dark"`, `accent="brand"\|"neutral"`, `colors?:Partial<ColorTokens>`, `reducedMotion?:boolean`. Mount once above app navigation. |
 | `DesignSystemProvider` | Same theme props; no wrapper View or extra safe-area provider. Use when the app already owns SafeAreaProvider. Nested themes remain scoped. OS color scheme and reduced-motion changes are observed and listeners are cleaned up. |
 | `useTheme` | Returns `{colors,mode,reducedMotion}`. Throws outside a provider. No storage or global theme mutation. |
-| `Screen` | `scroll=true`, `safeEdges=[top,bottom,left,right]`, `keyboardAvoiding=true`, `keyboardVerticalOffset=0`, `padding="4"`, native ScrollView props. `refreshing/onRefresh` control pull-to-refresh. iOS uses keyboard padding; Android keeps the app's window/keyboard configuration. `scroll=false` uses a flex View. Native scroll content props only apply to scroll mode. |
+| `Screen` | `header/footer?:ReactNode` stay outside scroll content, within safe-area/keyboard layout. `scroll=true`, `safeEdges=[top,bottom,left,right]`, `keyboardAvoiding=true`, `keyboardVerticalOffset=0`, `padding="4"`, native ScrollView props. `refreshing/onRefresh` control pull-to-refresh. iOS uses keyboard padding; Android keeps the app's window/keyboard configuration. `scroll=false` uses a flex View. Native scroll content props only apply to scroll mode. |
 | `Stack` | Native View props, `direction=row\|column`, `gap` token key, `align=start\|center\|end\|stretch`, `justify=start\|center\|end\|between`, `wrap`. |
 | `Card` | Native View props, `padding` token key; themed surface/border and rounded corners. |
 | `Text` | Native Text props/ref, `size=xs\|sm\|md\|lg\|xl\|2xl`, `tone=default\|muted\|accent\|danger\|success\|warning`, `weight=regular\|medium\|semibold\|bold`. Native font scaling remains enabled. |
@@ -133,7 +133,24 @@ Choice options: `{value:string,label:string,description?:string,disabled?:boolea
 
 `AppBar`: `title`, `subtitle`, `onBack`, `backLabel`, `leading/trailing`, `style`. Back is an explicit callback, not an embedded router.
 
-`Tabs` / `BottomNavigation`: `label`, `items:{value,label,icon?,badge?,disabled?,content?}[]`, `value/defaultValue`, `onValueChange`, `disabled`, `style`. Tabs mounts only the selected content. BottomNavigation emits route/tab choice; the app owns actual screens. Its `safeArea=true` applies the bottom inset; use false inside an already padded Screen.
+`Tabs` / `BottomNavigation`: `label`, `items:{value,label,icon?,badge?,disabled?,content?}[]`, `value/defaultValue`, `onValueChange`, `disabled`, `style`. Tabs mounts only the selected content. BottomNavigation emits route/tab choice; the app owns actual screens. Its `safeArea=true` applies the bottom and horizontal insets; use false inside an already padded Screen. Icon badges do not add a third row to the tab. Keep a bottom bar in `Screen.footer` (or outside the scrolling Screen), not within scrolling children.
+
+A fixed app layout using the existing primitives:
+
+```tsx
+const [page, setPage] = useState('home');
+<Screen
+  key={page}
+  header={<AppBar title={page === 'home' ? 'Home' : 'Inbox'} />}
+  footer={<BottomNavigation safeArea={false} label="Main navigation"
+    items={[{value:'home',label:'Home'}, {value:'inbox',label:'Inbox',badge:3}]}
+    value={page} onValueChange={setPage} />}
+>
+  {page === 'home' ? <Text>Home screen</Text> : <Text>Inbox screen</Text>}
+</Screen>
+```
+
+Screen owns the safe area here, so `safeArea={false}` avoids a second bottom inset. The `key` resets scroll position when switching screens; keep values that must survive outside the keyed screen. This is a local UI example; integrate real routes, back stacks and deep links through the app's navigation library.
 
 `Dialog` / `BottomSheet`: controlled `open/onOpenChange`, required `title`, optional `description`, `children`, `closeLabel`, `dismissible=true`, `returnFocusRef`, `style`, `testID`, `scrollable=true`. Both use React Native Modal, Android `onRequestClose`, iOS accessibility escape and a separate modal safe-area provider. Keyboard avoidance, bounded scrolling and modal accessibility isolation are applied. `scrollable=false` is for an embedded FlatList/ScrollView. Reduced motion removes the transition. `returnFocusRef` requests accessibility focus on a retained native trigger after closing; verify timing with VoiceOver/TalkBack in the consuming app. BottomSheet is a content sheet with explicit dismissal; it does not implement gesture detents or swipe physics.
 
