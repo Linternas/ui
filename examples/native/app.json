@@ -5,8 +5,18 @@
     "version": "1.0.0",
     "orientation": "default",
     "userInterfaceStyle": "automatic",
-    "platforms": ["ios", "android"],
-    "ios": { "supportsTablet": true },
-    "android": { "softwareKeyboardLayoutMode": "resize" }
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "softwareKeyboardLayoutMode": "resize"
+    },
+    "plugins": [
+      "@react-native-community/datetimepicker"
+    ]
   }
 }

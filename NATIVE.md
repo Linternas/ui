@@ -42,7 +42,7 @@ export default function App() {
 
 ## Preview on your phone
 
-Install Expo Go on your iOS or Android phone, then run the standalone example:
+The preview targets **Expo SDK 57**. Use an Expo Go build that supports SDK 57 on your iOS or Android phone, then run the standalone example:
 
 ```sh
 git clone https://github.com/Linternas/ui.git
@@ -55,7 +55,9 @@ Use Node 22. No root `npm install` is needed for this example. Scan the terminal
 
 For network restrictions, try `npm start -- --tunnel` (Expo may ask to install its tunnel helper). `npm run ios` and `npm run android` target a locally configured simulator/emulator. `/native` on the website is documentation; the QR opens the actual React Native app. See the [example README](./examples/native/README.md) and [Expo development instructions](https://docs.expo.dev/get-started/start-developing/).
 
-The example owns its Expo-compatible dependency versions and lockfile. Metro reads this repository's Native source directly and resolves runtime dependencies from the example, so Web development's React version is not mixed into the app. `npm run typecheck` and `npm run export:check` inside the example validate types and both platform bundles; these checks do not verify device rendering or OS behavior.
+The example owns its Expo SDK 57-compatible dependency versions and lockfile (React 19.2.3 / React Native 0.86.3), independently of the root library test baseline. Metro reads this repository's Native source directly and resolves runtime dependencies from the example, so Web development's React version is not mixed into the app. `npm run typecheck` and `npm run export:check` inside the example validate types and both platform bundles; these checks do not verify device rendering or OS behavior.
+
+If Expo Go reports `Project is incompatible with this version of Expo Go`, compare the supported SDK shown on the device with the example's SDK 57. Wi-Fi connectivity does not resolve a native runtime mismatch. Align the dependency set, reinstall and restart Metro with `npm start -- --clear`; do not override `sdkVersion` to disguise the mismatch. See [Expo's version mismatch guide](https://docs.expo.dev/troubleshooting/expo-go-version-mismatch/).
 
 ## Shared design and structure
 

@@ -4,7 +4,7 @@
 
 ## 휴대폰에서 열기
 
-Node 22와 휴대폰의 **Expo Go**가 필요합니다.
+Node 22와 **SDK 57을 지원하는 Expo Go**가 필요합니다. 이 예제는 Expo SDK 57로 고정되어 있습니다. 폰의 Expo Go가 지원하는 SDK 숫자와 프로젝트 SDK가 같아야 합니다.
 
 ```sh
 git clone https://github.com/Linternas/ui.git
@@ -24,6 +24,12 @@ npm start -- --tunnel
 ```
 
 시뮬레이터가 준비되어 있다면 `npm run ios`(macOS/Xcode), `npm run android`(Android SDK)를 사용할 수 있습니다. 앱스토어 배포나 EAS 프로젝트 설정은 필요하지 않습니다.
+
+## SDK 버전 오류
+
+`Project is incompatible with this version of Expo Go`는 Wi-Fi 연결 후 프로젝트를 읽었지만 SDK 버전이 맞지 않을 때 발생합니다. 오류 화면의 Expo Go 지원 SDK가 **57**인지 확인하세요. 이 예제의 `expo`, React, React Native, 날짜·슬라이더·safe-area 의존성은 SDK 57 조합으로 설치됩니다. `app.json`의 `sdkVersion`만 바꾸면 실제 Native 런타임은 바뀌지 않습니다.
+
+예제를 업데이트했다면 서버를 종료하고 `npm ci` 후 `npm start -- --clear`로 다시 실행하세요. Expo Go가 다른 SDK를 지원하면 앱 설치 방식에 맞는 호환 버전을 사용하거나 예제 의존성 전체를 해당 SDK에 맞춰야 합니다. [Expo 공식 버전 오류 안내](https://docs.expo.dev/troubleshooting/expo-go-version-mismatch/)
 
 ## 확인할 항목
 
