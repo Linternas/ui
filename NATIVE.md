@@ -38,7 +38,24 @@ export default function App() {
 }
 ```
 
-[examples/native/App.tsx](./examples/native/App.tsx) is a complete, interactive Native showcase. Copy it into your Expo or bare app after installing this package. It includes theme switching, forms, choices, date/time controls, tabs, local notifications and all overlay variants. It has no API, account or storage dependencies. The Native inventory was added on 2026-10-26 UTC; its New badges expire after 30 days. The Web catalog has installation and inventory documentation at `/native`; it does not substitute a browser rendering for a Native device preview.
+[examples/native](./examples/native/README.md) is a runnable Expo app with a complete, interactive Native showcase. It includes theme switching, forms, choices, date/time controls, tabs, local notifications and all overlay variants. It has no API, account or storage dependencies. The Native inventory was added on 2026-10-26 UTC; its New badges expire after 30 days. The Web catalog has installation and inventory documentation at `/native`; it does not substitute a browser rendering for a Native device preview.
+
+## Preview on your phone
+
+Install Expo Go on your iOS or Android phone, then run the standalone example:
+
+```sh
+git clone https://github.com/Linternas/ui.git
+cd ui/examples/native
+npm ci
+npm start
+```
+
+Use Node 22. No root `npm install` is needed for this example. Scan the terminal QR code with the iPhone camera or Expo Go on Android. Keep the computer and phone on the same Wi-Fi. If Expo Go requests account authentication on iOS, sign in to the same Expo account in the CLI and Expo Go. The app includes light/dark switching and interactive input, selection, navigation, state and overlay examples; all data stays local to the preview.
+
+For network restrictions, try `npm start -- --tunnel` (Expo may ask to install its tunnel helper). `npm run ios` and `npm run android` target a locally configured simulator/emulator. `/native` on the website is documentation; the QR opens the actual React Native app. See the [example README](./examples/native/README.md) and [Expo development instructions](https://docs.expo.dev/get-started/start-developing/).
+
+The example owns its Expo-compatible dependency versions and lockfile. Metro reads this repository's Native source directly and resolves runtime dependencies from the example, so Web development's React version is not mixed into the app. `npm run typecheck` and `npm run export:check` inside the example validate types and both platform bundles; these checks do not verify device rendering or OS behavior.
 
 ## Shared design and structure
 

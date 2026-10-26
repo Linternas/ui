@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { View } from "react-native";
 import * as UI from "@mingu/interaction-ui/native";
 export default function App() {
   const [dark, setDark] = useState(false);

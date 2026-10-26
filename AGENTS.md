@@ -17,7 +17,7 @@ Use existing components and semantic tokens first. Keep product APIs, authentica
 | Change | Location |
 | --- | --- |
 | Shared colors, spacing, typography, motion | `packages/tokens/src/index.ts`, `scripts/sync-tokens.mjs` → `tokens.css` |
-| React Native core, APIs and app example | `packages/native/src`, `NATIVE.md`, `examples/native/App.tsx` |
+| React Native core, APIs and app example | `packages/native/src`, `NATIVE.md`, `examples/native/` (standalone Expo app) |
 | Core component styles | `system.css` |
 | Shared field labels, descriptions and input slots | `src/system/field-frame.tsx` |
 | Core controls, forms, display, navigation, overlays | `src/system/` |
@@ -88,3 +88,5 @@ A consuming app can pin this repository as a Git dependency or submodule. A cata
 ## Native changes
 
 Read NATIVE.md before editing mobile UI. Keep Native imports inside the explicit `/native` entry, independent of the DOM/CSS/web exports. Shared primitive values come from `packages/tokens/src/index.ts`; run `tokens:sync` after changing them and keep `tokens:check` passing. Preserve optional peer dependencies so web consumers do not need Native modules. For Native changes run `typecheck`, `test:native`, and `build`; the strict Native consumer test must compile the complete example without DOM libraries. Node tests mock OS boundaries and cannot be described as device verification. Catalog-only Native inventory belongs in `packages/native/catalog.ts`, separate from the 200 web entries.
+
+The Expo example owns its dependencies and lockfile. Run `npm ci`, `npm run typecheck`, `npx expo install --check` and `npm run export:check` in `examples/native` after changing its setup. Keep Metro runtime resolution inside that app; root Web development may use a different React patch version. Do not add Expo to root dependencies or the Railway build. Platform exports verify Metro bundling, not actual device behavior.

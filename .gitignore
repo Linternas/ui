@@ -8,3 +8,5 @@ playwright-report/
 
 dist/
 docs/routes.mjs
+
+.expo/

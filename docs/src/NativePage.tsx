@@ -77,13 +77,36 @@ export default function NativePage() {
             Native 입력·선택·모달과 모바일 기본 UI를 제공합니다.
           </Text>
           <Stack direction="row">
-            <a href="https://github.com/Linternas/ui/blob/main/examples/native/App.tsx">
-              모바일 예제 App.tsx ↗
+            <a href="https://github.com/Linternas/ui/tree/main/examples/native">
+              모바일 예제 실행 ↗
             </a>
             <a href="https://github.com/Linternas/ui/blob/main/NATIVE.md">
               설치 · 전체 API ↗
             </a>
           </Stack>
+        </section>
+        <section aria-labelledby="native-preview">
+          <Heading level={2} id="native-preview">
+            휴대폰에서 직접 확인하기
+          </Heading>
+          <Text>
+            iOS·Android에 Expo Go를 설치하고 아래 명령을 실행하세요. 컴퓨터와
+            휴대폰을 같은 Wi-Fi에 연결한 뒤 터미널 QR을 스캔하면 실제 Native
+            예제가 열립니다.
+          </Text>
+          <CodeBlock
+            language="bash"
+            code={`git clone https://github.com/Linternas/ui.git
+cd ui/examples/native
+npm ci
+npm start`}
+            filename="native preview"
+          />
+          <Text muted>
+            테마·입력·선택·날짜·모달을 직접 조작할 수 있습니다. iOS에서 로그인을
+            요청하면 CLI와 Expo Go에 같은 Expo 계정을 사용하세요. 이 웹 페이지는
+            설치·API 문서입니다.
+          </Text>
         </section>
         <section aria-labelledby="native-setup">
           <Heading level={2} id="native-setup">

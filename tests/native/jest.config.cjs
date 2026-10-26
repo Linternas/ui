@@ -15,6 +15,11 @@ module.exports = {
   clearMocks: true,
   moduleNameMapper: {
     ...require("@react-native/jest-preset").moduleNameMapper,
+    // The standalone Expo app owns a different React patch release. Node tests
+    // use the root renderer; Metro uses the example's runtime on devices.
+    "^react$": require.resolve("react"),
+    "^react/jsx-runtime$": require.resolve("react/jsx-runtime"),
+    "^react/jsx-dev-runtime$": require.resolve("react/jsx-dev-runtime"),
     "^@mingu/interaction-ui/native$": "<rootDir>/packages/native/src/index.ts",
   },
 };

@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "Mingu Native",
+    "slug": "mingu-native-showcase",
+    "version": "1.0.0",
+    "orientation": "default",
+    "userInterfaceStyle": "automatic",
+    "platforms": ["ios", "android"],
+    "ios": { "supportsTablet": true },
+    "android": { "softwareKeyboardLayoutMode": "resize" }
+  }
+}
