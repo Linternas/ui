@@ -22,6 +22,7 @@ import {
 } from "react-native-safe-area-context";
 import { useTheme } from "./theme";
 import { Heading, Text } from "./typography";
+import { useKeyboardVisible } from "./state";
 import { Button, IconButton } from "./actions";
 export interface DialogProps {
   open: boolean;
@@ -79,7 +80,7 @@ function ModalSurface({
     >
       <SafeAreaProvider>
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1 }}
         >
           <View
@@ -137,7 +138,8 @@ function ModalContent({
   close: () => void;
 }) {
   const { colors: c } = useTheme(),
-    insets = useSafeAreaInsets();
+    insets = useSafeAreaInsets(),
+    keyboardVisible = useKeyboardVisible();
   return (
     <View
       testID={testID}
@@ -154,7 +156,9 @@ function ModalContent({
           backgroundColor: c.raised,
           paddingTop: 20,
           paddingHorizontal: 20,
-          paddingBottom: Math.max(20, insets.bottom),
+          paddingBottom:
+            20 +
+            (placement === "bottom" && !keyboardVisible ? insets.bottom : 0),
           gap: 12,
         },
         style,

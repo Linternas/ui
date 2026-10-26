@@ -6,7 +6,8 @@
     "rootDir": "./packages",
     "outDir": "./dist/types/platforms",
     "noEmit": true,
-    "types": ["react", "react-native"]
+    "types": ["react", "react-native"],
+    "resolveJsonModule": true
   },
   "include": ["packages/native/src", "packages/tokens/src"]
 }

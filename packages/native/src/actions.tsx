@@ -112,7 +112,11 @@ export function IconButton({ label, style, ...props }: IconButtonProps) {
       {...props}
       accessibilityLabel={label}
       style={(state) => [
-        { minWidth: 44, aspectRatio: 1, paddingHorizontal: 8 },
+        {
+          minWidth: 44,
+          paddingHorizontal: 8,
+          paddingVertical: 0,
+        },
         typeof style === "function" ? style(state) : style,
       ]}
     />

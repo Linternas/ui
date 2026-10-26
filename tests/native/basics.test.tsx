@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   AccessibilityInfo,
+  Keyboard,
 } from "react-native";
 import { render, screen, fireEvent, act } from "@testing-library/react-native";
 import * as UI from "../../packages/native/src";
@@ -342,8 +343,8 @@ test("iOS date drafts apply only on Done and Android dismissal never emits a dat
     await fireEvent.press(screen.getByRole("button", { name: /^Date,/ }));
     await fireEvent(
       screen.getByTestId("native-date-control"),
-      "change",
-      { type: "set" },
+      "valueChange",
+      { nativeEvent: {} },
       new Date(2026, 9, 28),
     );
     expect(changed).not.toHaveBeenCalled();
@@ -354,8 +355,8 @@ test("iOS date drafts apply only on Done and Android dismissal never emits a dat
     await fireEvent.press(screen.getByRole("button", { name: /^Date,/ }));
     await fireEvent(
       screen.getByTestId("native-date-control"),
-      "change",
-      { type: "set" },
+      "valueChange",
+      { nativeEvent: {} },
       new Date(2026, 9, 28),
     );
     await fireEvent.press(
@@ -379,12 +380,7 @@ test("iOS date drafts apply only on Done and Android dismissal never emits a dat
     await fireEvent.press(
       screen.getByRole("button", { name: /^Android date,/ }),
     );
-    await fireEvent(
-      screen.getByTestId("native-date-control"),
-      "change",
-      { type: "dismissed" },
-      date,
-    );
+    await fireEvent(screen.getByTestId("native-date-control"), "dismiss");
     expect(changed).not.toHaveBeenCalled();
     expect(screen.queryByTestId("native-date-control")).toBeNull();
   } finally {
@@ -524,6 +520,7 @@ test("bottom navigation reports actual selection, preserves controlled ownership
 
 test("bottom navigation respects landscape and home-indicator insets without double padding", async () => {
   const safeArea = require("react-native-safe-area-context");
+  const originalInsets = safeArea.useSafeAreaInsets.getMockImplementation();
   const insets = jest
     .spyOn(safeArea, "useSafeAreaInsets")
     .mockReturnValue({ top: 0, bottom: 34, left: 44, right: 21 });
@@ -557,5 +554,78 @@ test("bottom navigation respects landscape and home-indicator insets without dou
     });
   } finally {
     insets.mockRestore();
+    safeArea.useSafeAreaInsets.mockImplementation(originalInsets);
   }
+});
+
+test("Screen hides opt-in navigation while typing, restores it, and cleans up keyboard listeners", async () => {
+  const listeners: Record<string, Array<(event: unknown) => void>> = {};
+  const removers: Array<ReturnType<typeof jest.fn>> = [];
+  const visible = jest.spyOn(Keyboard, "isVisible").mockReturnValue(false);
+  const subscribed = jest
+    .spyOn(Keyboard, "addListener")
+    .mockImplementation((name, listener) => {
+      (listeners[name] ??= []).push(listener as (event: unknown) => void);
+      const remove = jest.fn();
+      removers.push(remove);
+      return { remove };
+    });
+  try {
+    const result = await render(
+      <UI.Screen
+        hideFooterOnKeyboard
+        header={<UI.Text>App header</UI.Text>}
+        footer={<UI.Text>Bottom routes</UI.Text>}
+      >
+        <UI.TextField label="Project" />
+      </UI.Screen>,
+      { wrapper: Wrapper },
+    );
+    expect(screen.getByText("Bottom routes")).toBeOnTheScreen();
+    const event = {
+      duration: 0,
+      easing: "keyboard",
+      endCoordinates: { screenX: 0, screenY: 400, width: 400, height: 300 },
+    };
+    await act(async () => {
+      for (const fn of listeners.keyboardDidShow ?? []) fn(event);
+    });
+    expect(screen.queryByText("Bottom routes")).toBeNull();
+    expect(screen.getByText("App header")).toBeOnTheScreen();
+    expect(screen.getByLabelText("Project")).toBeOnTheScreen();
+    await act(async () => {
+      for (const fn of listeners.keyboardDidHide ?? []) fn(event);
+    });
+    expect(screen.getByText("Bottom routes")).toBeOnTheScreen();
+    // Fixed submit actions may intentionally remain visible while typing.
+    await result.rerender(
+      <UI.Screen footer={<UI.Text>Save action</UI.Text>}>
+        <UI.TextField label="Project" />
+      </UI.Screen>,
+    );
+    await act(async () => {
+      for (const fn of listeners.keyboardDidShow ?? []) fn(event);
+    });
+    expect(screen.getByText("Save action")).toBeOnTheScreen();
+    await result.unmount();
+    for (const remove of removers) expect(remove).toHaveBeenCalledTimes(1);
+  } finally {
+    visible.mockRestore();
+    subscribed.mockRestore();
+  }
+});
+
+test("showcase action feedback stays outside the scroll view and can be dismissed", async () => {
+  const App = require("../../examples/native/App").default;
+  await render(<App />);
+  await fireEvent.press(
+    screen.getByRole("button", { name: "primary", exact: true }),
+  );
+  const feedback = screen.getByText("primary pressed");
+  for (let node = feedback.parent; node; node = node.parent)
+    expect(String(node.type)).not.toMatch(/ScrollView/);
+  await fireEvent.press(
+    screen.getByRole("button", { name: "Dismiss", exact: true }),
+  );
+  expect(screen.queryByText("primary pressed")).toBeNull();
 });

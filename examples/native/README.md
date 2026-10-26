@@ -33,9 +33,9 @@ npm start -- --tunnel
 
 ## 화면 구성
 
-하단의 **Components / Inputs / More** 탭으로 화면을 전환합니다. 상단 AppBar와 하단 내비게이션은 본문을 스크롤해도 유지됩니다. Inputs에서 바꾼 이름·선택·슬라이더 등의 controlled 값은 탭을 왕복해도 유지됩니다. 화면을 떠나면 uncontrolled 예제는 다시 초기화됩니다. More에는 표시·피드백, 내부 Tabs와 모달 예제가 있습니다.
+하단의 **Components / Inputs / More** 탭으로 화면을 전환합니다. 상단 AppBar와 하단 내비게이션은 본문을 스크롤해도 유지됩니다. 키보드가 뜨면 하단 내비게이션을 숨겨 입력 공간을 확보하고, 닫으면 복원합니다. 버튼 결과 알림은 하단 바 위에 바로 표시됩니다. Inputs에서 바꾼 이름·선택·슬라이더 등의 controlled 값은 탭을 왕복해도 유지됩니다. 화면을 떠나면 uncontrolled 예제는 다시 초기화됩니다. More에는 표시·피드백, 내부 Tabs와 모달 예제가 있습니다.
 
-`Screen.header`와 `Screen.footer`에 기존 AppBar·BottomNavigation을 조합한 레이아웃입니다. Screen이 safe area를 처리하므로 하단 바에는 `safeArea={false}`를 사용합니다. 컴포넌트를 제품 앱에서도 같은 방식으로 배치할 수 있습니다.
+`Screen.header`와 `Screen.footer`에 기존 AppBar·BottomNavigation을 조합하고 `hideFooterOnKeyboard`를 켠 레이아웃입니다. Screen이 safe area를 처리하므로 하단 바에는 `safeArea={false}`를 사용합니다. 컴포넌트를 제품 앱에서도 같은 방식으로 배치할 수 있습니다.
 
 ## 확인할 항목
 
@@ -60,6 +60,6 @@ npx expo install --check
 npm run export:check
 ```
 
-`export:check`는 iOS·Android Metro 번들을 생성합니다. 실제 OS 렌더링, 접근성, 키보드·제스처는 기기에서 확인해야 합니다. 이 작업 환경에는 iOS 시뮬레이터가 없어 실기기 실행은 검증하지 않았습니다.
+`export:check`는 iOS·Android Metro 번들을 생성합니다. 실제 OS 렌더링, 접근성, 키보드·제스처는 기기에서 확인해야 합니다. Android 15 ARM64 에뮬레이터에서 실제 화면과 입력·선택·모달 동작을 검수했습니다. [검수 범위와 화면](../../docs/qa/native-android-2026-10-26.md). iPhone 실기기·iOS 시뮬레이터 동작은 아직 검증하지 않았습니다.
 
 [전체 Native API](../../NATIVE.md) · [Expo 공식 실행 안내](https://docs.expo.dev/get-started/start-developing/)

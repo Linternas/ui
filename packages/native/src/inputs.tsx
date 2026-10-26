@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { View, type StyleProp, type ViewStyle } from "react-native";
 import { useValue, clamp } from "./state";
 import { TextField, type TextFieldProps } from "./forms";
-import { Button } from "./actions";
+import { IconButton } from "./actions";
 import { Text } from "./typography";
 export interface NumberStepperProps {
   label: string;
@@ -39,10 +39,10 @@ export function NumberStepper({
     <View style={[{ gap: 8 }, style]}>
       <Text size="sm">{label}</Text>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 16 }}>
-        <Button
+        <IconButton
           variant="outline"
           disabled={disabled || actual <= low}
-          accessibilityLabel={`${decreaseLabel} ${label}`}
+          label={`${decreaseLabel} ${label}`}
           onPress={() =>
             setCurrent(
               clamp(Number((actual - increment).toFixed(8)), low, high),
@@ -50,17 +50,17 @@ export function NumberStepper({
           }
         >
           −
-        </Button>
+        </IconButton>
         <Text
           accessibilityLiveRegion="polite"
           style={{ minWidth: 40, textAlign: "center" }}
         >
           {actual}
         </Text>
-        <Button
+        <IconButton
           variant="outline"
           disabled={disabled || actual >= high}
-          accessibilityLabel={`${increaseLabel} ${label}`}
+          label={`${increaseLabel} ${label}`}
           onPress={() =>
             setCurrent(
               clamp(Number((actual + increment).toFixed(8)), low, high),
@@ -68,7 +68,7 @@ export function NumberStepper({
           }
         >
           +
-        </Button>
+        </IconButton>
       </View>
     </View>
   );

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Keyboard, View } from "react-native";
+import { Keyboard, StatusBar, View } from "react-native";
 import * as UI from "@mingu/interaction-ui/native";
 export default function App() {
   const [dark, setDark] = useState(false);
   return (
     <UI.NativeProvider theme={dark ? "dark" : "light"} accent="neutral">
+      <StatusBar barStyle={dark ? "light-content" : "dark-content"} />
       <Showcase dark={dark} setDark={setDark} />
     </UI.NativeProvider>
   );
@@ -43,6 +44,7 @@ function Showcase({
   return (
     <UI.Screen
       key={tab}
+      hideFooterOnKeyboard
       header={
         <UI.AppBar
           title={
@@ -65,33 +67,50 @@ function Showcase({
         />
       }
       footer={
-        <UI.BottomNavigation
-          safeArea={false}
-          label="Showcase navigation"
-          items={[
-            {
-              value: "home",
-              label: "Components",
-              icon: <TabIcon kind="grid" active={tab === "home"} />,
-            },
-            {
-              value: "inputs",
-              label: "Inputs",
-              icon: <TabIcon kind="sliders" active={tab === "inputs"} />,
-            },
-            {
-              value: "more",
-              label: "More",
-              icon: <TabIcon kind="layers" active={tab === "more"} />,
-            },
-          ]}
-          value={tab}
-          onValueChange={(next) => {
-            Keyboard.dismiss();
-            setModal("");
-            setTab(next);
-          }}
-        />
+        <UI.Stack gap="2">
+          {messages.length > 0 && (
+            <UI.Stack
+              style={{
+                paddingHorizontal: UI.tokens.space["4"],
+                paddingTop: UI.tokens.space["2"],
+              }}
+            >
+              <UI.Toast
+                messages={messages}
+                onDismiss={(id) =>
+                  setMessages((v) => v.filter((m) => m.id !== id))
+                }
+              />
+            </UI.Stack>
+          )}
+          <UI.BottomNavigation
+            safeArea={false}
+            label="Showcase navigation"
+            items={[
+              {
+                value: "home",
+                label: "Components",
+                icon: <TabIcon kind="grid" active={tab === "home"} />,
+              },
+              {
+                value: "inputs",
+                label: "Inputs",
+                icon: <TabIcon kind="sliders" active={tab === "inputs"} />,
+              },
+              {
+                value: "more",
+                label: "More",
+                icon: <TabIcon kind="layers" active={tab === "more"} />,
+              },
+            ]}
+            value={tab}
+            onValueChange={(next) => {
+              Keyboard.dismiss();
+              setModal("");
+              setTab(next);
+            }}
+          />
+        </UI.Stack>
       }
       refreshing={refreshing}
       onRefresh={() => {
@@ -326,10 +345,6 @@ function Showcase({
           </UI.Card>
         </>
       )}
-      <UI.Toast
-        messages={messages}
-        onDismiss={(id) => setMessages((v) => v.filter((m) => m.id !== id))}
-      />
       <UI.Spacer size="4" />
       <UI.Dialog
         open={modal === "dialog"}

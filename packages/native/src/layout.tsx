@@ -11,6 +11,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { tokens, type Space } from "../../tokens/src";
 import { useTheme } from "./theme";
+import { useKeyboardVisible } from "./state";
 export interface StackProps extends ViewProps {
   direction?: "row" | "column";
   gap?: Space;
@@ -111,12 +112,15 @@ export interface ScreenProps extends ScrollViewProps {
   /** Persistent chrome outside the scrolling content, inside safe-area/keyboard layout. */
   header?: ReactNode;
   footer?: ReactNode;
+  /** Hide navigation chrome while typing; fixed submit actions can stay visible. */
+  hideFooterOnKeyboard?: boolean;
 }
 /** Flex root with safe area, keyboard avoidance and controlled pull-to-refresh. */
 export function Screen({
   children,
   header,
   footer,
+  hideFooterOnKeyboard = false,
   scroll = true,
   safeEdges = ["top", "bottom", "left", "right"],
   keyboardAvoiding = true,
@@ -129,17 +133,21 @@ export function Screen({
   ...props
 }: ScreenProps) {
   const { colors: c } = useTheme(),
-    insets = useSafeAreaInsets();
+    insets = useSafeAreaInsets(),
+    keyboardVisible = useKeyboardVisible();
   const edges = {
     paddingTop: safeEdges.includes("top") ? insets.top : 0,
-    paddingBottom: safeEdges.includes("bottom") ? insets.bottom : 0,
+    paddingBottom:
+      safeEdges.includes("bottom") && !(keyboardAvoiding && keyboardVisible)
+        ? insets.bottom
+        : 0,
     paddingLeft: safeEdges.includes("left") ? insets.left : 0,
     paddingRight: safeEdges.includes("right") ? insets.right : 0,
   };
   return (
     <KeyboardAvoidingView
       enabled={keyboardAvoiding}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={keyboardVerticalOffset}
       style={{ flex: 1, backgroundColor: c.bg }}
     >
@@ -186,7 +194,7 @@ export function Screen({
             {children}
           </View>
         )}
-        {footer}
+        {(!hideFooterOnKeyboard || !keyboardVisible) && footer}
       </View>
     </KeyboardAvoidingView>
   );

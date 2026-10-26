@@ -1,6 +1,7 @@
 import React, { useRef, useState, type ComponentProps } from "react";
 import { View, Platform, type StyleProp, type ViewStyle } from "react-native";
 import NativeDateTimePicker from "@react-native-community/datetimepicker";
+import { version as pickerVersion } from "@react-native-community/datetimepicker/package.json";
 import NativeSlider from "@react-native-community/slider";
 import { Text } from "./typography";
 import { Button } from "./actions";
@@ -138,12 +139,25 @@ function DateTimeField({
       display={Platform.OS === "ios" ? "spinner" : "default"}
       locale={locale}
       themeVariant={theme}
-      onChange={(event, next) => {
-        if (Platform.OS !== "ios") {
-          setOpen(false);
-          if (event.type === "set" && next) setSelected(bound(next));
-        } else if (next) setDraft(bound(next));
-      }}
+      {...(parseInt(pickerVersion, 10) >= 9
+        ? {
+            onValueChange: (_event: unknown, next: Date) => {
+              if (Platform.OS !== "ios") {
+                setOpen(false);
+                setSelected(bound(next));
+              } else setDraft(bound(next));
+            },
+            onDismiss: () => setOpen(false),
+          }
+        : {
+            // Preserve the v8 peer API; v9 separates changes from dismissal.
+            onChange: (event: { type: string }, next?: Date) => {
+              if (Platform.OS !== "ios") {
+                setOpen(false);
+                if (event.type === "set" && next) setSelected(bound(next));
+              } else if (next) setDraft(bound(next));
+            },
+          })}
     />
   );
   return (

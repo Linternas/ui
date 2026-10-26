@@ -11,6 +11,7 @@ import {
   Switch as NativeSwitch,
   Pressable,
   FlatList,
+  Platform,
   type TextInputProps,
   type SwitchProps as NativeSwitchProps,
   type StyleProp,
@@ -304,6 +305,14 @@ export function Switch({ label, hint, containerStyle, ...props }: SwitchProps) {
         accessibilityLabel={props.accessibilityLabel ?? label}
         accessibilityHint={props.accessibilityHint ?? hint}
         trackColor={props.trackColor ?? { false: c.border, true: c.accent }}
+        thumbColor={
+          props.thumbColor ??
+          (Platform.OS === "android"
+            ? props.value
+              ? c["on-accent"]
+              : c.raised
+            : undefined)
+        }
       />
     </View>
   );
