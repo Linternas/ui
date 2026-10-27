@@ -1,167 +1,204 @@
-# Mingu UI
+<div align="center">
 
-웹의 공통 토큰, 테마, 기본 컴포넌트와 인터랙션.
+# Mingu UI.
 
-에이전트 작업 안내: [AGENTS.md](./AGENTS.md) — 소스 위치, 수정 기준, 검증·배포 명령.
+**Built to feel right.**
 
-[홈](https://ui.mingu.xyz): 실제 컴포넌트로 만든 인터랙티브 랜딩. 입자 조형물을 바꾸고, 토큰·버튼 반응을 조절하며 코드와 결과를 함께 확인합니다. 문서와 아래쪽 작업대는 필요한 시점에 불러옵니다.
+기본 입력부터 손끝을 따라 움직이는 인터랙션까지.<br />
+React와 React Native를 위한 하나의 디자인 시스템.
 
-[All](https://ui.mingu.xyz/all): 전체 컴포넌트를 항상 라이브 미리보기로 보여줍니다. 3열(큰 화면 4열, 모바일 1열) 타일 갤러리이며 화면 근처의 데모부터 렌더링합니다. 카드 이름을 누르면 전체 미리보기와 사용 코드를 열 수 있습니다. 새 항목은 추가일부터 30일간 New 배지를 표시합니다.
+**200 Web components · 55 Native components · 16 live experiments**
 
-[Docs](https://ui.mingu.xyz/docs): 기존 문서 화면의 사이드바 검색, 기본 토큰, 컨트롤 상태 예제와 사용 코드를 제공합니다. 각 컴포넌트 문서는 `/docs/<id>`로 열리며 갤러리의 코드 링크에서도 접근할 수 있습니다. 기존 `/<id>` 주소도 계속 지원합니다.
+[**Live demo ↗**](https://ui.mingu.xyz) · [Components](https://ui.mingu.xyz/all) · [Playground](https://ui.mingu.xyz/playground) · [Docs](https://ui.mingu.xyz/docs) · [Native](https://ui.mingu.xyz/native)
 
-[통합 카탈로그](https://ui.mingu.xyz): 기능별 탐색·테마·미리보기·사용 코드.
+<a href="https://ui.mingu.xyz">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./docs/public/readme/demo-dark.png" />
+    <img src="./docs/public/readme/demo-light.png" alt="Mingu UI 라이브 데모 — Built to feel right 랜딩과 인터랙티브 입자 조형물" width="1440" />
+  </picture>
+</a>
 
-[Controls 워크벤치](https://ui.mingu.xyz/controls): 크기·상태·강조색을 바꾸며 실제 컨트롤과 코드를 확인합니다.
+<sub>실제 라이브 데모 화면입니다. 이미지를 누르면 직접 조작할 수 있습니다.</sub>
 
-모바일 인터랙션: [Swipe actions](https://ui.mingu.xyz/swipe-actions) · [Pull to refresh](https://ui.mingu.xyz/pull-to-refresh) · [Long press menu](https://ui.mingu.xyz/long-press-menu) · [Selection bar](https://ui.mingu.xyz/selection-bar).
+</div>
 
-설치·설계 원칙·Core API·테마·새 웹 도입 방법: [Design system](./DESIGN_SYSTEM.md).
+## 먼저 만져보기
 
-```tsx
-import { DesignSystemProvider, Button, Card } from '@mingu/interaction-ui/system';
-import '@mingu/interaction-ui/system.css';
-```
+| Demo                                              | 여기서 할 수 있는 것                                                                               |
+| ------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| [**Live demo**](https://ui.mingu.xyz)             | 입자 조형물을 회전하고, Pixels와 Volume을 전환하고, 토큰 작업대에서 시스템의 표정을 바꿉니다.      |
+| [**Components**](https://ui.mingu.xyz/all)        | 웹 컴포넌트 200개를 라이브 미리보기로 탐색합니다. 카드를 열면 더 큰 데모와 사용 코드로 이어집니다. |
+| [**Playground**](https://ui.mingu.xyz/playground) | 천을 잡아당기고, 입자를 휘젓고, 궤도를 편집하는 실험 16개를 전체 화면에서 조작합니다.              |
+| [**Controls**](https://ui.mingu.xyz/controls)     | 버튼·입력의 크기, 테마와 상태를 바꾸며 실제 결과와 코드를 비교합니다.                              |
+| [**Docs**](https://ui.mingu.xyz/docs)             | 컴포넌트 검색, API와 상태별 예제를 확인합니다.                                                     |
+| [**Native**](https://ui.mingu.xyz/native)         | iOS·Android 설치 안내와 Native 목록을 확인합니다. 실제 실행은 아래 Expo 예제를 사용합니다.         |
 
-기본 UI 전체 목록과 상태별 예제: [Components](./COMPONENTS.md).
+바로 열어볼 실험: [Cloth playground](https://ui.mingu.xyz/playground/cloth-playground) · [Elastic mesh](https://ui.mingu.xyz/playground/elastic-mesh) · [Orbit composer](https://ui.mingu.xyz/playground/orbit-composer)
 
-## Interaction components
+## 하나의 시스템, 다른 쓰임
 
-```tsx
-import { CodeBlock, RailToc, ScrollProgress } from '@mingu/interaction-ui';
-import '@mingu/interaction-ui/styles.css';
-```
+| Layer           | 구성                                                                                     |
+| --------------- | ---------------------------------------------------------------------------------------- |
+| **Foundation**  | 색상·간격·타이포그래피·반경·모션 토큰. 웹과 Native가 같은 기본 값을 공유합니다.          |
+| **Core**        | Button, TextField, Select, Checkbox, Tabs, Dialog 등 제품 화면의 기본 구성 요소.         |
+| **Interaction** | 스크롤, 탐색, 제스처, 텍스트, 미디어와 피드백. 목적에 맞게 조합하는 움직임.              |
+| **Playground**  | Canvas·WebGL·물리 상호작용을 탐색하는 실험 공간. 개별 컴포넌트로도 가져다 씁니다.        |
+| **Native**      | RN 기본 UI, 안전 영역, 키보드 대응, 모달과 날짜·금액·일정 입력. 별도의 `/native` 진입점. |
 
-React 19+, TypeScript source exports. A consumer must transpile this package
-(Next.js: `transpilePackages: ['@mingu/interaction-ui']`). No Next.js, Tailwind,
-blog API, or sibling workspace dependencies. The package has its own tsconfig.
-Syntax highlighting uses highlight.js (BSD-3-Clause).
+- 테마는 Provider 범위에 적용합니다. `light`, `dark`, `system`과 브랜드·중립 강조색을 조합합니다.
+- 미리보기와 소비 앱이 같은 컴포넌트를 사용합니다. 데이터와 이벤트는 props·callback으로 연결합니다.
+- 키보드·터치·비활성·오류·모션 감소 상태를 함께 다룹니다. 무거운 갤러리 데모는 화면 근처에서 마운트합니다.
+- 저장·인증·급여 계산 같은 제품 로직은 소비 앱에 둡니다.
 
-`CodeBlock` accepts `code`, `language`, `filename`, `lineNumbers` and
-`highlightLines` (1-based). Registered languages: TypeScript/TSX, JavaScript,
-JSON, CSS, Bash and HTML/XML; unsupported languages render as escaped plain text.
-Code stays selectable; copying failures are announced to screen readers.
+## Web quick start
 
-Navigation components accept `sections: { id, label, depth? }[]`, `offset`
-and an optional `containerRef`. IDs must be unique in the document. Without a
-container ref they track the window. Sections must appear in reading order.
-Progress measures the scrollable range of the container or document, including
-its padding. The scroll-progress popover is a disclosure, not a modal or menu:
-use Tab to reach its links, Escape or an outside click to dismiss it.
+**React 19+**, TypeScript 소스를 처리하는 번들러가 필요합니다. npm 레지스트리 대신 Git 의존성 또는 submodule로 사용합니다.
 
-Override `--mru-bg`, `--mru-surface`, `--mru-text`, `--mru-muted`,
-`--mru-border`, `--mru-accent`, `--mru-highlight`, `--mru-keyword`,
-`--mru-string`, `--mru-number`, `--mru-mono` on an ancestor for theming.
-Defaults provide a light theme; the demo maps these variables to blog tokens.
-Motion follows `prefers-reduced-motion`.
-
-## Verification
-
-`npm run typecheck` checks the standalone package. `npx playwright install chromium`
-installs the test browser; `npm run test:browser` runs the isolated browser fixture
-without a blog server. To use an installed Google Chrome instead, run
-`PLAYWRIGHT_CHANNEL=chrome npm run test:browser`. The tests cover escaped code,
-raw-code copying and failure feedback, nested scrolling, section navigation,
-disclosure focus, reduced motion, and narrow viewports.
-
-## Repository and consumers
-
-Source repository: https://github.com/Linternas/ui
-
-This repository is the standalone package root. Install with `npm ci` and run
-`npm run typecheck`.
-
-A consuming monorepo can keep this repository as a submodule:
+아래는 Native 0.26 기능이 포함된 커밋으로 고정한 설치 예제입니다.
 
 ```sh
-git submodule add https://github.com/Linternas/ui.git packages/interaction-ui
-git submodule update --init --recursive
-npm install
+npm install 'git+https://github.com/Linternas/ui.git#e8f029fa0eac9f0dd385b8ce775a95c8239fd1c1'
 ```
 
-For a fresh clone of a consumer, use `git clone --recurse-submodules` or run
-`git submodule update --init --recursive` before installing dependencies.
-The package name and source exports stay the same. Consumers need to transpile
-TypeScript, import the stylesheet, and provide their own theme variables.
+```tsx
+import {
+  DesignSystemProvider,
+  Button,
+  Card,
+  Stack,
+  TextField,
+} from "@mingu/interaction-ui/system";
+import "@mingu/interaction-ui/system.css";
 
-## Collection
+export function CreateProject() {
+  return (
+    <DesignSystemProvider theme="system" accent="neutral">
+      <Card>
+        <Stack gap="4">
+          <TextField label="프로젝트 이름" placeholder="My next idea" />
+          <Button interaction="press">프로젝트 만들기</Button>
+        </Stack>
+      </Card>
+    </DesignSystemProvider>
+  );
+}
+```
 
-Display: Folder, CodeBlock, GravityLetters, GithubActivity, StepPlayer,
-AnimatedCounter, VoiceNote, Faq. AI: FluidOrb, GridReveal, MatrixOrb, WebSearch
-(with WebSearchAnswer and WebSearchCitation), AiStatus. Navigation:
-BounceSidebar, HookSidebar, ProximitySidebar, ScrollProgress, RailToc, GooeyNav.
-Inputs: DurationPicker, OtpInput, DeleteButton, TaskList. Feedback:
-EmojiReaction, NotificationBell.
+Next.js에서는 `transpilePackages: ['@mingu/interaction-ui']`를 설정하고 CSS를 루트 layout에서 불러옵니다. Vite 등 TSX를 처리하는 React 번들러에서도 같은 진입점을 사용합니다. Tailwind나 Next.js를 라이브러리의 필수 의존성으로 요구하지 않습니다.
 
-Components expose typed data/callback props; none authenticate, delete server
-data, call AI services, fetch GitHub accounts, or request notification permissions.
-VoiceNote supports a real audio source and a timer-based preview without one.
-GravityLetters accepts optional orientation events when the environment already
-permits them; it does not request sensor permissions. FluidOrb falls back to a
-CSS gradient if WebGL is unavailable. Canvas loops pause outside the viewport
-and in background tabs. Use InteractionProvider to apply the system's reduced
-motion preference to all Motion transitions.
+인터랙션은 필요한 컴포넌트와 스타일을 함께 가져옵니다.
 
-## Standalone docs / Railway
+```tsx
+import { CodeBlock, RailToc, ScrollProgress } from "@mingu/interaction-ui";
+import "@mingu/interaction-ui/styles.css";
+```
 
-이 저장소의 루트에서 카탈로그를 독립적으로 배포할 수 있다.
+| Import                          | 용도                                |
+| ------------------------------- | ----------------------------------- |
+| `@mingu/interaction-ui`         | 인터랙션과 통합 웹 컴포넌트 exports |
+| `@mingu/interaction-ui/system`  | Core UI와 웹 테마 Provider          |
+| `@mingu/interaction-ui/catalog` | 런타임 없는 카탈로그 메타데이터     |
+| `@mingu/interaction-ui/tokens`  | 플랫폼 공통 토큰과 타입             |
+| `@mingu/interaction-ui/native`  | React Native 컴포넌트와 Provider    |
+
+[테마·토큰·통합 가이드](./DESIGN_SYSTEM.md) · [전체 컴포넌트와 상태](./COMPONENTS.md) · [Next.js 예제](./examples/next-page.tsx)
+
+## React Native
+
+Native는 DOM·CSS를 사용하지 않는 별도 구현입니다. 웹 import와 혼용하지 않습니다.
+
+Button, TextField, Select, BottomNavigation, Toast, Dialog 등의 기본 UI에 **MoneyField, MonthPicker, DateRangePicker, Calendar, WeekdayPicker**를 제공합니다. 모달은 고정 footer, 크기 선택과 앱이 보류할 수 있는 닫기 요청을 지원합니다.
+
+**휴대폰에서 데모 실행** — SDK 57을 지원하는 Expo Go가 필요합니다.
 
 ```sh
+git clone https://github.com/Linternas/ui.git
+cd ui/examples/native
+npm ci
+npm start
+```
+
+컴퓨터와 휴대폰을 같은 Wi-Fi에 연결하고 QR을 스캔합니다. **Components / Inputs / Planning / More** 탭에서 테마, 입력·선택, 달력·금액과 긴 모달 폼을 직접 조작할 수 있습니다. iOS에서 로그인을 요청하면 CLI와 Expo Go에 같은 Expo 계정을 사용합니다.
+
+```tsx
+import {
+  NativeProvider,
+  Screen,
+  Button,
+  TextField,
+} from "@mingu/interaction-ui/native";
+
+export function NativeExample() {
+  return (
+    <NativeProvider theme="system" accent="neutral">
+      <Screen>
+        <TextField label="이름" placeholder="Mingu" />
+        <Button>계속하기</Button>
+      </Screen>
+    </NativeProvider>
+  );
+}
+```
+
+소비 앱에는 해당 SDK에 맞는 safe-area-context, datetimepicker, slider도 설치해야 합니다. 설치 버전과 nullable 날짜·금액 문자열·날짜 범위의 값 규약은 [Native API](./NATIVE.md)를 따릅니다.
+
+[Expo 예제와 실행 안내](./examples/native/README.md) · [Android 검증 화면](./docs/qa/native-planning-2026-10-26.md)
+
+Android 에뮬레이터에서 실제 조작과 320pt·큰 글씨 검수를 진행했습니다. iPhone 화면과 Granite·앱인토스 실행 환경의 호환 여부는 별도 검증 대상입니다.
+
+## 로컬에서 데모 실행
+
+Node 22 / npm 10.9 기준입니다.
+
+```sh
+git clone https://github.com/Linternas/ui.git
+cd ui
 npm ci
 npm run build
 npm start
 ```
 
-- Railway Root Directory: `/`
-- Build Command: `npm run build`
-- Start Command: `npm start`
-- Healthcheck Path: `/healthz`
-- `PORT`는 Railway가 제공하며 서버는 `0.0.0.0`에 바인딩한다.
+`http://localhost:3000`에서 랜딩, `/all`에서 전체 갤러리, `/docs`에서 문서, `/playground`에서 실험 공간을 엽니다. `PORT`로 포트를 바꿀 수 있습니다. 소스를 바꾼 뒤에는 다시 빌드합니다.
 
-`railpack.json`에 Node provider와 빌드·시작 명령을 명시했다. npm 버전은 packageManager, Node 범위는 engines로 고정한다. 데모 소스·스타일·미디어는 `docs/`에 있으며 블로그나 Next.js가 없어도 동작한다. 패키지의 기존 exports는 유지한다. 컴포넌트 URL은 `/button`, `/floating-field`처럼 루트 아래에 있으며 직접 접속·새로고침을 지원한다. 기존 `/lab/ui/...` 링크도 대응 주소로 연결한다.
+Railway는 저장소 루트의 `railpack.json`을 사용합니다. Build는 `npm run build`, Start는 `npm start`, health check는 `/healthz`이며 서버는 `0.0.0.0:$PORT`에 바인딩합니다.
+
+<details>
+<summary><strong>소비 앱에서 submodule로 사용하기</strong></summary>
 
 ```sh
-npm run typecheck:docs
-npm run test:docs
+git submodule add https://github.com/Linternas/ui.git packages/interaction-ui
+git submodule update --init --recursive
 ```
 
-### Playground
+소비 앱의 package manager로 로컬 패키지를 연결합니다. 새로 clone할 때는 `--recurse-submodules` 또는 `git submodule update --init --recursive`를 실행합니다. 검증한 커밋의 gitlink를 소비 앱과 함께 커밋하고 TypeScript transpile·CSS import를 설정합니다.
 
-[Playground](https://ui.mingu.xyz/playground)는 화면 전체를 쓰는 실험 공간이다. 글자를 입자로 밀어내는 **ParticleText**, 생각을 움직이고 연결하는 **SpatialBoard**, 빛과 소리로 루프를 만드는 **SoundPad**를 제공한다. 개별 컴포넌트 페이지와 전체 갤러리에서도 같은 구현을 사용한다. 패키지 루트 exports와 [API 문서](./DESIGN_SYSTEM.md#experimental-playground)를 통해 다른 앱에도 조합할 수 있다.
+</details>
 
-**ClothPlayground**, **FluidSandbox**, **OrbitComposer**에서는 천을 잡아당기고 찢거나, 입자에 소용돌이를 만들거나, 궤도를 편집해 선을 그릴 수 있다. Playground의 실험 목록에서 이동하며 기존 컴포넌트처럼 패키지 루트에서 가져온다.
+## 개발과 문서
 
-## Interactive lab (0.15)
+| 문서                                    | 내용                                       |
+| --------------------------------------- | ------------------------------------------ |
+| [Design system](./DESIGN_SYSTEM.md)     | 설계 원칙, 토큰, 테마와 웹 통합            |
+| [Components](./COMPONENTS.md)           | 웹 컴포넌트 목록과 상태                    |
+| [Native API](./NATIVE.md)               | 모바일 설치, API와 값 규약                 |
+| [Collection guides](./docs/collections) | AI·미디어·워크플로·물리 실험별 사용법      |
+| [Agent guide](./AGENTS.md)              | 에이전트가 읽을 소스 지도와 작업·검증 규칙 |
 
-StickerPeel, ElasticMesh, ImageParticleMorph, DitherReveal, FluidGlassLens, Lanyard, DomeGallery, FoldablePaper, WebcamPixelGrid, ImageRelighting. 라이브 카탈로그와 `/playground/<id>`에서 같은 구현을 사용한다. [API와 입력·성능·권한 규칙](./docs/collections/lab.md). 새 항목은 실제 추가일로부터 30일 동안 New 배지를 표시한다.
+```sh
+npm run typecheck         # 패키지·Native·엄격한 소비 앱 타입 검사
+npm run typecheck:docs    # 웹 데모 타입 검사
+npm run test:native       # Native 컴포넌트 동작 검사
+npm run test:browser      # 웹 브라우저 회귀 검사
+npm run test:docs         # 빌드와 데모 HTTP 서버 검사
+```
 
-## Navigation and scroll (0.16.0)
+브라우저 검사는 먼저 `npx playwright install chromium`을 실행합니다. 설치된 Chrome을 사용할 때는 `PLAYWRIGHT_CHANNEL=chrome npm run test:browser`를 사용합니다. Native의 Node 테스트와 Metro 번들 성공은 실제 기기 검증을 대체하지 않습니다.
 
-PageTransition, DynamicStatusIsland, AnimatedMegaMenu, SortableGrid, CardNavigation, ScrollStack, StickyScrollStory, FooterReveal, ScrollExpandMedia, CoverflowCarousel. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/navigation.md).
+---
 
-## Media and workspace (0.17.0)
+<div align="center">
 
-SplitFlapDisplay, VariableFontProximity, VerticalReel, StoryViewer, VideoPlayer, ImageCropper, CalendarBoard, GanttTimeline, KanbanBoard, FileTree. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/media.md).
+**Designed & built by Mingu.**<br />
+[직접 만져보기 ↗](https://ui.mingu.xyz) · [시스템 살펴보기](https://ui.mingu.xyz/docs) · [소스](https://github.com/Linternas/ui)
 
-## Interactive tools (0.18.0)
-
-TagInput, WheelPicker, ColorPicker, BezierEditor, CollaborativeCursor, SlashCommandEditor, ChartRangeNavigator, CarouselScrubber, DialogStack, LiveCodeSandbox. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/tools.md).
-
-## AI workbench (0.19.0)
-
-PromptComposer, ToolExecutionPanel, PlanReview, ApprovalCard, ContextUsageMeter, ArtifactPanel, Checkpoint, ModelSelector, VoiceInput, StreamingTerminal. 각 항목의 라이브 데모·사용 코드·전체 갤러리를 제공한다. [API와 조작 규칙](./docs/collections/ai.md).
-
-
-## Creative and workflow (0.22.0)
-
-GradientEditor, PixelEditor, ScratchCard, UndoHistory, MultiSelect, TransferList, Rating, CircularDial. 그라디언트를 CSS로 복사하고, 픽셀을 그려 SVG로 가져가고, 스크래치로 콘텐츠를 공개하거나 실제 문서 상태를 되돌릴 수 있습니다. [전체 갤러리](https://ui.mingu.xyz/all)와 각 Docs에서 체험할 수 있습니다. [API·키보드·터치·폼 규칙](./docs/collections/creative.md).
-
-## Workflow and kinetic lab (0.23.0)
-
-22 additions bring the component catalog to 200 entries: twelve workflow controls and ten kinetic/design tools. [Workflow APIs](./docs/collections/workflow.md) cover dates, time, ranges, hierarchy, mentions, steps, filters, columns, scheduling, windows and inboxes. [Kinetic/design APIs](./docs/collections/kinetic.md) cover flip cards, mazes, confetti, vector fields, reaction diffusion, terrain, pendulums, clip paths, contrast and shadows. Live previews, Docs and 30-day New badges share the public package implementation.
-
-## React Native (0.25.0)
-
-모바일 앱은 `@mingu/interaction-ui/native`에서 가져옵니다. 공통 토큰과 Native 기본 UI, 안전 영역·키보드·모달·날짜/시간 컨트롤을 제공합니다. [설치·전체 API](./NATIVE.md), [Expo Go 실행 예제](./examples/native/README.md), [Native Docs](https://ui.mingu.xyz/native). 기존 웹 import는 유지합니다.
-
-Native 0.26 adds Icon/CloseButton, fixed overlay footers and app-owned close requests, nullable dates, MoneyField, MonthPicker, DateRangePicker, Calendar and WeekdayPicker. [Value contracts and adoption](./NATIVE.md#calendar-ranges-and-amount-editing-026) · [Android verification](./docs/qa/native-planning-2026-10-26.md). No new Native dependency is introduced.
+</div>
