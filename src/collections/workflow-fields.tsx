@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import { TextareaField } from "../system/forms";
 import * as React from "react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
@@ -179,7 +181,7 @@ export function TimePicker({
           disabled={disabled || !Number.isFinite(amount) || amount <= 0}
           onClick={() => setTime(clock(Math.max(0, amount - step)))}
         >
-          − {step} min
+          <VectorIcon name="minus" size="1em" /> {step} min
         </Button>
         <Button
           size="sm"
@@ -382,7 +384,11 @@ export function TreeSelect({
                 )
               }
             >
-              {open ? "−" : "+"}
+              {open ? (
+                <VectorIcon name="minus" size="1em" />
+              ) : (
+                <VectorIcon name="plus" size="1em" />
+              )}
             </button>
           ) : (
             <span className="mingu-tree-indent" />
@@ -507,7 +513,11 @@ export function Cascader({
                   onChange={() => setPath([...path.slice(0, i), node.id])}
                 />
                 <span>{node.label}</span>
-                {!!node.children?.length && <span aria-hidden="true">›</span>}
+                {!!node.children?.length && (
+                  <span aria-hidden="true">
+                    <VectorIcon name="chevron-right" size="1em" />
+                  </span>
+                )}
               </label>
             ))}
           </fieldset>
@@ -767,7 +777,13 @@ export function Stepper({
                 aria-current={s.id === current.id ? "step" : undefined}
                 onClick={() => setSelected(s.id)}
               >
-                <span>{completedIds.includes(s.id) ? "✓" : i + 1}</span>
+                <span>
+                  {completedIds.includes(s.id) ? (
+                    <VectorIcon name="check" size={16} />
+                  ) : (
+                    i + 1
+                  )}
+                </span>
                 <strong>{s.title}</strong>
               </button>
             </li>
@@ -787,7 +803,7 @@ export function Stepper({
           disabled={disabled || index <= 0}
           onClick={() => setSelected(enabled[index - 1].id)}
         >
-          ← Back
+          <VectorIcon name="arrow-left" size="1em" /> Back
         </Button>
         <Button
           disabled={disabled || current.canContinue === false}
@@ -796,7 +812,13 @@ export function Stepper({
             else onComplete?.();
           }}
         >
-          {index === enabled.length - 1 ? "Finish" : "Continue →"}
+          {index === enabled.length - 1 ? (
+            "Finish"
+          ) : (
+            <>
+              Continue <VectorIcon name="arrow-right" size="1em" />
+            </>
+          )}
         </Button>
       </div>
     </section>

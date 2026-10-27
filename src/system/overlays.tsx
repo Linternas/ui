@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import { ChevronDown } from "./icons";
 import * as React from "react";
 import {
@@ -360,7 +362,7 @@ export function ToastRegion({
             aria-label={`Dismiss ${item.title}`}
             onClick={() => onDismiss(item.id)}
           >
-            ×
+            <VectorIcon name="close" size={20} />
           </Button>
         </div>
       ))}

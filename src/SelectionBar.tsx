@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useRef, type RefObject } from "react";
 import { motion, useReducedMotion } from "motion/react";
@@ -87,7 +89,9 @@ export function SelectionBar({
           onClick={onClear}
           aria-label={clearLabel}
         >
-          <span aria-hidden="true">×</span>
+          <span aria-hidden="true">
+            <VectorIcon name="close" size="1em" />
+          </span>
         </Button>
       </div>
       {action.error && (

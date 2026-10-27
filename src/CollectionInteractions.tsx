@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useId, useState, type Ref, type ReactNode } from "react";
 import {
@@ -200,7 +202,9 @@ function SortableRow({
           }
         }}
       >
-        <span aria-hidden="true">⠿</span>
+        <span aria-hidden="true">
+          <VectorIcon name="grip" size="1em" />
+        </span>
       </button>
       <div>{item.content ?? item.label}</div>
     </Reorder.Item>

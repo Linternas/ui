@@ -143,7 +143,7 @@ test("sortable items retain focus during keyboard moves and actual drag reorders
   const handle = stage.getByRole("button", { name: "Move Field notes" });
   await handle.focus();
   await page.keyboard.press("End");
-  await expect(stage.getByRole("listitem").last()).toHaveText("⠿Field notes");
+  await expect(stage.getByRole("listitem").last()).toHaveText("Field notes");
   await expect(handle).toBeFocused();
   await page.keyboard.press("Home");
   await handle.hover();
@@ -153,7 +153,7 @@ test("sortable items retain focus during keyboard moves and actual drag reorders
   await page.mouse.down();
   await page.mouse.move(first.x + 20, last.y + last.height - 5, { steps: 18 });
   await page.mouse.up();
-  await expect(stage.getByRole("listitem").last()).toHaveText("⠿Field notes");
+  await expect(stage.getByRole("listitem").last()).toHaveText("Field notes");
 });
 
 test("inline edit cancels, validates, reports a rejected save and retries actual changes", async ({
@@ -271,7 +271,7 @@ test("smart header responds to its own scroll container and returns when focused
     element.scrollTop = 400;
   });
   await expect(header).toHaveAttribute("data-hidden", "true");
-  await header.getByRole("button", { name: "Top ↑" }).focus();
+  await header.getByRole("button", { name: "Top" }).focus();
   await expect(header).not.toHaveAttribute("data-hidden", "true");
 });
 
@@ -311,7 +311,7 @@ test("bottom sheet changes snaps by keyboard and closes after an actual downward
 }) => {
   const trigger = page
     .getByTestId("bottom-sheet")
-    .getByRole("button", { name: "Open filters ↑" });
+    .getByRole("button", { name: "Open filters" });
   await trigger.click();
   const dialog = page.getByRole("dialog", { name: "Make it yours" }),
     handle = dialog.getByRole("slider", { name: "Sheet height" });
@@ -535,7 +535,7 @@ test("mobile native touch pinch, image swipe, panel resize and sheet dismissal w
     .toBeGreaterThan(60);
   await page
     .getByTestId("bottom-sheet")
-    .getByRole("button", { name: "Open filters ↑" })
+    .getByRole("button", { name: "Open filters" })
     .tap();
   const sheet = page.getByRole("dialog", { name: "Make it yours" });
   await sheet.evaluate(async (element) => {

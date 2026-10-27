@@ -124,12 +124,10 @@
 .mingu-collection-ai-tool details > summary::-webkit-details-marker {
   display: none;
 }
-.mingu-collection-ai-tool details > summary:after {
-  content: "+";
+.mingu-collection-ai-tool-disclosure {
+  display: inline-flex;
+  flex-shrink: 0;
   margin-left: auto;
-}
-.mingu-collection-ai-tool details[open] > summary:after {
-  content: "−";
 }
 .mingu-collection-ai-tool details > summary strong {
   font-size: var(--mingu-text-sm);
@@ -509,6 +507,9 @@
   overflow-wrap: anywhere;
 }
 .mingu-collection-ai-model-list > button > span:last-child {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
   font-size: var(--mingu-text-xs);
 }
 .mingu-collection-ai-voice {

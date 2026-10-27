@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useRef, useState } from "react";
 import {
   HoverGallery,
@@ -64,7 +65,9 @@ export default function PlaygroundPreview({
             role="region"
             aria-label="Scroll to reveal the paragraph"
           >
-            <div className="ui-reveal-space">A little further ↓</div>
+            <div className="ui-reveal-space">
+              A little further <VectorIcon name="arrow-down" size="1em" />
+            </div>
             <TextReveal
               containerRef={scroll}
               text="Less noise. More meaning. Make room for the details that turn an ordinary moment into something worth remembering."

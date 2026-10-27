@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useState, type ComponentProps } from "react";
 import { motion, useReducedMotion } from "motion/react";
@@ -84,7 +86,9 @@ export function DirectionalCard({
       <span className="mingu-directional-copy">
         <strong>{title}</strong>
         {description && <span>{description}</span>}
-        <span aria-hidden="true">↗</span>
+        <span aria-hidden="true">
+          <VectorIcon name="external" size="1em" />
+        </span>
       </span>
     </a>
   );

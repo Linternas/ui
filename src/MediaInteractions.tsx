@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
@@ -206,7 +208,7 @@ export function ImageLightbox({
                 onClick={() => change(index - 1)}
                 aria-label="Previous image"
               >
-                ←
+                <VectorIcon name="arrow-left" size="1em" />
               </Button>
               <span role="status">
                 {Math.min(index + 1, images.length)} / {images.length}
@@ -217,7 +219,7 @@ export function ImageLightbox({
                 onClick={() => change(index + 1)}
                 aria-label="Next image"
               >
-                →
+                <VectorIcon name="arrow-right" size="1em" />
               </Button>
               <Button
                 variant="outline"
@@ -225,7 +227,7 @@ export function ImageLightbox({
                 disabled={zoom <= 1}
                 aria-label="Zoom out"
               >
-                −
+                <VectorIcon name="minus" size="1em" />
               </Button>
               <Button
                 variant="outline"
@@ -290,7 +292,7 @@ export function ExpandableCard({
           <strong>{title}</strong>
           {description && <span>{description}</span>}
           <span className="mingu-expandable-arrow" aria-hidden="true">
-            ↗
+            <VectorIcon name="external" size="1em" />
           </span>
         </span>
       </button>

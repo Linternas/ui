@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+import { Icon as VectorIcon } from "../../src/icons";
 import { useEffect, useRef, useState } from "react";
 import { Button, Input } from "../../src/system/base";
 import {
@@ -228,7 +230,12 @@ function GridDemo({ compact = false }: { compact?: boolean }) {
         {(compact
           ? order.filter((id) => ["notes", "photos", "music"].includes(id))
           : order
-        ).join(" → ")}
+        ).map((id, index) => (
+          <Fragment key={id}>
+            {index > 0 && <VectorIcon name="arrow-right" size="1em" />}
+            <span data-order-id={id}>{id}</span>{" "}
+          </Fragment>
+        ))}
       </p>
       <Button
         size="sm"
@@ -309,7 +316,9 @@ function ScrollDemo({ id, compact }: { id: string; compact?: boolean }) {
                 YOU MADE IT TO THE END
               </span>
               <h3>Let’s make something.</h3>
-              <a href="/playground">Explore the playground ↗</a>
+              <a href="/playground">
+                Explore the playground <VectorIcon name="external" size="1em" />
+              </a>
               <p>Small interactions. Better everyday tools.</p>
             </>
           }
@@ -323,7 +332,9 @@ function ScrollDemo({ id, compact }: { id: string; compact?: boolean }) {
             </h3>
             <Art title="Stay curious" />
             <p>The page moves away, and the next chapter comes into view.</p>
-            <span aria-hidden="true">↓</span>
+            <span aria-hidden="true">
+              <VectorIcon name="arrow-down" size="1em" />
+            </span>
           </div>
         </FooterReveal>
       ) : (
@@ -334,7 +345,8 @@ function ScrollDemo({ id, compact }: { id: string; compact?: boolean }) {
               Give the image
               <br />a little more room.
             </h3>
-            <p>Scroll down to expand the frame.</p>↓
+            <p>Scroll down to expand the frame.</p>
+            <VectorIcon name="arrow-down" size="1em" />
           </div>
           <ScrollExpandMedia
             scrollContainerRef={scroller}
@@ -384,7 +396,9 @@ function CoverflowDemo() {
             >
               <small>STUDY 0{index + 1}</small>
               <strong>{project.title}</strong>
-              <a href={`#study-${project.id}`}>View study ↗</a>
+              <a href={`#study-${project.id}`}>
+                View study <VectorIcon name="external" size="1em" />
+              </a>
             </div>
             <Button
               size="sm"

@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useRef, useState } from "react";
 import {
   SwipeActions,
@@ -76,7 +77,7 @@ export default function MobilePreview({ id }: { id: string }) {
             >
               <div className="ui-mobile-note">
                 <span className="ui-mobile-symbol" aria-hidden="true">
-                  ▤
+                  <VectorIcon name="document" size="1em" />
                 </span>
                 <div>
                   <strong>{pinned ? "Pinned · " : ""}Field notes</strong>

@@ -1,3 +1,4 @@
+import { Icon } from "./icons";
 import React, { type ReactNode } from "react";
 import {
   View,
@@ -241,7 +242,7 @@ export function AppBar({
     >
       {onBack ? (
         <IconButton label={backLabel} variant="ghost" onPress={onBack}>
-          <Text size="xl">‹</Text>
+          <Icon name="chevron-left" />
         </IconButton>
       ) : (
         leading

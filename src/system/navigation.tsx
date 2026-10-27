@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import * as React from "react";
 import type { ReactNode, ComponentProps } from "react";
 import { Button } from "./base";
@@ -67,7 +69,7 @@ export function Pagination({
         aria-label="Previous page"
         onClick={() => onPageChange(current - 1)}
       >
-        ←
+        <VectorIcon name="arrow-left" size="1em" />
       </Button>
       {pages.map((n, index) => (
         <span key={n}>
@@ -95,7 +97,7 @@ export function Pagination({
         aria-label="Next page"
         onClick={() => onPageChange(current + 1)}
       >
-        →
+        <VectorIcon name="arrow-right" size="1em" />
       </Button>
     </nav>
   );

@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import { ChevronDown } from "../system/icons";
 import * as React from "react";
 import {
@@ -258,7 +260,7 @@ export function PromptComposer({
                   setFiles(files.filter((_, index) => index !== i))
                 }
               >
-                ×
+                <VectorIcon name="close" size="1em" />
               </Button>
             </li>
           ))}
@@ -282,7 +284,7 @@ export function PromptComposer({
             }
             onClick={() => fileInput.current?.click()}
           >
-            ＋ Attach files
+            <VectorIcon name="plus" size="1em" /> Attach files
           </Button>
           <input
             ref={fileInput}
@@ -327,7 +329,7 @@ export function PromptComposer({
             type="submit"
             disabled={disabled || (!text.trim() && !files.length)}
           >
-            Send message ↗
+            Send message <VectorIcon name="external" size="1em" />
           </Button>
         )}
       </div>
@@ -389,19 +391,27 @@ export function ToolExecutionPanel({
       >
         <summary>
           <span className="mingu-collection-ai-tool-glyph" aria-hidden="true">
-            {status === "success"
-              ? "✓"
-              : status === "error"
-                ? "!"
-                : status === "running"
-                  ? "◌"
-                  : "⌘"}
+            {status === "success" ? (
+              <VectorIcon name="check" size={18} />
+            ) : status === "error" ? (
+              <VectorIcon name="alert" size={18} />
+            ) : status === "running" ? (
+              <VectorIcon name="loader" size={18} />
+            ) : (
+              <VectorIcon name="command" size={18} />
+            )}
           </span>
           <strong>{name}</strong>
           <span className="mingu-collection-ai-pill">{status}</span>
           {duration !== undefined && (
             <small>{Math.max(0, duration).toFixed(0)} ms</small>
           )}
+          <span
+            className="mingu-collection-ai-tool-disclosure"
+            aria-hidden="true"
+          >
+            <VectorIcon name={expanded ? "minus" : "plus"} size={18} />
+          </span>
         </summary>
         <div className="mingu-collection-ai-tool-body">
           {input !== undefined && (
@@ -657,7 +667,15 @@ export function ApprovalCard({
         </>
       ) : (
         <p role="status" className="mingu-collection-ai-decision">
-          {current === "approved" ? "✓ Change approved" : "− Change declined"}
+          {current === "approved" ? (
+            <>
+              <VectorIcon name="check" size={18} /> Change approved
+            </>
+          ) : (
+            <>
+              <VectorIcon name="minus" size="1em" /> Change declined
+            </>
+          )}
         </p>
       )}
       {action.error && (
@@ -741,7 +759,13 @@ export function ContextUsageMeter({
             {format(used)} / {format(max)} tokens
           </small>
         </span>
-        <span aria-hidden="true">{expanded ? "−" : "+"}</span>
+        <span aria-hidden="true">
+          {expanded ? (
+            <VectorIcon name="minus" size="1em" />
+          ) : (
+            <VectorIcon name="plus" size="1em" />
+          )}
+        </span>
       </button>
       <meter
         min={0}
@@ -968,7 +992,11 @@ export function Checkpoint({
       data-current={current}
     >
       <div className="mingu-collection-ai-checkpoint-marker" aria-hidden="true">
-        {current ? "●" : "○"}
+        {current ? (
+          <VectorIcon name="dot" size="1em" />
+        ) : (
+          <VectorIcon name="circle" size="1em" />
+        )}
       </div>
       <div className="mingu-collection-ai-checkpoint-main">
         <div className="mingu-collection-ai-toolbar">
@@ -1201,11 +1229,13 @@ export function ModelSelector({
                 </small>
               </span>
               <span aria-hidden="true">
-                {selected === model.id
-                  ? "✓"
-                  : model.disabled
-                    ? (labels?.unavailable ?? "Unavailable")
-                    : ""}
+                {selected === model.id ? (
+                  <VectorIcon name="check" size={18} />
+                ) : model.disabled ? (
+                  (labels?.unavailable ?? "Unavailable")
+                ) : (
+                  ""
+                )}
               </span>
             </button>
           ))}
@@ -1566,7 +1596,10 @@ export function StreamingTerminal({
     >
       <header>
         <strong>
-          <span aria-hidden="true">⌘</span> {title}
+          <span aria-hidden="true">
+            <VectorIcon name="command" size="1em" />
+          </span>{" "}
+          {title}
         </strong>
         <div className="mingu-collection-ai-nav-actions">
           <Button

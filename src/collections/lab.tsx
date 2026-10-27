@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import * as React from "react";
 import {
   useEffect,
@@ -294,16 +296,9 @@ export function StickerPeel({
                   preserveAspectRatio="xMidYMid slice"
                 />
               )}
-              <text
-                x="110"
-                y="96"
-                fill="var(--mingu-bg)"
-                textAnchor="middle"
-                fontSize="42"
-                fontWeight="700"
-              >
-                ✳
-              </text>
+              <g transform="translate(89 59)" color="var(--mingu-bg)">
+                <VectorIcon name="sparkle" size={42} />
+              </g>
               <text
                 x="110"
                 y="145"
@@ -363,7 +358,7 @@ export function StickerPeel({
               );
             }}
           >
-            ⠿
+            <VectorIcon name="grip" size="1em" />
           </button>
           <button
             type="button"
@@ -412,7 +407,7 @@ export function StickerPeel({
               );
             }}
           >
-            ↖
+            <VectorIcon name="arrow-up-left" size="1em" />
           </button>
         </motion.div>
       </div>
@@ -1197,8 +1192,18 @@ export function Lanyard({
       c.font = "10px system-ui";
       c.fillText("MINGU / STUDIO", 0, 25);
     } else {
-      c.font = "700 30px system-ui";
-      c.fillText("✳", 0, -15);
+      c.save();
+      c.translate(0, -15);
+      c.strokeStyle = c.fillStyle;
+      c.lineWidth = 2;
+      c.beginPath();
+      for (let spoke = 0; spoke < 8; spoke++) {
+        const angle = (spoke * Math.PI) / 4;
+        c.moveTo(Math.cos(angle) * 3, Math.sin(angle) * 3);
+        c.lineTo(Math.cos(angle) * 12, Math.sin(angle) * 12);
+      }
+      c.stroke();
+      c.restore();
       c.font = "600 17px system-ui";
       c.fillText(live.current.title.slice(0, 14), 0, 18);
       c.font = "8px system-ui";

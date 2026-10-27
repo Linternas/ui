@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useState } from "react";
 import {
   FocusDock,
@@ -38,7 +39,7 @@ const commands: CommandItem[] = [
     id: "project",
     label: "Create a project",
     description: "Start with a fresh workspace",
-    icon: "+",
+    icon: <VectorIcon name="plus" size="1em" />,
     shortcut: "N",
     keywords: ["new", "프로젝트", "생성"],
   },
@@ -54,7 +55,7 @@ const commands: CommandItem[] = [
     id: "settings",
     label: "Open settings",
     description: "Make the space your own",
-    icon: "⚙",
+    icon: <VectorIcon name="settings" size="1em" />,
     keywords: ["설정"],
   },
   {
@@ -62,7 +63,7 @@ const commands: CommandItem[] = [
     label: "Team billing",
     description: "Available to administrators",
     disabled: true,
-    icon: "◇",
+    icon: <VectorIcon name="diamond" size="1em" />,
   },
 ];
 export default function ExplorationPreview({
@@ -214,14 +215,21 @@ export default function ExplorationPreview({
             onClick={() => setOpen(true)}
           >
             <span>Jump to anything…</span>
-            <kbd>⌘ K</kbd>
+            <kbd>
+              <VectorIcon name="command" size="1em" label="command" /> K
+            </kbd>
           </Button>
           <Text muted size="sm">
-            {action
-              ? `${commands.find((item) => item.id === action)?.label} selected`
-              : compact
-                ? "Click to explore"
-                : "Click, or press Ctrl / ⌘ K"}
+            {action ? (
+              `${commands.find((item) => item.id === action)?.label} selected`
+            ) : compact ? (
+              "Click to explore"
+            ) : (
+              <>
+                Click, or press Ctrl /{" "}
+                <VectorIcon name="command" size="1em" label="Command" /> K
+              </>
+            )}
           </Text>
           <CommandPalette
             open={open}
@@ -248,7 +256,7 @@ export default function ExplorationPreview({
             size="sm"
             onClick={() => setReplay((value) => value + 1)}
           >
-            Replay ↻
+            Replay <VectorIcon name="replay" size="1em" />
           </Button>
         </div>
       );

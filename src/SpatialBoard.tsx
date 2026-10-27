@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Button, TextField, Select } from "./system/base";
@@ -77,13 +79,11 @@ export function SpatialBoard({
   const fit = (list: readonly SpatialNode[] = live.current.items) => {
     const el = stage.current;
     if (!el) return;
-    const points = list
-        .slice(0, limits.nodeLimit)
-        .map((n) => ({
-          ...n,
-          x: clamp(n.x, limits.boardWidth - limits.nodeWidth),
-          y: clamp(n.y, limits.boardHeight - limits.nodeHeight),
-        })),
+    const points = list.slice(0, limits.nodeLimit).map((n) => ({
+        ...n,
+        x: clamp(n.x, limits.boardWidth - limits.nodeWidth),
+        y: clamp(n.y, limits.boardHeight - limits.nodeHeight),
+      })),
       minX = Math.min(...points.map((n) => n.x), 0),
       minY = Math.min(...points.map((n) => n.y), 0),
       maxX = Math.max(...points.map((n) => n.x + limits.nodeWidth), 400),
@@ -220,7 +220,7 @@ export function SpatialBoard({
           aria-label="Zoom out"
           onClick={() => zoom(1 / 1.2)}
         >
-          −
+          <VectorIcon name="minus" size="1em" />
         </Button>
         <output aria-label="Board zoom">{Math.round(view.zoom * 100)}%</output>
         <Button variant="ghost" aria-label="Zoom in" onClick={() => zoom(1.2)}>
@@ -467,7 +467,9 @@ export function SpatialBoard({
                     );
                   }}
                 >
-                  <span aria-hidden="true">⠿</span>
+                  <span aria-hidden="true">
+                    <VectorIcon name="grip" size="1em" />
+                  </span>
                   <span>NOTE {String(i + 1).padStart(2, "0")}</span>
                 </button>
                 <button
@@ -485,7 +487,7 @@ export function SpatialBoard({
                     add.current?.focus();
                   }}
                 >
-                  ×
+                  <VectorIcon name="close" size="1em" />
                 </button>
               </div>
               <TextField
@@ -553,8 +555,10 @@ export function SpatialBoard({
                   }
                   aria-label={`Remove connection ${edge.from} to ${edge.to}`}
                 >
-                  {shown.find((n) => n.id === edge.from)?.title} →{" "}
-                  {shown.find((n) => n.id === edge.to)?.title} ×
+                  {shown.find((n) => n.id === edge.from)?.title}{" "}
+                  <VectorIcon name="arrow-right" size="1em" />{" "}
+                  {shown.find((n) => n.id === edge.to)?.title}{" "}
+                  <VectorIcon name="close" size="1em" />
                 </Button>
               ))}
           </div>

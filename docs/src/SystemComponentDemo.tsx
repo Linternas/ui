@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../../src/icons";
+
 import ProgressPreview from "./ProgressPreview";
 import ButtonInteractions from "./ButtonInteractions";
 import { useState } from "react";
@@ -126,7 +128,10 @@ export default function SystemComponentDemo({
                 포인터를 움직이면 표면의 빛과 테두리가 함께 반응합니다.
               </UI.Text>
               <UI.Button variant="secondary" interaction="ripple">
-                Explore <span aria-hidden="true">↗</span>
+                Explore{" "}
+                <span aria-hidden="true">
+                  <VectorIcon name="external" size="1em" />
+                </span>
               </UI.Button>
             </UI.Stack>
           </UI.InteractiveCard>
@@ -172,15 +177,17 @@ export default function SystemComponentDemo({
     case "icon-button":
       return (
         <UI.Stack direction="row">
-          <UI.IconButton label="Add project">＋</UI.IconButton>
+          <UI.IconButton label="Add project">
+            <VectorIcon name="plus" size="1em" />
+          </UI.IconButton>
           <UI.IconButton label="Settings" variant="secondary">
-            ⚙
+            <VectorIcon name="settings" size="1em" />
           </UI.IconButton>
           <UI.IconButton label="Delete project" variant="danger">
-            ×
+            <VectorIcon name="close" size="1em" />
           </UI.IconButton>
           <UI.IconButton label="Unavailable" disabled>
-            ＋
+            <VectorIcon name="plus" size="1em" />
           </UI.IconButton>
         </UI.Stack>
       );
@@ -202,9 +209,11 @@ export default function SystemComponentDemo({
     case "link-button":
       return (
         <UI.Stack direction="row">
-          <UI.LinkButton href="/lab/ui">Interaction library ↗</UI.LinkButton>
+          <UI.LinkButton href="/lab/ui">
+            Interaction library <VectorIcon name="external" size="1em" />
+          </UI.LinkButton>
           <UI.LinkButton href="#usage" variant="secondary">
-            Usage ↓
+            Usage <VectorIcon name="arrow-down" size="1em" />
           </UI.LinkButton>
           <UI.LinkButton href="/" disabled>
             Disabled
@@ -712,7 +721,7 @@ export default function SystemComponentDemo({
         <UI.Stack direction="row">
           <UI.Tooltip content="Edit project settings">
             <UI.IconButton label="Settings" variant="secondary">
-              ⚙
+              <VectorIcon name="settings" size="1em" />
             </UI.IconButton>
           </UI.Tooltip>
           <UI.Tooltip content="This action saves your changes">
@@ -804,7 +813,7 @@ export default function SystemComponentDemo({
     case "empty-state":
       return (
         <UI.EmptyState
-          icon="◇"
+          icon={<VectorIcon name="diamond" size="1em" />}
           title="No projects yet"
           description="Create a project to start building."
           action={

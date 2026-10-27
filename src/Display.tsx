@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -220,7 +222,7 @@ export function GithubActivity({
         onClick={() => setOpen(!open)}
       >
         <span>
-          ◉ <span>Top contributions</span>
+          <VectorIcon name="circle" size="1em" /> <span>Top contributions</span>
         </span>
         <Icon name="chevron" />
       </button>
@@ -415,7 +417,13 @@ export function Faq({
             }}
           >
             <span>{item.question}</span>
-            <span aria-hidden="true">{open === item.id ? "−" : "+"}</span>
+            <span aria-hidden="true">
+              {open === item.id ? (
+                <VectorIcon name="minus" size="1em" />
+              ) : (
+                <VectorIcon name="plus" size="1em" />
+              )}
+            </span>
           </button>
           <AnimatePresence initial={false}>
             {open === item.id && (

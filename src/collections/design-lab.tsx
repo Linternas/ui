@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import * as React from "react";
 import { useId, useMemo, useRef, useState, type ReactNode } from "react";
 import { Button } from "../system/base";
@@ -70,7 +72,15 @@ export function FlipCard({
         disabled={disabled}
         onClick={() => setFlipped(!flipped)}
       >
-        {flipped ? "Show front ↶" : "Show back ↷"}
+        {flipped ? (
+          <>
+            Show front <VectorIcon name="undo" size="1em" />
+          </>
+        ) : (
+          <>
+            Show back <VectorIcon name="redo" size="1em" />
+          </>
+        )}
       </Button>
     </section>
   );
@@ -241,7 +251,13 @@ export function MazeRunner({
                     move(r - actual.row, c - actual.column);
                 }}
               >
-                {player ? "●" : cell === "G" ? "✦" : ""}
+                {player ? (
+                  <VectorIcon name="dot" size="1em" />
+                ) : cell === "G" ? (
+                  <VectorIcon name="sparkle" size="1em" />
+                ) : (
+                  ""
+                )}
               </span>
             );
           }),
@@ -262,13 +278,15 @@ export function MazeRunner({
             disabled={disabled || complete}
             onClick={() => move(Number(dr), Number(dc))}
           >
-            {name === "Up"
-              ? "↑"
-              : name === "Down"
-                ? "↓"
-                : name === "Left"
-                  ? "←"
-                  : "→"}
+            {name === "Up" ? (
+              <VectorIcon name="arrow-up" size="1em" />
+            ) : name === "Down" ? (
+              <VectorIcon name="arrow-down" size="1em" />
+            ) : name === "Left" ? (
+              <VectorIcon name="arrow-left" size="1em" />
+            ) : (
+              <VectorIcon name="arrow-right" size="1em" />
+            )}
           </Button>
         ))}
         <Button size="sm" variant="ghost" disabled={disabled} onClick={reset}>
@@ -606,7 +624,7 @@ export function ContrastChecker({
           })
         }
       >
-        Swap colors ⇄
+        Swap colors <VectorIcon name="swap" size="1em" />
       </Button>
     </section>
   );

@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import {
   lazy,
   Suspense,
@@ -167,7 +168,10 @@ export default function LandingPage() {
                 컴포넌트 둘러보기 <Arrow />
               </LinkButton>
               <a className="landing-text-link" href="#craft">
-                먼저 만져보기 <span aria-hidden="true">↓</span>
+                먼저 만져보기{" "}
+                <span aria-hidden="true">
+                  <VectorIcon name="arrow-down" size="1em" />
+                </span>
               </a>
             </div>
             <div className="landing-hero-signature">

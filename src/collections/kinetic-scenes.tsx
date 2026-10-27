@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import * as React from "react";
 import { useEffect, useId, useRef, useState } from "react";
 import { Button, Checkbox } from "../system/base";
@@ -166,7 +168,7 @@ export function ConfettiBurst({
       />
       <div className="mingu-kinetic-actions">
         <Button disabled={disabled} onClick={() => launch()}>
-          Launch confetti ✦
+          Launch confetti <VectorIcon name="sparkle" size="1em" />
         </Button>
         <Button
           variant="ghost"
@@ -358,7 +360,13 @@ export function VectorField({
           aria-pressed={polarity === -1}
           onClick={() => setPolarity(-polarity)}
         >
-          {polarity > 0 ? "+ Positive" : "− Negative"}
+          {polarity > 0 ? (
+            "+ Positive"
+          ) : (
+            <>
+              <VectorIcon name="minus" size="1em" /> Negative
+            </>
+          )}
         </Button>
         <Button
           size="sm"

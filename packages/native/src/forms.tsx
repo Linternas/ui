@@ -1,3 +1,4 @@
+import { Icon } from "./icons";
 import React, {
   useEffect,
   useRef,
@@ -259,20 +260,9 @@ export function Checkbox({
         }}
       >
         {indeterminate ? (
-          <View
-            style={{ width: 12, height: 2, backgroundColor: c["on-accent"] }}
-          />
+          <Icon name="minus" size={16} color={c["on-accent"]} />
         ) : value ? (
-          <View
-            style={{
-              width: 12,
-              height: 7,
-              borderLeftWidth: 2,
-              borderBottomWidth: 2,
-              borderColor: c["on-accent"],
-              transform: [{ rotate: "-45deg" }, { translateY: -1 }],
-            }}
-          />
+          <Icon name="check" size={16} color={c["on-accent"]} />
         ) : null}
       </View>
       <View style={{ flex: 1 }}>
@@ -641,7 +631,9 @@ export function Select({
                   </Text>
                 )}
               </View>
-              {selected === option.value && <Text tone="accent">✓</Text>}
+              {selected === option.value && (
+                <Icon name="check" color={c.accent} />
+              )}
             </Pressable>
           )}
         />

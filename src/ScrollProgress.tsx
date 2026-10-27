@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 
 import { useEffect, useId, useRef, useState } from "react";
@@ -13,7 +15,10 @@ export function ScrollProgress({
   offset,
   className = "",
   variant = "floating",
-}: ReadingPositionOptions & { className?: string; variant?: "floating" | "inline" }) {
+}: ReadingPositionOptions & {
+  className?: string;
+  variant?: "floating" | "inline";
+}) {
   const { activeId, progress, navigate } = useReadingPosition({
     sections,
     containerRef,
@@ -87,8 +92,18 @@ export function ScrollProgress({
         </nav>
       )}
       <Header
-        ref={(node: HTMLElement | null) => { buttonRef.current = node instanceof HTMLButtonElement ? node : null; }}
-        {...(!inline ? { type: "button" as const, "aria-expanded": open, "aria-controls": open ? panelId : undefined, onClick: () => setOpen((value: boolean) => !value), disabled: !sections.length } : {})}
+        ref={(node: HTMLElement | null) => {
+          buttonRef.current = node instanceof HTMLButtonElement ? node : null;
+        }}
+        {...(!inline
+          ? {
+              type: "button" as const,
+              "aria-expanded": open,
+              "aria-controls": open ? panelId : undefined,
+              onClick: () => setOpen((value: boolean) => !value),
+              disabled: !sections.length,
+            }
+          : {})}
         className="mru-progress-toggle"
       >
         <svg
@@ -109,7 +124,15 @@ export function ScrollProgress({
           {active?.label ?? "Reading progress"}
         </span>
         <span className="mru-progress-percent">{percent}%</span>
-        {!inline && <span aria-hidden="true">{open ? "−" : "+"}</span>}
+        {!inline && (
+          <span aria-hidden="true">
+            {open ? (
+              <VectorIcon name="minus" size="1em" />
+            ) : (
+              <VectorIcon name="plus" size="1em" />
+            )}
+          </span>
+        )}
         <span className="mru-sr-only">
           {" "}
           — {percent}% read{!inline && ", toggle section navigation"}

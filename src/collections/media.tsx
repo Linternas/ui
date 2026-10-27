@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import * as React from "react";
 import {
   useEffect,
@@ -1096,7 +1098,7 @@ export function ImageCropper({
                 }
               }}
             >
-              ↘
+              <VectorIcon name="arrow-down-right" size="1em" />
             </button>
           </div>
         )}
@@ -1154,7 +1156,7 @@ export function ImageCropper({
         </Button>
         {output && (
           <a className="mingu-media-download" href={output} download="crop.png">
-            Download crop.png ↓
+            Download crop.png <VectorIcon name="arrow-down" size="1em" />
           </a>
         )}
       </div>
@@ -1308,7 +1310,7 @@ export function CalendarBoard({
           disabled={shown <= "1900-01"}
           onClick={() => setMonth(shiftMonth(shown, -1))}
         >
-          ←
+          <VectorIcon name="arrow-left" size="1em" />
         </Button>
         <h3>{monthTitle(shown)}</h3>
         <Button
@@ -1317,7 +1319,7 @@ export function CalendarBoard({
           disabled={shown >= "2100-12"}
           onClick={() => setMonth(shiftMonth(shown, 1))}
         >
-          →
+          <VectorIcon name="arrow-right" size="1em" />
         </Button>
       </div>
       <div
@@ -1461,7 +1463,7 @@ export function CalendarBoard({
                   );
                 }}
               >
-                ×
+                <VectorIcon name="close" size="1em" />
               </Button>
             </div>
           ))}
@@ -1712,7 +1714,7 @@ export function GanttTimeline({
                       }}
                       onKeyDown={(event) => key(event, task, true)}
                     >
-                      ↔
+                      <VectorIcon name="move" size="1em" />
                     </button>
                   </div>
                 </div>
@@ -1916,7 +1918,8 @@ export function KanbanBoard({
                       }
                     }}
                   >
-                    ⠿<span>{card.title || "Untitled card"}</span>
+                    <VectorIcon name="grip" size="1em" />
+                    <span>{card.title || "Untitled card"}</span>
                   </button>
                   <TextField
                     label={`Title for ${card.title || "card"}`}
@@ -2186,7 +2189,15 @@ export function FileTree({
               }}
             >
               <span className="mingu-tree-arrow" aria-hidden="true">
-                {folder ? (expanded.includes(node.id) ? "⌄" : "›") : ""}
+                {folder ? (
+                  expanded.includes(node.id) ? (
+                    <VectorIcon name="chevron" size="1em" />
+                  ) : (
+                    <VectorIcon name="chevron-right" size="1em" />
+                  )
+                ) : (
+                  ""
+                )}
               </span>
               <svg
                 aria-hidden="true"

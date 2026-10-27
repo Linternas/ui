@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useRef, type ReactNode } from "react";
 import {
@@ -172,7 +174,7 @@ export function SwipeDeck({
           onClick={() => move(-1)}
           aria-label={labels?.previous ?? "Previous card"}
         >
-          ←
+          <VectorIcon name="arrow-left" size="1em" />
         </Button>
         <span role="status" aria-live="polite">
           {labels?.position?.(selected + 1, items.length) ??
@@ -187,7 +189,7 @@ export function SwipeDeck({
           onClick={() => move(1)}
           aria-label={labels?.next ?? "Next card"}
         >
-          →
+          <VectorIcon name="arrow-right" size="1em" />
         </Button>
       </div>
     </section>

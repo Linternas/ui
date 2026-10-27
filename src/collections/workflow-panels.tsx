@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import { SelectField } from "../system/forms";
 import * as React from "react";
 import { useId, useRef, useState, type ReactNode } from "react";
@@ -176,7 +178,7 @@ export function FilterBuilder({
                 })
               }
             >
-              ×
+              <VectorIcon name="close" size="1em" />
             </Button>
           </li>
         ))}
@@ -304,7 +306,7 @@ export function ColumnManager({
                 disabled={i === 0}
                 onClick={() => move(i, -1)}
               >
-                ↑
+                <VectorIcon name="arrow-up" size="1em" />
               </Button>
               <Button
                 size="sm"
@@ -313,7 +315,7 @@ export function ColumnManager({
                 disabled={i === columns.length - 1}
                 onClick={() => move(i, 1)}
               >
-                ↓
+                <VectorIcon name="arrow-down" size="1em" />
               </Button>
             </div>
           </li>
@@ -721,7 +723,9 @@ export function DraggableWindow({
                 }
               }}
             >
-              <span aria-hidden="true">⠿</span>
+              <span aria-hidden="true">
+                <VectorIcon name="grip" size="1em" />
+              </span>
               {title}
             </button>
             <Button
@@ -734,7 +738,7 @@ export function DraggableWindow({
                 setMaximized(false);
               }}
             >
-              −
+              <VectorIcon name="minus" size="1em" />
             </Button>
             <Button
               size="sm"
@@ -746,7 +750,7 @@ export function DraggableWindow({
                 setMinimized(false);
               }}
             >
-              □
+              <VectorIcon name="square" size="1em" />
             </Button>
           </header>
           <div className="mingu-floating-content" hidden={minimized}>

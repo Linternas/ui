@@ -45,6 +45,7 @@ Inspect existing implementations near the change before adding a new abstraction
 ## Component changes
 
 - Keep `@mingu/interaction-ui` and existing public exports compatible. Consumers transpile TypeScript source and import CSS explicitly.
+- Do not use font glyphs such as check marks, arrows or multiplication signs as UI icons. Reuse the SVG paths in `src/icons.tsx` (legacy interactions re-export them from `src/shared.tsx`) and the geometry-based Native `Icon` in `packages/native/src/icons.tsx`. Keep real text, numeric units and user reaction data as text; preserve accessible control names independently of decorative icons.
 - Preserve native props, refs, form behavior, keyboard navigation, focus-visible, disabled and error states. Every input needs an accessible name.
 - Use semantic tokens rather than scattering new colors, spacing or motion constants across files. Keep themes scoped to the provider.
 - Default screens should remain calm and readable. Larger interactions are opt-in; respect reduced motion and touch input.

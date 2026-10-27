@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import * as React from "react";
 import {
   useEffect,
@@ -129,7 +131,7 @@ export function TagInput({
                 aria-label={`Remove ${tag}`}
                 onClick={() => remove(tag)}
               >
-                ×
+                <VectorIcon name="close" size="1em" />
               </button>
               {name && (
                 <input
@@ -327,7 +329,11 @@ export function WheelPicker({
       {name && (
         <input type="hidden" name={name} value={selected} disabled={disabled} />
       )}
-      <small>Scroll, tap, or use ↑ ↓</small>
+      <small>
+        Scroll, tap, or use{" "}
+        <VectorIcon name="arrow-up" size="1em" label="Arrow up" />{" "}
+        <VectorIcon name="arrow-down" size="1em" label="Arrow down" />
+      </small>
     </div>
   );
 }
@@ -1019,7 +1025,7 @@ export function SlashCommandEditor({
                 setCommand(0);
               }}
             >
-              ＋
+              <VectorIcon name="plus" size="1em" />
             </Button>
             <EditableBlock
               block={block}
@@ -1078,13 +1084,15 @@ export function SlashCommandEditor({
                     disabled={disabled}
                     onClick={() => apply(type)}
                   >
-                    {type === "heading"
-                      ? "H"
-                      : type === "code"
-                        ? "<>"
-                        : type === "quote"
-                          ? "❞"
-                          : "¶"}
+                    {type === "heading" ? (
+                      "H"
+                    ) : type === "code" ? (
+                      <VectorIcon name="code" size="1em" />
+                    ) : type === "quote" ? (
+                      <VectorIcon name="quote" size="1em" />
+                    ) : (
+                      <VectorIcon name="paragraph" size="1em" />
+                    )}
                     <span>{type}</span>
                   </button>
                 ))}
@@ -1237,7 +1245,9 @@ export function ChartRangeNavigator({
               }}
               aria-hidden="true"
             >
-              <span>⋮</span>
+              <span>
+                <VectorIcon name="more-vertical" size="1em" />
+              </span>
             </div>
           </div>
           <div className="mingu-tool-columns">
@@ -1500,7 +1510,7 @@ export interface LiveCodeSandboxProps extends ToolProps {
   autoRun?: boolean;
 }
 const starter: SandboxSource = {
-  html: '<button id="hello">A small interaction <span>↗</span></button>\n<p id="count">Pressed 0 times</p>',
+  html: '<button id="hello">A small interaction <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" /></svg></button>\n<p id="count">Pressed 0 times</p>',
   css: "body { font: 16px system-ui; display: grid; place-content: center; min-height: 220px; margin: 0; background: #f5f5f3; color: #1a1a1a; }\nbutton { padding: 18px 24px; border: 1px solid #ddd; border-radius: 16px; background: white; font: inherit; cursor: pointer; transition: transform .2s; }\nbutton:hover { transform: translateY(-4px); }\np { text-align: center; font-size: 13px; color: #777; }\n@media(prefers-reduced-motion:reduce) { button { transition: none; } }",
   js: 'let count = 0;\ndocument.querySelector("#hello").addEventListener("click", () => {\n  document.querySelector("#count").textContent = `Pressed ${++count} times`;\n});',
 };

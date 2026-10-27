@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "./system/base";
@@ -57,7 +59,7 @@ function FilePreview({ file }: { file: File }) {
     <img src={url} alt="" />
   ) : (
     <span aria-hidden="true" className="mingu-dropzone-file-icon">
-      ↥
+      <VectorIcon name="upload" size="1em" />
     </span>
   );
 }
@@ -224,7 +226,7 @@ export function FileDropzone({
     >
       <div className="mingu-dropzone-target">
         <span className="mingu-dropzone-mark" aria-hidden="true">
-          ↥
+          <VectorIcon name="upload" size="1em" />
         </span>
         <p>Drop files here or choose files</p>
         <FileUpload
@@ -303,7 +305,7 @@ export function FileDropzone({
                   });
                 }}
               >
-                ×
+                <VectorIcon name="close" size="1em" />
               </Button>
             </li>
           );

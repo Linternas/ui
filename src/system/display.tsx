@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import * as React from "react";
 import {
   useId,
@@ -312,11 +314,15 @@ export function DataTable<T>({
                   {item.header}
                   <span aria-hidden="true">
                     {" "}
-                    {sort?.key === item.key
-                      ? sort.direction === "ascending"
-                        ? "↑"
-                        : "↓"
-                      : "↕"}
+                    {sort?.key === item.key ? (
+                      sort.direction === "ascending" ? (
+                        <VectorIcon name="arrow-up" size="1em" />
+                      ) : (
+                        <VectorIcon name="arrow-down" size="1em" />
+                      )
+                    ) : (
+                      <VectorIcon name="sort" size="1em" />
+                    )}
                   </span>
                 </button>
               ) : (

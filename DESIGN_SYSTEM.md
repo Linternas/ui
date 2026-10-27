@@ -402,3 +402,9 @@ GradientEditor, PixelEditor, ScratchCard, UndoHistory, MultiSelect, TransferList
 ## Native core (0.25.0)
 
 Native 앱은 `@mingu/interaction-ui/native` 전용 진입점을 사용한다. `packages/tokens/src/index.ts`의 값은 웹 CSS와 Native가 공유하며 `tokens:check`로 동기화를 검사한다. Native View·Text·TextInput·Pressable·Modal 구현은 `packages/native/src`에 있다. [설치·API·플랫폼 검증 범위](./NATIVE.md)를 따른다. 웹 컴포넌트 수와 Native 목록을 섞지 않는다.
+
+## UI icons (0.26.1)
+
+체크·닫기·탐색·정렬·상태 아이콘은 폰트 문자를 사용하지 않는다. 웹 내부 공통 SVG는 `src/icons.tsx`에 있고, 기존 `src/shared.tsx`의 Icon import도 같은 구현으로 연결된다. `currentColor`, 고정 viewBox와 공통 stroke를 사용하고 기본적으로 접근성 트리에서 제외한다. 아이콘만 있는 버튼은 별도의 이름이 필수다. 키 안내처럼 독립된 아이콘에 의미가 필요한 경우 `label`을 제공한다.
+
+Native는 `/native`의 기존 `Icon`을 사용한다. RN View 도형을 그리므로 DOM SVG나 추가 네이티브 모듈이 필요하지 않다. 두 플랫폼 모두 글꼴·행간에 아이콘 모양을 의존하지 않는다. 배속·치수·숫자 부호와 사용자가 선택한 emoji 반응은 실제 데이터이므로 문자로 유지한다.

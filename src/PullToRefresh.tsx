@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import {
   useCallback,
@@ -211,7 +213,9 @@ export function PullToRefresh({
           onClick={() => void refresh()}
         >
           {labels?.refresh ?? "Refresh"}
-          <span aria-hidden="true">↻</span>
+          <span aria-hidden="true">
+            <VectorIcon name="replay" size="1em" />
+          </span>
         </Button>
       </div>
       <div
@@ -236,7 +240,7 @@ export function PullToRefresh({
               transform: `rotate(${Math.min(180, (distance / mobileMotion.pullThreshold) * 180)}deg)`,
             }}
           >
-            ↓
+            <VectorIcon name="arrow-down" size="1em" />
           </span>
           <span>
             {ready

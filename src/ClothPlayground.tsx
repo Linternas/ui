@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useRef, useState, useEffect } from "react";
 import { Button } from "./system/base";
@@ -368,7 +370,9 @@ export function ClothPlayground({
             animation.invalidate();
           }}
         >
-          <span aria-hidden="true">↔</span>
+          <span aria-hidden="true">
+            <VectorIcon name="move" size="1em" />
+          </span>
         </button>
         <span className="mingu-experiment-coordinate" aria-hidden="true">
           A SOFT PLACE TO PLAY / 425 POINTS

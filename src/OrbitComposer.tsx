@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useRef, useState, useEffect } from "react";
 import { Button, Select } from "./system/base";
@@ -350,7 +352,9 @@ export function OrbitComposer({
               );
             }}
           >
-            <span aria-hidden="true">{i === 0 ? "+" : i}</span>
+            <span aria-hidden="true">
+              {i === 0 ? <VectorIcon name="plus" size="1em" /> : i}
+            </span>
           </button>
         ))}
         <span className="mingu-experiment-coordinate" aria-hidden="true">

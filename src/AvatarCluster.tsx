@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useRef, useState } from "react";
 import { Avatar } from "./system/display";
@@ -69,7 +71,7 @@ export function AvatarCluster({
             {active.bio && <p>{active.bio}</p>}
             {active.href && (
               <a className="mingu-profile-link" href={active.href}>
-                View profile ↗
+                View profile <VectorIcon name="external" size="1em" />
               </a>
             )}
             <Button variant="secondary" onClick={() => setOpen(false)}>

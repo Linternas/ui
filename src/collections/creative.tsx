@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import * as React from "react";
 import {
   useEffect,
@@ -174,7 +176,9 @@ export function MultiSelect({
               onClick={() => choose(o.value)}
             >
               {o.label}
-              <span aria-hidden="true">×</span>
+              <span aria-hidden="true">
+                <VectorIcon name="close" size="1em" />
+              </span>
             </button>
           ))}
       </div>
@@ -308,13 +312,13 @@ export function TransferList({
           disabled={disabled || !movable(true).length}
           onClick={() => move(false)}
         >
-          ← Remove
+          <VectorIcon name="arrow-left" size="1em" /> Remove
         </Button>
         <Button
           disabled={disabled || !movable(false).length}
           onClick={() => move(true)}
         >
-          Assign →
+          Assign <VectorIcon name="arrow-right" size="1em" />
         </Button>
       </div>
       <p className="mingu-creative-muted" role="status">
@@ -457,7 +461,7 @@ export function UndoHistory({
             disabled={disabled || index <= 0}
             onClick={() => select(index - 1)}
           >
-            ↶ Undo
+            <VectorIcon name="undo" size="1em" /> Undo
           </Button>
           <Button
             variant="ghost"
@@ -465,7 +469,7 @@ export function UndoHistory({
             disabled={disabled || index < 0 || index >= entries.length - 1}
             onClick={() => select(index + 1)}
           >
-            Redo ↷
+            Redo <VectorIcon name="redo" size="1em" />
           </Button>
         </div>
       </header>
@@ -1253,7 +1257,7 @@ export function CircularDial({
           disabled={disabled || actual <= low}
           onClick={() => change(actual - increment)}
         >
-          −
+          <VectorIcon name="minus" size="1em" />
         </Button>
         <span className="mingu-creative-muted">Drag · arrow keys</span>
         <Button

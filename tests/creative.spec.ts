@@ -163,13 +163,13 @@ test("history changes restore actual preview content and a new edit discards the
   await expect(
     page.getByRole("heading", { name: "Good things take shape" }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "↶ Undo", exact: true }).click();
+  await page.getByRole("button", { name: "Undo", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Room to think" }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "↶ Undo", exact: true }).click();
+  await page.getByRole("button", { name: "Undo", exact: true }).click();
   await expect(
-    page.getByRole("button", { name: "↶ Undo", exact: true }),
+    page.getByRole("button", { name: "Undo", exact: true }),
   ).toBeDisabled();
   await page
     .getByRole("button", { name: "Make a change", exact: true })
@@ -178,7 +178,7 @@ test("history changes restore actual preview content and a new edit discards the
     page.getByRole("heading", { name: "Room to think" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("button", { name: "Redo ↷", exact: true }),
+    page.getByRole("button", { name: "Redo", exact: true }),
   ).toBeDisabled();
   await expect(
     page.getByRole("button", { name: /Find the words/ }),
@@ -224,12 +224,12 @@ test("transfer moves checked items in both directions while locked membership st
   const available = page.getByRole("region", { name: "Available items" }),
     assigned = page.getByRole("region", { name: "Assigned items" });
   await available.getByRole("checkbox", { name: "Jun", exact: true }).check();
-  await page.getByRole("button", { name: "Assign →", exact: true }).click();
+  await page.getByRole("button", { name: "Assign", exact: true }).click();
   await expect(
     assigned.getByRole("checkbox", { name: "Jun" }),
   ).not.toBeChecked();
   await assigned.getByRole("checkbox", { name: "Jun" }).check();
-  await page.getByRole("button", { name: "← Remove", exact: true }).click();
+  await page.getByRole("button", { name: "Remove", exact: true }).click();
   await expect(available.getByRole("checkbox", { name: "Jun" })).toBeVisible();
   await expect(
     assigned.getByRole("checkbox", { name: "Owner" }),
@@ -356,7 +356,7 @@ test("all eight ship as centered live gallery tiles with Docs links and New badg
     ).toBeLessThanOrEqual(1);
     if (entry.id === "transfer-list" || entry.id === "undo-history") {
       const action = card.getByRole("button", {
-        name: entry.id === "transfer-list" ? "Assign →" : "Make a change",
+        name: entry.id === "transfer-list" ? "Assign" : "Make a change",
         exact: true,
       });
       const actionBox = (await action.boundingBox())!;

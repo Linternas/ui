@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -103,7 +105,11 @@ export function RotatingText({
           aria-pressed={paused}
           onClick={() => setPaused(!paused)}
         >
-          {paused ? "▷" : "Ⅱ"}
+          {paused ? (
+            <VectorIcon name="play" size="1em" />
+          ) : (
+            <VectorIcon name="pause" size="1em" />
+          )}
         </Button>
       )}
     </span>

@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../../src/icons";
+
 import { useEffect, useRef, useState } from "react";
 import Link, { catalogHref } from "./routing";
 import {
@@ -106,7 +108,7 @@ export default function UiCatalog({
             Docs
           </Link>
           <Link className="ui-playground-header" href="/playground">
-            Playground ↗
+            Playground <VectorIcon name="external" size="1em" />
           </Link>
           <Link className="ui-native-header" href="/native">
             Native
@@ -117,7 +119,10 @@ export default function UiCatalog({
             target="_blank"
             rel="noopener noreferrer"
           >
-            GitHub <span aria-hidden="true">↗</span>
+            GitHub{" "}
+            <span aria-hidden="true">
+              <VectorIcon name="external" size="1em" />
+            </span>
           </a>
           <Link
             className="ui-newest-header"
@@ -282,13 +287,15 @@ export default function UiCatalog({
             </section>
           )}
           <footer>
-            <Link href="/lab/ui">← Mingu UI</Link>
+            <Link href="/lab/ui">
+              <VectorIcon name="arrow-left" size="1em" /> Mingu UI
+            </Link>
             <a
               href="https://github.com/Linternas/ui/blob/main/DESIGN_SYSTEM.md"
               target="_blank"
               rel="noopener noreferrer"
             >
-              API & usage guide ↗
+              API & usage guide <VectorIcon name="external" size="1em" />
             </a>
           </footer>
         </main>

@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../../src/icons";
+
 import { useState } from "react";
 import Link from "./routing";
 import {
@@ -97,13 +99,13 @@ export default function FoundationPreview() {
           className="mingu-button mingu-button-outline mingu-control-md"
           href="/all"
         >
-          All components ↗
+          All components <VectorIcon name="external" size="1em" />
         </Link>
         <Link
           className="mingu-button mingu-button-primary mingu-control-md"
           href="/docs/controls"
         >
-          Controls playground →
+          Controls playground <VectorIcon name="arrow-right" size="1em" />
         </Link>
         <Link
           className="mingu-button mingu-button-primary mingu-control-md"
@@ -121,7 +123,7 @@ export default function FoundationPreview() {
           className="mingu-button mingu-button-secondary mingu-control-md"
           href="/lab/ui/patterns"
         >
-          Product patterns →
+          Product patterns <VectorIcon name="arrow-right" size="1em" />
         </Link>
       </Stack>
     </Stack>

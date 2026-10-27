@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import CollectionPreview from "./CollectionPreview";
 ("use client");
 import { useEffect, useRef, useState } from "react";
@@ -41,10 +42,26 @@ import ReadingDemos from "./ReadingDemos";
 import type { ComponentId } from "./catalog";
 
 const navItems = [
-  { id: "overview", label: "Overview", icon: "⌘" },
-  { id: "projects", label: "Projects", icon: "▧" },
-  { id: "activity", label: "Activity", icon: "◴" },
-  { id: "settings", label: "Settings", icon: "⚙" },
+  {
+    id: "overview",
+    label: "Overview",
+    icon: <VectorIcon name="command" size="1em" />,
+  },
+  {
+    id: "projects",
+    label: "Projects",
+    icon: <VectorIcon name="image" size="1em" />,
+  },
+  {
+    id: "activity",
+    label: "Activity",
+    icon: <VectorIcon name="clock" size="1em" />,
+  },
+  {
+    id: "settings",
+    label: "Settings",
+    icon: <VectorIcon name="settings" size="1em" />,
+  },
 ];
 const contributions = Array.from({ length: 364 }, (_, i) => ({
   date: new Date(Date.UTC(2025, 0, i + 1)).toISOString().slice(0, 10),
@@ -128,7 +145,7 @@ export default function DemoPreview({
       className="studio-tool"
       onClick={() => setReset(reset + 1)}
     >
-      Reset ↻
+      Reset <VectorIcon name="replay" size="1em" />
     </button>
   );
   switch (id) {
@@ -346,7 +363,7 @@ export default function DemoPreview({
               className="studio-tool"
               onClick={() => setCounter(counter - 125)}
             >
-              − 125
+              <VectorIcon name="minus" size="1em" /> 125
             </button>
             <button
               type="button"
@@ -429,7 +446,7 @@ export default function DemoPreview({
                 timeout.current = setTimeout(() => setSrc(picture), 1900);
               }}
             >
-              Generate again ↻
+              Generate again <VectorIcon name="replay" size="1em" />
             </button>
             <span>Local illustration</span>
           </div>
@@ -492,7 +509,7 @@ export default function DemoPreview({
                 timeout.current = setTimeout(() => setSearching(false), 1200);
               }}
             >
-              Replay ↻
+              Replay <VectorIcon name="replay" size="1em" />
             </button>
             <span>Illustrative answer · real documentation links</span>
           </div>
@@ -589,7 +606,7 @@ export default function DemoPreview({
                 setOtp("idle");
               }}
             >
-              Reset ↻
+              Reset <VectorIcon name="replay" size="1em" />
             </button>
             <span>Sample only · no authentication request</span>
           </div>

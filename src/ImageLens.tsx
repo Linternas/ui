@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useReducedMotion } from "motion/react";
@@ -206,7 +208,7 @@ export function ImageLens({
                 setPosition((p) => ({ ...p, x: Math.max(0, p.x - 10) }))
               }
             >
-              ←
+              <VectorIcon name="arrow-left" size="1em" />
             </Button>
             <Button
               size="sm"
@@ -216,7 +218,7 @@ export function ImageLens({
                 setPosition((p) => ({ ...p, x: Math.min(100, p.x + 10) }))
               }
             >
-              →
+              <VectorIcon name="arrow-right" size="1em" />
             </Button>
             <Button
               size="sm"
@@ -226,7 +228,7 @@ export function ImageLens({
                 setPosition((p) => ({ ...p, y: Math.max(0, p.y - 10) }))
               }
             >
-              ↑
+              <VectorIcon name="arrow-up" size="1em" />
             </Button>
             <Button
               size="sm"
@@ -236,7 +238,7 @@ export function ImageLens({
                 setPosition((p) => ({ ...p, y: Math.min(100, p.y + 10) }))
               }
             >
-              ↓
+              <VectorIcon name="arrow-down" size="1em" />
             </Button>
           </div>
         )}

@@ -1,3 +1,4 @@
+import { Icon } from "./icons";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { TextField, type TextFieldProps } from "./forms";
@@ -134,7 +135,7 @@ export function MoneyField({
                 )
               }
             >
-              ±
+              <Icon name="sign" />
             </IconButton>
           )}
         </View>

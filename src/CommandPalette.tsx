@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { Dialog, Input } from "./system/base";
@@ -176,10 +178,19 @@ export function CommandPalette({
       )}
       <footer className="mingu-command-footer">
         <span>
-          <kbd>↑</kbd> <kbd>↓</kbd> Navigate
+          <kbd>
+            <VectorIcon name="arrow-up" size="1em" label="Arrow up" />
+          </kbd>{" "}
+          <kbd>
+            <VectorIcon name="arrow-down" size="1em" label="Arrow down" />
+          </kbd>{" "}
+          Navigate
         </span>
         <span>
-          <kbd>↵</kbd> Select
+          <kbd>
+            <VectorIcon name="enter" size="1em" label="Enter" />
+          </kbd>{" "}
+          Select
         </span>
         <span>
           <kbd>esc</kbd> Close

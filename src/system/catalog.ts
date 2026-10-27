@@ -36,14 +36,14 @@ export const systemCatalog = [
     group: "Actions",
     description:
       "Primary, secondary, outline, ghost, danger. 크기·로딩·비활성 상태.",
-    code: `<Button interaction="magnetic">Explore ↗</Button>\n<Button variant="secondary" interaction="ripple">Press anywhere</Button>\n<Button variant="outline" interaction="shine">Catch the light</Button>\n<Button status="success">Saved</Button>`,
+    code: `<Button interaction="magnetic">Explore <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" /></svg></Button>\n<Button variant="secondary" interaction="ripple">Press anywhere</Button>\n<Button variant="outline" interaction="shine">Catch the light</Button>\n<Button status="success">Saved</Button>`,
   },
   {
     id: "icon-button",
     name: "IconButton",
     group: "Actions",
     description: "접근성 이름을 필수로 받는 아이콘 액션.",
-    code: `<IconButton label="Settings" variant="secondary">⚙</IconButton>`,
+    code: `<IconButton label="Settings" variant="secondary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M9 3h6l1 4 4 1v8l-4 1-1 4H9l-1-4-4-1V8l4-1zM15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0" /></svg></IconButton>`,
   },
   {
     id: "button-group",
@@ -258,7 +258,7 @@ export const systemCatalog = [
     name: "Tooltip",
     group: "Overlays",
     description: "hover·focus 설명. Escape로 닫기, trigger 설명 연결.",
-    code: `<Tooltip content="Edit settings"><IconButton label="Settings">⚙</IconButton></Tooltip>`,
+    code: `<Tooltip content="Edit settings"><IconButton label="Settings"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M9 3h6l1 4 4 1v8l-4 1-1 4H9l-1-4-4-1V8l4-1zM15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0" /></svg></IconButton></Tooltip>`,
   },
   {
     id: "toast",

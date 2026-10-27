@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useId, useRef, useState } from "react";
 import { Button, Input } from "./system/base";
@@ -152,7 +154,9 @@ export function InlineEdit({
           <span className={!value ? "mingu-muted" : undefined}>
             {value || placeholder}
           </span>
-          <span aria-hidden="true">↗</span>
+          <span aria-hidden="true">
+            <VectorIcon name="external" size="1em" />
+          </span>
         </button>
       )}
     </div>

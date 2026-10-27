@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useState } from "react";
 import { Button, TextField } from "../../src/system/base";
 import {
@@ -180,7 +181,7 @@ function StackDemo() {
             description: "One focused place for your next idea.",
             content: (
               <div className="mingu-tool-demo-art" aria-hidden="true">
-                Aa ↗
+                Aa <VectorIcon name="external" size="1em" />
               </div>
             ),
           },
@@ -254,7 +255,18 @@ export default function ToolsCollectionPreview({
               title,
               content: (
                 <div className="mingu-tool-demo-art" data-art={i}>
-                  {["Aa ↗", "◯ ◯", "↔"][i]}
+                  {
+                    [
+                      <>
+                        Aa <VectorIcon name="external" size="1em" />
+                      </>,
+                      <>
+                        <VectorIcon name="circle" size="1em" />{" "}
+                        <VectorIcon name="circle" size="1em" />
+                      </>,
+                      <VectorIcon name="move" size="1em" />,
+                    ][i]
+                  }
                 </div>
               ),
             }),

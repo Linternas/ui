@@ -304,7 +304,8 @@ fieldset.mingu-workflow {
 .mingu-stepper nav button > span {
   display: grid;
   place-items: center;
-  flex: 0 0 24px;
+  flex: 0 0 auto;
+  width: 24px;
   height: 24px;
   border: 1px solid var(--mingu-border);
   border-radius: 50%;

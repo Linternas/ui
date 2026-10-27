@@ -121,7 +121,7 @@ test("centered launchers and selection controls retain their native interactions
   ).toHaveAttribute("aria-selected", "true");
   const bottom = tile("bottom-sheet");
   await bottom.scrollIntoViewIfNeeded();
-  await bottom.getByRole("button", { name: "Open filters ↑" }).click();
+  await bottom.getByRole("button", { name: "Open filters" }).click();
   const sheet = page.getByRole("dialog", {
     name: "Make it yours",
     exact: true,

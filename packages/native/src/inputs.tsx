@@ -1,3 +1,4 @@
+import { Icon } from "./icons";
 import React, { useRef } from "react";
 import { View, type StyleProp, type ViewStyle } from "react-native";
 import { useValue, clamp } from "./state";
@@ -49,7 +50,7 @@ export function NumberStepper({
             )
           }
         >
-          −
+          <Icon name="minus" />
         </IconButton>
         <Text
           accessibilityLiveRegion="polite"
@@ -67,7 +68,7 @@ export function NumberStepper({
             )
           }
         >
-          +
+          <Icon name="plus" />
         </IconButton>
       </View>
     </View>

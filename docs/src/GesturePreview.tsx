@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useState } from "react";
 import {
   RadialMenu,
@@ -103,7 +104,9 @@ export default function GesturePreview({
                 }}
               >
                 {project.name}
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">
+                  <VectorIcon name="external" size="1em" />
+                </span>
               </PreviewLink>
             </div>
           ))}
@@ -144,7 +147,9 @@ export default function GesturePreview({
                   {project.name}
                   <small>{project.category}</small>
                 </span>
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">
+                  <VectorIcon name="external" size="1em" />
+                </span>
               </li>
             ))}
           </ul>

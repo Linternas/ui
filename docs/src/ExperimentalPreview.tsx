@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import LabCollectionPreview from "./LabCollectionPreview";
 import {
   ParticleText,
@@ -57,7 +58,10 @@ export default function ExperimentalPreview({
     <div className={`experiment-preview${compact ? " is-compact" : ""}`}>
       <Experiment id={id} compact={compact} />
       <Link className="experiment-open" href={`/playground/${id}`}>
-        Open playground <span aria-hidden="true">↗</span>
+        Open playground{" "}
+        <span aria-hidden="true">
+          <VectorIcon name="external" size="1em" />
+        </span>
       </Link>
     </div>
   );

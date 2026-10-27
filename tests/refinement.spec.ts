@@ -101,7 +101,7 @@ test("short sheet fits content, handle taps preserve size and manual snaps still
 }) => {
   await page
     .getByTestId("bottom-sheet")
-    .getByRole("button", { name: "Open filters ↑" })
+    .getByRole("button", { name: "Open filters" })
     .click();
   const dialog = page.getByRole("dialog", { name: "Make it yours" }),
     handle = dialog.getByRole("slider", { name: "Sheet height" });
@@ -179,9 +179,9 @@ test("cached grid image returns after repeated generation and quick restarts", a
     image = stage.getByRole("img");
   await expect(image).toHaveAttribute("data-ready", "true");
   for (let i = 0; i < 3; i++) {
-    await stage.getByRole("button", { name: "Generate again ↻" }).click();
+    await stage.getByRole("button", { name: "Generate again" }).click();
     if (i === 1)
-      await stage.getByRole("button", { name: "Generate again ↻" }).click();
+      await stage.getByRole("button", { name: "Generate again" }).click();
     await expect(stage.locator("figure")).toHaveAttribute("aria-busy", "true");
     await expect(image).toHaveAttribute("data-ready", "true");
     await expect(image).toHaveCSS("opacity", "1");

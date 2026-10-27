@@ -93,7 +93,11 @@ test("sortable grid performs two-dimensional keyboard moves and commits pointer 
   await page.keyboard.press("Space");
   await page.keyboard.press("ArrowDown");
   await expect
-    .poll(async () => (await order.innerText()).split(" → ").indexOf("notes"))
+    .poll(async () =>
+      (await order.locator("[data-order-id]").allTextContents()).indexOf(
+        "notes",
+      ),
+    )
     .toBe(columns);
   await expect(grip).toBeFocused();
   await page.keyboard.press("Escape");
@@ -108,13 +112,9 @@ test("sortable grid performs two-dimensional keyboard moves and commits pointer 
     target!.y + target!.height / 2,
     { steps: 8 },
   );
-  await expect(order).toHaveText(
-    "notes → photos → music → ideas → links → tasks",
-  );
+  await expect(order.locator("[data-order-id]")).toHaveText(["notes", "photos", "music", "ideas", "links", "tasks"]);
   await page.mouse.up();
-  await expect(order).toHaveText(
-    "photos → notes → music → ideas → links → tasks",
-  );
+  await expect(order.locator("[data-order-id]")).toHaveText(["photos", "notes", "music", "ideas", "links", "tasks"]);
   await expect(page.getByRole("status")).toContainText(
     "Notes moved to position 2",
   );

@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import { ChevronDown } from "../system/icons";
 import * as React from "react";
 import {
@@ -136,7 +138,7 @@ export function PageTransition({
       {page ? (
         <article>
           <Button variant="ghost" onClick={() => navigate(null)}>
-            ← {backLabel}
+            <VectorIcon name="arrow-left" size="1em" /> {backLabel}
           </Button>
           <div
             className="mingu-collection-page-hero"
@@ -179,7 +181,9 @@ export function PageTransition({
                 {p.title}
               </strong>
               {p.description && <span>{p.description}</span>}
-              <span aria-hidden="true">Explore ↗</span>
+              <span aria-hidden="true">
+                Explore <VectorIcon name="external" size="1em" />
+              </span>
             </button>
           ))}
           {!pages.length && <p>No projects yet.</p>}
@@ -233,16 +237,24 @@ export function DynamicStatusIsland({
         onClick={() => setExpanded(!expanded)}
       >
         <span className="mingu-collection-island-dot" aria-hidden="true">
-          {status === "success"
-            ? "✓"
-            : status === "error"
-              ? "!"
-              : status === "working"
-                ? "◌"
-                : "·"}
+          {status === "success" ? (
+            <VectorIcon name="check" size="1em" />
+          ) : status === "error" ? (
+            <VectorIcon name="alert" size="1em" />
+          ) : status === "working" ? (
+            <VectorIcon name="loader" size="1em" />
+          ) : (
+            "·"
+          )}
         </span>
         <span aria-live="polite">{title}</span>
-        <span aria-hidden="true">{expanded ? "−" : "+"}</span>
+        <span aria-hidden="true">
+          {expanded ? (
+            <VectorIcon name="minus" size="1em" />
+          ) : (
+            <VectorIcon name="plus" size="1em" />
+          )}
+        </span>
       </button>
       <div
         id={id}
@@ -397,7 +409,9 @@ export function AnimatedMegaMenu({
                   >
                     {link.label}
                     <small>{link.description}</small>
-                    <span aria-hidden="true">↗</span>
+                    <span aria-hidden="true">
+                      <VectorIcon name="external" size="1em" />
+                    </span>
                   </a>
                 ),
               )}
@@ -584,7 +598,7 @@ export function SortableGrid({
                   }
                 }}
               >
-                ⠿
+                <VectorIcon name="grip" size="1em" />
               </Button>
               <div>{item.content}</div>
             </div>
@@ -648,7 +662,13 @@ export function CardNavigation({
         onClick={() => setExpanded(!expanded)}
       >
         {triggerLabel}
-        <span aria-hidden="true">{expanded ? "−" : "+"}</span>
+        <span aria-hidden="true">
+          {expanded ? (
+            <VectorIcon name="minus" size="1em" />
+          ) : (
+            <VectorIcon name="plus" size="1em" />
+          )}
+        </span>
       </Button>
       <div id={id} hidden={!expanded} className="mingu-collection-nav-cards">
         {groups.map((group, index) => (
@@ -671,7 +691,9 @@ export function CardNavigation({
                   onClick={() => setExpanded(false)}
                 >
                   {link.label}
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">
+                    <VectorIcon name="external" size="1em" />
+                  </span>
                 </a>
               ),
             )}
@@ -1100,7 +1122,7 @@ export function CoverflowCarousel({
           disabled={disabled || enabled.length < 2 || (!loop && active === 0)}
           onClick={() => advance(-1)}
         >
-          ←
+          <VectorIcon name="arrow-left" size="1em" />
         </Button>
         <div aria-live="polite">
           <strong>{current?.title ?? "Empty gallery"}</strong>
@@ -1118,7 +1140,7 @@ export function CoverflowCarousel({
           }
           onClick={() => advance(1)}
         >
-          →
+          <VectorIcon name="arrow-right" size="1em" />
         </Button>
       </div>
     </section>

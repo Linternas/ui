@@ -153,16 +153,16 @@ test("step validation, actual filtered records and table column visibility/order
 }) => {
   await page.goto(visit("stepper"));
   await expect(
-    page.getByRole("button", { name: "Continue →", exact: true }),
+    page.getByRole("button", { name: "Continue", exact: true }),
   ).toBeDisabled();
   await page.getByLabel("Project name", { exact: true }).fill("Fresh idea");
-  await page.getByRole("button", { name: "Continue →", exact: true }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Fresh idea" })).toBeVisible();
-  await page.getByRole("button", { name: "← Back", exact: true }).click();
+  await page.getByRole("button", { name: "Back", exact: true }).click();
   await expect(page.getByLabel("Project name", { exact: true })).toHaveValue(
     "Fresh idea",
   );
-  await page.getByRole("button", { name: "Continue →", exact: true }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
   await page.getByRole("button", { name: "Finish", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Fresh idea is ready." }),
@@ -322,9 +322,9 @@ test("controlled state emits changes without taking ownership", async ({
     "2026-10-23",
   );
   await expect(page.getByLabel("Change request")).toContainText('"start":""');
-  await page.getByRole("button", { name: "Show back ↷", exact: true }).click();
+  await page.getByRole("button", { name: "Show back", exact: true }).click();
   await expect(
-    page.getByRole("button", { name: "Show back ↷", exact: true }),
+    page.getByRole("button", { name: "Show back", exact: true }),
   ).toBeVisible();
   await expect(page.getByLabel("Change request")).toHaveText("true");
 });

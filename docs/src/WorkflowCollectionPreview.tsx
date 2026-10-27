@@ -50,7 +50,8 @@ const projects = [
 ];
 function SetupDemo() {
   const [name, setName] = useState(""),
-    [done, setDone] = useState(false);
+    [done, setDone] = useState(false),
+    [step, setStep] = useState("details");
   return done ? (
     <div className="mingu-workflow">
       <h3>{name} is ready.</h3>
@@ -59,6 +60,9 @@ function SetupDemo() {
     </div>
   ) : (
     <Stepper
+      value={step}
+      onValueChange={setStep}
+      completedIds={step === "review" ? ["details"] : []}
       steps={[
         {
           id: "details",

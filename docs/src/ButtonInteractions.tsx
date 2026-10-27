@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../../src/icons";
+
 import { useEffect, useRef, useState } from "react";
 import { Button, CopyButton, Stack, Text, Badge } from "@mingu/interaction-ui";
 export default function ButtonInteractions() {
@@ -9,13 +11,19 @@ export default function ButtonInteractions() {
     <Stack gap={4}>
       <Stack direction="row" gap={3}>
         <Button interaction="magnetic">
-          Move closer <span aria-hidden="true">↗</span>
+          Move closer{" "}
+          <span aria-hidden="true">
+            <VectorIcon name="external" size="1em" />
+          </span>
         </Button>
         <Button variant="secondary" interaction="ripple">
           Press anywhere
         </Button>
         <Button variant="outline" interaction="shine">
-          Catch the light <span aria-hidden="true">✦</span>
+          Catch the light{" "}
+          <span aria-hidden="true">
+            <VectorIcon name="sparkle" size="1em" />
+          </span>
         </Button>
       </Stack>
       <Stack direction="row" gap={3} align="center">
@@ -45,7 +53,10 @@ export default function ButtonInteractions() {
           label="Copy repository"
           copiedLabel="Copied"
         />
-        <Badge tone="accent">Press → respond → settle</Badge>
+        <Badge tone="accent">
+          Press <VectorIcon name="arrow-right" size="1em" /> respond{" "}
+          <VectorIcon name="arrow-right" size="1em" /> settle
+        </Badge>
       </Stack>
       <Text size="sm" muted>
         포인터를 가까이 움직이거나 버튼의 다른 지점을 눌러 보세요. 저장 버튼은

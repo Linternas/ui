@@ -379,6 +379,29 @@ function Showcase({
                 </UI.Badge>
               ))}
             </UI.Stack>
+            <UI.Stack direction="row" wrap gap="2">
+              {(
+                [
+                  "check",
+                  "close",
+                  "chevron-left",
+                  "chevron-right",
+                  "more",
+                  "plus",
+                  "minus",
+                  "sign",
+                ] as const
+              ).map((name) => (
+                <UI.IconButton
+                  key={name}
+                  label={`${name} icon`}
+                  variant="outline"
+                  onPress={() => notify(`${name} icon pressed`)}
+                >
+                  <UI.Icon name={name} />
+                </UI.IconButton>
+              ))}
+            </UI.Stack>
             <UI.Chip
               label="Design"
               selected={selected}
@@ -389,7 +412,7 @@ function Showcase({
               title={name || "Your profile"}
               description="A native list item"
               leading={<UI.Avatar name={name || "Mingu"} />}
-              trailing={<UI.Text>›</UI.Text>}
+              trailing={<UI.Icon name="chevron-right" />}
               onPress={() => setModal("dialog")}
             />
             <UI.Progress label="Preview progress" value={volume} />

@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useState, useEffect, useRef } from "react";
 import {
   playgroundExperiments,
@@ -168,7 +169,11 @@ export default function ComponentGallery({
       <EmptyState
         title="표시할 컴포넌트가 없습니다"
         description="전체 카탈로그에서 컴포넌트를 찾아보세요."
-        action={<Link href="/all">전체 카탈로그 보기 →</Link>}
+        action={
+          <Link href="/all">
+            전체 카탈로그 보기 <VectorIcon name="arrow-right" size="1em" />
+          </Link>
+        }
       />
     );
   return (
@@ -263,7 +268,9 @@ export default function ComponentGallery({
                   aria-label={`${entry.name} 코드 보기`}
                   title="컴포넌트·코드"
                 >
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">
+                    <VectorIcon name="external" size="1em" />
+                  </span>
                 </Link>
               </footer>
             </article>
@@ -319,11 +326,11 @@ export default function ComponentGallery({
                 href={catalogHref(expanded.id)}
                 onClick={() => setExpanded(null)}
               >
-                컴포넌트·코드 →
+                컴포넌트·코드 <VectorIcon name="arrow-right" size="1em" />
               </Link>
               {experiment && (
                 <Link href={experiment.path} onClick={() => setExpanded(null)}>
-                  Playground에서 열기 ↗
+                  Playground에서 열기 <VectorIcon name="external" size="1em" />
                 </Link>
               )}
             </div>

@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useEffect, useRef, useState } from "react";
 import {
   ImageLightbox,
@@ -370,7 +371,7 @@ export default function EverydayPreview({
                 scroll.current?.scrollTo({ top: 0, behavior: "instant" })
               }
             >
-              Top ↑
+              Top <VectorIcon name="arrow-up" size="1em" />
             </Button>
           </SmartHeader>
           <div className="ui-header-story">
@@ -425,7 +426,7 @@ export default function EverydayPreview({
       return (
         <div className="ui-everyday-stack">
           <Button variant="outline" onClick={() => setOpen(true)}>
-            Open filters ↑
+            Open filters <VectorIcon name="arrow-up" size="1em" />
           </Button>
           <Text muted size="sm">
             {published ? "Showing published entries" : "Showing all entries"}

@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "../icons";
+
 import * as React from "react";
 
 import {
@@ -706,7 +708,7 @@ export function Dialog({
           onClick={() => onOpenChange(false)}
           aria-label={closeLabel}
         >
-          ×
+          <VectorIcon name="close" size={20} />
         </Button>
       </header>
       {description && (

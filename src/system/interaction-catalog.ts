@@ -675,7 +675,7 @@ export const interactionExamples: Record<InteractionComponentId, string> = {
   "file-dropzone":
     '<FileDropzone label="Images" name="images" accept="image/*" maxFiles={4} maxSize={10485760} onUpload={(file, {signal,onProgress}) => uploadFile(file, {signal,onProgress})} />',
   "radial-menu":
-    '<RadialMenu label="Create" onSelect={id => console.log(id)} items={[{id:"note",label:"New note",icon:"+"},{id:"image",label:"Add image",icon:"▧"},{id:"link",label:"Add link",icon:"↗"},{id:"folder",label:"New folder",icon:"□"}]} />',
+    '<RadialMenu label="Create" onSelect={id => console.log(id)} items={[{id:"note",label:"New note",icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>},{id:"image",label:"Add image",icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M3 4h18v16H3zM3 16l5-5 5 5 3-3 5 5" /></svg>},{id:"link",label:"Add link",icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" /></svg>},{id:"folder",label:"New folder",icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M5 5h14v14H5z" /></svg>}]} />',
   "preview-link":
     '<p>Explore <PreviewLink href="/projects" preview={{src:"/project.jpg",title:"Selected work",description:"A closer look at the details."}}>selected work</PreviewLink>.</p>',
   "morphing-search":
@@ -687,7 +687,7 @@ export const interactionExamples: Record<InteractionComponentId, string> = {
   "image-compare":
     '<ImageCompare before={{src:"/before.jpg",alt:"Original image"}} after={{src:"/after.jpg",alt:"Edited image"}} />',
   "focus-dock":
-    '<FocusDock defaultValue="home" onValueChange={id => console.log(id)} items={[{id:"home",label:"Home",icon:"⌂"},{id:"work",label:"Work",icon:"▧"},{id:"settings",label:"Settings",icon:"⚙"}]} />',
+    '<FocusDock defaultValue="home" onValueChange={id => console.log(id)} items={[{id:"home",label:"Home",icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="m3 10 9-7 9 7v11H3zM9 21v-8h6v8" /></svg>},{id:"work",label:"Work",icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M3 4h18v16H3zM3 16l5-5 5 5 3-3 5 5" /></svg>},{id:"settings",label:"Settings",icon:<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M9 3h6l1 4 4 1v8l-4 1-1 4H9l-1-4-4-1V8l4-1z" /></svg>}]} />',
   "command-palette":
     '<CommandPalette open={open} onOpenChange={setOpen} onSelect={id => console.log(id)} shortcut items={[{id:"new",label:"New project",keywords:["create"]},{id:"search",label:"Search files"}]} />',
   "scramble-text":

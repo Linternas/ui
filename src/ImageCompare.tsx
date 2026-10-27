@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useRef, type CSSProperties } from "react";
 import { useControllable } from "./shared";
@@ -74,7 +76,10 @@ export function ImageCompare({
         {afterLabel}
       </span>
       <div className="mingu-compare-divider" aria-hidden="true">
-        <span>‹ ›</span>
+        <span>
+          <VectorIcon name="chevron-left" size="1em" />{" "}
+          <VectorIcon name="chevron-right" size="1em" />
+        </span>
       </div>
       <input
         type="range"

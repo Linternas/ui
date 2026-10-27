@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useId, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
@@ -121,7 +123,7 @@ export function MorphingSearch({
                 input.current?.focus();
               }}
             >
-              ×
+              <VectorIcon name="close" size="1em" />
             </button>
           )}
           <button
@@ -131,7 +133,7 @@ export function MorphingSearch({
             disabled={disabled}
             onClick={close}
           >
-            −
+            <VectorIcon name="minus" size="1em" />
           </button>
         </>
       ) : (

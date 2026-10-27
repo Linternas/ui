@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useEffect, useState } from "react";
 import {
   DesignSystemProvider,
@@ -49,7 +50,7 @@ export default function NativePage() {
             target="_blank"
             rel="noreferrer"
           >
-            API ↗
+            API <VectorIcon name="external" size="1em" />
           </a>
           <Select
             aria-label="Native docs theme"
@@ -78,10 +79,10 @@ export default function NativePage() {
           </Text>
           <Stack direction="row">
             <a href="https://github.com/Linternas/ui/tree/main/examples/native">
-              모바일 예제 실행 ↗
+              모바일 예제 실행 <VectorIcon name="external" size="1em" />
             </a>
             <a href="https://github.com/Linternas/ui/blob/main/NATIVE.md">
-              설치 · 전체 API ↗
+              설치 · 전체 API <VectorIcon name="external" size="1em" />
             </a>
           </Stack>
         </section>

@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -71,14 +73,25 @@ export function CodeBlock({
       <figcaption className="mru-code-header">
         <span className="mru-code-file">{filename ?? language}</span>
         <span className="mru-code-language">{filename ? language : ""}</span>
-        <button type="button" onClick={copy} aria-label={labels.copy ?? "Copy code"}>
-          {copyState === "copied" ? (labels.copied ?? "Copied ✓") : (labels.copy ?? "Copy")}
+        <button
+          type="button"
+          onClick={copy}
+          aria-label={labels.copy ?? "Copy code"}
+        >
+          {copyState === "copied"
+            ? (labels.copied ?? (
+                <>
+                  Copied <VectorIcon name="check" size="1em" />
+                </>
+              ))
+            : (labels.copy ?? "Copy")}
         </button>
         <span className="mru-sr-only" role="status">
           {copyState === "copied"
             ? (labels.success ?? "Code copied to clipboard")
             : copyState === "error"
-              ? (labels.error ?? "Could not copy. Select and copy the code manually.")
+              ? (labels.error ??
+                "Could not copy. Select and copy the code manually.")
               : ""}
         </span>
       </figcaption>

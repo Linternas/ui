@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useState, useEffect, useRef } from "react";
 import { DesignSystemProvider, Select } from "@mingu/interaction-ui";
 import {
@@ -36,7 +37,7 @@ export default function ExperimentalPlayground({
             target="_blank"
             rel="noopener noreferrer"
           >
-            GitHub ↗
+            GitHub <VectorIcon name="external" size="1em" />
           </a>
           <Select
             value={theme}
@@ -72,7 +73,9 @@ export default function ExperimentalPlayground({
             >
               <span>{e.number}</span>
               {e.name}
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">
+                <VectorIcon name="external" size="1em" />
+              </span>
             </Link>
           ))}
         </nav>
@@ -82,7 +85,10 @@ export default function ExperimentalPlayground({
         <footer className="experiment-footer">
           <span>Make something happen.</span>
           <Link href={catalogHref(id)}>
-            Component & API <span aria-hidden="true">↗</span>
+            Component & API{" "}
+            <span aria-hidden="true">
+              <VectorIcon name="external" size="1em" />
+            </span>
           </Link>
         </footer>
       </main>

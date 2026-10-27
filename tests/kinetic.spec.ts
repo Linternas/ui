@@ -41,7 +41,7 @@ test("flip card keeps inactive face inert and restores toggle on Escape", async 
 }) => {
   await page.goto(visit("flip-card"));
   await expect(page.locator(".mingu-flip-back")).toHaveAttribute("inert", "");
-  await page.getByRole("button", { name: "Show back ↷", exact: true }).click();
+  await page.getByRole("button", { name: "Show back", exact: true }).click();
   await expect(page.locator(".mingu-flip-face").first()).toHaveAttribute(
     "inert",
     "",
@@ -51,7 +51,7 @@ test("flip card keeps inactive face inert and restores toggle on Escape", async 
     .focus();
   await page.keyboard.press("Escape");
   await expect(
-    page.getByRole("button", { name: "Show back ↷", exact: true }),
+    page.getByRole("button", { name: "Show back", exact: true }),
   ).toBeFocused();
 });
 test("generated maze can actually be solved by focused arrow controls and reset", async ({
@@ -163,7 +163,7 @@ test("shadow presets, layers and actual copied styles stay consistent", async ({
   ).toHaveCount(2);
 });
 for (const [id, action] of [
-  ["confetti-burst", "Launch confetti ✦"],
+  ["confetti-burst", "Launch confetti"],
   ["vector-field", "Add center charge"],
   ["reaction-diffusion", "Step pattern"],
   ["terrain-mesh", "New terrain"],

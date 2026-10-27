@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
@@ -241,7 +243,13 @@ export function SwipeActions({
           }
         >
           {side ? closeLabel : actionsLabel}
-          <span aria-hidden="true">{side ? "×" : "↔"}</span>
+          <span aria-hidden="true">
+            {side ? (
+              <VectorIcon name="close" size="1em" />
+            ) : (
+              <VectorIcon name="move" size="1em" />
+            )}
+          </span>
         </Button>
         {startActions.length > 0 && endActions.length > 0 && (
           <Button
@@ -251,7 +259,7 @@ export function SwipeActions({
             onClick={() => setSide(side === "start" ? "end" : "start")}
             aria-label="Show other actions"
           >
-            ⇄
+            <VectorIcon name="swap" size="1em" />
           </Button>
         )}
       </div>

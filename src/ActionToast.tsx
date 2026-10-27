@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -96,7 +98,7 @@ function ActionToastRow({
         aria-label={`Dismiss ${message.title}`}
         onClick={dismiss}
       >
-        ×
+        <VectorIcon name="close" size="1em" />
       </Button>
     </motion.div>
   );

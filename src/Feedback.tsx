@@ -1,4 +1,6 @@
 "use client";
+import { Icon as VectorIcon } from "./icons";
+
 import * as React from "react";
 import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -107,7 +109,7 @@ export function EmojiReaction({
         aria-controls={open ? id : undefined}
         onClick={() => setOpen(!open)}
       >
-        {chosen || "☺"}
+        {chosen || <VectorIcon name="smile" size="1em" />}
         <span>{chosen ? "Reacted" : "React"}</span>
       </button>
       {burst > 0 && (
@@ -136,7 +138,8 @@ export function EmojiReaction({
     </div>
   );
 }
-export interface NotificationBellProps extends Omit<React.ComponentProps<"button">, "children"> {
+export interface NotificationBellProps
+  extends Omit<React.ComponentProps<"button">, "children"> {
   count?: number;
   label?: string;
   size?: "default" | "compact";
@@ -169,7 +172,9 @@ export function NotificationBell({
       <motion.span
         key={rings}
         className="mi-notification-icon"
-        animate={{ rotate: rings && !reduced ? [0, -19, 17, -12, 9, -4, 0] : 0 }}
+        animate={{
+          rotate: rings && !reduced ? [0, -19, 17, -12, 9, -4, 0] : 0,
+        }}
         transition={{ duration: 0.65 }}
       >
         <Icon name="bell" size={size === "compact" ? 20 : 31} />

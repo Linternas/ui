@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import { useState } from "react";
 import {
   Badge,
@@ -42,7 +43,7 @@ export default function SystemBench() {
         >
           <InteractiveCard effect="spotlight" className="landing-product-card">
             <div className="landing-product-symbol" aria-hidden="true">
-              ✳
+              <VectorIcon name="sparkle" size="1em" />
             </div>
             <Badge>Made by you</Badge>
             <h3>

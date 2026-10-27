@@ -31,7 +31,7 @@ for (const width of [1440, 320])
       nativeCatalog.length,
     );
     await expect(
-      page.getByRole("link", { name: "모바일 예제 실행 ↗", exact: true }),
+      page.getByRole("link", { name: "모바일 예제 실행", exact: true }),
     ).toHaveAttribute("href", /examples\/native/);
     await expect(
       page.getByRole("heading", { name: "휴대폰에서 직접 확인하기" }),

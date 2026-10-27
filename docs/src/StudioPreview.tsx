@@ -1,3 +1,4 @@
+import { Icon as VectorIcon } from "../../src/icons";
 import {
   ImageLens,
   DirectionalCard,
@@ -52,7 +53,10 @@ export default function StudioPreview({
                 id: "react",
                 content: (
                   <span className="ui-ticker-chip">
-                    <i aria-hidden="true">◉</i>React
+                    <i aria-hidden="true">
+                      <VectorIcon name="circle" size="1em" />
+                    </i>
+                    React
                   </span>
                 ),
               },
@@ -76,7 +80,10 @@ export default function StudioPreview({
                 id: "design",
                 content: (
                   <span className="ui-ticker-chip">
-                    <i aria-hidden="true">◇</i>Good design
+                    <i aria-hidden="true">
+                      <VectorIcon name="diamond" size="1em" />
+                    </i>
+                    Good design
                   </span>
                 ),
               },

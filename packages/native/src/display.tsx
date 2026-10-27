@@ -1,3 +1,4 @@
+import { Icon } from "./icons";
 import React, { useEffect, useState, type ReactNode } from "react";
 import {
   View,
@@ -106,7 +107,7 @@ export function Chip({
             justifyContent: "center",
           }}
         >
-          <Text>×</Text>
+          <Icon name="close" />
         </Pressable>
       )}
     </View>
@@ -465,7 +466,7 @@ export function Accordion({
         <Text weight="medium" style={{ flex: 1 }}>
           {title}
         </Text>
-        <Text accessible={false}>{expanded ? "−" : "+"}</Text>
+        <Icon name={expanded ? "minus" : "plus"} />
       </Pressable>
       {expanded && (
         <View style={{ padding: 16, paddingTop: 0, gap: 12 }}>{children}</View>
