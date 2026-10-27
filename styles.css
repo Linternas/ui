@@ -326,6 +326,28 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mru-toc-cursor:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mru-toc-list a:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mru-progress-ring
+    circle:last-child:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+  .mru-progress-panel:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    animation: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mru-toc-cursor,
+    .mru-toc-list a,
+    .mru-progress-ring circle:last-child {
+      transition: none;
+    }
+    .mru-progress-panel {
+      animation: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mru-toc-cursor,
   .mru-toc-list a,
   .mru-progress-ring circle:last-child {

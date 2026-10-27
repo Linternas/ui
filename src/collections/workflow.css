@@ -614,6 +614,22 @@ fieldset.mingu-workflow {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-workflow *:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-workflow
+    *:not(:where([data-mingu-motion], [data-mingu-motion] *))::before {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-workflow *,
+    .mingu-workflow *::before {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-workflow *,
   .mingu-workflow *::before {
     transition: none !important;

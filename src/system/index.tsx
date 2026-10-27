@@ -16,3 +16,10 @@ export {
 } from "./ui-catalog";
 
 export * from "./micro-interactions";
+
+export { InteractionProvider, useMotionSettings } from "../motion-policy";
+export type {
+  MotionPreference,
+  MotionSettings,
+  InteractionProviderProps,
+} from "../motion-policy";

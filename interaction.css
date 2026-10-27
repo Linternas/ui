@@ -1146,6 +1146,31 @@ button:where([class^="mi-"]):disabled {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  [class^="mi-"]:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    animation: none !important;
+    transition: none !important;
+  }
+  .mi-counter-wheel:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+  .mi-shimmer:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    color: var(--mru-text, #333);
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    [class^="mi-"] {
+      animation: none !important;
+      transition: none !important;
+    }
+    .mi-counter-wheel {
+      transition: none;
+    }
+    .mi-shimmer {
+      color: var(--mru-text, #333);
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   [class^="mi-"] {
     animation: none !important;
     transition: none !important;
@@ -1473,6 +1498,17 @@ button:where([class^="mi-"]):disabled {
   overflow-wrap: anywhere;
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-dock-item:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transform: none !important;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-dock-item {
+      transform: none !important;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-dock-item {
     transform: none !important;
   }
@@ -1754,6 +1790,17 @@ button:where([class^="mi-"]):disabled {
   cursor: not-allowed;
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-radial-orbit:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-radial-orbit {
+      transition: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-radial-orbit {
     transition: none;
   }
@@ -2316,6 +2363,41 @@ button:where([class^="mi-"]):disabled {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-lightbox-thumbnails
+    img:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-expandable-trigger:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-resizable:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-inline-trigger
+    > span:last-child:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-smart-header:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-dropzone-target:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ) {
+    transition: none !important;
+  }
+  .mingu-lightbox-thumbnails
+    button:hover
+    img:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transform: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-lightbox-thumbnails img,
+    .mingu-expandable-trigger,
+    .mingu-resizable,
+    .mingu-inline-trigger > span:last-child,
+    .mingu-smart-header,
+    .mingu-dropzone-target {
+      transition: none !important;
+    }
+    .mingu-lightbox-thumbnails button:hover img {
+      transform: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-lightbox-thumbnails img,
   .mingu-expandable-trigger,
   .mingu-resizable,
@@ -2543,6 +2625,25 @@ button:where([class^="mi-"]):disabled {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-lens-window:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+  .mingu-ticker-track:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    animation: none;
+    transform: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-lens-window {
+      transition: none;
+    }
+    .mingu-ticker-track {
+      animation: none;
+      transform: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-lens-window {
     transition: none;
   }
@@ -2867,6 +2968,38 @@ button:where([class^="mi-"]):disabled {
   width: 100%;
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-avatar-person:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+  .mingu-avatar-person:is(:hover, :focus-visible):not(
+      :where([data-mingu-motion], [data-mingu-motion] *)
+    ) {
+    transform: none;
+  }
+  .mingu-cursor-stamps:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    display: none;
+  }
+  .mingu-text-reveal
+    span:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    opacity: 1 !important;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-avatar-person {
+      transition: none;
+    }
+    .mingu-avatar-person:is(:hover, :focus-visible) {
+      transform: none;
+    }
+    .mingu-cursor-stamps {
+      display: none;
+    }
+    .mingu-text-reveal span {
+      opacity: 1 !important;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-avatar-person {
     transition: none;
   }
@@ -3154,6 +3287,25 @@ button:where([class^="mi-"]):disabled {
   font-size: var(--mingu-text-sm);
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-long-surface:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+  .mingu-long-surface[data-pressing]:not(
+      :where([data-mingu-motion], [data-mingu-motion] *)
+    ) {
+    transform: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-long-surface {
+      transition: none;
+    }
+    .mingu-long-surface[data-pressing] {
+      transform: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-long-surface {
     transition: none;
   }

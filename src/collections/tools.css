@@ -609,6 +609,21 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-tool *:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-tool * {
+      scroll-behavior: auto !important;
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-tool * {
     scroll-behavior: auto !important;
     transition: none !important;

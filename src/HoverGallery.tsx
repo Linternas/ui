@@ -1,7 +1,11 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import * as React from "react";
 import { useId, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+
 import { selectionSpring } from "./system/motion-tokens";
 import { useControllable } from "./shared";
 export interface HoverGalleryItem {

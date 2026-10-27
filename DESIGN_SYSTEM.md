@@ -21,7 +21,7 @@ Mingu 웹의 공통 디자인 시스템. 차분한 기본 화면 위에 목적�
 - 네이티브 HTML의 폼 동작, 키보드 조작, 접근성 이름을 유지한다.
 - 로딩·비활성·오류·빈 상태를 화면 설계에 포함한다. 상태를 색으로만 전달하지 않는다.
 - 시스템은 화면을 제공한다. 인증·삭제·주문·데이터 저장은 소비 앱이 처리한다.
-- 사용자가 모션 감소를 설정하면 반복 애니메이션을 중지한다.
+- 기본 모션 정책은 OS 설정을 따르는 `system`이다. 소비 앱은 Provider의 `motion`으로 `full` 또는 `reduced`를 명시할 수 있다.
 
 ## 설치와 시작
 
@@ -80,6 +80,30 @@ Next.js는 `transpilePackages: ['@mingu/interaction-ui']`를 설정하고 CSS를
 ```
 
 브랜드 색을 변경할 때 `accent`, `on-accent`, `accent-soft`를 함께 검토한다. 밝은·어두운 모드 각각에서 본문 대비와 키보드 포커스를 확인한다. 임의 테마 값의 대비를 시스템이 자동 보장하지는 않는다.
+
+## 전역 모션 정책 (0.27.0)
+
+웹의 `DesignSystemProvider`와 `InteractionProvider`는 `motion?: 'system' | 'full' | 'reduced'`를 받는다. 최상위에서 생략하면 `system`, 중첩 Provider에서 생략하면 상위 정책을 상속한다. 중첩 영역에 `motion="system"`을 명시하면 상위의 강제 설정 대신 OS 설정을 따른다.
+
+| 값 | 동작 |
+| --- | --- |
+| `system` | `prefers-reduced-motion`을 따르고 OS 설정 변경에도 새로고침 없이 반응한다. |
+| `full` | OS의 모션 감소 요청과 관계없이 Mingu의 전체 시각 효과를 허용한다. |
+| `reduced` | 반복 효과·이동·CSS 전환을 줄이고 Canvas를 정적으로 표시한다. 입력·선택·키보드·수동 조작은 유지한다. |
+
+```tsx
+import { DesignSystemProvider, Button } from '@mingu/interaction-ui/system';
+
+<DesignSystemProvider motion="system">
+  <App />
+</DesignSystemProvider>
+```
+
+설정 화면에서 앱이 보관한 값을 `motion`에 전달하면 된다. 라이브러리는 OS 설정이나 저장소를 변경하지 않는다. `useMotionSettings()`는 현재 `{ motion, reducedMotion }`을 반환하므로 앱의 별도 시각 효과도 같은 정책에 연결할 수 있다. 정책을 바꿔도 하위 화면을 재마운트하지 않으며 입력값을 유지한다. 컴포넌트의 `paused`, disabled, 화면 밖 작업 중단, 터치 입력 규칙은 그대로 적용된다. `full`은 효과를 허용하며 기능상 정지 조건을 무시하지 않는다.
+
+Interaction만 쓰는 앱은 `<InteractionProvider motion="full">...</InteractionProvider>`로 감싼다. 이 Provider는 CSS 범위를 위한 `display: contents` div 한 개를 만든다. `DesignSystemProvider`는 기존 div에 범위를 표시하며 추가 래퍼를 만들지 않는다. CSS의 중첩 정책 격리는 현대 브라우저의 [`@scope`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope)를 사용한다. Provider 밖에서는 기존 OS 기준 축소 규칙을 유지한다. iframe 안에서 실행하는 사용자 작성 코드나 다른 라이브러리의 효과는 자체 정책을 따른다.
+
+`ui.mingu.xyz`의 앱 진입점은 `motion="full"`로 고정한다. 이는 데모 사이트 설정이며 소비 앱의 기본값을 변경하지 않는다.
 
 ## 토큰
 
@@ -173,7 +197,7 @@ npm run test:browser
 - `Tabs animated`는 선택 배경을 이어 움직이고 활성 패널을 짧게 전환한다. 기본 키보드 규칙은 같다.
 - `InteractiveCard effect="spotlight" | "tilt"`는 테마 색으로 표면·테두리에 반응한다. tilt는 각 축 최대 3.5도다. 카드 자체를 불필요한 버튼으로 만들지 않으며 실제 액션은 내부 링크/버튼에 둔다.
 
-모션 토큰은 `tokens.css`, 선택 스프링은 `src/system/motion-tokens.ts`에서 관리한다. 이동과 반복 효과는 `prefers-reduced-motion`에서 중지하고, 터치에서는 자석 이동·카드 기울기를 사용하지 않는다. pressed/selected/disabled 상태는 애니메이션 없이도 구별된다.
+모션 토큰은 `tokens.css`, 선택 스프링은 `src/system/motion-tokens.ts`에서 관리한다. 기본 `system` 정책에서는 이동과 반복 효과를 `prefers-reduced-motion`에 맞춰 줄이고, 터치에서는 자석 이동·카드 기울기를 사용하지 않는다. pressed/selected/disabled 상태는 애니메이션 없이도 구별된다.
 
 ## Docs deployment
 
@@ -408,3 +432,5 @@ Native 앱은 `@mingu/interaction-ui/native` 전용 진입점을 사용한다. `
 체크·닫기·탐색·정렬·상태 아이콘은 폰트 문자를 사용하지 않는다. 웹 내부 공통 SVG는 `src/icons.tsx`에 있고, 기존 `src/shared.tsx`의 Icon import도 같은 구현으로 연결된다. `currentColor`, 고정 viewBox와 공통 stroke를 사용하고 기본적으로 접근성 트리에서 제외한다. 아이콘만 있는 버튼은 별도의 이름이 필수다. 키 안내처럼 독립된 아이콘에 의미가 필요한 경우 `label`을 제공한다.
 
 Native는 `/native`의 기존 `Icon`을 사용한다. RN View 도형을 그리므로 DOM SVG나 추가 네이티브 모듈이 필요하지 않다. 두 플랫폼 모두 글꼴·행간에 아이콘 모양을 의존하지 않는다. 배속·치수·숫자 부호와 사용자가 선택한 emoji 반응은 실제 데이터이므로 문자로 유지한다.
+
+[0.27.0 모션 정책 검증과 화면](./docs/qa/motion-policy-2026-10-27.md)에서 확인한 범위를 볼 수 있다.

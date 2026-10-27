@@ -541,6 +541,19 @@ select.mingu-select:not([multiple]):where(
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-spinner:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-skeleton:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    animation: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-spinner,
+    .mingu-skeleton {
+      animation: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-spinner,
   .mingu-skeleton {
     animation: none;
@@ -1102,6 +1115,19 @@ html:has(dialog.mingu-dialog[open]) {
   overscroll-behavior: contain;
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-progress-bar:indeterminate:not(
+      :where([data-mingu-motion], [data-mingu-motion] *)
+    ) {
+    animation: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-progress-bar:indeterminate {
+      animation: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-progress-bar:indeterminate {
     animation: none;
   }
@@ -1476,6 +1502,73 @@ html:has(dialog.mingu-dialog[open]) {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-button:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-button:not(:where([data-mingu-motion], [data-mingu-motion] *))::after,
+  .mingu-button-ripple:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-input:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-checkbox input:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-checkbox
+    input:not(:where([data-mingu-motion], [data-mingu-motion] *))::before,
+  .mingu-switch-track:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-switch-track:not(
+      :where([data-mingu-motion], [data-mingu-motion] *)
+    )::after,
+  .mingu-floating-control
+    label:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-focus-line:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-interactive-card:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-interactive-card:not(
+      :where([data-mingu-motion], [data-mingu-motion] *)
+    )::before,
+  .mingu-copy-label
+    > span:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none !important;
+  }
+  .mingu-button:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-interactive-card:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ) {
+    transform: none !important;
+  }
+  .mingu-button:not(:where([data-mingu-motion], [data-mingu-motion] *))::after,
+  .mingu-button-ripple:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-state-path:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-tabs[data-animated]
+    .mingu-tabpanel:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    animation: none !important;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-button,
+    .mingu-button::after,
+    .mingu-button-ripple,
+    .mingu-input,
+    .mingu-checkbox input,
+    .mingu-checkbox input::before,
+    .mingu-switch-track,
+    .mingu-switch-track::after,
+    .mingu-floating-control label,
+    .mingu-focus-line,
+    .mingu-interactive-card,
+    .mingu-interactive-card::before,
+    .mingu-copy-label > span {
+      transition: none !important;
+    }
+    .mingu-button,
+    .mingu-interactive-card {
+      transform: none !important;
+    }
+    .mingu-button::after,
+    .mingu-button-ripple,
+    .mingu-state-path,
+    .mingu-tabs[data-animated] .mingu-tabpanel {
+      animation: none !important;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-button,
   .mingu-button::after,
   .mingu-button-ripple,
@@ -1562,6 +1655,18 @@ html:has(dialog.mingu-dialog[open]) {
   transform: translateY(-100%);
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-action-label
+    > span:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-action-label > span {
+      transition: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-action-label > span {
     transition: none;
   }
@@ -1619,6 +1724,26 @@ html:has(dialog.mingu-dialog[open]) {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-progress-fill:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+  .mingu-progress-track[data-indeterminate]
+    .mingu-progress-fill:not(
+      :where([data-mingu-motion], [data-mingu-motion] *)
+    ) {
+    animation: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-progress-fill {
+      transition: none;
+    }
+    .mingu-progress-track[data-indeterminate] .mingu-progress-fill {
+      animation: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-progress-fill {
     transition: none;
   }

@@ -1,9 +1,13 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import { Icon as VectorIcon } from "./icons";
 
 import * as React from "react";
 import { useEffect, useId, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+
 import { useControllable } from "./shared";
 import { selectionSpring } from "./system/motion-tokens";
 

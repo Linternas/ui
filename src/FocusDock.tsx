@@ -1,13 +1,15 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import * as React from "react";
 import { useEffect, useState, useRef, type ReactNode } from "react";
 import {
-  motion,
   useMotionValue,
   useTransform,
   useSpring,
   useMotionTemplate,
-  useReducedMotion,
   type MotionValue,
 } from "motion/react";
 import { useControllable } from "./shared";

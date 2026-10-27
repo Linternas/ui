@@ -1,4 +1,8 @@
 "use client";
+import { useReducedMotion } from "../motion-policy";
+
+import { motion } from "../motion";
+
 import * as React from "react";
 import {
   useEffect,
@@ -8,7 +12,7 @@ import {
   type ComponentProps,
   type HTMLAttributes,
 } from "react";
-import { motion, useReducedMotion } from "motion/react";
+
 import { selectionSpring, pointerMotion } from "./motion-tokens";
 import { Button, Input, type TextFieldProps } from "./base";
 import { useControllable } from "../shared";
@@ -191,6 +195,7 @@ export function InteractiveCard({
   onPointerLeave,
   ...props
 }: HTMLAttributes<HTMLDivElement> & { effect?: "spotlight" | "tilt" }) {
+  const reduced = useReducedMotion();
   return (
     <div
       {...props}
@@ -198,11 +203,7 @@ export function InteractiveCard({
       data-effect={effect}
       onPointerMove={(event) => {
         onPointerMove?.(event);
-        if (
-          event.defaultPrevented ||
-          event.pointerType === "touch" ||
-          matchMedia("(prefers-reduced-motion: reduce)").matches
-        )
+        if (event.defaultPrevented || event.pointerType === "touch" || reduced)
           return;
         const rect = event.currentTarget.getBoundingClientRect();
         const x = Math.max(

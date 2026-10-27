@@ -1,7 +1,11 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import * as React from "react";
 import { useEffect, useRef, useState, type ComponentProps } from "react";
-import { motion, useSpring, useReducedMotion } from "motion/react";
+import { useSpring } from "motion/react";
 import { previewSpring, gestureMotion } from "./system/motion-tokens";
 
 export interface LinkPreview {

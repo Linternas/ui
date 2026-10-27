@@ -358,6 +358,20 @@
   display: none;
 }
 @media (prefers-reduced-motion: reduce) {
+  :is(.mingu-kinetic, .mingu-design-lab)
+    *:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    :is(.mingu-kinetic, .mingu-design-lab) * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   :is(.mingu-kinetic, .mingu-design-lab) * {
     animation: none !important;
     transition: none !important;

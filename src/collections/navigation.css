@@ -508,6 +508,80 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-collection-project:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-collection-status-island:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-collection-coverflow-card:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-collection-story-copy
+    > article:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+  .mingu-collection-project:hover:not(
+      :where([data-mingu-motion], [data-mingu-motion] *)
+    ) {
+    transform: none;
+  }
+  .mingu-collection-island-dot:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-collection-island-detail:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-collection-mega-content:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-collection-nav-cards
+    > section:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-collection-story-preview
+    > div:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    animation: none !important;
+  }
+  .mingu-collection-stack-card:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-collection-reveal-footer:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ) {
+    position: static !important;
+  }
+  .mingu-collection-expand-frame:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ) {
+    will-change: auto;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-collection-project,
+    .mingu-collection-status-island,
+    .mingu-collection-coverflow-card,
+    .mingu-collection-story-copy > article {
+      transition: none;
+    }
+    .mingu-collection-project:hover {
+      transform: none;
+    }
+    .mingu-collection-island-dot,
+    .mingu-collection-island-detail,
+    .mingu-collection-mega-content,
+    .mingu-collection-nav-cards > section,
+    .mingu-collection-story-preview > div {
+      animation: none !important;
+    }
+    .mingu-collection-stack-card,
+    .mingu-collection-reveal-footer {
+      position: static !important;
+    }
+    .mingu-collection-expand-frame {
+      will-change: auto;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-collection-project,
   .mingu-collection-status-island,
   .mingu-collection-coverflow-card,

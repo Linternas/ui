@@ -1,7 +1,11 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import * as React from "react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+
 import { selectionSpring } from "./system/motion-tokens";
 
 export interface RadialAction {

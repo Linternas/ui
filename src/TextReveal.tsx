@@ -1,7 +1,9 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
 import * as React from "react";
 import { useEffect, useRef, useState, type RefObject } from "react";
-import { useReducedMotion } from "motion/react";
+
 export interface TextRevealProps {
   text: string;
   containerRef?: RefObject<HTMLElement | null>;

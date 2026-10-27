@@ -529,6 +529,27 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-creative *:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .mingu-creative
+    *:not(:where([data-mingu-motion], [data-mingu-motion] *))::before,
+  .mingu-creative
+    *:not(:where([data-mingu-motion], [data-mingu-motion] *))::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-creative *,
+    .mingu-creative *::before,
+    .mingu-creative *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-creative *,
   .mingu-creative *::before,
   .mingu-creative *::after {

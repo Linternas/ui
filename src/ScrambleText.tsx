@@ -1,4 +1,6 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
 import * as React from "react";
 import {
   useCallback,
@@ -8,7 +10,7 @@ import {
   useImperativeHandle,
   type ComponentProps,
 } from "react";
-import { useReducedMotion } from "motion/react";
+
 import { explorationMotion } from "./system/motion-tokens";
 
 export interface ScrambleTextProps

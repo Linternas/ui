@@ -1,9 +1,11 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
 import { Icon as VectorIcon } from "./icons";
 
 import * as React from "react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { useReducedMotion } from "motion/react";
+
 import { Button } from "./system/base";
 export interface ImageLensProps {
   src: string;

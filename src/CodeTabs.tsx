@@ -1,6 +1,10 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import * as React from "react";
-import { motion, useReducedMotion } from "motion/react";
+
 import { CodeBlock, type CodeBlockProps } from "./CodeBlock";
 import { Tabs } from "./system/base";
 import { useControllable } from "./shared";

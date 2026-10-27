@@ -11,8 +11,11 @@ test("filter removes outgoing items from flow immediately and finishes its exit 
   const outgoing = stage.locator(
     '.mingu-filter-results > [aria-hidden="true"]',
   );
-  for (const element of await outgoing.all())
-    await expect(element).toHaveCSS("position", "absolute");
+  // Read transient exit styles atomically; cards may unmount between locator calls.
+  const positions = await outgoing.evaluateAll((elements) =>
+    elements.map((el) => getComputedStyle(el).position),
+  );
+  for (const position of positions) expect(position).toBe("absolute");
   await expect(outgoing).toHaveCount(0, { timeout: 500 });
   await stage.getByText("All · 4", { exact: true }).click();
   await stage.getByText("Web · 2", { exact: true }).click();

@@ -14,7 +14,7 @@ test("public exports retain typed props without inheriting stricter consumer com
       join(fixture, "consumer.tsx"),
       `
 import {DateRangePicker,TimePicker,RangeSlider,TreeSelect,Cascader,MentionInput,Stepper,FilterBuilder,ColumnManager,SchedulePicker,DraggableWindow,NotificationInbox,FlipCard,MazeRunner,ConfettiBurst,VectorField,ReactionDiffusion,TerrainMesh,PendulumWave,ClipPathEditor,ContrastChecker,ShadowEditor,ModelSelector,FileDropzone,MultiSelect,TransferList,Rating,UndoHistory,GradientEditor,PixelEditor,ScratchCard,CircularDial,NotificationBell} from '@mingu/interaction-ui';
-import {Button,Input,Dialog} from '@mingu/interaction-ui/system';
+import {Button,Input,Dialog,DesignSystemProvider,InteractionProvider,useMotionSettings,type MotionPreference} from '@mingu/interaction-ui/system';
 import {uiCatalog} from '@mingu/interaction-ui/catalog';
 const models=[{id:'local:test',name:'Test',provider:'Local'}];
 const picker=<ModelSelector models={models} labels={{search:'모델 검색'}} onValueChange={id=>id.toUpperCase()}/>;
@@ -36,13 +36,17 @@ const additions=<>
 <FlipCard front="Front" back="Back" onFlippedChange={v=>!v}/><MazeRunner onPositionChange={v=>v.row.toFixed()}/><ConfettiBurst/><VectorField onValueChange={v=>v[0]?.strength}/><ReactionDiffusion onParametersChange={v=>v.feed.toFixed()}/><TerrainMesh onAmplitudeChange={v=>v.toFixed()}/><PendulumWave onGravityChange={v=>v.toFixed()}/><ClipPathEditor onValueChange={v=>v[0]?.x}/><ContrastChecker onValueChange={v=>v.foreground.toUpperCase()}/><ShadowEditor onValueChange={v=>v[0]?.blur}/>
 </>;
 const bell=<NotificationBell count={2} size="compact" indicator="dot" aria-label="알림" aria-expanded={false} aria-controls="alerts" disabled={false} onClick={event=>event.currentTarget.focus()}/>;
+const policy: MotionPreference="full";
+const provider=<InteractionProvider motion={policy}><DesignSystemProvider motion="reduced"><Button>Save</Button></DesignSystemProvider></InteractionProvider>;
+// @ts-expect-error motion policy is a closed set
+const invalidMotion=<DesignSystemProvider motion="off"/>;
 const controls=<><Button type="submit"/><Input aria-label="Name"/><Dialog title="Details" open={false} onOpenChange={()=>{}}>Details</Dialog></>;
 const catalog: string | undefined=uiCatalog[0]?.name;
 // @ts-expect-error models remain required in the public API
 const missing=<ModelSelector/>;
 // @ts-expect-error native input props remain typed
 const invalid=<Input type="number" min={{bad:true}}/>;
-export {additions,picker,upload,creative,bell,controls,catalog,missing,invalid};
+export {additions,picker,upload,creative,bell,controls,catalog,missing,invalid,provider,invalidMotion};
 `,
     );
     const project = join(fixture, "tsconfig.json");

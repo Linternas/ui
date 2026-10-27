@@ -1,11 +1,10 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
 import * as React from "react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { MotionConfig, useReducedMotion } from "motion/react";
 
-export function InteractionProvider({ children }: { children: ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
-}
+export { InteractionProvider } from "./motion-policy";
 export function useControllable<T>(
   value: T | undefined,
   initial: T,

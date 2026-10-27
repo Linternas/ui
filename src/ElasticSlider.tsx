@@ -1,12 +1,11 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import * as React from "react";
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
-import {
-  motion,
-  useSpring,
-  useTransform,
-  useReducedMotion,
-} from "motion/react";
+import { useSpring, useTransform } from "motion/react";
 import { useControllable } from "./shared";
 import { elasticSpring, gestureMotion } from "./system/motion-tokens";
 

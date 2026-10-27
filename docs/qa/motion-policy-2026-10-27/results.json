@@ -1,0 +1,23 @@
+{
+  "environment": "Chrome on macOS; Windows UA and reduced-motion emulated",
+  "records": [
+    {
+      "width": 1440,
+      "osReduced": true,
+      "mode": "full",
+      "canvasChanged": true,
+      "dockScale": 1.6,
+      "skeletonAnimation": "mingu-pulse",
+      "errors": []
+    },
+    {
+      "width": 390,
+      "osReduced": true,
+      "mode": "full",
+      "canvasChanged": true,
+      "dockScale": 1.6,
+      "skeletonAnimation": "mingu-pulse",
+      "errors": []
+    }
+  ]
+}

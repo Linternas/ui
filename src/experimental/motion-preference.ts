@@ -1,14 +1,3 @@
 "use client";
-import { useSyncExternalStore } from "react";
-const query = "(prefers-reduced-motion: reduce)";
-function subscribe(change: () => void) {
-  const media = window.matchMedia(query);
-  media.addEventListener("change", change);
-  return () => media.removeEventListener("change", change);
-}
-const snapshot = () => window.matchMedia(query).matches;
-const serverSnapshot = () => false;
-/** Reactive OS preference, including changes after mount; browser-free SSR snapshot. */
-export function useMotionPreference() {
-  return useSyncExternalStore(subscribe, snapshot, serverSnapshot);
-}
+// Kept for collection imports; all renderers now share the provider policy.
+export { useReducedMotion as useMotionPreference } from "../motion-policy";

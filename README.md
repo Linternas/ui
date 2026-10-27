@@ -72,7 +72,7 @@ import "@mingu/interaction-ui/system.css";
 
 export function CreateProject() {
   return (
-    <DesignSystemProvider theme="system" accent="neutral">
+    <DesignSystemProvider theme="system" accent="neutral" motion="system">
       <Card>
         <Stack gap="4">
           <TextField label="프로젝트 이름" placeholder="My next idea" />
@@ -102,6 +102,8 @@ import "@mingu/interaction-ui/styles.css";
 | `@mingu/interaction-ui/native`  | React Native 컴포넌트와 Provider    |
 
 [테마·토큰·통합 가이드](./DESIGN_SYSTEM.md) · [전체 컴포넌트와 상태](./COMPONENTS.md) · [Next.js 예제](./examples/next-page.tsx)
+
+앱의 전역 모션은 Provider의 `motion="system" | "full" | "reduced"`로 설정합니다. 기본은 OS 설정을 따르는 `system`이며 중첩 영역은 상위 값을 상속합니다. [모션 정책과 설정 화면 연결](./DESIGN_SYSTEM.md#전역-모션-정책-0270)을 참고하세요. `ui.mingu.xyz` 데모는 `full`로 실행합니다.
 
 ## React Native
 

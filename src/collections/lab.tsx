@@ -1,4 +1,6 @@
 "use client";
+import { motion } from "../motion";
+
 import { Icon as VectorIcon } from "../icons";
 
 import * as React from "react";
@@ -10,7 +12,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import { motion, useDragControls, useMotionValue } from "motion/react";
+import { useDragControls, useMotionValue } from "motion/react";
 import { Button, TextField, Select, Dialog } from "../system/base";
 import { useMotionPreference as useReducedMotion } from "../experimental/motion-preference";
 import { Slider, TextareaField } from "../system/forms";

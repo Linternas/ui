@@ -1,7 +1,8 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
 import * as React from "react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { useReducedMotion } from "motion/react";
 
 interface Glyph {
   id: number;
@@ -100,7 +101,8 @@ export function GravityLetters({
       if (!reduced)
         for (let i = 0; i < list.length; i++)
           for (let j = i + 1; j < list.length; j++) {
-            const a = list[i], b = list[j];
+            const a = list[i],
+              b = list[j];
             if (!a || !b) continue;
             const dx = b.x - a.x,
               dy = b.y - a.y,

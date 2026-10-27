@@ -668,6 +668,30 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-collection-ai-composer:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ) {
+    transition: none;
+  }
+  .mingu-collection-ai-tool-glyph:not(
+    :where([data-mingu-motion], [data-mingu-motion] *)
+  ),
+  .mingu-collection-ai-voice-wave
+    > i:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    animation: none !important;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-collection-ai-composer {
+      transition: none;
+    }
+    .mingu-collection-ai-tool-glyph,
+    .mingu-collection-ai-voice-wave > i {
+      animation: none !important;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-collection-ai-composer {
     transition: none;
   }

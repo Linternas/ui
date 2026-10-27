@@ -7,7 +7,6 @@ export type {
   ReadingSection,
   ReadingPositionOptions,
 } from "./useReadingPosition";
-export { InteractionProvider } from "./shared";
 export {
   Folder,
   AnimatedCounter,

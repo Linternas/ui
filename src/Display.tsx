@@ -1,9 +1,13 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import { Icon as VectorIcon } from "./icons";
 
 import * as React from "react";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import { Icon, useControllable } from "./shared";
 
 export interface FolderProps {

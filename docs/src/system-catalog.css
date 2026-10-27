@@ -603,6 +603,17 @@
   transition: height var(--mingu-duration-fast);
 }
 @media (prefers-reduced-motion: reduce) {
+  .ui-elastic-wave i:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .ui-elastic-wave i {
+      transition: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .ui-elastic-wave i {
     transition: none;
   }

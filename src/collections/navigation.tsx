@@ -1,4 +1,5 @@
 "use client";
+import { useReducedMotion as useReduced } from "../motion-policy";
 import { Icon as VectorIcon } from "../icons";
 
 import { ChevronDown } from "../system/icons";
@@ -30,17 +31,6 @@ function useValue<T>(
     live.current.change?.(next);
   }, []);
   return [value === undefined ? local : value, update];
-}
-function useReduced() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const q = matchMedia("(prefers-reduced-motion: reduce)");
-    const read = () => setReduced(q.matches);
-    read();
-    q.addEventListener("change", read);
-    return () => q.removeEventListener("change", read);
-  }, []);
-  return reduced;
 }
 function classes(base: string, extra?: string) {
   return `mingu-collection-${base}${extra ? ` ${extra}` : ""}`;

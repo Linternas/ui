@@ -1,4 +1,5 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
 
 import { useEffect, useState, type RefObject } from "react";
 
@@ -19,6 +20,7 @@ export function useReadingPosition({
   containerRef,
   offset = 100,
 }: ReadingPositionOptions) {
+  const reduced = useReducedMotion();
   const [position, setPosition] = useState({ activeId: "", progress: 0 });
 
   useEffect(() => {
@@ -87,10 +89,7 @@ export function useReadingPosition({
         container.scrollTop -
         offset
       : element.getBoundingClientRect().top + window.scrollY - offset;
-    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches
-      ? "instant"
-      : "smooth";
+    const behavior = reduced ? "instant" : "smooth";
     (container ?? window).scrollTo({ top, behavior });
     const previousTabIndex = element.getAttribute("tabindex");
     if (previousTabIndex === null) element.setAttribute("tabindex", "-1");

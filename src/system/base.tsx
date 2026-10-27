@@ -1,4 +1,8 @@
 "use client";
+import { useReducedMotion } from "../motion-policy";
+
+import { motion } from "../motion";
+
 import { Icon as VectorIcon } from "../icons";
 
 import * as React from "react";
@@ -15,9 +19,9 @@ import {
   type ComponentProps,
   type HTMLAttributes,
 } from "react";
-import { motion, useReducedMotion } from "motion/react";
+
 import { selectionSpring, pointerMotion } from "./motion-tokens";
-import { InteractionProvider } from "../shared";
+import { MotionBoundary, type MotionPreference } from "../motion-policy";
 import { FieldFrame, InputShell, fieldDescription } from "./field-frame";
 
 const cx = (...values: (string | false | undefined)[]) =>
@@ -31,27 +35,32 @@ export type TokenOverrides = CSSProperties & {
 export function DesignSystemProvider({
   theme = "system",
   accent = "brand",
+  motion: motionPreference,
   children,
   className,
   style,
   ...props
 }: HTMLAttributes<HTMLDivElement> & {
   theme?: Theme;
+  motion?: MotionPreference;
   accent?: "brand" | "neutral";
   style?: TokenOverrides;
 }) {
   return (
-    <InteractionProvider>
-      <div
-        {...props}
-        data-mingu-theme={theme}
-        data-mingu-accent={accent}
-        className={cx("mingu-system", className)}
-        style={style}
-      >
-        {children}
-      </div>
-    </InteractionProvider>
+    <MotionBoundary motion={motionPreference}>
+      {(settings) => (
+        <div
+          {...props}
+          data-mingu-motion={settings.motion}
+          data-mingu-theme={theme}
+          data-mingu-accent={accent}
+          className={cx("mingu-system", className)}
+          style={style}
+        >
+          {children}
+        </div>
+      )}
+    </MotionBoundary>
   );
 }
 export interface ButtonProps extends ComponentProps<"button"> {
@@ -79,22 +88,20 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
+  const reduced = useReducedMotion();
   const [ripples, setRipples] = useState<
     { id: number; x: number; y: number; size: number }[]
   >([]);
   const sequence = useRef(0);
+  useEffect(() => {
+    if (reduced) setRipples([]);
+  }, [reduced]);
   const addRipple = (
     element: HTMLButtonElement,
     clientX?: number,
     clientY?: number,
   ) => {
-    if (
-      interaction !== "ripple" ||
-      disabled ||
-      loading ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
+    if (interaction !== "ripple" || disabled || loading || reduced) return;
     const rect = element.getBoundingClientRect();
     const size = Math.hypot(rect.width, rect.height) * 2;
     setRipples((items) => [
@@ -123,7 +130,7 @@ export function Button({
           disabled ||
           loading ||
           event.pointerType === "touch" ||
-          matchMedia("(prefers-reduced-motion: reduce)").matches
+          reduced
         )
           return;
         const rect = event.currentTarget.getBoundingClientRect();

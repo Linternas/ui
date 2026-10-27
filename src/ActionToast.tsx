@@ -1,14 +1,13 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import { Icon as VectorIcon } from "./icons";
 
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useIsPresent,
-  useReducedMotion,
-} from "motion/react";
+import { AnimatePresence, useIsPresent } from "motion/react";
 import { Button } from "./system/base";
 import type { ToastMessage } from "./system/overlays";
 import { selectionSpring } from "./system/motion-tokens";

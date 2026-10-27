@@ -1,4 +1,6 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
 import * as React from "react";
 import {
   useEffect,
@@ -7,7 +9,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import { useReducedMotion } from "motion/react";
+
 import { Button } from "./system/base";
 export interface TickerItem {
   id: string;

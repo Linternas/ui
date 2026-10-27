@@ -724,6 +724,30 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .landing-page *:not(:where([data-mingu-motion], [data-mingu-motion] *)),
+  .landing-page
+    *:not(:where([data-mingu-motion], [data-mingu-motion] *))::before,
+  .landing-page
+    *:not(:where([data-mingu-motion], [data-mingu-motion] *))::after {
+    scroll-behavior: auto;
+  }
+  .landing-text-link:hover
+    > svg:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transform: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .landing-page *,
+    .landing-page *::before,
+    .landing-page *::after {
+      scroll-behavior: auto;
+    }
+    .landing-text-link:hover > svg {
+      transform: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .landing-page *,
   .landing-page *::before,
   .landing-page *::after {

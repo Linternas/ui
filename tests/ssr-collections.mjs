@@ -106,6 +106,33 @@ test("published collection exports render without browser globals under classic 
       logLevel: "silent",
     });
     const lib = await import(pathToFileURL(outfile).href);
+    function MotionStatus() {
+      const settings = lib.useMotionSettings();
+      return createElement(
+        "output",
+        null,
+        `${settings.motion}:${settings.reducedMotion}`,
+      );
+    }
+    for (const mode of ["system", "full", "reduced"]) {
+      for (const Provider of [
+        lib.InteractionProvider,
+        lib.DesignSystemProvider,
+      ]) {
+        const markup = renderToString(
+          createElement(
+            Provider,
+            { motion: mode },
+            createElement(MotionStatus),
+          ),
+        );
+        assert.ok(markup.includes(`data-mingu-motion="${mode}"`));
+        assert.ok(markup.includes(`${mode}:${mode === "reduced"}`));
+      }
+    }
+    console.log(
+      "Motion providers: all three policies SSR PASS without window/matchMedia",
+    );
     let count = 0;
     for (const [name, props] of Object.entries(fixtures)) {
       assert.equal(typeof lib[name], "function", name);

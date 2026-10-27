@@ -758,6 +758,30 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-flap-letter:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    animation: none;
+  }
+  .mingu-proximity-letters
+    > span:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    transition: none;
+  }
+  .mingu-reel-viewport:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    scroll-behavior: auto;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-flap-letter {
+      animation: none;
+    }
+    .mingu-proximity-letters > span {
+      transition: none;
+    }
+    .mingu-reel-viewport {
+      scroll-behavior: auto;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-flap-letter {
     animation: none;
   }

@@ -1,4 +1,8 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion } from "./motion";
+
 import { Icon as VectorIcon } from "./icons";
 
 import * as React from "react";
@@ -6,10 +10,8 @@ import { useRef, type ReactNode } from "react";
 import {
   AnimatePresence,
   animate,
-  motion,
   useDragControls,
   useMotionValue,
-  useReducedMotion,
   useTransform,
   useIsPresent,
 } from "motion/react";

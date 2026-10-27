@@ -147,6 +147,17 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .mingu-sticker:not(:where([data-mingu-motion], [data-mingu-motion] *)) {
+    filter: none;
+  }
+
+  @scope ([data-mingu-motion="system"]) to ([data-mingu-motion]) {
+    .mingu-sticker {
+      filter: none;
+    }
+  }
+}
+@scope ([data-mingu-motion="reduced"]) to ([data-mingu-motion]) {
   .mingu-sticker {
     filter: none;
   }

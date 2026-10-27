@@ -1,16 +1,13 @@
 "use client";
+import { useReducedMotion } from "./motion-policy";
+
+import { motion, Reorder } from "./motion";
+
 import { Icon as VectorIcon } from "./icons";
 
 import * as React from "react";
 import { useId, useState, type Ref, type ReactNode } from "react";
-import {
-  AnimatePresence,
-  motion,
-  Reorder,
-  useDragControls,
-  useIsPresent,
-  useReducedMotion,
-} from "motion/react";
+import { AnimatePresence, useDragControls, useIsPresent } from "motion/react";
 import { useControllable } from "./shared";
 import { SegmentedControl } from "./system/micro-interactions";
 import { selectionSpring, filterMotion } from "./system/motion-tokens";

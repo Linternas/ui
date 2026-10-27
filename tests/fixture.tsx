@@ -1,3 +1,5 @@
+import DocsRoot from "../docs/src/Root";
+import MotionPolicyFixture from "./motion-policy";
 import WorkflowFixture from "./workflow";
 import CreativeFixture from "./creative";
 import DocsApp from "../docs/src/App";
@@ -77,11 +79,15 @@ function Fixture() {
   );
 }
 createRoot(document.getElementById("root")!).render(
-  location.pathname === "/native" ||
+  new URLSearchParams(location.search).has("catalog-motion") ? (
+    <DocsRoot />
+  ) : location.pathname === "/native" ||
     location.pathname === "/docs" ||
     location.pathname.startsWith("/docs/") ||
     new URLSearchParams(location.search).has("landing") ? (
     <DocsApp />
+  ) : new URLSearchParams(location.search).has("motion-policy") ? (
+    <MotionPolicyFixture />
   ) : new URLSearchParams(location.search).has("workflow-form") ? (
     <WorkflowFixture />
   ) : new URLSearchParams(location.search).has("creative-form") ? (
