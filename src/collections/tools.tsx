@@ -772,7 +772,7 @@ export function CollaborativeCursor({
               top: `${position.y * 100}%`,
             }}
           >
-            +
+            <VectorIcon name="plus" size={24} />
           </div>
         )}
       </div>

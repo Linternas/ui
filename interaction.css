@@ -277,7 +277,8 @@ button:where([class^="mi-"]):disabled {
   flex: 0 0 16px;
   height: 16px;
   border-radius: 20px;
-  background: var(--mru-surface, #eee) !important;
+  background: var(--mru-border, #dfe0e3) !important;
+  box-shadow: inset 0 0 0 1px var(--mru-muted, #747982);
   padding: 0;
   overflow: hidden;
   transition: flex-basis 0.35s;
@@ -376,14 +377,18 @@ button:where([class^="mi-"]):disabled {
   font-size: 11px;
 }
 .mi-duration input {
-  width: 2ch;
+  min-width: 2.5ch;
+  padding: 0;
+  box-sizing: content-box;
   color: inherit;
   background: transparent;
   border: 0;
   font: inherit;
+  font-variant-numeric: tabular-nums;
   appearance: textfield;
 }
-.mi-duration input::-webkit-inner-spin-button {
+.mi-duration input::-webkit-inner-spin-button,
+.mi-duration input::-webkit-outer-spin-button {
   appearance: none;
 }
 .mi-duration > button {

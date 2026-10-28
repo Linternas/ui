@@ -62,8 +62,20 @@ for (const width of [1440, 320])
           tile.locator(".ui-newest-demo"),
           `${id} card`,
         );
-        // Validate every separate checkbox/switch/segmented instance, not just a full-width wrapper.
-        if (["checkbox", "switch", "segmented-control"].includes(id))
+        // Center each segmented control. Checkbox/switch rows share a centered
+        // group with one aligned control column, regardless of label length.
+        if (["checkbox", "switch"].includes(id)) {
+          const lefts = await tile
+            .locator(selector)
+            .evaluateAll((nodes) =>
+              nodes.map((node) => node.getBoundingClientRect().left),
+            );
+          expect(
+            Math.max(...lefts) - Math.min(...lefts),
+            id,
+          ).toBeLessThanOrEqual(1);
+        }
+        if (id === "segmented-control")
           for (const item of await tile.locator(selector).all())
             await expectCentered(item, tile.locator(".ui-newest-demo"), id);
         const name = uiCatalog.find((item) => item.id === id)!.name;

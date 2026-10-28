@@ -411,6 +411,9 @@ interface ChemicalGrid {
 }
 const gw = 80,
   gh = 54;
+// A full Euler step makes this four-neighbour diffusion stencil oscillate
+// between the clamps and eventually saturate the entire field.
+const reactionTimeStep = 0.5;
 function chemicals(): ChemicalGrid {
   const a = new Float32Array(gw * gh).fill(1),
     b = new Float32Array(gw * gh);
@@ -454,8 +457,16 @@ function reactionStep(
           ab = a * b * b;
         const lapA = (g.a[left] + g.a[right] + g.a[up] + g.a[down]) * 0.25 - a,
           lapB = (g.b[left] + g.b[right] + g.b[up] + g.b[down]) * 0.25 - b;
-        g.nextA[i] = bounded(a + lapA - ab + feed * (1 - a), 0, 1);
-        g.nextB[i] = bounded(b + 0.5 * lapB + ab - (kill + feed) * b, 0, 1);
+        g.nextA[i] = bounded(
+          a + reactionTimeStep * (lapA - ab + feed * (1 - a)),
+          0,
+          1,
+        );
+        g.nextB[i] = bounded(
+          b + reactionTimeStep * (0.5 * lapB + ab - (kill + feed) * b),
+          0,
+          1,
+        );
       }
     [g.a, g.nextA] = [g.nextA, g.a];
     [g.b, g.nextB] = [g.nextB, g.b];

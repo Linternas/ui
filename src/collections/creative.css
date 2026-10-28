@@ -70,7 +70,8 @@
 .mingu-multi-panel {
   display: grid;
   gap: var(--mingu-space-3);
-  width: min(300px, calc(100vw - 64px));
+  width: 100%;
+  min-width: 0;
 }
 .mingu-multi-panel .mingu-choice-list {
   max-height: 240px;

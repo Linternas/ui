@@ -386,7 +386,9 @@ export function Accordion({
             tabIndex={item.disabled ? -1 : undefined}
           >
             {item.title}
-            <span aria-hidden="true">+</span>
+            <span aria-hidden="true">
+              <VectorIcon name="plus" size={18} />
+            </span>
           </summary>
           <div>{item.content}</div>
         </details>

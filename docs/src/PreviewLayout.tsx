@@ -17,6 +17,13 @@ const centered = new Set([
   "pagination",
   "navigation",
   "tabs",
+  "dialog",
+  "alert-dialog",
+  "drawer",
+  "popover",
+  "dropdown-menu",
+  "toast",
+  "card-navigation",
 ]);
 
 export default function PreviewLayout({

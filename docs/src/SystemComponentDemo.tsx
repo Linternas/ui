@@ -178,16 +178,16 @@ export default function SystemComponentDemo({
       return (
         <UI.Stack direction="row">
           <UI.IconButton label="Add project">
-            <VectorIcon name="plus" size="1em" />
+            <VectorIcon name="plus" size={20} />
           </UI.IconButton>
           <UI.IconButton label="Settings" variant="secondary">
-            <VectorIcon name="settings" size="1em" />
+            <VectorIcon name="settings" size={20} />
           </UI.IconButton>
           <UI.IconButton label="Delete project" variant="danger">
-            <VectorIcon name="close" size="1em" />
+            <VectorIcon name="close" size={20} />
           </UI.IconButton>
           <UI.IconButton label="Unavailable" disabled>
-            <VectorIcon name="plus" size="1em" />
+            <VectorIcon name="plus" size={20} />
           </UI.IconButton>
         </UI.Stack>
       );
@@ -458,7 +458,7 @@ export default function SystemComponentDemo({
       );
     case "checkbox":
       return (
-        <UI.Stack align="center">
+        <UI.Stack align="start">
           <UI.Checkbox defaultChecked>Selected</UI.Checkbox>
           <UI.Checkbox>Unselected</UI.Checkbox>
           <UI.Checkbox indeterminate>Partially selected</UI.Checkbox>
@@ -490,7 +490,7 @@ export default function SystemComponentDemo({
       );
     case "switch":
       return (
-        <UI.Stack align="center">
+        <UI.Stack align="start">
           <UI.Switch defaultChecked>Notifications</UI.Switch>
           <UI.Switch>Weekly summary</UI.Switch>
           <UI.Switch disabled defaultChecked>
@@ -683,7 +683,7 @@ export default function SystemComponentDemo({
       );
     case "dropdown-menu":
       return (
-        <UI.Stack>
+        <UI.Stack align="center">
           <UI.DropdownMenu
             label="Actions"
             items={[
@@ -721,7 +721,7 @@ export default function SystemComponentDemo({
         <UI.Stack direction="row">
           <UI.Tooltip content="Edit project settings">
             <UI.IconButton label="Settings" variant="secondary">
-              <VectorIcon name="settings" size="1em" />
+              <VectorIcon name="settings" size={20} />
             </UI.IconButton>
           </UI.Tooltip>
           <UI.Tooltip content="This action saves your changes">
@@ -813,7 +813,7 @@ export default function SystemComponentDemo({
     case "empty-state":
       return (
         <UI.EmptyState
-          icon={<VectorIcon name="diamond" size="1em" />}
+          icon={<VectorIcon name="diamond" size={24} />}
           title="No projects yet"
           description="Create a project to start building."
           action={
@@ -923,7 +923,9 @@ export default function SystemComponentDemo({
       return (
         <UI.Card>
           <UI.Stack>
-            <UI.Badge tone="success">Published</UI.Badge>
+            <UI.Badge tone="success" style={{ alignSelf: "flex-start" }}>
+              Published
+            </UI.Badge>
             <UI.Heading level={3}>My website</UI.Heading>
             <UI.Text muted size="sm">
               A shared surface for related content.

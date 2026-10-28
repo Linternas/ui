@@ -22,7 +22,12 @@ Primary, secondary, outline, ghost, danger. 크기·로딩·비활성 상태.
 [Live preview](https://ui.mingu.xyz/icon-button)
 
 ```tsx
-<IconButton label="Settings" variant="secondary">⚙</IconButton>
+<IconButton label="Settings" variant="secondary">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+    <circle cx="12" cy="12" r="3" />
+    <path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6 2.1-2.1" />
+  </svg>
+</IconButton>
 ```
 
 ### ButtonGroup
@@ -326,7 +331,9 @@ hover·focus 설명. Escape로 닫기, trigger 설명 연결.
 [Live preview](https://ui.mingu.xyz/tooltip)
 
 ```tsx
-<Tooltip content="Edit settings"><IconButton label="Settings">⚙</IconButton></Tooltip>
+<Tooltip content="Edit settings">
+  <Button variant="secondary">Settings</Button>
+</Tooltip>
 ```
 
 ## Feedback

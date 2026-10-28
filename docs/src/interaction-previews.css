@@ -214,6 +214,11 @@
   max-width: 100%;
   min-width: 0;
 }
+.ui-preview-centered > .mingu-collection-card-navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .ui-preview-centered > .ui-everyday-stack {
   align-items: center;
   text-align: center;

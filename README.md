@@ -185,6 +185,7 @@ git submodule update --init --recursive
 | [Native API](./NATIVE.md)               | 모바일 설치, API와 값 규약                 |
 | [Collection guides](./docs/collections) | AI·미디어·워크플로·물리 실험별 사용법      |
 | [Agent guide](./AGENTS.md)              | 에이전트가 읽을 소스 지도와 작업·검증 규칙 |
+| [Web visual audit](./docs/qa/web-visual-audit-2026-10-28.md) | 웹 200개 화면 검토표, 수정 전후 비교와 재현 방법 |
 
 ```sh
 npm run typecheck         # 패키지·Native·엄격한 소비 앱 타입 검사

@@ -871,12 +871,18 @@ html:has(dialog.mingu-dialog[open]) {
 }
 .mingu-accordion summary {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: var(--mingu-space-3);
   padding: 16px 0;
   cursor: pointer;
   font-size: var(--mingu-text-sm);
   list-style: none;
+}
+.mingu-accordion summary > span {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
 }
 .mingu-accordion summary::-webkit-details-marker {
   display: none;

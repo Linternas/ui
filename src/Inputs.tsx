@@ -78,6 +78,10 @@ export function DurationPicker({
             type="number"
             min={0}
             max={maxHours}
+            disabled={disabled}
+            style={{
+              width: `${Math.max(2, String(Math.max(maxHours, current.hours)).length) + 0.5}ch`,
+            }}
             value={current.hours}
             onChange={(event) => update("hours", event.target.valueAsNumber)}
           />
@@ -94,6 +98,10 @@ export function DurationPicker({
             type="number"
             min={0}
             max={maxMinutes}
+            disabled={disabled}
+            style={{
+              width: `${Math.max(2, String(Math.max(maxMinutes, current.minutes)).length) + 0.5}ch`,
+            }}
             value={current.minutes}
             onChange={(event) => update("minutes", event.target.valueAsNumber)}
           />
