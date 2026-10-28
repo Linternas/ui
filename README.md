@@ -54,10 +54,10 @@ React와 React Native를 위한 하나의 디자인 시스템.
 
 **React 19+**, TypeScript 소스를 처리하는 번들러가 필요합니다. npm 레지스트리 대신 Git 의존성 또는 submodule로 사용합니다.
 
-아래는 전역 모션 정책이 포함된 0.27.0 커밋으로 고정한 설치 예제입니다.
+아래는 웹 200개 시각 점검과 수정이 반영된 0.27.1 커밋으로 고정한 설치 예제입니다.
 
 ```sh
-npm install 'git+https://github.com/Linternas/ui.git#1e5d192fa6fe9b7de57bf4376c93ae9ffc804be3'
+npm install 'git+https://github.com/Linternas/ui.git#a286b8d8ffb86ebad74110d329165caa7dabab16'
 ```
 
 ```tsx
